@@ -1,0 +1,54 @@
+<svg sodipodi:docname="face_000.svg" inkscape:version="0.48.4 r9939" id="emoticon-front-view" viewBox="0 0 250 250" version="1.1" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <metadata id="metadata3099">
+    <rdf:RDF>
+      <cc:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview inkscape:current-layer="head" inkscape:window-maximized="0" inkscape:window-y="24" inkscape:window-x="2251" inkscape:cy="125" inkscape:cx="125" inkscape:zoom="2.224" showgrid="false" id="namedview3097" inkscape:window-height="882" inkscape:window-width="1052" inkscape:pageshadow="2" inkscape:pageopacity="0" guidetolerance="10" gridtolerance="10" objecttolerance="10" borderopacity="1" bordercolor="#666666" pagecolor="#ffffff"/>
+  <defs id="defs4">
+    <linearGradient id="linearGradient5745">
+      <stop style="stop-color:#f4dc15;stop-opacity:1" offset="0" id="stop5747"/>
+      <stop style="stop-color:#e1430a;stop-opacity:1" offset="1" id="stop5749"/>
+    </linearGradient>
+    <linearGradient id="linearGradient2823">
+      <stop style="stop-color:#000000;stop-opacity:1" offset="0" id="stop2825"/>
+      <stop style="stop-color:#662e91;stop-opacity:1" offset="1" id="stop2827"/>
+    </linearGradient>
+    <clipPath id="clipPath2967">
+      <use transform="translate(-57.14,-22.86)" xlink:href="#path3622" height="1" width="1" y="0" x="0" id="use2969"/>
+    </clipPath>
+    <clipPath id="clipPath4022">
+      <use transform="matrix(-1,0,0,1,915.87,-3.77)" xlink:href="#path3622" height="250" width="250" y="0" x="0" id="use5959"/>
+    </clipPath>
+    <radialGradient spreadMethod="pad" gradientTransform="matrix(98.09029,121.52782,-104.45905,83.940949,1881.611,1722.6769)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient5745" id="radialGradient5694" fy="2.7052789" fx="-15.37231" r="1" cy="2.7052789" cx="-15.37231"/>
+    <linearGradient gradientTransform="translate(37.463072,-25.351165)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient2823" id="irisGradient" y2="606.46576" x2="138.57143" y1="488.07648" x1="107.14286"/>
+  </defs>
+  <g id="head">
+    <path d="M 37.09,139.48 C 36.86,191.41 78.01,227.96 128.48,227.96 L 128.48,227.96 C 178.93,227.96 221.33,185.84 219.84,133.93 L 219.84,133.93 C 217.93,66.69 154.28,28.46 127.68,22.78 L 127.68,22.78 C 99.08,30.59 37.44,65.52 37.09,139.48" style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-opacity:1" id="path164"/>
+  </g>
+  <g transform="matrix(0.16,0,0,0.16,61.42,19.46)" style="stroke-width:4.36;stroke-miterlimit:4;stroke-dasharray:none" id="left-eye">
+    <path d="M 265.82,487.41 C 307.14,505.58 303.34,570.50 271.54,595.64 228.63,612.92 164.35,612.13 126.32,597.26 88.57,576.67 84.21,531.35 118.66,502.91 158.30,470.70 226.08,469.05 265.82,487.41 Z" style="fill:#ffffff;stroke:#000000;stroke-width:6.14;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" id="path3622"/>
+    <g transform="translate(57.14,22.86)" style="stroke-width:4.36;stroke-miterlimit:4;stroke-dasharray:none" id="lens" clip-path="url(#clipPath2967)">
+      <g id="g4403">
+        <path d="M 205.38,519.39 C 205.38,534.35 199.53,549.21 189.48,559.79 179.43,570.37 165.31,576.53 151.09,576.53 136.88,576.53 122.76,570.37 112.71,559.79 102.66,549.21 96.80,534.35 96.80,519.39 96.80,504.43 102.66,489.56 112.71,478.98 122.76,468.40 136.88,462.24 151.09,462.24 165.31,462.24 179.43,468.40 189.48,478.98 199.53,489.56 205.38,504.43 205.38,519.39 Z" style="fill:url(#irisGradient);fill-opacity:1;stroke:#000000;stroke-width:6.14;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" id="iris"/>
+        <path d="M 168.81,522.49 C 168.81,527.16 166.89,531.81 163.58,535.12 160.27,538.43 155.63,540.35 150.95,540.35 146.27,540.35 141.63,538.43 138.32,535.12 135.02,531.81 133.09,527.16 133.09,522.49 133.09,517.81 135.02,513.16 138.32,509.85 141.63,506.55 146.27,504.62 150.95,504.62 155.63,504.62 160.27,506.55 163.58,509.85 166.89,513.16 168.81,517.81 168.81,522.49 Z" style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:6.14;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" id="pupil"/>
+        <path d="M 142.85,509.49 C 142.85,513.82 139.30,517.33 134.92,517.33 130.54,517.33 126.98,513.82 126.98,509.49 126.98,505.16 130.54,501.65 134.92,501.65 139.30,501.65 142.85,505.16 142.85,509.49 Z" style="fill:#ffffff;fill-opacity:1;stroke:none" id="glare"/>
+      </g>
+    </g>
+  </g>
+  <g transform="matrix(0.16,0,0,0.16,44.85,20.07)" style="stroke-width:4.36;stroke-miterlimit:4;stroke-dasharray:none" id="right-eye">
+    <use transform="matrix(-1,0,0,1,915.87,-3.77)" xlink:href="#path3622" height="250" width="250" y="0" x="0" id="use3959"/>
+    <g id="g4015" clip-path="url(#clipPath4022)">
+      <use transform="translate(555.67,18.82)" style="stroke-width:4.36;stroke-miterlimit:4;stroke-dasharray:none" xlink:href="#g4403" height="1" width="1" y="0" x="0" id="right-lens"/>
+    </g>
+  </g>
+  <path d="M 112.24,82.14 111.28,83.34 C 102.34,79.75 95.56,79.57 87.49,80.49 79.76,81.65 72.75,84.61 66.74,90.13 L 64.97,90.07 C 71.15,84.98 78,80.86 87.98,79.18 97.35,78.25 102.82,79.27 112.24,82.14 Z" style="fill:#292929;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" id="left-eye-brow"/>
+  <g transform="matrix(5.34,0,0,-6.08,110.16,131.72)" style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.22;stroke-opacity:1" id="nose">
+    <path d="M 0.42,0.04 0.85,-0.20 C 0.80,-2.31 2.21,-3.43 3.56,-3.43 4.92,-3.43 6.33,-2.30 6.25,-0.16 L 6.62,0.08 C 6.77,-2.40 5.05,-3.54 3.56,-3.54 2.08,-3.54 0.41,-2.45 0.43,0.05 Z" style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.04;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" id="nose-path"/>
+  </g>
+  <path d="M 76.85,174.42 C 76.85,174.42 85.78,174.26 128.99,173.78 173.70,173.21 181.93,173.31 181.93,173.31 L 182.45,175.14 C 182.45,175.14 173.26,187.64 129.31,188.10 84.83,188.46 76.21,176.06 76.21,176.06 L 76.85,174.42 Z" style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.62;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" id="mouth-path"/>
+  <use transform="matrix(-1,-0.01,-0.01,1,257.11,0.82)" xlink:href="#left-eye-brow" height="250" width="250" y="0" x="0" id="right-eye-brow"/>
+</svg>

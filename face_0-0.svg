@@ -1,0 +1,49 @@
+<svg id="emoticon-front-view" viewBox="0 0 250 250" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+  <defs id="defs4">
+    <linearGradient id="linearGradient5745">
+      <stop style="stop-color:#f4dc15;stop-opacity:1" offset="0" id="stop5747"/>
+      <stop style="stop-color:#e1430a;stop-opacity:1" offset="1" id="stop5749"/>
+    </linearGradient>
+    <linearGradient id="linearGradient2823">
+      <stop style="stop-color:#000000;stop-opacity:1" offset="0" id="stop2825"/>
+      <stop style="stop-color:#662e91;stop-opacity:1" offset="1" id="stop2827"/>
+    </linearGradient>
+    <clipPath id="clipPath2967">
+      <use transform="translate(-57.14,-22.86)" xlink:href="#path3622" height="1" width="1" y="0" x="0" id="use2969"/>
+    </clipPath>
+    <clipPath id="clipPath4022">
+    <use transform="matrix(-1,0,0,1,915.87,-3.77)" xlink:href="#path3622" height="250" width="250" y="0" x="0" id="use5959"/>
+    </clipPath>
+    <radialGradient spreadMethod="pad" gradientTransform="matrix(98.09029,121.52782,-104.45905,83.940949,1881.611,1722.6769)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient5745" id="radialGradient5694" fy="2.7052789" fx="-15.37231" r="1" cy="2.7052789" cx="-15.37231"/>
+    <linearGradient gradientTransform="translate(37.463072,-25.351165)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient2823" id="irisGradient" y2="606.46576" x2="138.57143" y1="488.07648" x1="107.14286"/>
+  </defs>
+  <g id="head">
+    <path d="M 37.09,139.48 C 36.86,191.41 78.01,227.96 128.48,227.96 L 128.48,227.96 C 178.93,227.96 221.33,185.84 219.84,133.93 L 219.84,133.93 C 217.93,66.69 154.28,28.46 127.68,22.78 L 127.68,22.78 C 99.08,30.59 37.44,65.52 37.09,139.48" style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.00;stroke-opacity:1" id="path164"/>
+    <g id="head-glare">
+      <path d="M 65.39,67.61 C 40.82,98.00 40.57,141.97 40.57,150.07 L 40.57,150.07 C 40.57,157.77 50.53,178.05 48.82,170.56 L 48.82,170.56 C 44.62,152.13 45.72,141.30 45.72,135.32 L 45.72,135.32 C 45.72,131.23 46.35,127.06 49.05,110.76 L 49.05,110.76 C 51.75,94.46 58.85,84.99 72.84,65.76 L 72.84,65.76 C 86.83,46.52 117.39,29.49 126.27,28.73 L 126.27,28.73 C 135.14,28 157.33,40.70 157.33,40.70 L 157.33,40.70 C 157.33,40.70 169.76,45.83 154.01,36.86 L 154.01,36.86 C 138.28,27.90 126.04,24.59 126.04,24.59 L 126.04,24.59 C 126.04,24.59 93.80,32.47 65.39,67.61" style="fill:#f9c937;fill-opacity:1;stroke:none" id="path184"/>
+      <path d="M 126.50,24.82 C 126.50,24.82 137.37,25.91 152.76,35.49 168,44.97 157.71,38.62 157.71,38.62 157.71,38.62 135.62,25.91 126.73,26.35 111.88,27.08 78.00,52.43 66.41,67.91 52.11,87.03 46.10,106.15 43.40,122.45 40.70,138.76 40.57,155.69 40.57,147.98 40.57,139.88 41.50,95.35 66.72,65.53 93.44,33.93 126.50,24.82 126.50,24.82" style="fill:#fff2c7;fill-opacity:1;fill-rule:nonzero;stroke:none" id="path196"/>
+    </g>
+  </g>
+  <g transform="matrix(0.16,0,0,0.16,61.42,19.46)" style="stroke-width:4.36;stroke-miterlimit:4;stroke-dasharray:none" id="left-eye">
+    <path d="M 248.44,516.56 C 282.73,542.67 292.28,583.44 270.70,601.94 223.55,605.59 160.97,607.84 122.88,598.77 83.94,588.98 75.41,560.48 96.71,537.72 144.64,511.25 209.43,507.29 248.44,516.56 Z" style="fill:#ffffff;stroke:#000000;stroke-width:6.14;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" id="path3622"/>
+    <g transform="translate(57.14,22.86)" style="stroke-width:4.36;stroke-miterlimit:4;stroke-dasharray:none" id="lens" clip-path="url(#clipPath2967)">
+      <g id="g4403">
+        <path d="M 193.46,522.52 C 193.46,537.48 187.60,552.34 177.56,562.92 167.51,573.50 153.39,579.66 139.17,579.66 124.96,579.66 110.84,573.50 100.79,562.92 90.74,552.34 84.88,537.48 84.88,522.52 84.88,507.56 90.74,492.69 100.79,482.11 110.84,471.53 124.96,465.37 139.17,465.37 153.39,465.37 167.51,471.53 177.56,482.11 187.60,492.69 193.46,507.56 193.46,522.52 Z" style="fill:url(#irisGradient);fill-opacity:1;stroke:#000000;stroke-width:6.14;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" id="iris"/>
+        <path d="M 156.89,525.52 C 156.89,530.19 154.97,534.84 151.66,538.15 148.35,541.46 143.70,543.38 139.03,543.38 134.35,543.38 129.70,541.46 126.40,538.15 123.10,534.84 121.17,530.19 121.17,525.52 121.17,520.84 123.10,516.19 126.40,512.88 129.70,509.58 134.35,507.65 139.03,507.65 143.70,507.65 148.35,509.58 151.66,512.88 154.97,516.19 156.89,520.84 156.89,525.52 Z" style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:6.14;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" id="pupil"/>
+        <path d="M 125.88,517.04 C 125.88,520.56 122.98,523.42 119.41,523.42 115.85,523.42 112.95,520.56 112.95,517.04 112.95,513.51 115.85,510.65 119.41,510.65 122.98,510.65 125.88,513.51 125.88,517.04 Z" style="fill:#ffffff;fill-opacity:1;stroke:none" id="glare"/>
+      </g>
+    </g>
+  </g>
+  <g transform="matrix(0.16,0,0,0.16,44.85,20.07)" style="stroke-width:4.36;stroke-miterlimit:4;stroke-dasharray:none" id="right-eye">
+    <use transform="matrix(-1,0,0,1,915.87,-3.77)" xlink:href="#path3622" height="250" width="250" y="0" x="0" id="use3959"/>
+    <g id="g4015" clip-path="url(#clipPath4022)">
+      <use transform="translate(573.63,18.94)" style="stroke-width:4.36;stroke-miterlimit:4;stroke-dasharray:none" xlink:href="#g4403" height="1" width="1" y="0" x="0" id="right-lens"/>
+    </g>
+  </g>
+  <path d="M 112.08,94.35 111.34,95.47 C 105.77,92.88 98.64,89.86 90.97,88.37 83.49,86.99 73.67,86.74 66.35,91.77 L 64.79,90.92 C 73.06,84.12 84.08,84.44 91.99,86.41 99.88,88.37 105.40,90.65 112.08,94.35 Z" style="fill:#292929;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" id="left-eye-brow"/>
+  <g transform="matrix(5.34,0,0,-6.08,109.88,131.78)" style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.22;stroke-opacity:1" id="nose">
+    <path d="M 0.65,0.06 1.04,-0.22 C 0.62,-2.34 2.21,-3.43 3.56,-3.43 4.92,-3.43 6.52,-2.28 6.01,-0.14 L 6.35,0.14 C 7.00,-2.41 5.05,-3.54 3.56,-3.54 2.08,-3.54 0.23,-2.59 0.65,0.06 Z" style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.04;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" id="nose-path"/>
+  </g>
+  <path d="M 74.64,174.70 C 74.64,174.70 84.25,179.64 127.57,179.12 172.91,178.56 181.90,171.85 181.90,171.85 L 180.90,175.79 C 180.90,175.79 173.49,180.71 127.37,181.55 80.89,182.08 75.18,178.26 75.18,178.26 L 74.64,174.70 Z" style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.62;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" id="mouth-path"/>
+  <use transform="matrix(-1.00,-0.01,-0.01,1.00,255.42,1.32)" xlink:href="#left-eye-brow" height="250" width="250" y="0" x="0" id="right-eye-brow"/>
+</svg>

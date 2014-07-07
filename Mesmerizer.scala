@@ -3,6 +3,7 @@ package emoticons
 import java.io.File
 import scala.util.matching.Regex
 import scala.xml._
+import scala.math._
 
 /** This class is responsible for morphing between different SVG images */
 class Mesmerizer() {
@@ -48,16 +49,21 @@ class Mesmerizer() {
     .filter { !_.label.startsWith("#") }
     .map { child => (id(child) -> extractBaseShape(child)) }
     .filter { case (key,value) => ! value.isEmpty}
+    var emoticonInfo = "";
     val attributes= node
     	.attributes.map {
     	attr => attr.key match {
+	        case "emoticon" => { emoticonInfo = attr.value.toString; ("" -> getPattern("")) }
     		case "transform" => ("transform" -> getPattern(attr.value.toString))
     		case "style" => ("style" -> getPattern(attr.value.toString))
     		case "d" => ("d" -> getPattern(SVGUtil.normalizePath(attr.value.toString)))
     		case _ => ("" -> ("".r,""))
      }}.filter { _._1 != "" }.toList
-     BaseShape(Map(children:_*), Map(attributes:_*))
-   }
+     if (emoticonInfo == "fixed")
+       BaseShape(Map(children:_*), Map())
+     else
+       BaseShape(Map(children:_*), Map(attributes:_*))
+  }
 
    /** Use the regex pattern in the base shape to extract variable parameters in the shape */
    def extractParameters(node: Node, base: BaseShape): ParametricShape = {
@@ -77,7 +83,7 @@ class Mesmerizer() {
 	     }
 	     ParametricShape(children, values)
 	 } catch {
-	 case e:MatchException => throw new MatchException( id(node)+"/"+e.getMessage() )
+	 case e:MatchException => throw new MatchException( "#" + id(node) + " " +e.getMessage(), e)
 	 }
    }
 
@@ -165,7 +171,10 @@ class Mesmerizer() {
        }}})
 
    def morph(factor:Double, shape1: ParametricShape, shape2: ParametricShape) : ParametricShape =
-       morph(factor, 1-factor, shape1, shape2)
+     if (factor==1) shape1 else { 
+       if (factor==0) shape2 else
+	 morph(factor, 1-factor, shape1, shape2)
+     }
 
   def load(file : String) : Node = {
     val src= scala.io.Source.fromFile(file)
@@ -178,9 +187,7 @@ class Mesmerizer() {
       extractParameters(load(file), base)
     } catch {
       case e:MatchException =>
-        println("ERROR in file : "+file)
-	println(e.getMessage())
-	throw new MatchException(file+": "+e.getMessage)
+	throw new MatchException(file + ": "+e.getMessage, e)
     }
   }
 
@@ -188,31 +195,107 @@ class Mesmerizer() {
     val l= .4*c.r + .4*c.g + .2*c.b
     ColorParam(w*c.r + (1-w)*l, w*c.g + (1-w)*l, w*c.b + (1-w)*l)
   } 
-  
-  val master= load("face_000.svg")
-  val base = extractBaseShape(master)
-  val shape0= extractParameters("face_000.svg", base)
-  val shape1= extractParameters("face_---.svg", base)
 
-  val res= format(master, base, morph(2, shape0, shape1))
-  scala.xml.XML.save("face_gen_+++.svg",res)
-  
   /*
-  def emoticon(v: Double, a: Double, p:Double, w:Double) : Node = {
-    val param= map(desaturate(_, w),
-1                   morph(p,
+  val master= load("front-master.svg")
+  val base = extractBaseShape(master)
+  val shape1= extractParameters("front-v0-a1-p1.svg", base)
+  val shape2= extractParameters("front-v1-a1-p1.svg", base)
+  val shape3= extractParameters("front-v0-a0-p1.svg", base)
+  val shape4= extractParameters("front-v1-a0-p1.svg", base)
+  val shape5= extractParameters("front-v0-a1-p0.svg", base)
+  val shape6= extractParameters("front-v1-a1-p0.svg", base)
+  val shape7= extractParameters("front-v0-a0-p0.svg", base)
+  val shape8= extractParameters("front-v1-a0-p0.svg", base)
+  def emoticon(v: Double, a: Double, p:Double) : Node = {
+    val param= 
+                   morph(p,
 			 morph(a, 
     			       morph(v, shape2, shape1), 
     			       morph(v, shape4, shape3)),
 			 morph(a, 
     			       morph(v, shape6, shape5), 
-    			       morph(v, shape8, shape7))))
+    			       morph(v, shape8, shape7)))
     format(master, base, param)
-  }*/
+  }
+  */
+  
+  val master= load("face_000.svg")
+  val base = extractBaseShape(master)
+  val shape_ooo= extractParameters("face_000.svg", base)
+  val shape_poo= extractParameters("face_+00.svg", base)
+  val shape_moo= extractParameters("face_-00.svg", base)
+  val shape_opo= extractParameters("face_0+0.svg", base)
+  val shape_omo= extractParameters("face_0-0.svg", base)
+  val shape_oop= extractParameters("face_00+.svg", base)
+  val shape_oom= extractParameters("face_00-.svg", base)
+
+  def emoticon(v: Double, a: Double, p:Double) : Node = {
+    val sv = abs(1-2*v)
+    val sa = abs(1-2*a)
+    val sp = abs(1-2*p)
+    val param= morph(1-sv-sa-sp, shape_ooo, 
+	      morph(sv/(sa+sv+sp),
+		    if (v>0.5) shape_poo else shape_moo,
+		    morph(sa/(sa+sp),
+			  if (a>0.5) shape_opo else shape_omo,
+			  if (p>0.5) shape_oop else shape_oom)))
+    /*
+                   morph(p,
+			 morph(a, 
+    			       morph(v, shape2, shape1), 
+    			       morph(v, shape4, shape3)),
+			 morph(a, 
+    			       morph(v, shape6, shape5), 
+    			       morph(v, shape8, shape7)))
+
+    */
+    format(master, base, param)
+  }
 }
 
 object Mesmerizer {
   def main(args : Array[String]) {
-    val mes = new Mesmerizer()
+    try {
+      val mes = new Mesmerizer()
+      scala.xml.XML.save("gen/face_000.svg", mes.emoticon(.5,.5,.5))
+      scala.xml.XML.save("gen/face_0+0.svg", mes.emoticon(.5,1,.5))
+      scala.xml.XML.save("gen/face_0-0.svg", mes.emoticon(.5,0,.5))
+      scala.xml.XML.save("gen/face_+00.svg", mes.emoticon(1,.5,.5))
+      scala.xml.XML.save("gen/face_-00.svg", mes.emoticon(0,.5,.5))
+      scala.xml.XML.save("gen/face_00+.svg", mes.emoticon(.5,.5,1))
+      scala.xml.XML.save("gen/face_00-.svg", mes.emoticon(.5,.5,0))
+
+      scala.xml.XML.save("gen/face_++0.svg", mes.emoticon(1,1,.5))
+      scala.xml.XML.save("gen/face_+-0.svg", mes.emoticon(1,0,.5))
+      scala.xml.XML.save("gen/face_+0+.svg", mes.emoticon(1,.5,1))
+      scala.xml.XML.save("gen/face_+0-.svg", mes.emoticon(1,.5,0))
+      scala.xml.XML.save("gen/face_0++.svg", mes.emoticon(.5,1,1))
+      scala.xml.XML.save("gen/face_0+-.svg", mes.emoticon(.5,1,0))
+      scala.xml.XML.save("gen/face_0-+.svg", mes.emoticon(.5,0,1))
+      scala.xml.XML.save("gen/face_0--.svg", mes.emoticon(.5,0,0))
+      scala.xml.XML.save("gen/face_-0+.svg", mes.emoticon(0,.5,1))
+      scala.xml.XML.save("gen/face_-0-.svg", mes.emoticon(0,.5,0))
+      scala.xml.XML.save("gen/face_-+0.svg", mes.emoticon(0,1,.5))
+      scala.xml.XML.save("gen/face_--0.svg", mes.emoticon(0,0,.5))
+
+      scala.xml.XML.save("gen/face_+++.svg", mes.emoticon(1,1,1))
+      scala.xml.XML.save("gen/face_++-.svg", mes.emoticon(1,1,0))
+      scala.xml.XML.save("gen/face_+-+.svg", mes.emoticon(1,0,1))
+      scala.xml.XML.save("gen/face_+--.svg", mes.emoticon(1,0,0))
+      scala.xml.XML.save("gen/face_-++.svg", mes.emoticon(0,1,1))
+      scala.xml.XML.save("gen/face_-+-.svg", mes.emoticon(0,1,0))
+      scala.xml.XML.save("gen/face_--+.svg", mes.emoticon(0,0,1))
+      scala.xml.XML.save("gen/face_---.svg", mes.emoticon(0,0,0))
+
+    } catch {
+      case e:Throwable =>
+	if (!args.isEmpty && args(0)=="debug") {
+	  throw e
+	} else {
+	  println("ERROR:")
+	  println(e.getMessage())
+	}
+    }
   }
 }
