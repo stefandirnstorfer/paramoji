@@ -1,9 +1,9 @@
 package emoticons
-
-import scala.util.matching.Regex
 import scala.xml._
 import scala.math._
 import java.io._
+import scala.xml.NodeSeq.seqToNodeSeq
+import scala.xml._
 
 object SVGUtil {
 
