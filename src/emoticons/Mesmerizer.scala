@@ -5,17 +5,18 @@ import scala.math._
 import scala.xml.NodeSeq.seqToNodeSeq
 import scala.xml._
 
+
+class MatchException(msg : String, cause : Throwable) extends Exception(msg, cause) {
+	def this(msg : String) = this(msg, null)
+}
+
 /** This class is responsible for morphing between different SVG images */
 class Mesmerizer() {
 
-	abstract class Param
-	case class NumberParam(val value:Double) extends Param
-	case class ColorParam(val r:Double, g:Double, b:Double) extends Param
-
-	/** defines the structure of an SVG image */
-	case class BaseShape(val attributes: Map[String, (Regex, String)]) {
-				override def toString() : String =
-				attributes.map { case (key, (pattern,format)) => "@"+key+" : "+format }.mkString("\n")
+	
+	case class BaseShape(val attributes: Map[String, AttributePattern]) {
+		override def toString() : String =
+		attributes.map { case (key, pattern) => "@"+key+" : "+pattern }.mkString("\n")
 	}
 
 	/** Contains the numeric parameters for a BaseShape */
@@ -24,29 +25,22 @@ class Mesmerizer() {
 			values.map { case (key, value) => "@"+key+" : "+value }.mkString("\n")
 	}
 
-	class MatchException(msg : String, cause : Throwable) extends Exception(msg, cause) {
-		def this(msg : String) = this(msg, null)
-	}
-
-	val PARAM= "[+-]?[0-9]+(\\.[0-9]+)?|#[0-9a-fA-F]{6}".r
 	def id(node : Node) = node.attribute("id").map { _.text }.getOrElse("("+node.label+")")
-	def matched(attr : String) = List("d", "style", "transform").contains(attr);
 
 	/** Extract a tree of regex patterns which match variations of this base shape */
-	def extractBaseShapeAsList(node : Node) : List[(String, (Regex, String))] = {
+	def extractBaseShapeAsList(node : Node) : List[(String, AttributePattern)] = {
 		val children = node.child
 				.filter { !_.label.startsWith("#") }
 		.map { extractBaseShapeAsList(_) }
 		val nodeid = id(node)
-				val attributes= node
-				.attributes
-				.filter( attr => matched(attr.key))
-				.map { attr => attr.key match {
-				case "transform" => (nodeid + "@transform" -> getPattern(attr.value.toString))
-				case "style" => (nodeid + "@style" -> getPattern(attr.value.toString))
-				case "d" => (nodeid + "@d" -> getPattern(SVGUtil.normalizePath(attr.value.toString)))
-				}}.toList
-				children.foldRight(attributes)(_ ++ _)
+		val attributes : List[(String, AttributePattern)]= node.attributes
+			.flatMap { attr => attr.key match {
+				case "transform" => List(nodeid + "@transform" -> new SimpleAttributePattern(attr.value.toString))
+				case "style" => List(nodeid + "@style" -> new StyleAttributePattern(attr.value.toString))
+				case "d" => List(nodeid + "@d" -> new PathAttributePattern(SVGUtil.normalizePath(attr.value.toString)))
+				case _ => List()
+			}}.toList
+		children.foldRight(attributes)(_ ++ _)
     }
 	def extractBaseShape(node : Node) = BaseShape(Map(extractBaseShapeAsList(node):_*))
 
@@ -55,12 +49,14 @@ class Mesmerizer() {
 		try {
 			val children = node.child.map(extractParameters(_, base))
 			val values= node.attributes
-			.filter( attr => matched(attr.key))
-			.map{ attr =>
+			.flatMap{ attr =>
 				val key = id(node) + "@" + attr.key
-				val pattern = base.attributes.get(key).map(_._1).getOrElse("".r)
-					val value = attr.value.text
-					(key -> getParameters( if (key=="d") SVGUtil.normalizePath(value) else value, pattern))
+				val pattern = base.attributes.get(key)
+				val value = attr.value.text
+				if (pattern.isEmpty)
+				   List()
+				else
+				   List(key -> pattern.get.getParams(value))
 			}.toList
 			children.foldLeft(values)(_ ++ _)
 		} catch {
@@ -68,45 +64,12 @@ class Mesmerizer() {
 		}
 	}
 
-	/** Extract the pattern against which new SVG images are matched */
-	def getPattern(text: String) : (Regex, String) = {
-		(PARAM.replaceAllIn(text
-			.replaceAll("\\(","\\\\(")
-			.replaceAll("\\)","\\\\)"), m => "([^,; ]+)").r,
-			PARAM.replaceAllIn(text, "*"))
-	}
-
-	/** Extract the numeric parameters for interpolation */
-	def getParameters(text: String, pattern: Regex): List[Param] = {
-		pattern.findPrefixMatchOf(text) match {
-		case Some(m) =>
-		m.subgroups.map { param =>
-		if (param.startsWith("#")) {
-			val c= SVGUtil.parseColor(param)
-					ColorParam(c._1, c._2, c._3)
-		} else 
-			NumberParam(param.toDouble) }
-		case _ =>
-		throw new MatchException(" pattern not matched: "+text+" does not match "+pattern)
-		}
-	}
-
-	def formatParam(value : Param):String = value match {
-	case NumberParam(value) => 
-	if (value == value.toInt)
-		value.toInt.toString
-		else
-			SVGUtil.format(value)
-	case ColorParam(r,g,b) => SVGUtil.formatColor(r.toInt,g.toInt,b.toInt)
-	}
-
 	def format_replaceAttribs(id : String, attr : MetaData, base : BaseShape, param : ParametricShape) : MetaData = {
 	  if (attr == Null) {
 	    Null
 	  } else {
 		if (base.attributes.contains(id + "@" + attr.key)) {
-			val value= param.values.get(id + "@" + attr.key).get.iterator
-			val newValue= "\\*".r.replaceAllIn(base.attributes.get(id+"@"+attr.key).get._2, _ => formatParam(value.next))
+			val newValue= base.attributes.get(id + "@" + attr.key).get.format(param.values.get(id + "@" + attr.key).get);
 			format_replaceAttribs(id, attr.next, base, param)
 				.append(new UnprefixedAttribute(attr.key, newValue.replaceAll("\\\\",""), Null))
 		}
