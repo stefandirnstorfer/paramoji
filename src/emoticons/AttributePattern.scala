@@ -1,19 +1,5 @@
 package emoticons
 
-abstract class Param
-case class NumberParam(val value:Double) extends Param {
-  override def toString() : String =
-	if (value == value.toInt)
-		value.toInt.toString
-	else
-		SVGUtil.format(value)
-}
-
-case class ColorParam(val r:Double, g:Double, b:Double) extends Param {
-  override def toString() : String =
-	  SVGUtil.formatColor(r.toInt,g.toInt,b.toInt)
-}
-
 /** Pattern against which new SVG attribute values are matched */
 abstract class AttributePattern {
 	def getParams(text : String) : List[Param]
