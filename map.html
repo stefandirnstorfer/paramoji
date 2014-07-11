@@ -1,0 +1,78 @@
+<html>
+<style>
+  div {
+  position: absolute;
+  }
+</style>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+var c30 = Math.cos(30/180*Math.PI);
+var s30 = Math.sin(30/180*Math.PI);
+var c15 = Math.cos(15/180*Math.PI);
+var s15 = Math.sin(15/180*Math.PI);
+
+$(function() {
+var faces= [
+['000', 0, 0],
+['+00', 0, -1],
+['-00', 0, 1],
+['0+0', -c30, -s30],
+['0-0', c30, s30],
+['00+', c30, -s30],
+['00-', -c30, s30],
+
+['++0', -c30, -1-s30],
+['+0+', c30, -1-s30],
+['0-+', 2*c30, 0],
+['--0', c30, s30+1],
+['-0-', -c30, 1+s30],
+['0+-', -2*c30, 0],
+
+['+-0', s15*2, -2*(1+s15)],
+['+++', -s15*2, -2*(1+s15)],
+['-+0', s15*2, 2*(1+s15)],
+['---', -s15*2, 2*(1+s15)],
+
+['++-', -2*(1+s15)*c30 - s30*(2*s15), -2*(1+s15)*s30 + c30*(2*s15)],
+['+--', -2*(1+s15)*c30 + s30*(2*s15), -2*(1+s15)*s30 - c30*(2*s15)],
+['+-+', 2*(1+s15)*c30 + s30*(2*s15), 2*(1+s15)*s30 - c30*(2*s15)],
+['0--', 2*(1+s15)*c30 - s30*(2*s15), 2*(1+s15)*s30 + c30*(2*s15)],
+
+['-0+', 2*(1+s15)*c30 + s30*(2*s15), -2*(1+s15)*s30 + c30*(2*s15)],
+['0++', 2*(1+s15)*c30 - s30*(2*s15), -2*(1+s15)*s30 - c30*(2*s15)],
+['+0-', -2*(1+s15)*c30 - s30*(2*s15), 2*(1+s15)*s30 - c30*(2*s15)],
+['-+-', -2*(1+s15)*c30 + s30*(2*s15), 2*(1+s15)*s30 + c30*(2*s15)],
+
+['-++', -3.2, 0],
+['--+', 3.2, 0]
+];
+
+function convert(c) {
+  if (c=='+') return 1;
+  if (c=='-') return 0;
+  return 0.5;
+}
+
+for (i in faces) {
+  var x = faces[i][1];
+  var y = faces[i][2];
+  var scale = Math.pow(x*x + y*y, -0.2);
+  if (!isFinite(scale)) scale=1.5;
+  x = (x-0.5) * scale * 100 + 500;
+  y = (y-0.5) * scale * 105 + 300;
+  size = 100 * scale;
+  var s = faces[i][0];
+  console.log(i);
+  $('body').prepend('<div style="top:'+y+'px; left:'+x+'px">' +
+    '<embed src="gen/face_'+s+'.svg"  width='+size+' height='+size+'/>');
+  $('body').prepend('<div style="top:'+y+'px; left:'+(x+500)+'px">' +
+    '<embed src="http://liquidizer.org/emoticons/face.svg?size=' + size +
+		 '&v='+convert(s[0])+
+		 '&a='+convert(s[1])+
+		 '&p='+convert(s[2])+'"  width='+size+' height='+size+'/>');
+}
+});
+</script>
+<body>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<html>
+<link rel="stylesheet" type="text/css" href="style.css"/>
+<meta name="viewport" content="width=300"/>
+<body>
+  <h1>Training #1/3</h1>
+  <table>
+    <tr>
+      <td colspan="2">
+	<h2>Valuation</h2>
+	Which of the two faces has a <b>{{moreless}}</b> positve valuation and 
+	appreciates <b>{{moreless}}</b> what it sees?
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+	<embed src="http://liquidizer.org/emoticons/face.svg?size=120&v=1&a=0.5&p=0.5" width="120" hight="120"/>
+      </td>
+      <td align="center">
+	<embed src="http://liquidizer.org/emoticons/face.svg?size=120&v=0&a=0.5&p=0.5" width="120" hight="120"/>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+	<form method="GET" action="http:submit">
+	  <div style="display:none">
+	    <input name="test" value="1">
+	    <input name="MW_ID" value="{{worker}}"/>
+	    <input name="CAMP_ID" value="{{campaign}}"/>
+	    <input name="type" value="valence"/>
+	  </div>
+	  <button type="submit" value="Submit">This one</button>
+	</form>
+      </td>
+      <td align="center">
+	<form method="GET" action="http:submit">
+	  <div style="display:none">
+	    <input name="test" value="0">
+	    <input name="MW_ID" value="{{worker}}"/>
+	    <input name="CAMP_ID" value="{{campaign}}"/>
+	    <input name="type" value="valence"/>
+	  </div>
+	  <button type="submit" value="Submit">This one</button>
+	</form>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

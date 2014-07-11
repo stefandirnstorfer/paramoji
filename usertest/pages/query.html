@@ -1,0 +1,50 @@
+<html>
+<link rel="stylesheet" type="text/css" href="style.css"/>
+<meta name="viewport" content="width=300"/>
+<body>
+  <h1>Emoticon #{{work}}/10</h1>
+  <embed src="http://liquidizer.org/emoticons/face.svg?size=250&a={{arousal}}&v={{valence}}&p={{potency}}" width="250" hight="250"/>
+  <form method="GET" action="http:submit2">
+      <h2>Valuation:</h2>
+      Does this face display a positive valuation?
+      <p>
+	<label><input type="radio" value="1.00" name="Vtest" required/>+1 Positive valuation</label>
+	<br/>
+	<label><input type="radio" value="0.50" name="Vtest"/>0 Neutral</label>
+	<br/>
+	<label><input type="radio" value="0.00" name="Vtest"/>-1 Negative valuation</label>
+      </p>
+      <h2>Surprise:</h2>
+      Does this face see something unexpected?
+      <p>
+	<label><input type="radio" value="1.00" name="Atest" required/>Ugh, Surprised!!</label>
+	<br/>
+	<label><input type="radio" value="0.50" name="Atest"/>Neutral</label>
+	<br/>
+	<label><input type="radio" value="0.00" name="Atest"/>It feels like always.</label>
+      </p>
+      <h2>Confidence:</h2>
+      Does this face know what it is doing?
+      <p>
+	<label><input type="radio" value="1.00" name="Ptest" required/>Very confident and determined</label>
+	<br/>
+	<label><input type="radio" value="0.50" name="Ptest"/>Neutral</label>
+	<br/>
+	<label><input type="radio" value="0.00" name="Ptest"/>Where is Mummy?</label>
+      </p>
+    <p>
+      When you are finished press submit:
+      <div id="submit-div">
+	<button type="submit" value="Submit">Submit</button>
+      </div>
+    </p>
+    <div style="display:none">
+      <input name="MW_ID" value="{{worker}}"/>
+      <input name="CAMP_ID" value="{{campaign}}"/>
+      <input name="Vref" value="{{valence}}"/>
+      <input name="Aref" value="{{arousal}}"/>
+      <input name="Pref" value="{{potency}}"/>
+    </div>
+  </form>
+</body>
+</html>
