@@ -30,14 +30,25 @@ class EmoticonStructure(val node : Node) {
 	def getMap() : Map[String, EmoticonStructure] = {
 		val recurse = children.map { _.getMap() }.fold(Map()) ( _ ++ _ )
 		val nodeId = node.attribute("id").map{ _.text }
-		if (nodeId.isDefined)
+		val excluded = node.attribute("morph").exists { _.text == "fixed" }
+		if (nodeId.isDefined && !excluded)
 		  recurse + (nodeId.get -> this)
 		else
 		  recurse
 	}
 
 	def getParameterList(node : Node) : List[Param] = {
-		attributes.flatMap{ case (key, pattern) => pattern.getParams(node.attribute(key).get.text) }
+	  try {
+		attributes.flatMap{ case (key, pattern) => 
+		  pattern.getParams(node.attribute(key).map( _.text).getOrElse {
+		    throw new MatchException("Missing attribute : "+key);
+		  })
+		}
+	  } catch {
+	    case e:MatchException => 
+	      val id = node.attribute("id").map(_.text).getOrElse("?")
+	      throw new MatchException(e.getMessage() + " in node #"+id, e)
+	  }
 	}
 	
 	def getParameterSet(node : Node, map : Map[String, EmoticonStructure]) : Map[String, List[Param]] = {
@@ -72,7 +83,7 @@ class EmoticonStructure(val node : Node) {
 		    if (nodeId.isDefined && param.contains(nodeId.get))
 		    	format_replaceAttribs(attribs, param(nodeId.get).iterator)
 		    else
-		        attribs, 
+		        attribs.remove("morph"), 
 			scope, 
 				children.map { _.format(param) }:_*
 		)
@@ -115,35 +126,40 @@ object Emoticons extends App {
 	    base.format(param)
 	}
 
-	scala.xml.XML.save("gen/face_000.svg", emoticon(.5,.5,.5))
+	def saveEmoticon(filename : String, emoticon : Node) {
+		println("Creating: "+filename)
+		scala.xml.XML.save(filename, emoticon)
+	}
+	
+	saveEmoticon("gen/face_000.svg", emoticon(.5,.5,.5))
 
-	scala.xml.XML.save("gen/face_0+0.svg", emoticon(.5,1,.5))
-	scala.xml.XML.save("gen/face_0-0.svg", emoticon(.5,0,.5))
-	scala.xml.XML.save("gen/face_+00.svg", emoticon(1,.5,.5))
-	scala.xml.XML.save("gen/face_-00.svg", emoticon(0,.5,.5))
-	scala.xml.XML.save("gen/face_00+.svg", emoticon(.5,.5,1))
-	scala.xml.XML.save("gen/face_00-.svg", emoticon(.5,.5,0))
+	saveEmoticon("gen/face_0+0.svg", emoticon(.5,1,.5))
+	saveEmoticon("gen/face_0-0.svg", emoticon(.5,0,.5))
+	saveEmoticon("gen/face_+00.svg", emoticon(1,.5,.5))
+	saveEmoticon("gen/face_-00.svg", emoticon(0,.5,.5))
+	saveEmoticon("gen/face_00+.svg", emoticon(.5,.5,1))
+	saveEmoticon("gen/face_00-.svg", emoticon(.5,.5,0))
 
-	scala.xml.XML.save("gen/face_++0.svg", emoticon(1,1,.5))
-	scala.xml.XML.save("gen/face_+-0.svg", emoticon(1,0,.5))
-	scala.xml.XML.save("gen/face_+0+.svg", emoticon(1,.5,1))
-	scala.xml.XML.save("gen/face_+0-.svg", emoticon(1,.5,0))
-	scala.xml.XML.save("gen/face_0++.svg", emoticon(.5,1,1))
-	scala.xml.XML.save("gen/face_0+-.svg", emoticon(.5,1,0))
-	scala.xml.XML.save("gen/face_0-+.svg", emoticon(.5,0,1))
-	scala.xml.XML.save("gen/face_0--.svg", emoticon(.5,0,0))
-	scala.xml.XML.save("gen/face_-0+.svg", emoticon(0,.5,1))
-	scala.xml.XML.save("gen/face_-0-.svg", emoticon(0,.5,0))
-	scala.xml.XML.save("gen/face_-+0.svg", emoticon(0,1,.5))
-	scala.xml.XML.save("gen/face_--0.svg", emoticon(0,0,.5))
+	saveEmoticon("gen/face_++0.svg", emoticon(1,1,.5))
+	saveEmoticon("gen/face_+-0.svg", emoticon(1,0,.5))
+	saveEmoticon("gen/face_+0+.svg", emoticon(1,.5,1))
+	saveEmoticon("gen/face_+0-.svg", emoticon(1,.5,0))
+	saveEmoticon("gen/face_0++.svg", emoticon(.5,1,1))
+	saveEmoticon("gen/face_0+-.svg", emoticon(.5,1,0))
+	saveEmoticon("gen/face_0-+.svg", emoticon(.5,0,1))
+	saveEmoticon("gen/face_0--.svg", emoticon(.5,0,0))
+	saveEmoticon("gen/face_-0+.svg", emoticon(0,.5,1))
+	saveEmoticon("gen/face_-0-.svg", emoticon(0,.5,0))
+	saveEmoticon("gen/face_-+0.svg", emoticon(0,1,.5))
+	saveEmoticon("gen/face_--0.svg", emoticon(0,0,.5))
 
-	scala.xml.XML.save("gen/face_+++.svg", emoticon(1,1,1))
-	scala.xml.XML.save("gen/face_++-.svg", emoticon(1,1,0))
-	scala.xml.XML.save("gen/face_+-+.svg", emoticon(1,0,1))
-	scala.xml.XML.save("gen/face_+--.svg", emoticon(1,0,0))
-	scala.xml.XML.save("gen/face_-++.svg", emoticon(0,1,1))
-	scala.xml.XML.save("gen/face_-+-.svg", emoticon(0,1,0))
-	scala.xml.XML.save("gen/face_--+.svg", emoticon(0,0,1))
-	scala.xml.XML.save("gen/face_---.svg", emoticon(0,0,0))
+	saveEmoticon("gen/face_+++.svg", emoticon(1,1,1))
+	saveEmoticon("gen/face_++-.svg", emoticon(1,1,0))
+	saveEmoticon("gen/face_+-+.svg", emoticon(1,0,1))
+	saveEmoticon("gen/face_+--.svg", emoticon(1,0,0))
+	saveEmoticon("gen/face_-++.svg", emoticon(0,1,1))
+	saveEmoticon("gen/face_-+-.svg", emoticon(0,1,0))
+	saveEmoticon("gen/face_--+.svg", emoticon(0,0,1))
+	saveEmoticon("gen/face_---.svg", emoticon(0,0,0))
 }
 
