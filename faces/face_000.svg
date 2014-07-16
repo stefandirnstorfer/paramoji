@@ -45,7 +45,7 @@
      inkscape:zoom="3.02"
      inkscape:cx="125"
      inkscape:cy="125"
-     inkscape:window-x="1983"
+     inkscape:window-x="1985"
      inkscape:window-y="42"
      inkscape:window-maximized="0"
      inkscape:current-layer="emoticon-front-view"
@@ -220,16 +220,17 @@
      inkscape:connector-curvature="0"
      sodipodi:nodetypes="ccccccc" />
   <g
-     id="nose"
+     id="nose-2"
      style="stroke-width:1"
      transform="matrix(1.1323973,0,0,1,-17.273681,2.1126016)"
      morph="fixed">
     <path
        style="fill:#1a1a1a;stroke:#000000;stroke-width:0.93972456;stroke-miterlimit:4;stroke-dasharray:none"
        d="m 115.22888,161.44374 c -2.63092,-0.15395 -4.57641,-4.61384 -0.076,-12.08236 -3.31006,5.65009 -0.45831,10.19743 2.40691,10.50534 2.86522,0.30791 7.82668,-2.11244 13.1243,-2.09085 5.29762,0.0216 12.67768,4.55512 12.97053,-2.25708 0.29285,-6.8122 -0.96024,-4.57547 -4.58238,-22.26319 2.82709,16.03743 9.21489,15.05265 9.87323,23.00444 0.65833,7.95179 -4.26184,5.08749 -9.69938,5.06903 -5.43753,-0.0185 -2.09867,1.39085 -8.45245,1.19974 -6.35378,-0.19111 -3.05351,-1.72636 -7.63966,-2.14255 -4.58614,-0.41618 -5.29421,1.21143 -7.92513,1.05748 z"
-       id="nose-outline"
+       id="nose-outline-2"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cczzzczzzzzc" />
+       sodipodi:nodetypes="cczzzczzzzzc"
+       morph="fixed" />
   </g>
   <path
      d="m 78.505629,182.36702 c 0,0 8.93,-0.16 52.140001,-0.64 44.71,-0.57 52.94,-0.47 52.94,-0.47 l 0.52,1.83 c 0,0 -9.19,12.5 -53.14,12.96 -44.480001,0.36 -53.100001,-12.04 -53.100001,-12.04 l 0.64,-1.64 z"

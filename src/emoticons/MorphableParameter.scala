@@ -28,13 +28,15 @@ case class ColorParam(val r:Double, g:Double, b:Double) extends Param {
 	}
 }
 
+
 object MorphableParameter {
+	type ParameterSet = Map[String, List[Param]]
   	def morph(left: Double, right: Double, shape1:List[Param], shape2:List[Param]):List[Param] = {
 		val it= shape2.iterator
 		shape1.map { _.morph(left, right, it.next) }
 	}
 
-	def morph(left: Double, right:Double, shape1: Map[String, List[Param]], shape2: Map[String, List[Param]]) : Map[String,List[Param]] = {
+	def morph(left: Double, right:Double, shape1: ParameterSet, shape2: ParameterSet) : Map[String,List[Param]] = {
 		Map((shape1.keys.toList ++ shape2.keys.toList).map { key =>
 		  (shape1.get(key), shape2.get(key)) match {
 		    case (Some(a), None) => (key -> a)
@@ -43,11 +45,5 @@ object MorphableParameter {
 		    case (None, None) => (key -> List())
 		  }
 		}:_*)
-	}
-
-	def morph(left : Double, shape1: Map[String, List[Param]], shape2: Map[String, List[Param]]) : Map[String,List[Param]] = {
-  		if (left == 1) return shape1
-		if (left == 0) return shape2
-		morph(left, 1-left, shape1, shape2)
 	}
 }

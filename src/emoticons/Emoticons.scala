@@ -10,7 +10,9 @@ class MatchException(msg : String, cause : Throwable) extends Exception(msg, cau
 	def this(msg : String) = this(msg, null)
 }
 
+
 class EmoticonStructure(val node : Node) {
+	type ParameterSet = Map[String, List[Param]]
 	val children = node.child.filter { !_.label.startsWith("#") }.map { new EmoticonStructure(_) }
 
 	val attributes  = node.attributes.flatMap { attr => attr.key match {
@@ -51,7 +53,7 @@ class EmoticonStructure(val node : Node) {
 	  }
 	}
 	
-	def getParameterSet(node : Node, map : Map[String, EmoticonStructure]) : Map[String, List[Param]] = {
+	def getParameterSet(node : Node, map : Map[String, EmoticonStructure]) : ParameterSet = {
 		val recurse = node.child
 				.filter { !_.label.startsWith("#") }
 				.map { getParameterSet(_, map) }
@@ -63,17 +65,25 @@ class EmoticonStructure(val node : Node) {
 		  recurse
 	}
 	
-	def getParameterSet(otherNode : Node) : Map[String, List[Param]]= {
+	def getParameterSet(otherNode : Node) : ParameterSet= {
 	    getParameterSet(otherNode, getMap());
 	}
 
-	def getParametersFromFile(file: String): Map[String, List[Param]] = {
+	def getParametersFromFile(file: String): ParameterSet = {
 		try {
 		  getParameterSet(EmoticonStructure.loadAsXML(file))
 		} catch {
 			case e:MatchException =>
 			throw new MatchException(file + ": "+e.getMessage, e)
 		}
+	}
+	
+	def getParametersFromFile(file : String, ref : ParameterSet) : ParameterSet = {
+	  MorphableParameter.morph(1, -1, getParametersFromFile(file), ref)
+	}
+
+	def getParametersFromFile(file : String, ref : String) : ParameterSet = {
+	  MorphableParameter.morph(1, -1, getParametersFromFile(file), getParametersFromFile(ref))
 	}
 
 	def format(param : Map[String,List[Param]]) : Node = node match {
@@ -104,34 +114,35 @@ object EmoticonStructure {
 }
 
 object Emoticons extends App {
+	def saveEmoticon(filename : String, param : MorphableParameter.ParameterSet) {
+		println("Creating: "+filename)
+		scala.xml.XML.save(filename, base.format(param))
+	}
+	
 	val base = EmoticonStructure.load("faces/face_000.svg")
 	val shape_ooo= base.getParametersFromFile("faces/face_000.svg")
-	val shape_poo= base.getParametersFromFile("faces/face_+00.svg")
-	val shape_moo= base.getParametersFromFile("faces/face_-00.svg")
-	val shape_opo= base.getParametersFromFile("faces/face_0+0.svg")
-	val shape_omo= base.getParametersFromFile("faces/face_0-0.svg")
-	val shape_oop= base.getParametersFromFile("faces/face_00+.svg")
-	val shape_oom= base.getParametersFromFile("faces/face_00-.svg")
 	
-	def emoticon(v: Double, a: Double, p:Double) : Node = {
+	saveEmoticon("gen/face_000.svg", shape_ooo)
+
+	val shape_poo= base.getParametersFromFile("faces/face_+00.svg", shape_ooo)
+	val shape_moo= base.getParametersFromFile("faces/face_-00.svg", shape_ooo)
+	val shape_opo= base.getParametersFromFile("faces/face_0+0.svg", shape_ooo)
+	val shape_omo= base.getParametersFromFile("faces/face_0-0.svg", shape_ooo)
+	val shape_oop= base.getParametersFromFile("faces/face_00+.svg", shape_ooo)
+	val shape_oom= base.getParametersFromFile("faces/face_00-.svg", shape_ooo)
+	
+	def emoticon(v: Double, a: Double, p:Double)  = {
 		val sv = Math.abs(1-2*v)
 		val sa = Math.abs(1-2*a)
 		val sp = Math.abs(1-2*p)
-		val param= MorphableParameter.morph(1-sv-sa-sp, shape_ooo, 
-				MorphableParameter.morph(sv/(sa+sv+sp),
-						if (v>0.5) shape_poo else shape_moo,
-						MorphableParameter.morph(sa/(sa+sp),
-								if (a>0.5) shape_opo else shape_omo,
-								if (p>0.5) shape_oop else shape_oom)))
-	    base.format(param)
+		val param1 = MorphableParameter.morph(1, sv, shape_ooo, 
+						if (v>0.5) shape_poo else shape_moo)
+		val param2 = MorphableParameter.morph(1, sa, param1,
+						if (a>0.5) shape_opo else shape_omo)
+		val param3 = MorphableParameter.morph(1, sp, param2,
+						if (p>0.5) shape_oop else shape_oom)
+		param3
 	}
-
-	def saveEmoticon(filename : String, emoticon : Node) {
-		println("Creating: "+filename)
-		scala.xml.XML.save(filename, emoticon)
-	}
-	
-	saveEmoticon("gen/face_000.svg", emoticon(.5,.5,.5))
 
 	saveEmoticon("gen/face_0+0.svg", emoticon(.5,1,.5))
 	saveEmoticon("gen/face_0-0.svg", emoticon(.5,0,.5))
@@ -140,26 +151,52 @@ object Emoticons extends App {
 	saveEmoticon("gen/face_00+.svg", emoticon(.5,.5,1))
 	saveEmoticon("gen/face_00-.svg", emoticon(.5,.5,0))
 
-	saveEmoticon("gen/face_++0.svg", emoticon(1,1,.5))
-	saveEmoticon("gen/face_+-0.svg", emoticon(1,0,.5))
-	saveEmoticon("gen/face_+0+.svg", emoticon(1,.5,1))
-	saveEmoticon("gen/face_+0-.svg", emoticon(1,.5,0))
-	saveEmoticon("gen/face_0++.svg", emoticon(.5,1,1))
-	saveEmoticon("gen/face_0+-.svg", emoticon(.5,1,0))
-	saveEmoticon("gen/face_0-+.svg", emoticon(.5,0,1))
-	saveEmoticon("gen/face_0--.svg", emoticon(.5,0,0))
-	saveEmoticon("gen/face_-0+.svg", emoticon(0,.5,1))
-	saveEmoticon("gen/face_-0-.svg", emoticon(0,.5,0))
-	saveEmoticon("gen/face_-+0.svg", emoticon(0,1,.5))
-	saveEmoticon("gen/face_--0.svg", emoticon(0,0,.5))
+	saveEmoticon("gen/face_++0_base.svg", emoticon(1,1,.5))
+	saveEmoticon("gen/face_+-0_base.svg", emoticon(1,0,.5))
+	saveEmoticon("gen/face_+0+_base.svg", emoticon(1,.5,1))
+	saveEmoticon("gen/face_+0-_base.svg", emoticon(1,.5,0))
+	saveEmoticon("gen/face_0++_base.svg", emoticon(.5,1,1))
+	saveEmoticon("gen/face_0+-_base.svg", emoticon(.5,1,0))
+	saveEmoticon("gen/face_0-+_base.svg", emoticon(.5,0,1))
+	saveEmoticon("gen/face_0--_base.svg", emoticon(.5,0,0))
+	saveEmoticon("gen/face_-0+_base.svg", emoticon(0,.5,1))
+	saveEmoticon("gen/face_-0-_base.svg", emoticon(0,.5,0))
+	saveEmoticon("gen/face_-+0_base.svg", emoticon(0,1,.5))
+	saveEmoticon("gen/face_--0_base.svg", emoticon(0,0,.5))
 
-	saveEmoticon("gen/face_+++.svg", emoticon(1,1,1))
-	saveEmoticon("gen/face_++-.svg", emoticon(1,1,0))
-	saveEmoticon("gen/face_+-+.svg", emoticon(1,0,1))
-	saveEmoticon("gen/face_+--.svg", emoticon(1,0,0))
-	saveEmoticon("gen/face_-++.svg", emoticon(0,1,1))
-	saveEmoticon("gen/face_-+-.svg", emoticon(0,1,0))
-	saveEmoticon("gen/face_--+.svg", emoticon(0,0,1))
-	saveEmoticon("gen/face_---.svg", emoticon(0,0,0))
+	val shape_ppo = base.getParametersFromFile("faces/face_++0.svg", "faces/face_++0_base.svg")
+	
+	def emoticon2(v: Double, a: Double, p: Double) = {
+  		val sv = Math.abs(1-2*v)
+		val sa = Math.abs(1-2*a)
+		val sp = Math.abs(1-2*p)
+		var param = emoticon(v, a, p)
+		if (v > .5 && a > .5)
+			param = MorphableParameter.morph(1, sv*sa, param, shape_ppo)
+		param
+	}
+	
+	saveEmoticon("gen/face_++0.svg", emoticon2(1,1,.5))
+	saveEmoticon("gen/face_+-0.svg", emoticon2(1,0,.5))
+	saveEmoticon("gen/face_+0+.svg", emoticon2(1,.5,1))
+	saveEmoticon("gen/face_+0-.svg", emoticon2(1,.5,0))
+	saveEmoticon("gen/face_0++.svg", emoticon2(.5,1,1))
+	saveEmoticon("gen/face_0+-.svg", emoticon2(.5,1,0))
+	saveEmoticon("gen/face_0-+.svg", emoticon2(.5,0,1))
+	saveEmoticon("gen/face_0--.svg", emoticon2(.5,0,0))
+	saveEmoticon("gen/face_-0+.svg", emoticon2(0,.5,1))
+	saveEmoticon("gen/face_-0-.svg", emoticon2(0,.5,0))
+	saveEmoticon("gen/face_-+0.svg", emoticon2(0,1,.5))
+	saveEmoticon("gen/face_--0.svg", emoticon2(0,0,.5))
+	
+	
+	saveEmoticon("gen/face_+++.svg", emoticon2(1,1,1))
+	saveEmoticon("gen/face_++-.svg", emoticon2(1,1,0))
+	saveEmoticon("gen/face_+-+.svg", emoticon2(1,0,1))
+	saveEmoticon("gen/face_+--.svg", emoticon2(1,0,0))
+	saveEmoticon("gen/face_-++.svg", emoticon2(0,1,1))
+	saveEmoticon("gen/face_-+-.svg", emoticon2(0,1,0))
+	saveEmoticon("gen/face_--+.svg", emoticon2(0,0,1))
+	saveEmoticon("gen/face_---.svg", emoticon2(0,0,0))
 }
 
