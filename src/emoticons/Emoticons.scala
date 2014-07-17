@@ -174,6 +174,8 @@ object Emoticons extends App {
 	val shape_omm = base.getParametersFromFile("faces/face_0--.svg", "faces/face_0--_base.svg")
 	val shape_mpo = base.getParametersFromFile("faces/face_-+0.svg", "faces/face_-+0_base.svg")
 	val shape_mmo = base.getParametersFromFile("faces/face_--0.svg", "faces/face_--0_base.svg")
+	val shape_mop = base.getParametersFromFile("faces/face_-0+.svg", "faces/face_-0+_base.svg")
+	val shape_mom = base.getParametersFromFile("faces/face_-0-.svg", "faces/face_-0-_base.svg")
 	
 	def emoticon2(v: Double, a: Double, p: Double) = {
   		val sv = Math.abs(1-2*v)
@@ -192,10 +194,18 @@ object Emoticons extends App {
 			param = MorphableParameter.morph(1, sv*sa, param, shape_mpo)
 		if (v < .5 && a < .5)
 			param = MorphableParameter.morph(1, sv*sa, param, shape_mmo)
+		if (v < .5 && p > .5)
+			param = MorphableParameter.morph(1, sv*sp, param, shape_mop)
+		if (v < .5 && p < .5)
+			param = MorphableParameter.morph(1, sv*sp, param, shape_mom)
 		if (a > .5 && p < .5)
 			param = MorphableParameter.morph(1, sa*sp, param, shape_opm)
 		if (a > .5 && p > .5)
 			param = MorphableParameter.morph(1, sa*sp, param, shape_opp)
+		if (a < .5 && p > .5)
+			param = MorphableParameter.morph(1, sa*sp, param, shape_omp)
+		if (a < .5 && p < .5)
+			param = MorphableParameter.morph(1, sa*sp, param, shape_omm)
 		param
 	}
 	
