@@ -6,7 +6,7 @@ import scala.xml.UnprefixedAttribute
 import scala.xml.Null
 import scala.xml.Elem
 
-class MatchException(msg : String, cause : Throwable) extends Exception(msg, cause) {
+class MatchException(msg : String, cause : Throwable) extends Exception(msg) {
 	def this(msg : String) = this(msg, null)
 }
 
@@ -165,6 +165,15 @@ object Emoticons extends App {
 	saveEmoticon("gen/face_--0_base.svg", emoticon(0,0,.5))
 
 	val shape_ppo = base.getParametersFromFile("faces/face_++0.svg", "faces/face_++0_base.svg")
+	val shape_pmo = base.getParametersFromFile("faces/face_+-0.svg", "faces/face_+-0_base.svg")
+	val shape_pop = base.getParametersFromFile("faces/face_+0+.svg", "faces/face_+0+_base.svg")
+	val shape_pom = base.getParametersFromFile("faces/face_+0-.svg", "faces/face_+0-_base.svg")
+	val shape_opp = base.getParametersFromFile("faces/face_0++.svg", "faces/face_0++_base.svg")
+	val shape_opm = base.getParametersFromFile("faces/face_0+-.svg", "faces/face_0+-_base.svg")
+	val shape_omp = base.getParametersFromFile("faces/face_0-+.svg", "faces/face_0-+_base.svg")
+	val shape_omm = base.getParametersFromFile("faces/face_0--.svg", "faces/face_0--_base.svg")
+	val shape_mpo = base.getParametersFromFile("faces/face_-+0.svg", "faces/face_-+0_base.svg")
+	val shape_mmo = base.getParametersFromFile("faces/face_--0.svg", "faces/face_--0_base.svg")
 	
 	def emoticon2(v: Double, a: Double, p: Double) = {
   		val sv = Math.abs(1-2*v)
@@ -173,6 +182,20 @@ object Emoticons extends App {
 		var param = emoticon(v, a, p)
 		if (v > .5 && a > .5)
 			param = MorphableParameter.morph(1, sv*sa, param, shape_ppo)
+		if (v > .5 && a < .5)
+			param = MorphableParameter.morph(1, sv*sa, param, shape_pmo)
+		if (v > .5 && p > .5)
+			param = MorphableParameter.morph(1, sv*sp, param, shape_pop)
+		if (v > .5 && p < .5)
+			param = MorphableParameter.morph(1, sv*sp, param, shape_pom)
+		if (v < .5 && a > .5)
+			param = MorphableParameter.morph(1, sv*sa, param, shape_mpo)
+		if (v < .5 && a < .5)
+			param = MorphableParameter.morph(1, sv*sa, param, shape_mmo)
+		if (a > .5 && p < .5)
+			param = MorphableParameter.morph(1, sa*sp, param, shape_opm)
+		if (a > .5 && p > .5)
+			param = MorphableParameter.morph(1, sa*sp, param, shape_opp)
 		param
 	}
 	

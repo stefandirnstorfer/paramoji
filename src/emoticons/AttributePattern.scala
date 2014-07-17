@@ -30,7 +30,7 @@ class SimpleAttributePattern(text : String) extends AttributePattern {
 			} else 
 				NumberParam(param.toDouble) 
 			}
-		case _ => throw new MatchException(" pattern not matched: "+text+" does not match "+regex)
+		case _ => throw new MatchException("pattern not matched")
 	   }
 	}
 	
