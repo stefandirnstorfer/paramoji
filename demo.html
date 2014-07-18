@@ -18,11 +18,11 @@
 	<h1>Controls</h1>
 	<table id="sliders" width="100%">
 	  <tr>
-	    <td width="10em">Valence</td>
+	    <td>Valence</td>
 	    <td>
 	      <input onchange="refresh()" style="width:90%;min:0;max:100;value:50" type="range" id="slider-valence" />
 	    </td>
-	    <td width="5em"><span id="label-valence">0</span></td>
+	    <td width="30em"><span id="label-valence">0</span></td>
 	  </tr>
 	  <tr>
 	    <td>Arousal</td>
@@ -43,25 +43,47 @@
       <div id="shortcuts">
 	<h1>Shortcuts</h1>
 	<p>
-	  <a href="javascript:setParam(50,50,50)">Normal</a>
+	  <table><tr><td>
+		<a href="javascript:setParam(50,50,50)">Normal</a>
+	  </td></tr></table>
 	</p>
 	<p>
-	  <a href="javascript:setParam(50,100,50)">Surprised</a>
-	  <a href="javascript:setParam(50,0,50)">Drowsy</a>
-	  <a href="javascript:setParam(100,50,50)">Happy</a>
-	  <a href="javascript:setParam(0,50,50)">Unhappy</a>
-	  <a href="javascript:setParam(50,50,100)">Determined</a>
-	  <a href="javascript:setParam(50,50,0)">Doubtful</a>
+	  <table>
+	    <tr>
+	      <td><a href="javascript:setParam(100,50,50)">Happy</a></td>
+	      <td><a href="javascript:setParam(50,100,50)">Surprised</a></td>
+	      <td><a href="javascript:setParam(50,50,100)">Determined</a></td>
+	    </tr>
+	    <tr>
+	      <td><a href="javascript:setParam(0,50,50)">Unhappy</a></td>
+	      <td><a href="javascript:setParam(50,0,50)">Drowsy</a></td>
+	      <td><a href="javascript:setParam(50,50,0)">Doubtful</a></td>
+	    </tr>
+	  </table>
 	</p>
 	<p>
-	  <a href="javascript:setParam(0,0,0)">Sad</a>
-	  <a href="javascript:setParam(0,0,100)">Grumpy</a>
-	  <a href="javascript:setParam(0,100,0)">Scared</a>
-	  <a href="javascript:setParam(100,100,100)">Excited</a>
-	  <a href="javascript:setParam(100,0,100)">Content</a>
-	  <a href="javascript:setParam(0,100,100)">Angry</a>
-	  <a href="javascript:setParam(100,100,0)">Embarrassed</a>
-	  <a href="javascript:setParam(100,0,0)">Sceptical</a>
+	  <table>
+	    <tr>
+	      <td><a href="javascript:setParam(100,100,50)">Excited</a></td>
+	      <td><a href="javascript:setParam(50,100,100)">Alerted</a></td>
+	      <td><a href="javascript:setParam(00,100,50)">Angry</a></td>
+	    </tr>
+	    <tr>
+	      <td><a href="javascript:setParam(100,50,100)">Anticipating</a></td>
+	      <td><a href="javascript:setParam(50,100,0)">Shocked</a></td>
+	      <td><a href="javascript:setParam(00,50,100)">Vengeful</a></td>
+	    </tr>
+	    <tr>
+	      <td><a href="javascript:setParam(100,50,0)">Dreaming</a></td>
+	      <td><a href="javascript:setParam(50,0,100)">Lurking</a></td>
+	      <td><a href="javascript:setParam(00,50,0)">Sad</a></td>
+	    </tr>
+	    <tr>
+	      <td><a href="javascript:setParam(100,0,50)">Content</a></td>
+	      <td><a href="javascript:setParam(50,0,0)">Exhausted</a></td>
+	      <td><a href="javascript:setParam(00,0,50)">Grumpy</a></td>
+	    </tr>
+	  </table>
 	</p>
       </div>
       <div id="animation">

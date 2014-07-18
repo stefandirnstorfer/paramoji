@@ -35,7 +35,6 @@ function drawEmoticon(v,a,p) {
     var sv= Math.abs(v-50)/50;
     var sa= Math.abs(a-50)/50;
     var sp= Math.abs(p-50)/50;
-    console.log(sv,sa,sp);
     $('#svg-frame').html(emoticon_svg_raw(function(x) {
       return x[0] + sv*(v>50 ? x[1] : x[2])
 	+ sa * (a>50 ? x[3] : x[4])
