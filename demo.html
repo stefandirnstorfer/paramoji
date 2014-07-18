@@ -1,0 +1,70 @@
+<html>
+<head> 
+  <meta content="text/html" charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="style.css"/>
+  <script src="http://localhost/jquery.js"></script>
+  <script src="gen/emoticon.js"></script>
+  <script src="action.js"></script>
+  <title>Emoticons</title>
+</head>
+<body>
+  <div id="frame">
+    <div id="emoticon">
+      <div id="svg-frame">
+      </div>
+    </div>
+    <div id="control">
+      <div id="dimensions">
+	<h1>Controls</h1>
+	<table id="sliders" width="100%">
+	  <tr>
+	    <td width="10em">Valence</td>
+	    <td>
+	      <input onchange="refresh()" style="width:90%;min:0;max:100;value:50" type="range" id="slider-valence" />
+	    </td>
+	    <td width="5em"><span id="label-valence">0</span></td>
+	  </tr>
+	  <tr>
+	    <td>Arousal</td>
+	    <td>
+	      <input onchange="refresh()" style="width:90%;min:0;max:100;value:50" type="range" id="slider-arousal" />
+	    </td>
+	    <td><span id="label-arousal">0</span></td>
+	  </tr>
+	  <tr>
+	    <td>Potency</td>
+	    <td>
+	      <input onchange="refresh()" style="width:90%;min:0;max:100;value:50" type="range" id="slider-potency" />
+	    </td>
+	    <td><span id="label-potency">0</span></td>
+	  </tr>
+	</table>
+      </div>
+      <div id="shortcuts">
+	<h1>Shortcuts</h1>
+	<p>
+	  <a href="javascript:setParam(50,50,50)">Normal</a>
+	</p>
+	<p>
+	  <a href="javascript:setParam(50,100,50)">Surprised</a>
+	  <a href="javascript:setParam(50,0,50)">Drowsy</a>
+	  <a href="javascript:setParam(100,50,50)">Happy</a>
+	  <a href="javascript:setParam(0,50,50)">Unhappy</a>
+	  <a href="javascript:setParam(50,50,100)">Determined</a>
+	  <a href="javascript:setParam(50,50,0)">Doubtful</a>
+	</p>
+	<p>
+	  <a href="javascript:setParam(0,0,0)">Sad</a>
+	  <a href="javascript:setParam(0,0,100)">Grumpy</a>
+	  <a href="javascript:setParam(0,100,0)">Scared</a>
+	  <a href="javascript:setParam(100,100,100)">Excited</a>
+	  <a href="javascript:setParam(100,0,100)">Content</a>
+	  <a href="javascript:setParam(0,100,100)">Angry</a>
+	  <a href="javascript:setParam(100,100,0)">Embarrassed</a>
+	  <a href="javascript:setParam(100,0,0)">Sceptical</a>
+	</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

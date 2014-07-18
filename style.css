@@ -1,0 +1,29 @@
+body,html {
+    margin: 0;
+    padding: 0;
+}
+
+div {
+    padding: 10px;
+    margin: 0;
+    overflow: hidden;
+}
+
+div#emoticon {
+    width: 60%;
+    flex-grow: 0;
+}
+
+div#frame {
+    border: 0;
+    width: 100hw;
+    height: 100vh;
+    padding:0px;
+    display:flex;
+    flex-direction:row;
+}
+
+div#control {
+    display: flex;
+    flex-direction: column;
+}

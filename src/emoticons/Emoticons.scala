@@ -5,6 +5,9 @@ import scala.xml.MetaData
 import scala.xml.UnprefixedAttribute
 import scala.xml.Null
 import scala.xml.Elem
+import java.io.BufferedWriter
+import java.io.FileWriter
+import java.io.PrintWriter
 
 class MatchException(msg : String, cause : Throwable) extends Exception(msg) {
 	def this(msg : String) = this(msg, null)
@@ -116,7 +119,7 @@ object EmoticonStructure {
 object Emoticons extends App {
 	def saveEmoticon(filename : String, param : MorphableParameter.ParameterSet) {
 		println("Creating: "+filename)
-		scala.xml.XML.save(filename, base.format(param))
+		//scala.xml.XML.save(filename, base.format(param))
 	}
 	
 	val base = EmoticonStructure.load("faces/face_000.svg")
@@ -231,5 +234,17 @@ object Emoticons extends App {
 	saveEmoticon("gen/face_-+-.svg", emoticon2(0,1,0))
 	saveEmoticon("gen/face_--+.svg", emoticon2(0,0,1))
 	saveEmoticon("gen/face_---.svg", emoticon2(0,0,0))
+
+	println("Writing Javascript code")
+	val out = new PrintWriter("gen/emoticon.js")
+	out.print("function emoticon_svg_raw(f) { return'")
+	val jsparam = JSParamFormatter.merge(
+	    List(shape_ooo, shape_poo, shape_moo, shape_opo, shape_omo, shape_oop, shape_oom,
+	        shape_ppo, shape_pmo, shape_pop, shape_pom, shape_mpo, shape_mmo, shape_mop, shape_mom, shape_opp, shape_omp, shape_opm, shape_omm)
+	    )
+	out.print(base.format(jsparam).toString)
+	out.println("'; }")
+	out.close()
+	
 }
 
