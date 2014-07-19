@@ -8,6 +8,7 @@ import scala.xml.Elem
 import java.io.BufferedWriter
 import java.io.FileWriter
 import java.io.PrintWriter
+import scala.xml.PrettyPrinter
 
 class MatchException(msg : String, cause : Throwable) extends Exception(msg) {
 	def this(msg : String) = this(msg, null)
@@ -120,7 +121,9 @@ object EmoticonStructure {
 object Emoticons extends App {
 	def saveEmoticon(filename : String, param : MorphableParameter.ParameterSet) {
 		println("Creating: "+filename)
-		scala.xml.XML.save(filename, base.format(param))
+		val out = new PrintWriter(filename)
+		out.write(new PrettyPrinter(100,2).formatNodes(base.format(param)))
+		out.close();
 	}
 	
 	val base = EmoticonStructure.load("faces/face_000.svg")
@@ -238,10 +241,10 @@ object Emoticons extends App {
 	println("Writing Javascript code")
 	val out = new PrintWriter("gen/emoticon.js")
 	out.print("function emoticon_svg_raw(f) { return'")
-	val jsparam = JSParamFormatter.merge(
-	    List(shape_ooo, shape_poo, shape_moo, shape_opo, shape_omo, shape_oop, shape_oom,
+	val paramSets = List(shape_ooo, shape_poo, shape_moo, shape_opo, shape_omo, shape_oop, shape_oom,
 	        shape_ppo, shape_pmo, shape_pop, shape_pom, shape_mpo, shape_mmo, shape_mop, shape_mom, shape_opp, shape_omp, shape_opm, shape_omm)
-	    )
+	val shape0 = MorphableParameter.morph(1,-1,shape_ooo,shape_ooo)
+	val jsparam = JSParamFormatter.merge(paramSets.map {MorphableParameter.morph(0,1,shape0,_)})
 	out.print(base.format(jsparam).toString)
 	out.println("'; }")
 	out.close()
