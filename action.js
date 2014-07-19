@@ -54,16 +54,20 @@ function drawEmoticon(v,a,p) {
 var oldtime = undefined;
 function animate(dv, da, dp) {
     var now = new Date().getTime();
-    var dt = (now - (oldtime || now));
+    var speed = parseFloat($('#slider-speed').val());
+    var dt = (now - (oldtime || now)) * speed/100;
     if ($('#animate').is(':checked')) {
 	oldtime = now;
 	var decay = 0.1;
 	dv = decay * (Math.random()-.5) * Math.sqrt(dt) + (1-decay) * dv;
 	da = decay * (Math.random()-.5) * Math.sqrt(dt) + (1-decay) * da;
 	dp = decay * (Math.random()-.5) * Math.sqrt(dt) + (1-decay) * dp;
-	window.requestAnimationFrame(function() { animate(dv, da, dp); });
+	if ($('#fix-v').is(':checked')) dv = 0;
+	if ($('#fix-a').is(':checked')) da = 0;
+	if ($('#fix-p').is(':checked')) dp = 0;
 	var map = function(x) { return x>100 ? 100 : (x<0 ? 0 : x); }
-	setParam(map(v+dv),map(a+da),map(p+dp));
+	setParam(map(v+dv*dt),map(a+da*dt),map(p+dp*dt));
+	window.requestAnimationFrame(function() { animate(dv, da, dp); });
     } else {
 	oldtime = undefined;
     }
