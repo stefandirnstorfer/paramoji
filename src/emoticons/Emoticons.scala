@@ -147,7 +147,6 @@ object Emoticons extends App {
 						if (p>0.5) shape_oop else shape_oom)
 		param3
 	}
-
 	saveEmoticon("gen/face_0+0.svg", emoticon(.5,1,.5))
 	saveEmoticon("gen/face_0-0.svg", emoticon(.5,0,.5))
 	saveEmoticon("gen/face_+00.svg", emoticon(1,.5,.5))

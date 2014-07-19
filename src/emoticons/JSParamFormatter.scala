@@ -6,7 +6,7 @@ class JSParam(params : List[Param]) extends Param {
     params.head match {
       case _ : ColorParam => params(0).toString
       case _ : NumberParam => 
-        if (params.tail.exists(_.asInstanceOf[NumberParam].value != 0))
+        if (params.tail.exists( _.asInstanceOf[NumberParam].value.abs > 0.01))
         	"'+f(["+params.map{_.toString}.mkString(",")+"])+'";
         else
           params(0).toString

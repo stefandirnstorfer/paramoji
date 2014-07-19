@@ -37,10 +37,10 @@ object MorphableParameter {
 	}
 
 	def morph(left: Double, right:Double, shape1: ParameterSet, shape2: ParameterSet) : Map[String,List[Param]] = {
-		Map((shape1.keys.toList ++ shape2.keys.toList).map { key =>
+		Map((shape1.keys.toList ++ shape2.keys.toList).removeDuplicates.map { key =>
 		  (shape1.get(key), shape2.get(key)) match {
-		    case (Some(a), None) => (key -> a)
-		    case (None, Some(b)) => (key -> b)
+		    case (Some(a), None) => (key -> morph(left, right, a, a))
+		    case (None, Some(b)) => (key -> morph(left, right, b, b))
 		    case (Some(a), Some(b)) => (key -> morph(left, right, a, b))
 		    case (None, None) => (key -> List())
 		  }
