@@ -10,7 +10,7 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    height="100%"
    width="100%"
-   sodipodi:docname="face_-+0_base.svg"
+   sodipodi:docname="face_-+0.svg"
    inkscape:version="0.48.4 r9939"
    id="emoticon-front-view"
    viewBox="0 0 250 250"
@@ -23,7 +23,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -141,9 +141,9 @@
      style="stroke-width:4.36;stroke-miterlimit:4;stroke-dasharray:none"
      id="left-eye">
     <path
-       d="M 320.75,397.55 C 383.63,482.02 387.49,587.76 285.90,651.62 226.47,744.89 134.95,726.73 98.13,658.35 7.66,558.45 -1.20,447.18 46.75,385.63 100.89,375.35 223.60,359.81 320.75,397.55 Z"
-       style="fill:#ffffff;stroke:#000000;stroke-width:6.14;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       sodipodi:nodetypes="ccccc"
+       d="m 320.75,397.55 c 62.88,84.47 10.32267,211.27651 -38.98907,249.93093 C 232.44919,686.13535 148.63297,686.67218 83.643245,643.86325 18.653523,601.05432 -1.2,447.18 46.75,385.63 c 54.14,-10.28 176.85,-25.82 274,11.92 z"
+       style="fill:#ffffff;stroke:#000000;stroke-width:6.13999987;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       sodipodi:nodetypes="czzcc"
        inkscape:connector-curvature="0"
        id="path3622" />
     <g
@@ -170,8 +170,8 @@
            id="glare" />
       </g>
       <path
-         style="opacity:0.24;fill:#000000;stroke:#000000;stroke-width:1.00px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         d="M -51.39,603.84 -118.80,355.83 226.66,230.15 269.85,341.17 C 269.85,341.17 118.84,324.91 23.83,392.01 -83.63,467.89 -51.39,603.84 -51.39,603.84 Z"
+         style="opacity:0.23999999;fill:#000000;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M -51.39,603.84 -118.8,355.83 226.66,230.15 288.47583,386.6998 c 0,0 -169.63583,-61.7898 -264.64583,5.3102 -107.46,75.88 -75.22,211.83 -75.22,211.83 z"
          sodipodi:nodetypes="ccccsc"
          inkscape:connector-curvature="0"
          id="left-lid-shadow" />
@@ -202,17 +202,17 @@
          x="0"
          id="right-lens" />
       <path
-         style="opacity:0.24;fill:#000000;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-         d="M 544.62,581.57 504.11,366.68 777.13,253.41 938.41,436.09 C 938.41,436.09 833.01,327.62 704.75,385.30 576.49,442.96 544.20,565.90 544.62,581.57 Z"
+         style="opacity:0.23999999;fill:#000000;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="M 544.62,581.57 504.11,366.68 777.13,253.41 938.41,436.09 c 0,0 -99.19139,-73.28788 -233.66,-50.79 C 570.28139,407.79788 544.2,565.9 544.62,581.57 z"
          sodipodi:nodetypes="cccczc"
          inkscape:connector-curvature="0"
          id="right-lid-shadow" />
     </g>
   </g>
   <path
-     d="M 107.14,82.19 106.26,82.34 C 94.97,79.94 85.36,81.46 72.89,85.13 60.74,86.58 56.94,92.20 55.46,92.94 L 52.37,90.50 C 53.99,79.59 61.29,75.15 74.22,74.00 82.49,74.03 86.85,81.12 100.94,81.12 Z"
+     d="m 109.78901,91.461523 -0.88,0.15 C 97.619006,89.211523 87.229985,87.527898 74.54563,87.447882 61.861274,87.367865 57.933377,92.2 56.453377,92.94 L 52.701126,90.5 c 1.62,-10.91 9.548538,-12.490839 21.518874,-12.195364 11.970336,0.295475 16.712643,7.560259 33.01139,9.769006 z"
      style="fill:#292929;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-     sodipodi:nodetypes="ccccccc"
+     sodipodi:nodetypes="cczcczcc"
      inkscape:connector-curvature="0"
      id="left-eye-brow" />
   <g
@@ -232,7 +232,7 @@
      inkscape:connector-curvature="0"
      id="mouth-path" />
   <use
-     transform="matrix(-1,0.01,0.01,1,244.58,-0.53)"
+     transform="matrix(-1,0.01,0.01,1,244.55351,-0.53000002)"
      xlink:href="#left-eye-brow"
      height="250"
      width="250"

@@ -46,7 +46,7 @@
      inkscape:cx="125"
      inkscape:cy="125"
      inkscape:window-x="1985"
-     inkscape:window-y="42"
+     inkscape:window-y="41"
      inkscape:window-maximized="0"
      inkscape:current-layer="emoticon-front-view"
      showguides="true"
@@ -58,9 +58,17 @@
        position="129.80132,233.11258"
        id="guide3013" />
     <sodipodi:guide
+       orientation="1,0"
+       position="96.02649,131.45695"
+       id="guide3016" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="159.27152,225.16556"
+       id="guide3018" />
+    <sodipodi:guide
        orientation="0,1"
-       position="6.2913907,118.21192"
-       id="guide3015" />
+       position="187.08609,126.82119"
+       id="guide3020" />
   </sodipodi:namedview>
   <defs
      id="defs4">
