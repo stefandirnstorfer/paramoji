@@ -18,9 +18,15 @@ object JSParamFormatter {
 	def merge(paramSets : List[Map[String, List[Param]]]) : Map[String, List[Param]] = {
 	  Map(paramSets(0).keys.map {
 	    case key =>
+	      if (paramSets.exists(_.get(key).isEmpty)) {
+	        println("Incomplete definition of #"+key)
+	        ( key -> paramSets(0)(key) )
+	      }
+	      else {
 	      	val iters = paramSets.map ( _(key).iterator )
 	      	val length = paramSets(0)(key).length
 	    	key -> { for(i <- 1 to length) yield new JSParam(iters.map( _.next )) }.toList
+	      }
 	  }.toList:_*)
 	}	
 }

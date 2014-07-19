@@ -243,8 +243,7 @@ object Emoticons extends App {
 	out.print("function emoticon_svg_raw(f) { return'")
 	val paramSets = List(shape_ooo, shape_poo, shape_moo, shape_opo, shape_omo, shape_oop, shape_oom,
 	        shape_ppo, shape_pmo, shape_pop, shape_pom, shape_mpo, shape_mmo, shape_mop, shape_mom, shape_opp, shape_omp, shape_opm, shape_omm)
-	val shape0 = MorphableParameter.morph(1,-1,shape_ooo,shape_ooo)
-	val jsparam = JSParamFormatter.merge(paramSets.map {MorphableParameter.morph(0,1,shape0,_)})
+	val jsparam = JSParamFormatter.merge(paramSets)
 	out.print(base.format(jsparam).toString)
 	out.println("'; }")
 	out.close()
