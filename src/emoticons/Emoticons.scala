@@ -120,7 +120,7 @@ object EmoticonStructure {
 object Emoticons extends App {
 	def saveEmoticon(filename : String, param : MorphableParameter.ParameterSet) {
 		println("Creating: "+filename)
-		//scala.xml.XML.save(filename, base.format(param))
+		scala.xml.XML.save(filename, base.format(param))
 	}
 	
 	val base = EmoticonStructure.load("faces/face_000.svg")
