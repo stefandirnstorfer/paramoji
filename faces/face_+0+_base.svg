@@ -10,7 +10,7 @@ height="100%" width="100%" sodipodi:docname="face_000.svg" inkscape:version="0.4
     </rdf:RDF>
   </metadata>
   <sodipodi:namedview 
-  inkscape:snap-global="false" inkscape:snap-nodes="false" inkscape:guide-bbox="true" showguides="true" inkscape:current-layer="mouth-interior" inkscape:window-maximized="0" inkscape:window-y="39" inkscape:window-x="1985" inkscape:cy="125" inkscape:cx="125" inkscape:zoom="3.02" showgrid="false" id="namedview3097" inkscape:window-height="882" inkscape:window-width="1528" inkscape:pageshadow="2" inkscape:pageopacity="0" guidetolerance="10" gridtolerance="10" objecttolerance="10" borderopacity="1" bordercolor="#666666" pagecolor="#ffffff" inkscape:snap-bbox="false">
+  inkscape:snap-global="false" inkscape:snap-nodes="false" inkscape:guide-bbox="true" showguides="true" inkscape:current-layer="emoticon-front-view" inkscape:window-maximized="0" inkscape:window-y="39" inkscape:window-x="1985" inkscape:cy="125" inkscape:cx="125" inkscape:zoom="3.02" showgrid="false" id="namedview3097" inkscape:window-height="882" inkscape:window-width="1528" inkscape:pageshadow="2" inkscape:pageopacity="0" guidetolerance="10" gridtolerance="10" objecttolerance="10" borderopacity="1" bordercolor="#666666" pagecolor="#ffffff" inkscape:snap-bbox="false">
     <sodipodi:guide id="guide3013" position="129.80132,233.11258" orientation="1,0"/>
     <sodipodi:guide id="guide3016" position="96.02649,131.45695" orientation="1,0"/>
     <sodipodi:guide id="guide3018" position="159.27152,225.16556" orientation="1,0"/>
@@ -105,9 +105,9 @@ height="100%" width="100%" sodipodi:docname="face_000.svg" inkscape:version="0.4
       style="fill:#000000;fill-opacity:1;stroke:none" id="mouth-background" width="145.36424" height="66.55629" x="52.649006" y="159.93378">
 </rect>
       <path 
-      d="M 98.34,211.42152 C 98.008874,191.1245 114.23,189.74 130.46,189.07 c 17.55,-0.71 31.46325,4.04351 31.46,22.35152 -21.19,0 -42.38,0 -63.58,0 z" style="fill:#800f08;fill-opacity:1;stroke:none" id="tongue" inkscape:connector-curvature="0" sodipodi:nodetypes="cscc">
+      d="M 98.34,211.42 C 98.01,191.12 114.23,189.74 130.46,189.07 148.01,188.36 161.92,193.11 161.92,211.42 140.73,211.42 119.54,211.42 98.34,211.42 Z" style="fill:#800f08;fill-opacity:1;stroke:none" id="tongue" inkscape:connector-curvature="0" sodipodi:nodetypes="cscc">
 </path>
-      <g transform="translate(4,-1.01)" style="stroke:#000000;stroke-opacity:1" id="upper-teeth">
+      <g style="stroke:#000000;stroke-opacity:1" transform="translate(4,-2.30)" id="upper-teeth">
         <rect 
         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" rx="1.3245033" ry="1.3245033" y="172.09084" x="94.352112" height="15.123333" width="10.2649" id="tooth-02">
 </rect>
@@ -124,7 +124,7 @@ height="100%" width="100%" sodipodi:docname="face_000.svg" inkscape:version="0.4
         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" rx="1.3245033" ry="1.3245033" y="172.09084" x="142.35211" height="15.123333" width="10.2649" id="tooth-06">
 </rect>
       </g>
-      <g transform="translate(4,22)" style="stroke:#000000;stroke-opacity:1" id="lower-teeth">
+      <g style="stroke:#000000;stroke-opacity:1" transform="translate(4,22)" id="lower-teeth">
         <rect 
         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" id="tooth-09" width="10.2649" height="15.123333" x="94.352112" y="172.09084" ry="1.3245033" rx="1.3245033">
 </rect>
@@ -143,7 +143,7 @@ height="100%" width="100%" sodipodi:docname="face_000.svg" inkscape:version="0.4
       </g>
     </g>
     <path 
-    d="M 177.12,176.45 C 178.58,179.45 173.75,188.48 163.51,191.95 153.26,195.43 149.56,197.00 129.88,197.35 112.18,197.67 105.08,194.87 93.88,192.10 83.72,189.69 75.09,178.05 76.03,176.23 80.61,179.60 83.97,182.18 91.22,183.28 100.90,185.22 111.81,186.31 127.98,186.17 144.90,186.01 153.08,185.71 163.75,183.02 170.61,180.51 173.86,179.56 177.12,176.45 Z" style="fill:none;stroke:#000000;stroke-width:1px;stroke-miterlimit:4;stroke-opacity:1" sodipodi:nodetypes="czzzczzzcc" inkscape:connector-curvature="0" id="mouth-outline">
+    d="M 177.12,176.45 C 178.58,179.45 173.75,187.47 163.51,190.94 153.26,194.42 151.41,195.15 130.22,195.33 109.02,195.51 105.42,193.02 94.22,190.25 84.06,187.84 75.09,178.05 76.03,176.23 80.61,179.60 83.14,180.51 93.57,181.60 103.60,182.72 112.15,183.82 128.32,183.68 145.24,183.52 152.14,184.54 162.81,181.85 169.67,179.34 173.86,179.56 177.12,176.45 Z" style="fill:none;stroke:#000000;stroke-width:1px;stroke-miterlimit:4;stroke-opacity:1" sodipodi:nodetypes="czzzczzzcc" inkscape:connector-curvature="0" id="mouth-outline">
 </path>
   </g>
 </svg>
