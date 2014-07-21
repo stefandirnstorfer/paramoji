@@ -142,13 +142,14 @@ object Emoticons extends App {
 		val sv = Math.abs(1-2*v)
 		val sa = Math.abs(1-2*a)
 		val sp = Math.abs(1-2*p)
-		val param1 = MorphableParameter.morph(1, sv, shape_ooo, 
+		var param = shape_ooo
+		param = MorphableParameter.morph(1, sv, param,
 						if (v>0.5) shape_poo else shape_moo)
-		val param2 = MorphableParameter.morph(1, sa, param1,
+		param = MorphableParameter.morph(1, sa, param,
 						if (a>0.5) shape_opo else shape_omo)
-		val param3 = MorphableParameter.morph(1, sp, param2,
+		param = MorphableParameter.morph(1, sp, param,
 						if (p>0.5) shape_oop else shape_oom)
-		param3
+		param
 	}
 	saveEmoticon("gen/face_0+0.svg", emoticon(.5,1,.5))
 	saveEmoticon("gen/face_0-0.svg", emoticon(.5,0,.5))
@@ -240,7 +241,7 @@ object Emoticons extends App {
 
 	println("Writing Javascript code")
 	val out = new PrintWriter("gen/emoticon.js")
-	out.print("function emoticon_svg_raw(f) { return'")
+	out.print("function emoticon_svg_raw(f) { return '")
 	val paramSets = List(shape_ooo, shape_poo, shape_moo, shape_opo, shape_omo, shape_oop, shape_oom,
 	        shape_ppo, shape_pmo, shape_pop, shape_pom, shape_mpo, shape_mmo, shape_mop, shape_mom, shape_opp, shape_omp, shape_opm, shape_omm)
 	val jsparam = JSParamFormatter.merge(paramSets)
