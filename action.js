@@ -1,28 +1,28 @@
-var v = 50;
-var a = 50;
-var p = 50;
+var v, a, p;
 $(function() {
-    redraw();
+    setParam(50, 50, 50);
 });
 
 function refresh() {
     v = parseFloat($('#slider-valence').val());
     a = parseFloat($('#slider-arousal').val());
     p = parseFloat($('#slider-potency').val());
-    redraw();
+    setParam(v, a, p);
 }
 
-function setParam(new_v, new_a, new_p) {
-    v = new_v;
-    a = new_a;
-    p = new_p;
-    redraw();
-}
-
-function redraw() {
-    $('#slider-valence').val(v);
-    $('#slider-arousal').val(a);
-    $('#slider-potency').val(p);
+function setParam(new_v, new_a, new_p, isanimated) {
+    if (!isanimated || !$('#fix-v').is(':checked')) {
+	v = new_v;
+	$('#slider-valence').val(v);
+    }
+    if (!isanimated || !$('#fix-a').is(':checked')) {
+	a = new_a;
+	$('#slider-arousal').val(a);
+    }
+    if (!isanimated || !$('#fix-p').is(':checked')) {
+	p = new_p;
+	$('#slider-potency').val(p);
+    }
 
     $('#label-valence').text(v.toFixed());
     $('#label-arousal').text(a.toFixed());
@@ -62,11 +62,8 @@ function animate(dv, da, dp) {
 	dv = decay * (Math.random()-.5) * Math.sqrt(dt) + (1-decay) * dv;
 	da = decay * (Math.random()-.5) * Math.sqrt(dt) + (1-decay) * da;
 	dp = decay * (Math.random()-.5) * Math.sqrt(dt) + (1-decay) * dp;
-	if ($('#fix-v').is(':checked')) dv = 0;
-	if ($('#fix-a').is(':checked')) da = 0;
-	if ($('#fix-p').is(':checked')) dp = 0;
 	var map = function(x) { return x>100 ? 100 : (x<0 ? 0 : x); }
-	setParam(map(v+dv*dt),map(a+da*dt),map(p+dp*dt));
+	setParam(map(v+dv*dt),map(a+da*dt),map(p+dp*dt), true);
 	window.requestAnimationFrame(function() { animate(dv, da, dp); });
     } else {
 	oldtime = undefined;
