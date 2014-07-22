@@ -102,7 +102,7 @@ height="100%" width="100%" sodipodi:docname="face_000.svg" inkscape:version="0.4
   <g id="mouth">
     <g clip-path="url(#clipPath-mouth)" id="mouth-interior">
       <rect 
-      id="mouth-background" width="119.94381" height="66.55629" x="68.159775" y="159.93378" style="fill:#000000;fill-opacity:1;stroke:none">
+      style="fill:#000000;fill-opacity:1;stroke:none" id="mouth-background" width="119.94381" height="66.55629" x="68.159775" y="159.93378">
 </rect>
       <path 
       d="M 98.34,211.42 C 98.01,191.12 114.23,189.74 130.46,189.07 148.01,188.36 161.92,193.11 161.92,211.42 140.73,211.42 119.54,211.42 98.34,211.42 Z" style="fill:#800f08;fill-opacity:1;stroke:none" id="tongue" inkscape:connector-curvature="0" sodipodi:nodetypes="cscc">
