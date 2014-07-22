@@ -1,6 +1,16 @@
 var v, a, p;
 $(function() {
     setParam(50, 50, 50);
+    var toosmall = $('#control > div')
+	.is(function(i, elt) { return elt.offsetHeight < elt.scrollHeight; })
+    if (toosmall) {
+	$('#control h1:not(:first)').addClass('inactive');
+	$('#control h1').addClass('clickable');
+	$('#control h1').click(function(evt) {
+	    $('#control h1').addClass('inactive');
+	    $(evt.target).removeClass('inactive');
+	})
+    }
 });
 
 function refresh() {
@@ -47,7 +57,14 @@ function drawEmoticon(v,a,p) {
 		   (p > 50 ? x[13] : x[14]))
 	+ sa*sp * (a > 50 ?
 		   (p > 50 ? x[15] : x[17]) :
-		   (p > 50 ? x[16] : x[18]));
+		   (p > 50 ? x[16] : x[18]))
+	+ sv*sa*sp * (v > 50 ?
+		      (a > 50 ?
+		       (p > 50 ? x[19] : x[20]) :
+		       (p > 50 ? x[21] : x[22])) :
+		      (a > 50 ?
+		       (p > 50 ? x[23] : x[24]) :
+		       (p > 50 ? x[25] : x[26])))
     }));
 }
 

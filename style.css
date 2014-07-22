@@ -4,6 +4,18 @@ body,html {
     font-family: Arial;
 }
 
+h1 {
+    margin: 0 0 10px 0;
+}
+
+h1.clickable:not(.inactive) {
+    text-decoration : underline;
+}
+
+h1.inactive ~ * {
+    display : none;
+}
+
 div {
     padding: 10px;
     margin: 0;
