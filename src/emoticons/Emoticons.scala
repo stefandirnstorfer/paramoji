@@ -252,9 +252,9 @@ object Emoticons extends App {
 	val shape_mpm = base.getParametersFromFile("faces/face_-+-.svg", "faces/face_base-2_-+-.svg")
 	val shape_mmm = base.getParametersFromFile("faces/face_---.svg", "faces/face_base-2_---.svg")
 
-		def emoticon3(v: Double, a: Double, p: Double) = {
-  		val s = Math.abs(1-2*v) * Math.abs(1-2*a) * Math.abs(1-2*p)
-		var param = emoticon(v, a, p)
+	def emoticon3(v: Double, a: Double, p: Double) = {
+		val s = Math.abs(1-2*v) * Math.abs(1-2*a) * Math.abs(1-2*p)
+		var param = emoticon2(v, a, p)
 		if (v > .5 && a > .5 && p >.5)
 			param = MorphableParameter.morph(1, s, param, shape_ppp)
 		if (v > .5 && a > .5 && p <.5)
@@ -273,13 +273,7 @@ object Emoticons extends App {
 			param = MorphableParameter.morph(1, s, param, shape_mmm)
 		param
 	}
-	
-	/*
-	println(base.getParametersFromFile("faces/face_--+.svg")("mouth-outline"))
-	println(base.getParametersFromFile("faces/face_base-2_--+.svg")("mouth-outline"))
-	println(shape_mmp("mouth-outline"))
-	System.exit(0)
-	*/
+
 	saveEmoticon("gen/face_+++.svg", emoticon3(1,1,1))
 	saveEmoticon("gen/face_++-.svg", emoticon3(1,1,0))
 	saveEmoticon("gen/face_+-+.svg", emoticon3(1,0,1))
