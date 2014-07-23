@@ -139,15 +139,15 @@ version="1.1" viewBox="0 0 250 250" id="emoticon-front-view" inkscape:version="0
       </g>
     </g>
     <path 
-    d="M 180.42,198.04 C 177.20,201.96 176.66,202.60 167.39,201.70 158.12,200.80 145.69,203.30 129.26,203.56 112.84,203.82 100.12,202.32 94.20,202.12 88.28,201.93 85.23,202.10 81.62,200.05 77.60,191.54 81.68,180.74 87.73,179.44 95.07,178.61 102.00,178.16 127.90,178.17 154.32,178.17 168.16,180.90 174.74,179.55 186.18,179.15 183.15,188.83 180.42,198.04 Z" style="fill:none;stroke:#000000;stroke-width:1px;stroke-miterlimit:4;stroke-opacity:1" id="mouth-outline" inkscape:connector-curvature="0" sodipodi:nodetypes="czzzczzzcc">
+    d="M 177.73,198.31 C 174.51,202.23 174.51,201.79 167.39,201.70 160.28,201.61 145.69,203.30 129.26,203.56 112.84,203.82 100.12,202.32 94.20,202.12 88.28,201.93 85.23,202.10 81.62,200.05 77.60,191.54 81.68,180.74 87.73,179.44 95.07,178.61 102.00,178.16 127.90,178.17 154.32,178.17 165.47,181.17 172.05,179.82 183.49,179.42 180.46,189.10 177.73,198.31 Z" style="fill:none;stroke:#000000;stroke-width:1px;stroke-miterlimit:4;stroke-opacity:1" id="mouth-outline" inkscape:connector-curvature="0" sodipodi:nodetypes="czzzczzzcc">
 </path>
   </g>
   <g style="stroke-width:2;stroke-miterlimit:16;stroke-dasharray:none" id="wrinkles">
     <path 
-    d="M 82.88,64.58 C 89.68,62.55 98.78,71.01 101.45,79.11" style="fill:none;stroke:#000000;stroke-width:0.50;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" sodipodi:nodetypes="cc" id="wrinkle-left-brow" inkscape:connector-curvature="0">
+    d="M 97.95,67.54 C 102.87,62.56 107.11,57.83 109.25,57.86" style="fill:none;stroke:#000000;stroke-width:0.50;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" sodipodi:nodetypes="cc" id="wrinkle-left-brow" inkscape:connector-curvature="0">
 </path>
     <path 
-    d="M 70.77,205.60 C 68.06,190.93 90.59,178.78 91.76,173.85" style="fill:none;stroke:#000000;stroke-width:0.50;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" sodipodi:nodetypes="cc" id="wrinkle-left-cheek" inkscape:connector-curvature="0">
+    d="M 71.31,200.22 C 65.37,171.28 92.21,159.13 106.57,153.67" style="fill:none;stroke:#000000;stroke-width:0.50;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" sodipodi:nodetypes="cc" id="wrinkle-left-cheek" inkscape:connector-curvature="0">
 </path>
     <use 
     transform="matrix(-1,0,0,1,257.85,0)" style="stroke-width:0.50;stroke-miterlimit:4;stroke-dasharray:none" height="250" width="250" id="wrinkle-right-brow" xlink:href="#wrinkle-left-brow" y="0" x="0">

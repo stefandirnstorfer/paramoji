@@ -7,7 +7,7 @@ import scala.xml._
 
 object SVGUtil {
 
-  def format(value : Double) = "%1.2f".format(value)
+  def format(value : Double) = "%1.3f".format(value)
 
   def hexParser(value : CharSequence):Int = {
     def hexDigitParser(value : Char):Int = {

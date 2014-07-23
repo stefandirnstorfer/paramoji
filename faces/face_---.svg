@@ -224,7 +224,7 @@
      id="nose">
     <path
        style="fill:#1a1a1a;stroke:#000000;stroke-width:0.94;stroke-miterlimit:4;stroke-dasharray:none"
-       d="m 113.53,159.89 c 0.83,5.48 0.64112,8.62911 3.3,12.18 2.65888,3.55089 7.26629,8.23447 12.55629,8.26447 5.3,0.02 14.39371,-7.15447 12.64371,-14.47447 -1.72,-7.33 -3.55592,-6.02873 -8.84,-21.66 5.83,19.44 13.48,14.64 14.13,22.59 0.66,7.95 -3.81,5.26 -7.64,8.58 -3.8,3.33 -3.71,5.56 -10.06,5.37 -6.36,-0.19 -7.77,-1.73 -9.71,-4.15 -1.94,-2.42 -3.39,-4.29 -6.3,-4.62 -2.93,-0.31 -4.58,-4.61 -0.08,-12.08 z"
+       d="M 113.53,159.89 C 114.36,165.37 114.17,168.52 116.83,172.07 119.49,175.62 124.10,180.30 129.39,180.33 134.69,180.35 143.78,173.18 142.03,165.86 140.31,158.53 138.47,159.83 133.19,144.20 139.02,163.64 146.67,158.84 147.32,166.79 147.98,174.74 143.51,172.05 139.68,175.37 135.88,178.70 135.97,180.93 129.62,180.74 123.26,180.55 121.85,179.01 119.91,176.59 117.97,174.17 116.52,172.30 113.61,171.97 110.68,171.66 109.03,167.36 113.53,159.89 Z"
        sodipodi:nodetypes="czzzczzzzzc"
        inkscape:connector-curvature="0"
        id="nose-outline" />
@@ -363,10 +363,44 @@
       </g>
     </g>
     <path
-       d="m 157.48433,204.12375 c -1.52747,0.44681 -7.19234,-1.89 -12.48234,-1.92268 -5.29,-0.0327 -11.19536,-0.61282 -16.46199,-0.77107 -5.26663,-0.15825 -7.28701,-0.0661 -13.04433,0.7166 -5.75732,0.78268 -8.19625,2.01358 -11.57625,2.92358 -0.42536,-6.4009 3.17196,-6.38894 8.68196,-6.83894 2.3,-0.69 11.55876,-0.53124 16.58862,-0.52124 5.02986,0.01 14.28182,-0.24893 19.70433,0.28303 5.42251,0.53196 8.83172,1.79457 8.59,6.13072 z"
+       d="m 154.79,204.39 c -1.52,0.45 -5.84268,-1.89357 -9.79,-2.19 -3.94732,-0.29643 -11.19,-0.61 -16.46,-0.77 -5.27,-0.16 -7.29,-0.07 -13.04,0.72 -5.76,0.78 -8.2,2.01 -11.58,2.92 -0.43,-6.4 3.17,-6.39 8.68,-6.84 2.3,-0.69 11.56,-0.53 16.59,-0.52 5.03,0.01 11.59,0.02 17.01,0.55 5.43,0.53 8.84,1.8 8.59,6.13 z"
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-miterlimit:4;stroke-opacity:1"
-       sodipodi:nodetypes="czzzczzcc"
+       sodipodi:nodetypes="czzzczzzc"
        inkscape:connector-curvature="0"
        id="mouth-outline" />
+  </g>
+  <g
+     style="stroke-width:2;stroke-miterlimit:16;stroke-dasharray:none"
+     id="wrinkles">
+    <path
+       d="m 101.72,115.98 c 2.57,-1.48 6.82464,-2.18643 7.79464,2.42357"
+       style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:connector-curvature="0"
+       id="wrinkle-left-brow"
+       sodipodi:nodetypes="cc" />
+    <path
+       d="M 92.839968,210.17213 C 92.635329,194.60302 99.64732,182.58856 106.02643,175.1932"
+       style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:connector-curvature="0"
+       id="wrinkle-left-cheek"
+       sodipodi:nodetypes="cc" />
+    <use
+       transform="matrix(-1,0,0,1,253.85,0)"
+       style="stroke-width:0.50;stroke-miterlimit:4;stroke-dasharray:none"
+       x="0"
+       y="0"
+       xlink:href="#wrinkle-left-brow"
+       id="wrinkle-right-brow"
+       width="250"
+       height="250" />
+    <use
+       transform="matrix(-1,0,0,1,257.85,0)"
+       style="stroke-width:0.50;stroke-miterlimit:4;stroke-dasharray:none"
+       x="0"
+       y="0"
+       xlink:href="#wrinkle-left-cheek"
+       id="wrinkle-right-cheek"
+       width="250"
+       height="250" />
   </g>
 </svg>

@@ -71,16 +71,20 @@ function drawEmoticon(v,a,p) {
 var oldtime = undefined;
 function animate(dv, da, dp) {
     var now = new Date().getTime();
+    if (!oldtime) oldtime = now;
     var speed = parseFloat($('#slider-speed').val());
-    var dt = (now - (oldtime || now)) * speed/100;
+    var dt = (now - oldtime) * speed/100;
+    console.log(dt);
     if ($('#animate').is(':checked')) {
-	oldtime = now;
-	var decay = 0.1;
-	dv = decay * (Math.random()-.5) * Math.sqrt(dt) + (1-decay) * dv;
-	da = decay * (Math.random()-.5) * Math.sqrt(dt) + (1-decay) * da;
-	dp = decay * (Math.random()-.5) * Math.sqrt(dt) + (1-decay) * dp;
-	var map = function(x) { return x>100 ? 100 : (x<0 ? 0 : x); }
-	setParam(map(v+dv*dt),map(a+da*dt),map(p+dp*dt), true);
+	if (dt > 5) {
+	    oldtime = now;
+	    var decay = 0.1;
+	    dv = decay * (Math.random()-.5) * Math.sqrt(dt) + (1-decay) * dv;
+	    da = decay * (Math.random()-.5) * Math.sqrt(dt) + (1-decay) * da;
+	    dp = decay * (Math.random()-.5) * Math.sqrt(dt) + (1-decay) * dp;
+	    var map = function(x) { return x>100 ? 100 : (x<0 ? 0 : x); }
+	    setParam(map(v+dv*dt),map(a+da*dt),map(p+dp*dt), true);
+	}
 	window.requestAnimationFrame(function() { animate(dv, da, dp); });
     } else {
 	oldtime = undefined;

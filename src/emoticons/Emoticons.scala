@@ -255,7 +255,7 @@ object Emoticons extends App {
 	val shape_mpm = base.getParametersFromFile("faces/face_-+-.svg", "faces/face_base-2_-+-.svg")
 	val shape_mmm = base.getParametersFromFile("faces/face_---.svg", "faces/face_base-2_---.svg")
 
-	val fixattr2 = List("wrinkle-left-brow", "wrinkle-left-cheek", "wrinkle-right-brow", "wrinkle-right-cheek")
+	val fixattr2 = List[String]()
 	def emoticon3(v: Double, a: Double, p: Double) = {
 		val s = Math.abs(1-2*v) * Math.abs(1-2*a) * Math.abs(1-2*p)
 		var param = emoticon2(v, a, p)
