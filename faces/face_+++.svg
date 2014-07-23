@@ -32,7 +32,7 @@
      inkscape:snap-nodes="false"
      inkscape:guide-bbox="true"
      showguides="true"
-     inkscape:current-layer="emoticon-front-view"
+     inkscape:current-layer="wrinkles"
      inkscape:window-maximized="1"
      inkscape:window-y="24"
      inkscape:window-x="1985"
@@ -373,7 +373,7 @@
      style="stroke-width:6;stroke-miterlimit:48;stroke-dasharray:none"
      id="wrinkles">
     <path
-       d="m 121.62375,73.195016 c 1.04608,10.490517 1.45233,16.131238 -0.24856,23.688213"
+       d="m 122.43107,81.53732 c 0.50787,8.156564 -0.16231,13.978385 -1.59409,18.306081"
        style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        inkscape:connector-curvature="0"
        id="wrinkle-left-brow"
