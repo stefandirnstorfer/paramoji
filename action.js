@@ -74,7 +74,6 @@ function animate(dv, da, dp) {
     if (!oldtime) oldtime = now;
     var speed = parseFloat($('#slider-speed').val());
     var dt = (now - oldtime) * speed/100;
-    console.log(dt);
     if ($('#animate').is(':checked')) {
 	if (dt > 5) {
 	    oldtime = now;
