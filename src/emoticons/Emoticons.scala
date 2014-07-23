@@ -274,6 +274,12 @@ object Emoticons extends App {
 		param
 	}
 	
+	/*
+	println(base.getParametersFromFile("faces/face_--+.svg")("mouth-outline"))
+	println(base.getParametersFromFile("faces/face_base-2_--+.svg")("mouth-outline"))
+	println(shape_mmp("mouth-outline"))
+	System.exit(0)
+	*/
 	saveEmoticon("gen/face_+++.svg", emoticon3(1,1,1))
 	saveEmoticon("gen/face_++-.svg", emoticon3(1,1,0))
 	saveEmoticon("gen/face_+-+.svg", emoticon3(1,0,1))
