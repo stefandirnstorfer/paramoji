@@ -291,15 +291,9 @@ object Emoticons extends App {
 	saveEmoticon("gen/face_---.svg", emoticon3(0,0,0))
 
 	println("Writing Javascript code")
-	val out = new PrintWriter("gen/emoticon.js")
-	out.print("function emoticon_svg_raw(f) { return '")
 	val paramSets = List(shape_ooo, shape_poo, shape_moo, shape_opo, shape_omo, shape_oop, shape_oom,
 	        shape_ppo, shape_pmo, shape_pop, shape_pom, shape_mpo, shape_mmo, shape_mop, shape_mom, shape_opp, shape_omp, shape_opm, shape_omm,
 	        shape_ppp, shape_ppm, shape_pmp, shape_pmm, shape_mpp, shape_mpm, shape_mmp, shape_mmm)
-	val jsparam = JSParamFormatter.merge(paramSets)
-	out.print(base.format(jsparam).toString)
-	out.println("'; }")
-	out.close()
-	
+    JSParamFormatter.saveToFile("gen/emoticon.js", base, paramSets)	
 }
 

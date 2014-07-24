@@ -32,30 +32,7 @@ function setParam(new_v, new_a, new_p, isanimated) {
 }
 
 function drawEmoticon(v,a,p) {
-    var sv= Math.abs(v-50)/50;
-    var sa= Math.abs(a-50)/50;
-    var sp= Math.abs(p-50)/50;
-    $('#emoticon').html(emoticon_svg_raw(function(x) {
-      return x[0] + sv*(v>50 ? x[1] : x[2])
-	+ sa * (a>50 ? x[3] : x[4])
-	+ sp * (p>50 ? x[5] : x[6])
-	+ sv*sa * (v > 50 ?
-		   (a > 50 ? x[7] : x[8]) :
-		   (a > 50 ? x[11] : x[12]))
-        + sv*sp * (v > 50 ?
-		   (p > 50 ? x[9] : x[10]) :
-		   (p > 50 ? x[13] : x[14]))
-	+ sa*sp * (a > 50 ?
-		   (p > 50 ? x[15] : x[17]) :
-		   (p > 50 ? x[16] : x[18]))
-	+ sv*sa*sp * (v > 50 ?
-		      (a > 50 ?
-		       (p > 50 ? x[19] : x[20]) :
-		       (p > 50 ? x[21] : x[22])) :
-		      (a > 50 ?
-		       (p > 50 ? x[23] : x[24]) :
-		       (p > 50 ? x[25] : x[26])))
-    }));
+    $('#emoticon').html(emoticon_svg_raw(v,a,p));
 }
 
 var oldtime = undefined;

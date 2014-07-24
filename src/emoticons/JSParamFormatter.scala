@@ -1,5 +1,7 @@
 package emoticons
 
+import java.io.PrintWriter
+
 class JSParam(params : List[Param]) extends Param {
   def morph(thisFactor : Double, otherFactor : Double, otherParam : Param): Param = throw new UnsupportedOperationException
   override def toString : String = {
@@ -15,6 +17,30 @@ class JSParam(params : List[Param]) extends Param {
 }
 
 object JSParamFormatter {
+  
+	val jsf = """var sv= Math.abs(v-50)/50, sa= Math.abs(a-50)/50, sp= Math.abs(p-50)/50;
+	var f = function(x) {
+      return x[0] + sv*(v>50 ? x[1] : x[2])
+	+ sa * (a>50 ? x[3] : x[4])
+	+ sp * (p>50 ? x[5] : x[6])
+	+ sv*sa * (v > 50 ?
+		   (a > 50 ? x[7] : x[8]) :
+		   (a > 50 ? x[11] : x[12]))
+        + sv*sp * (v > 50 ?
+		   (p > 50 ? x[9] : x[10]) :
+		   (p > 50 ? x[13] : x[14]))
+	+ sa*sp * (a > 50 ?
+		   (p > 50 ? x[15] : x[17]) :
+		   (p > 50 ? x[16] : x[18]))
+	+ sv*sa*sp * (v > 50 ?
+		      (a > 50 ?
+		       (p > 50 ? x[19] : x[20]) :
+		       (p > 50 ? x[21] : x[22])) :
+		      (a > 50 ?
+		       (p > 50 ? x[23] : x[24]) :
+		       (p > 50 ? x[25] : x[26])))
+    };""";
+	
 	def merge(paramSets : List[Map[String, List[Param]]]) : Map[String, List[Param]] = {
 	  Map(paramSets(0).keys.map {
 	    case key =>
@@ -28,5 +54,14 @@ object JSParamFormatter {
 	    	key -> { for(i <- 1 to length) yield new JSParam(iters.map( _.next )) }.toList
 	      }
 	  }.toList:_*)
-	}	
+	}
+	
+	def saveToFile(filename : String, base : EmoticonStructure, paramSets : List[Map[String, List[Param]]]) {
+	  	val out = new PrintWriter(filename)
+	  	out.print("function emoticon_svg_raw(v,a,p) { "+jsf+" return '")
+	  	val jsparam = merge(paramSets)
+	  	out.print(base.format(jsparam).toString)
+	  	out.println("'; }")
+	  	out.close()
+	}
 }
