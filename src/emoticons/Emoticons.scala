@@ -37,7 +37,7 @@ class EmoticonStructure(val node : Node) {
 		val recurse = children.map { _.getMap() }.fold(Map()) ( _ ++ _ )
 		val nodeId = node.attribute("id").map{ _.text }
 		val excluded = node.attribute("morph").exists { _.text == "fixed" } ||
-			node.prefix == "sodipodi"
+			node.prefix == "sodipodi" || node.prefix == "inkscape"
 		val excludeChildren = node.attribute("morph").exists( _.text == "fix-children")
 		if (excluded)
 		  Map()
