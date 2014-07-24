@@ -34,6 +34,8 @@ class SimpleAttributePattern(text : String) extends AttributePattern {
 	   }
 	}
 	
+	def defaultParams() = getParams(text)
+	
 	def doesMatch(text : String) = regex.findFirstIn(text).isDefined
 	
 	override def toString() = format
@@ -50,8 +52,12 @@ class StyleAttributePattern(text : String) extends AttributePattern {
 	
 	def getParams(text : String) : List[Param] = {
 		val stylesIn = text.split(";")
-		styles.flatMap { style => 
-		  style.getParams(stylesIn.filter( style.doesMatch(_) ).head) 
+		styles.flatMap { style =>
+		  val matchStyle = stylesIn.filter( style.doesMatch(_) )
+		  if (matchStyle.isEmpty)
+		    style.defaultParams()
+		  else
+		    style.getParams(matchStyle.head) 
 		}.toList
 	}
 	
