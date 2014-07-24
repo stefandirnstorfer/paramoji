@@ -3,6 +3,7 @@ var https = require('https');
 var fs = require('fs');
 var url= require('url');
 var crypto= require('crypto');
+var emoticon= require('./emoticon.js');
 
 var server= http.createServer(handleRequest);
 server.listen(9009);
@@ -91,6 +92,16 @@ function handleRequest(req, res) {
 	    redirectAction(res, urlParts.query);
 	    writeData('data/data.json', JSON.stringify(urlParts.query)+'\n');
 	    workerInfo.tasks += 1;
+	}
+	else if (urlParts.pathname=="/face.svg") {
+	    var v = urlParts.query.v;
+	    var a = urlParts.query.a;
+	    var p = urlParts.query.p;
+	    res.writeHead(200, { 
+		'Content-Type': mimes.svg,
+	    });
+	    var svgbody = emoticon.emoticon_svg_raw(100*v, 100*a, 100*p);
+	    res.end(svgbody)
 	}
 	else {
 	    serveFile(res, 'pages' + urlParts.pathname);
