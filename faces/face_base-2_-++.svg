@@ -84,7 +84,7 @@ version="1.1" viewBox="0 0 250 250" id="emoticon-front-view" inkscape:version="0
     </g>
 </g>
   <path 
-  d="M 130.024,113.074 C 116.961,102.710 104.256,90.060 81.834,86.410 72.572,85.850 54.392,87.278 54.570,88.220 L 53.857,84.750 C 61.820,86.237 63.314,84.742 81.243,85.625 97.261,88.717 94.769,97.536 119.080,99.539 Z" style="fill:#292929;fill-opacity:1;fill-rule:nonzero;stroke:4;stroke-width:1;stroke-miterlimit:124.600;stroke-opacity:167.500;stroke-dasharray:none" id="left-eye-brow" inkscape:connector-curvature="0" sodipodi:nodetypes="czcczcc">
+  d="M 130.024,113.074 C 119.383,103.248 101.564,90.598 81.834,86.410 70.853,84.302 54.392,87.278 54.570,88.220 L 53.857,84.750 C 59.129,86.237 63.583,82.589 81.243,85.625 97.602,90.150 93.693,94.307 117.734,97.655 Z" style="fill:#292929;fill-opacity:1;fill-rule:nonzero;stroke:4;stroke-width:1;stroke-miterlimit:124.600;stroke-opacity:41.770;stroke-dasharray:none" id="left-eye-brow" inkscape:connector-curvature="0" sodipodi:nodetypes="czcczcc">
 </path>
   <g style="stroke-width:1" transform="matrix(1.130,0,0,1,-17.270,2.110)" id="nose">
     <path 
