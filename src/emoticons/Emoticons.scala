@@ -127,19 +127,12 @@ object Emoticons extends App {
 	def saveEmoticon(filename : String, param : MorphableParameter.ParameterSet) {
 		println("Creating: "+filename)
 		val out = new PrintWriter(filename)
-		/*
-		val brow : List[Param] = param("left-eye-brow")
-		val newbrow = brow.slice(0,2) ++ brow.drop(4)
-		val newparam = param ++ Map("left-eye-brow" -> newbrow)
-		out.write(new PrettyPrinter(100,2).formatNodes(base_tmp.format(newparam)))
-		*/
  		out.write(new PrettyPrinter(100,2).formatNodes(base.format(param)))
 
 		out.close();
 	}
 	
 	val base = EmoticonStructure.load("faces/face_000.svg")
-	//val base_tmp = EmoticonStructure.load("faces/face_000-tmp.svg")
 	val shape_ooo= base.getParametersFromFile("faces/face_000.svg")
 	
 	saveEmoticon("gen/face_000.svg", shape_ooo)

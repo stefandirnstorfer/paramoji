@@ -1,16 +1,6 @@
 var v, a, p;
 $(function() {
     setParam(50, 50, 50);
-    var toosmall = $('#control > div')
-	.is(function(i, elt) { return elt.offsetHeight < elt.scrollHeight; })
-    if (toosmall) {
-	$('#control h1:not(:first)').addClass('inactive');
-	$('#control h1').addClass('clickable');
-	$('#control h1').click(function(evt) {
-	    $('#control h1').addClass('inactive');
-	    $(evt.target).removeClass('inactive');
-	})
-    }
 });
 
 function refresh() {
@@ -45,7 +35,7 @@ function drawEmoticon(v,a,p) {
     var sv= Math.abs(v-50)/50;
     var sa= Math.abs(a-50)/50;
     var sp= Math.abs(p-50)/50;
-    $('#svg-frame').html(emoticon_svg_raw(function(x) {
+    $('#emoticon').html(emoticon_svg_raw(function(x) {
       return x[0] + sv*(v>50 ? x[1] : x[2])
 	+ sa * (a>50 ? x[3] : x[4])
 	+ sp * (p>50 ? x[5] : x[6])
