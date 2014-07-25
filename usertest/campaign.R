@@ -1,6 +1,6 @@
 #reading the data
 require(rjson)
-data<-readLines('data/data-campaign2.json')
+data<-readLines('data/data-campaign3.json')
 data<-lapply(data, fromJSON)
 data<-data.frame(Reduce(rbind, data))
 data$Ptest=as.numeric(data$Ptest)
@@ -10,7 +10,7 @@ data$Pref=as.numeric(data$Pref)
 data$Aref=as.numeric(data$Aref)
 data$Vref=as.numeric(data$Vref)
 
-training<-readLines('data/training-campaign2.json')
+training<-readLines('data/training-campaign3.json')
 training<-lapply(training, fromJSON)
 training<-data.frame(Reduce(rbind, training))
 
@@ -31,7 +31,7 @@ table(users.training)
 
 # Work speed
 users.speed <- as.numeric(sapply(users, function(user) {
-  udata <- as.character(test[data.uid==user,]$time)
+  udata <- as.character(data[data.uid==user,]$time)
   udata <- sapply(udata, function(t) {as.POSIXct(t, format='%Y-%m-%dT%H:%M:%S')})
   (max(udata)-min(udata))/(length(udata)-1)
 }))
@@ -39,7 +39,7 @@ plot(users.speed, users.quality, col=(users.training>2)+1)
 
 
 # Work duration
-data.step = rep(0, nrow(test))
+data.step = rep(0, nrow(data))
 for (user in users) { data.step[data.uid==user]=seq(1,10)}
 step.quality <- sapply(seq(1,10), function(step) {
    sqrt(mean(data.quality2[data.step==step]))
@@ -48,7 +48,7 @@ plot(jitter(data.step), data.quality2, col=(users.training>2)+1, xlab='data.step
 lines(seq(1,10), step.quality)
 
 for (i in c(1,2,3,100)) {
-d <- data[data.uid %in% users[users.training<=i], ]
+d <- data[data.uid %in% users[users.training==i], ]
 l <- data.frame(rbind(lm(d$Vref ~ d$Vtest + d$Atest + d$Ptest)$coefficients,
 lm(d$Aref ~ d$Vtest + d$Atest + d$Ptest)$coefficients,
 lm(d$Pref ~ d$Vtest + d$Atest + d$Ptest)$coefficients), 
