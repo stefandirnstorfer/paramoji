@@ -1,7 +1,7 @@
 #reading the data
 require(rjson)
 data<-readLines('data/data-campaign3.json')
-data<-lapply(data, function(x) fromJSON(x))
+data<-lapply(data, function(x) data.frame(fromJSON(x), stringsAsFactors=FALSE))
 data<-data.frame(Reduce(rbind, data))
 data$Ptest=as.numeric(data$Ptest)
 data$Atest=as.numeric(data$Atest)
@@ -11,7 +11,7 @@ data$Aref=as.numeric(data$Aref)
 data$Vref=as.numeric(data$Vref)
 
 training<-readLines('data/training-campaign3.json')
-training<-lapply(training, fromJSON)
+training<-lapply(training, function(x) data.frame(fromJSON(x), stringsAsFactors=FALSE))
 training<-data.frame(Reduce(rbind, training))
 
 # filter incomplete users
