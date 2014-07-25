@@ -387,7 +387,6 @@
 {"test":"1","MW_ID":"fe5a5cca","CAMP_ID":"0d100002824c","type":"potency","time":"2014-07-24T17:32:16","ref":0}
 {"test":"1","MW_ID":"50a2e8ab","CAMP_ID":"0d100002824c","type":"potency","time":"2014-07-24T17:32:24","ref":1}
 {"test":"1","MW_ID":"fe5a5cca","CAMP_ID":"0d100002824c","type":"valence","time":"2014-07-24T17:32:35","ref":1}
-{"time":"2014-07-24T17:32:35"}
 {"test":"1","MW_ID":"fe5a5cca","CAMP_ID":"0d100002824c","type":"arousal","time":"2014-07-24T17:32:40","ref":0}
 {"test":"0","MW_ID":"fe5a5cca","CAMP_ID":"0d100002824c","type":"potency","time":"2014-07-24T17:32:45","ref":0}
 {"test":"0","MW_ID":"fe5a5cca","CAMP_ID":"0d100002824c","type":"valence","time":"2014-07-24T17:32:51","ref":1}

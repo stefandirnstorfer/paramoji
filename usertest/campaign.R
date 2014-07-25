@@ -1,7 +1,7 @@
 #reading the data
 require(rjson)
 data<-readLines('data/data-campaign3.json')
-data<-lapply(data, fromJSON)
+data<-lapply(data, function(x) fromJSON(x))
 data<-data.frame(Reduce(rbind, data))
 data$Ptest=as.numeric(data$Ptest)
 data$Atest=as.numeric(data$Atest)
@@ -47,13 +47,11 @@ step.quality <- sapply(seq(1,10), function(step) {
 plot(jitter(data.step), data.quality2, col=(users.training>2)+1, xlab='data.step')
 lines(seq(1,10), step.quality)
 
-for (i in c(1,2,3,100)) {
-d <- data[data.uid %in% users[users.training==i], ]
+d <- data[data.uid %in% users[users.training==1], ]
 l <- data.frame(rbind(lm(d$Vref ~ d$Vtest + d$Atest + d$Ptest)$coefficients,
 lm(d$Aref ~ d$Vtest + d$Atest + d$Ptest)$coefficients,
 lm(d$Pref ~ d$Vtest + d$Atest + d$Ptest)$coefficients), 
   row.names=c('V','A','P'))
 print(l)
-}
 
 
