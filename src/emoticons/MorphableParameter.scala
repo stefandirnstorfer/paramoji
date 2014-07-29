@@ -2,6 +2,7 @@ package emoticons
 
 abstract class Param {
   	def morph(thisFactor : Double, otherFactor : Double, otherParam : Param): Param
+	def isSignificant : Boolean
 }
 
 case class NumberParam(val value:Double) extends Param {
@@ -14,6 +15,8 @@ case class NumberParam(val value:Double) extends Param {
   	def morph(thisFactor : Double, otherFactor : Double, otherParam : Param): Param = {
 	  NumberParam(thisFactor * value + otherFactor * otherParam.asInstanceOf[NumberParam].value)
 	}
+  
+  	def isSignificant() = value.abs > 0.001
 }
 
 case class ColorParam(val r:Double, g:Double, b:Double) extends Param {
@@ -26,6 +29,8 @@ case class ColorParam(val r:Double, g:Double, b:Double) extends Param {
 				   thisFactor * g + otherFactor * other.g,
 				   thisFactor * b + otherFactor * other.b)
 	}
+  
+  	def isSignificant = (r.abs > 10) || (g.abs > 10) || (b.abs > 10)
 }
 
 

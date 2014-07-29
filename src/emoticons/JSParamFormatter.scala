@@ -4,15 +4,21 @@ import java.io.PrintWriter
 
 class JSParam(params : List[Param]) extends Param {
   def morph(thisFactor : Double, otherFactor : Double, otherParam : Param): Param = throw new UnsupportedOperationException
+  def isSignificant() = true
+  
+  def formatF(values : List[Double]) = "'+Math.round(f([" + values.map("%1.0f".format(_)).mkString(",") +"]))+'";
   override def toString : String = {
-    params.head match {
-      case _ : ColorParam => params(0).toString
-      case _ : NumberParam => 
-        if (params.tail.exists( _.asInstanceOf[NumberParam].value.abs > 0.001))
-        	"'+f(["+params.map{_.toString}.mkString(",")+"])+'";
-        else
-          params(0).toString
-    }
+	if (params.tail.exists( _.isSignificant )) {
+		params.head match {
+      		case _ : ColorParam => "rgb("+formatF(params.map{_.asInstanceOf[ColorParam].r})+","+
+      				formatF(params.map{_.asInstanceOf[ColorParam].g})+","+
+      				formatF(params.map{_.asInstanceOf[ColorParam].b})+")"
+      		case _ : NumberParam =>
+      			"'+f(["+params.map{_.toString}.mkString(",")+"])+'";
+      }
+	}
+    else
+      params(0).toString
   }
 }
 
