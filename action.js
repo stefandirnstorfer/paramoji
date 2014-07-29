@@ -1,5 +1,7 @@
 var v, a, p;
 $(function() {
+    $('input').bind('input',refresh);
+    $('input').bind('change',refresh);
     setParam(50, 50, 50);
 });
 
