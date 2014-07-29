@@ -190,7 +190,8 @@
        id="nose-outline" />
   </g>
   <use
-     transform="matrix(-1,-0.010,-0.010,1,257.530,1.100)"
+      morph="fixed"
+     transform="matrix(-1,0,0,1,257,0)"
      xlink:href="#left-eye-brow"
      height="250"
      width="250"
@@ -345,7 +346,8 @@
        id="wrinkle-left-cheek"
        sodipodi:nodetypes="cc" />
     <use
-       transform="matrix(-1,0,0,1,257.850,0)"
+	morph="fixed"
+       transform="matrix(-1,0,0,1,257,0)"
        style="stroke-width:0.500;stroke-miterlimit:4;stroke-dasharray:none"
        x="0"
        y="0"
@@ -354,7 +356,8 @@
        width="250"
        height="250" />
     <use
-       transform="matrix(-1,0,0,1,257.850,0)"
+	morph="fixed"
+       transform="matrix(-1,0,0,1,257,0)"
        style="stroke-width:0.500;stroke-miterlimit:4;stroke-dasharray:none"
        x="0"
        y="0"
