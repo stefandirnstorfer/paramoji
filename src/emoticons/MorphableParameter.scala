@@ -6,11 +6,7 @@ abstract class Param {
 }
 
 case class NumberParam(val value:Double) extends Param {
-  override def toString() : String =
-	if (value == value.toInt)
-		value.toInt.toString
-	else
-		SVGUtil.format(value)
+  override def toString() : String = SVGUtil.format(value)
 
   	def morph(thisFactor : Double, otherFactor : Double, otherParam : Param): Param = {
 	  NumberParam(thisFactor * value + otherFactor * otherParam.asInstanceOf[NumberParam].value)

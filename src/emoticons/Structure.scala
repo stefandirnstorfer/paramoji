@@ -113,9 +113,13 @@ object EmoticonStructure {
   	def loadAsXML(file : String) : Node = {
 		val src= scala.io.Source.fromFile(file)
 		val doc= scala.xml.parsing.XhtmlParser.apply(src)
-		doc.head
+		val normalizer = new SVGTransformFlattener()
+		normalizer.flatten(doc.head)
+		//doc.head
 	}
 
-  	def load(file : String) = new EmoticonStructure(loadAsXML(file))
+  	def load(file : String) = {
+  	  new EmoticonStructure(loadAsXML(file))
+  	}
 }
 

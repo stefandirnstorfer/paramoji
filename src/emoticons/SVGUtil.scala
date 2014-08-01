@@ -33,7 +33,7 @@ case class SVGMatrix(val a : Double = 1.0,
 
   def apply(x : Double, y : Double) : (Double, Double) = (a * x + c * y + e, b * x + d *y + f)
   
-  override def toString() = List(a,b,c,d,e,f).mkString("matrix(",",",")");
+  override def toString() = List(a,b,c,d,e,f).map(SVGUtil.format(_)).mkString("matrix(",",",")");
 }
 
 object SVGMatrix {
@@ -66,7 +66,7 @@ object SVGMatrix {
 
 object SVGUtil {
 
-  def format(value : Double) = "%1.3f".format(value)
+  def format(value : Double) = "%1.3f".format(value).replaceAll("\\.?0*$","")
 
   def hexParser(value : CharSequence):Int = {
     def hexDigitParser(value : Char):Int = {
