@@ -5,6 +5,65 @@ import java.io._
 import scala.xml.NodeSeq.seqToNodeSeq
 import scala.xml._
 
+case class SVGMatrix(val a : Double = 1.0,
+		b : Double = 0.0,
+		c : Double = 0.0,
+		d : Double = 1.0,
+		e : Double = 0.0,
+		f : Double = 0.0) {
+  
+  def multiply(other : SVGMatrix) : SVGMatrix = 
+    SVGMatrix(a * other.a + c * other.b,
+    		  b * other.a + d * other.b,
+    		  a * other.c + c * other.d,
+    		  b * other.c + d * other.d,
+    		  a * other.e + c * other.f + e,
+    		  b * other.e + d * other.f + f)
+
+  def det() : Double = a * d - b * c 
+    		  
+  def inverse() : SVGMatrix = {
+    SVGMatrix(d / det,
+    		  -b /det,
+    		  -c /det,
+    		  a / det,
+    		  (f * c - e * d) /det,
+    		  (e * b - f * a) /det)
+  }
+
+  def apply(x : Double, y : Double) : (Double, Double) = (a * x + c * y + e, b * x + d *y + f)
+  
+  override def toString() = List(a,b,c,d,e,f).mkString("matrix(",",",")");
+}
+
+object SVGMatrix {
+  val TRANSLATE_PATTERN = "translate\\(([^,]*),([^)]*)\\)".r
+  val SCALE_PATTERN = "scale\\(([^,]*),([^)]*)\\)".r
+  val MATRIX_PATTERN = "matrix\\(([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^)]*)\\)".r
+  
+  def parseSVGTransformAttribute(text : String) : SVGMatrix = {
+    val matchTranslate = TRANSLATE_PATTERN.findPrefixMatchOf(text)
+    val matchMatrix =  MATRIX_PATTERN.findPrefixMatchOf(text)
+    val matchScale = SCALE_PATTERN.findPrefixMatchOf(text)
+    if (matchTranslate.isDefined) {
+      val list = matchTranslate.get.subgroups.map( _.toDouble )
+      SVGMatrix(1,0,0,1, list(0), list(1))
+    } else {
+      if (matchMatrix.isDefined) {
+        val list = matchMatrix.get.subgroups.map( _.toDouble )
+        SVGMatrix(list(0), list(1), list(2), list(3), list(4), list(5))
+      } else {
+        if (matchScale.isDefined) {
+          val list = matchMatrix.get.subgroups.map( _.toDouble )
+          SVGMatrix(list(0),0,0,list(1),0,0)
+        } else {
+    	  throw new Exception("Unknown transform pattern : " + text)
+        }
+      }
+    }
+  }
+}
+
 object SVGUtil {
 
   def format(value : Double) = "%1.3f".format(value)
@@ -31,30 +90,7 @@ object SVGUtil {
   def formatColor(r: Int, g:Int, b:Int) : String = 
     "#"+(List(r,g,b).map { channel => hexFormat(min(255,max(0,channel)),2) }.mkString)
 
-
-  def resize(svg:Node, width:Int, height:Int, scale:Double = 1.0) : Node = {
-    val oldWidth=svg.attribute("width").get.text.replace("pt","").toInt
-    val oldHeight=svg.attribute("height").get.text.replace("pt","").toInt
-    val viewBox= List(
-      oldWidth*(1-1/scale)/2,
-      oldHeight*(1-1/scale)/2,
-      oldWidth/scale,
-      oldHeight/scale)
-    svg match {
-      case Elem(prefix, label, attribs, scope, children @ _*) => {
-	val newAttr= attribs
-	.remove("width").remove("height")
-	.append(new UnprefixedAttribute(
-	  "width",width.toString, new UnprefixedAttribute(
-	    "height", height.toString, new UnprefixedAttribute(
-	      "viewBox", viewBox.mkString(" "), Null))))
-	  Elem(prefix, label, newAttr, scope, children :_*)
-      }
-      case _ => svg
-    }
-  }
-
-  def normalizePath(path: String) : String = {
+  def normalizePath(path: String, matrix : SVGMatrix = SVGMatrix()) : String = {
 	  val NUMBER= "[+-]?[0-9]+(\\.[0-9]+)?".r
 	  val PATHSEG= ("[a-zA-Z]|("+NUMBER+"),("+NUMBER+")").r
 	  var mode= "  "
@@ -91,57 +127,15 @@ object SVGUtil {
 	 	 	  if (mode == mode.toUpperCase) {
 	 	 	 	  x= seg.group(1).toDouble
 	 	 	 	  y= seg.group(3).toDouble
-	 	 	 	  text
 	 	 	  } else {
 	 	 	 	  val dx= seg.group(1).toDouble
 	 	 	 	  val dy= seg.group(3).toDouble
 	 	 	 	  x= x0+dx
 	 	 	 	  y= y0+dy
-	 	 	 	  format(x)+","+format(y)
 	 	 	  }
+	 	 	  val v = matrix.apply(x, y)
+	 	 	  format(v._1)+","+format(v._2)
 	 	  }
 	  }).replaceAll("  "," ")
-  }
-}
-
-class CommandAPI(command : String) {
-
-  val p = Runtime.getRuntime().exec(command);
-  val stdOutput = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
-  val stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-  val stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-
-  def out(line:String) = { 
-    stdOutput.write(line+"\n") 
-  }
-  
-  def closeAll() = {
-    stdInput.close()
-    stdError.close()
-    stdOutput.close()
-  }
-
-  def getSVG() : Node = {
-    val buf= new java.lang.StringBuilder
-    stdOutput.flush()
-    stdOutput.close()
-
-    try {
-      var aws = stdInput.readLine
-      while(aws!=null) {
-	buf.append(aws+"\n")
-	aws= stdInput.readLine
-      }
-    } finally {
-      closeAll
-    }
-
-    val src=scala.io.Source.fromString(buf.toString)
-    val doc=scala.xml.parsing.XhtmlParser.apply(src)
-    try {
-      doc.head
-    } catch {
-      case e : Throwable => <svg>{e.getMessage}</svg>
-    }
   }
 }

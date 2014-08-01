@@ -184,13 +184,6 @@ object Emoticons extends App {
 	saveEmoticon("gen/face_--+.svg", emoticon3(0,0,1))
 	saveEmoticon("gen/face_---.svg", emoticon3(0,0,0))
 
-	saveEmoticon("/home/stefan/Desktop/emo-1.svg", emoticon3(0,0,0.5))
-	saveEmoticon("/home/stefan/Desktop/emo-2.svg", emoticon3(0.25,0.25,0.5))
-	saveEmoticon("/home/stefan/Desktop/emo-3.svg", emoticon3(0.5,0.5,0.5))
-	saveEmoticon("/home/stefan/Desktop/emo-4.svg", emoticon3(0.75,0.75,0.5))
-	saveEmoticon("/home/stefan/Desktop/emo-5.svg", emoticon3(1.0,1.0,0.5))
-	
-	
 	println("Writing Javascript code")
 	val paramSets = List(shape_ooo, shape_poo, shape_moo, shape_opo, shape_omo, shape_oop, shape_oom,
 	        shape_ppo, shape_pmo, shape_pop, shape_pom, shape_mpo, shape_mmo, shape_mop, shape_mom, shape_opp, shape_omp, shape_opm, shape_omm,
