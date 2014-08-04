@@ -1,5 +1,5 @@
 <svg 
-version="1.1" viewBox="0 0 250 250" id="emoticon-front-view" inkscape:version="0.48.4 r9939" sodipodi:docname="face_000.svg" width="100%" height="100%" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+viewBox="0 0 250 250" id="emoticon-front-view" sodipodi:docname="face_000.svg" height="100%" width="100%" inkscape:version="0.48.4 r9939" version="1.1" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <metadata id="metadata3099">
     <rdf:RDF>
       <cc:Work rdf:about="">
@@ -10,136 +10,134 @@ version="1.1" viewBox="0 0 250 250" id="emoticon-front-view" inkscape:version="0
     </rdf:RDF>
   </metadata>
   <sodipodi:namedview 
-  inkscape:snap-bbox="false" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1855" inkscape:window-height="1056" id="namedview3097" showgrid="false" inkscape:zoom="3.716" inkscape:cx="77.637244" inkscape:cy="125" inkscape:window-x="1985" inkscape:window-y="24" inkscape:window-maximized="1" inkscape:current-layer="emoticon-front-view" showguides="true" inkscape:guide-bbox="true" inkscape:snap-nodes="false" inkscape:snap-global="false">
+  pagecolor="#ffffff" borderopacity="1" gridtolerance="10" inkscape:pageopacity="0" inkscape:window-width="1855" showgrid="false" inkscape:cx="77.637244" inkscape:window-x="65" inkscape:window-maximized="1" showguides="true" inkscape:snap-nodes="false" inkscape:snap-global="false" inkscape:guide-bbox="true" inkscape:current-layer="emoticon-front-view" inkscape:window-y="24" inkscape:cy="125" inkscape:zoom="3.716" id="namedview3097" inkscape:window-height="1056" inkscape:pageshadow="2" guidetolerance="10" objecttolerance="10" bordercolor="#666666" inkscape:snap-bbox="false">
 </sodipodi:namedview>
-  <defs id="defs4">
-    <clipPath id="clipPath2967">
+  <defs id="defs">
+    <clipPath id="clipPath-left-eye">
       <use 
-      transform="translate(-48.86,-147.03)" id="use2969" x="0" y="0" width="1" height="1" xlink:href="#path3622">
+      transform="matrix(1,0,0,1,0,0)" x="0" width="1" xlink:href="#left-eye-outline" height="1" y="0" id="use-left-eye-outline-1">
 </use>
     </clipPath>
-    <clipPath id="clipPath4022">
+    <clipPath id="clipPath-right-eye">
       <use 
-      transform="matrix(-1,0,0,1,907.59,-127.94)" id="use5959" x="0" y="0" width="250" height="250" xlink:href="#path3622">
+      id="use-left-eye-outline-2" y="0" height="250" xlink:href="#left-eye-outline" width="250" x="0" transform="matrix(-1,0,0,1,250,0)">
 </use>
     </clipPath>
     <clipPath id="clipPath-mouth" clipPathUnits="userSpaceOnUse">
-      <use height="250" width="250" id="use-mouth-outline" xlink:href="#mouth-outline" y="0" x="0"/>
+      <use 
+      transform="matrix(1,0,0,1,0,0)" height="250" y="0" x="0" xlink:href="#mouth-outline" id="use-mouth-outline" width="250">
+</use>
     </clipPath>
   </defs>
   <g id="head">
     <path 
-    style="fill:#e9c6af;stroke:#000000;stroke-width:1;stroke-opacity:1" d="M 128.48,230.66 C 176.27,230.75 219.01,200.57 219.41,132.64 219.79,64.72 176.76,31.81 126.68,31.52 76.6,31.24 37.38,66.28 37.09,132.65 36.8,199.01 80.69,230.57 128.48,230.66 Z" id="path164" inkscape:connector-curvature="0" sodipodi:nodetypes="zzzzz">
+    d="M 124.98,230.66 C 172.77,230.75 215.51,200.57 215.91,132.64 216.29,64.72 173.26,31.81 123.18,31.52 73.1,31.24 33.88,66.28 33.59,132.65 33.3,199.01 77.19,230.57 124.98,230.66 Z" style="fill:#e9c6af;stroke:#000000;stroke-width:1;stroke-opacity:1" id="head-outline" sodipodi:nodetypes="zzzzz" inkscape:connector-curvature="0">
 </path>
   </g>
-  <g 
-  transform="matrix(0.16,0,0,0.16,63.94,17.76)" style="stroke-width:4.36;stroke-miterlimit:4;stroke-dasharray:none" id="left-eye">
+  <g id="left-eye">
     <path 
-    d="M 198.45,602.87 C 241.64,609.42 294.11,681.21 311.69,714.33 217.84,649.23 194.13,645.03 30.98,683.91 40.45,652.95 56.44,637.09 82.31,618.62 108.18,600.15 155.25,596.32 198.45,602.87 Z" style="fill:#ffffff;stroke:#000000;stroke-width:6.14;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" id="path3622" inkscape:connector-curvature="0" sodipodi:nodetypes="ccccc">
+    d="M 92.192,114.219 C 99.102,115.267 107.498,126.754 110.31,132.053 95.294,121.637 91.501,120.965 65.397,127.186 66.912,122.232 69.47,119.694 73.61,116.739 77.749,113.784 85.28,113.171 92.192,114.219 Z" style="fill:#ffffff;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" id="left-eye-outline" sodipodi:nodetypes="ccccc" inkscape:connector-curvature="0">
 </path>
-    <g 
-    transform="translate(48.86,147.03)" style="stroke-width:4.36;stroke-miterlimit:4;stroke-dasharray:none" clip-path="url(#clipPath2967)" id="lens">
-      <g id="g4403">
+    <g clip-path="url(#clipPath-left-eye)" id="left-eyeball">
+      <g id="left-lens">
         <path 
-        id="iris" inkscape:connector-curvature="0" d="M 205.380,519.390 C 205.380,534.350 199.530,549.210 189.480,559.790 179.430,570.370 165.310,576.530 151.090,576.530 136.880,576.530 122.760,570.370 112.710,559.790 102.660,549.210 96.800,534.350 96.800,519.390 96.800,504.430 102.660,489.560 112.710,478.980 122.760,468.400 136.880,462.240 151.090,462.240 165.310,462.240 179.430,468.400 189.480,478.980 199.530,489.560 205.380,504.430 205.380,519.390 Z" style="fill:#9d4922;fill-opacity:1;stroke:#000000;stroke-width:6.140;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none">
-</path>
-        <path 
-        id="pupil" inkscape:connector-curvature="0" style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:6.140;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" d="M 168.810,522.490 C 168.810,527.160 166.890,531.810 163.580,535.120 160.270,538.430 155.630,540.350 150.950,540.350 146.270,540.350 141.630,538.430 138.320,535.120 135.020,531.810 133.090,527.160 133.090,522.490 133.090,517.810 135.020,513.160 138.320,509.850 141.630,506.550 146.270,504.620 150.950,504.620 155.630,504.620 160.270,506.550 163.580,509.850 166.890,513.160 168.810,517.810 168.810,522.490 Z">
+        d="M 101.118,124.387 C 101.118,126.781 100.182,129.158 98.574,130.851 96.966,132.544 94.707,133.53 92.432,133.53 90.158,133.53 87.899,132.544 86.291,130.851 84.683,129.158 83.746,126.781 83.746,124.387 83.746,121.994 84.683,119.614 86.291,117.922 87.899,116.229 90.158,115.243 92.432,115.243 94.707,115.243 96.966,116.229 98.574,117.922 100.182,119.614 101.118,121.994 101.118,124.387 Z" style="fill:#9d4922;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" id="iris" inkscape:connector-curvature="0">
 </path>
         <path 
-        d="M 120.54,516.41 C 120.54,521.15 116.63,524.99 111.84,524.99 107.05,524.99 103.16,521.15 103.16,516.41 103.16,511.67 107.05,507.82 111.84,507.82 116.63,507.82 120.54,511.67 120.54,516.41 Z" style="fill:#ffffff;fill-opacity:1;stroke:none" id="glare" inkscape:connector-curvature="0">
+        d="M 95.267,124.883 C 95.267,125.63 94.96,126.374 94.43,126.904 93.901,127.434 93.158,127.741 92.41,127.741 91.661,127.741 90.918,127.434 90.389,126.904 89.861,126.374 89.552,125.63 89.552,124.883 89.552,124.134 89.861,123.39 90.389,122.861 90.918,122.333 91.661,122.024 92.41,122.024 93.158,122.024 93.901,122.333 94.43,122.861 94.96,123.39 95.267,124.134 95.267,124.883 Z" style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" id="pupil" inkscape:connector-curvature="0">
+</path>
+        <path 
+        d="M 87.544,123.91 C 87.544,124.669 86.918,125.283 86.152,125.283 85.386,125.283 84.763,124.669 84.763,123.91 84.763,123.152 85.386,122.536 86.152,122.536 86.918,122.536 87.544,123.152 87.544,123.91 Z" style="fill:#ffffff;fill-opacity:1;stroke:none" id="glare" inkscape:connector-curvature="0">
 </path>
       </g>
       <path 
-      style="opacity:0.24;fill:#000000;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M -119.84,530.47 -75.34,422.06 305.31,412.27 312.28,524.06 C 312.28,524.06 154.73,473.06 80.78,473.55 3.21,475.03 -119.84,530.47 -119.84,530.47 Z" id="left-lid-shadow" inkscape:connector-curvature="0" sodipodi:nodetypes="ccccsc">
-</path>
-</g>
-</g>
-  <g 
-  transform="matrix(0.16,0,0,0.16,41.34,38.24)" style="stroke-width:4.36;stroke-miterlimit:4;stroke-dasharray:none" id="right-eye">
-    <use 
-    transform="matrix(-1,0,0,1,907.59,-127.94)" id="use3959" x="0" y="0" width="250" height="250" xlink:href="#path3622">
-</use>
-    <g clip-path="url(#clipPath4022)" id="g4015">
-      <use 
-      transform="translate(582.15,19.94)" style="stroke-width:4.36;stroke-miterlimit:4;stroke-dasharray:none" id="right-lens" x="0" y="0" width="1" height="1" xlink:href="#g4403">
-</use>
-      <path 
-      style="opacity:0.24;fill:#000000;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" d="M 507.37,628.34 544.71,378.2 983.41,344.88 1053.96,568.52 C 1053.96,568.52 801.19,465.12 720.1,499.2 638.99,533.28 566.31,606.42 507.37,628.34 Z" id="right-lid-shadow" inkscape:connector-curvature="0" sodipodi:nodetypes="cccczc">
+      d="M 49.083,126.16 56.203,108.814 117.107,107.248 118.222,125.134 C 118.222,125.134 93.014,116.974 81.182,117.053 68.771,117.29 49.083,126.16 49.083,126.16 Z" style="opacity:0.24;fill:#000000;stroke:#000000;stroke-width:0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" id="left-lid-shadow" sodipodi:nodetypes="ccccsc" inkscape:connector-curvature="0">
 </path>
     </g>
-</g>
-  <path 
-  d="M 119.11,116.38 C 108.42,103.86 103,96.03 88.67,96 74.35,95.97 74.21,97.17 67.24,99.82 L 66.5,99.48 C 74.11,96.61 76.03,96.2 87.51,95.03 98.99,93.87 106.68,98.78 118.82,107.55 Z" style="fill:#292929;fill-opacity:1;fill-rule:nonzero;stroke:4;stroke-width:1;stroke-miterlimit:118.82;stroke-opacity:107.55;stroke-dasharray:none" id="left-eye-brow" inkscape:connector-curvature="0" sodipodi:nodetypes="czcczcc">
+  </g>
+  <g id="right-eye">
+    <use 
+    id="right-eye-outline" y="0" height="250" xlink:href="#left-eye-outline" width="250" x="0" transform="matrix(-1,0,0,1,250,0)">
+</use>
+    <g clip-path="url(#clipPath-right-eye)" id="right-eyeball">
+      <use 
+      id="right-lens" y="0" height="1" xlink:href="#left-lens" style="stroke-width:4.36000013;stroke-miterlimit:4;stroke-dasharray:none" width="1" x="0" transform="matrix(1,0,0,1,64,0)">
+</use>
+      <path 
+      d="M 119.019,138.774 124.994,98.752 195.186,93.421 206.474,129.203 C 206.474,129.203 166.03,112.659 153.056,118.112 140.078,123.565 128.45,135.267 119.019,138.774 Z" style="opacity:0.24;fill:#000000;stroke:#000000;stroke-width:0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" id="right-lid-shadow" sodipodi:nodetypes="cccczc" inkscape:connector-curvature="0">
 </path>
-  <g style="stroke-width:1" transform="matrix(1.13,0,0,1,-17.27,2.11)" id="nose">
+    </g>
+  </g>
+  <path 
+  d="M 115.61,116.38 C 104.92,103.86 99.5,96.03 85.17,96 70.85,95.97 70.71,97.17 63.74,99.82 L 63,99.48 C 70.61,96.61 72.53,96.2 84.01,95.03 95.49,93.87 103.18,98.78 115.32,107.55 Z" style="fill:#292929;fill-opacity:1;fill-rule:nonzero;stroke-width:1;stroke-miterlimit:118.82;stroke-opacity:10.18;stroke-dasharray:none" id="left-eye-brow" sodipodi:nodetypes="czcczcc" inkscape:connector-curvature="0">
+</path>
+  <g id="nose">
     <path 
-    style="fill:#1a1a1a;stroke:#000000;stroke-width:0.94;stroke-miterlimit:4;stroke-dasharray:none" d="M 113.54,157.09 C 113.65,161.11 113.49,163.01 116.26,165.58 119.03,168.17 123.63,170.3 129.61,170.34 135.59,170.37 143.62,166.93 142.35,160.55 141.09,154.14 142.2,163.82 137.66,144.29 140.17,158.09 145.83,157.95 146.67,162.69 147.51,167.44 142.88,166.62 139.19,168.83 135.52,171.04 134.84,171.63 129.83,171.47 124.81,171.32 122.99,171.24 120.55,169.78 118.11,168.31 116.68,166.44 113.73,166.05 110.77,165.66 109.8,162.62 113.45,156.99 Z" id="nose-outline" inkscape:connector-curvature="0" sodipodi:nodetypes="czzzczzzzzc">
+    d="M 107.53,159.2 C 107.655,163.22 107.474,165.12 110.604,167.69 113.734,170.28 118.932,172.41 125.689,172.45 132.447,172.48 141.521,169.04 140.085,162.66 138.662,156.25 139.916,165.93 134.786,146.4 137.622,160.2 144.018,160.06 144.968,164.8 145.916,169.55 140.684,168.73 136.516,170.94 132.368,173.15 131.599,173.74 125.938,173.58 120.265,173.43 118.209,173.35 115.453,171.89 112.694,170.42 111.078,168.55 107.745,168.16 104.4,167.77 103.304,164.73 107.43,159.1 Z" style="fill:#1a1a1a;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none" id="nose-outline" sodipodi:nodetypes="czzzczzzzzc" inkscape:connector-curvature="0">
 </path>
   </g>
   <use 
-  id="right-eye-brow" x="0" y="0" width="250" height="250" xlink:href="#left-eye-brow" transform="matrix(-1,0,0,1,257,0)">
+  transform="matrix(-1,0,0,1,250,0)" x="0" width="250" xlink:href="#left-eye-brow" height="250" y="0" id="right-eye-brow">
 </use>
   <g id="mouth">
     <g id="mouth-interior" clip-path="url(#clipPath-mouth)">
       <rect 
-      style="fill:#000000;fill-opacity:1;stroke:none" y="159.93378" x="68.159775" height="66.55629" width="119.94381" id="mouth-background">
+      style="fill:#000000;fill-opacity:1;stroke:none" x="68.159775" width="119.94381" id="mouth-background" height="66.55629" y="159.93378">
 </rect>
       <path 
-      d="M 98.34,211.42 C 98.01,191.12 114.23,189.74 130.46,189.07 148.01,188.36 161.92,193.11 161.92,211.42 140.73,211.42 119.54,211.42 98.34,211.42 Z" style="fill:#800f08;fill-opacity:1;stroke:none" sodipodi:nodetypes="cscc" inkscape:connector-curvature="0" id="tongue">
+      d="M 94.84,211.42 C 94.51,191.12 110.73,189.74 126.96,189.07 144.51,188.36 158.42,193.11 158.42,211.42 137.23,211.42 116.04,211.42 94.84,211.42 Z" style="fill:#800f08;fill-opacity:1;stroke:none" inkscape:connector-curvature="0" id="tongue" sodipodi:nodetypes="cscc">
 </path>
-      <g 
-      style="stroke:#000000;stroke-opacity:1" transform="translate(4,9.5)" id="upper-teeth" morph="fix-children">
+      <g transform="matrix(1,0,0,1,0.5,9.5)" morph="fix-children" id="upper-teeth">
         <rect 
-        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.00441658;stroke-opacity:1" id="tooth-02" width="10.355772" height="15.123333" x="95.524162" y="158.1953" ry="1.3245033" rx="1.3362287" transform="matrix(0.99122501,0.13218537,0,1,0,0)" inkscape:transform-center-y="1.3353219">
+        width="10.355772" x="95.524162" ry="1.3245033" transform="matrix(0.99122501,0.13218537,0,1,0,0)" inkscape:transform-center-y="1.3353219" rx="1.3362287" y="158.1953" height="15.123333" id="tooth-02" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.00441658;stroke-opacity:1">
 </rect>
         <rect 
-        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.00010955;stroke-opacity:1" rx="1.3247935" ry="1.3245033" y="169.93416" x="106.3754" height="15.123333" width="10.267149" id="tooth-03" transform="matrix(0.99978101,0.02092668,0,1,0,0)">
+        rx="1.3247935" y="169.93416" height="15.123333" transform="matrix(0.99978101,0.02092668,0,1,0,0)" id="tooth-03" width="10.267149" x="106.3754" ry="1.3245033" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.00010955;stroke-opacity:1">
 </rect>
         <rect 
-        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" id="tooth-04" width="10.2649" height="15.123333" x="118.35211" y="172.32661" ry="1.3245033" rx="1.3245033">
+        width="10.2649" x="118.35211" ry="1.3245033" rx="1.3245033" y="172.32661" height="15.123333" id="tooth-04" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1">
 </rect>
         <rect 
-        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.00010955;stroke-opacity:1" rx="1.3247935" ry="1.3245033" y="174.98564" x="130.38066" height="15.123333" width="10.267148" id="tooth-05" transform="matrix(0.99978101,-0.02092669,0,1,0,0)">
+        rx="1.3247935" y="174.98564" height="15.123333" transform="matrix(0.99978101,-0.02092669,0,1,0,0)" id="tooth-05" width="10.267148" x="130.38066" ry="1.3245033" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.00010955;stroke-opacity:1">
 </rect>
         <rect 
-        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.00625432;stroke-opacity:1" id="tooth-06" width="10.393703" height="15.123333" x="144.05383" y="194.64574" ry="1.3245033" rx="1.3411231" transform="matrix(0.9876076,-0.15694341,0,1,0,0)">
+        width="10.393703" x="144.05383" ry="1.3245033" transform="matrix(0.9876076,-0.15694341,0,1,0,0)" rx="1.3411231" y="194.64574" height="15.123333" id="tooth-06" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.00625432;stroke-opacity:1">
 </rect>
-</g>
-      <g style="stroke:#000000;stroke-opacity:1" transform="translate(4,26)" id="lower-teeth">
+      </g>
+      <g transform="matrix(1,0,0,1,0.5,26)" id="lower-teeth">
         <rect 
-        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" rx="1.3245033" ry="1.3245033" y="172.09084" x="94.352112" height="15.123333" width="10.2649" id="tooth-09">
-</rect>
-        <rect 
-        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" id="tooth-10" width="10.2649" height="15.123333" x="106.35211" y="172.09084" ry="1.3245033" rx="1.3245033">
+        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" ry="1.3245033" x="94.352112" width="10.2649" id="tooth-09" height="15.123333" y="172.09084" rx="1.3245033">
 </rect>
         <rect 
-        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" rx="1.3245033" ry="1.3245033" y="172.09084" x="118.35211" height="15.123333" width="10.2649" id="tooth-11">
+        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" id="tooth-10" height="15.123333" y="172.09084" rx="1.3245033" ry="1.3245033" x="106.35211" width="10.2649">
 </rect>
         <rect 
-        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" id="tooth-12" width="10.2649" height="15.123333" x="130.35211" y="172.09084" ry="1.3245033" rx="1.3245033">
+        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" ry="1.3245033" x="118.35211" width="10.2649" id="tooth-11" height="15.123333" y="172.09084" rx="1.3245033">
 </rect>
         <rect 
-        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" rx="1.3245033" ry="1.3245033" y="172.09084" x="142.35211" height="15.123333" width="10.2649" id="tooth-13">
+        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" id="tooth-12" height="15.123333" y="172.09084" rx="1.3245033" ry="1.3245033" x="130.35211" width="10.2649">
+</rect>
+        <rect 
+        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" ry="1.3245033" x="142.35211" width="10.2649" id="tooth-13" height="15.123333" y="172.09084" rx="1.3245033">
 </rect>
       </g>
     </g>
     <path 
-    d="M 169.14,183.1 C 166.34,186.65 163.65,190.57 155.59,194.02 147.52,197.46 144.03,197.96 129.52,197.83 115.01,197.7 109.21,197.35 101.74,194.49 93.22,191.28 88.79,186.59 87.94,184.13 93.24,188.9 97.89,191.57 102.76,193.43 107.63,195.28 111.17,194.97 130.11,194.97 149.05,194.97 150.77,193.07 155.54,192.05 161.17,190.79 164.64,186.07 169.14,183.1 Z" style="fill:none;stroke:#000000;stroke-width:1px;stroke-miterlimit:4;stroke-opacity:1" id="mouth-outline" inkscape:connector-curvature="0" sodipodi:nodetypes="czzzczzzcc">
+    d="M 165.64,183.1 C 162.84,186.65 160.15,190.57 152.09,194.02 144.02,197.46 140.53,197.96 126.02,197.83 111.51,197.7 105.71,197.35 98.24,194.49 89.72,191.28 85.29,186.59 84.44,184.13 89.74,188.9 94.39,191.57 99.26,193.43 104.13,195.28 107.67,194.97 126.61,194.97 145.55,194.97 147.27,193.07 152.04,192.05 157.67,190.79 161.14,186.07 165.64,183.1 Z" style="fill:none;stroke:#000000;stroke-width:1px;stroke-miterlimit:4;stroke-opacity:1" id="mouth-outline" sodipodi:nodetypes="czzzczzzcc" inkscape:connector-curvature="0">
 </path>
   </g>
-  <g style="stroke-width:6;stroke-miterlimit:48;stroke-dasharray:none" id="wrinkles">
+  <g id="wrinkles">
     <path 
-    d="M 122.126,109.598 C 123.101,113.307 122.508,121.328 122.145,125.211" style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" sodipodi:nodetypes="cc" id="wrinkle-left-brow" inkscape:connector-curvature="0">
+    d="M 118.626,109.598 C 119.601,113.307 119.008,121.328 118.645,125.211" style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" inkscape:connector-curvature="0" id="wrinkle-left-brow" sodipodi:nodetypes="cc">
 </path>
     <path 
-    d="M 65.93,180.837 C 75.23,183.057 92.386,174.117 90.149,159.838" style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" sodipodi:nodetypes="cc" id="wrinkle-left-cheek" inkscape:connector-curvature="0">
+    d="M 62.43,180.837 C 71.73,183.057 88.886,174.117 86.649,159.838" style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" inkscape:connector-curvature="0" id="wrinkle-left-cheek" sodipodi:nodetypes="cc">
 </path>
     <use 
-    height="250" width="250" id="wrinkle-right-brow" xlink:href="#wrinkle-left-brow" y="0" x="0" style="stroke-width:0.500;stroke-miterlimit:4;stroke-dasharray:none" transform="matrix(-1,0,0,1,257,0)">
+    transform="matrix(-1,0,0,1,250,0)" style="stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none" height="250" y="0" x="0" xlink:href="#wrinkle-left-brow" id="wrinkle-right-brow" width="250">
 </use>
     <use 
-    height="250" width="250" id="wrinkle-right-cheek" xlink:href="#wrinkle-left-cheek" y="0" x="0" style="stroke-width:0.500;stroke-miterlimit:4;stroke-dasharray:none" transform="matrix(-1,0,0,1,257,0)">
+    transform="matrix(-1,0,0,1,250,0)" style="stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none" height="250" y="0" x="0" xlink:href="#wrinkle-left-cheek" id="wrinkle-right-cheek" width="250">
 </use>
   </g>
 </svg>

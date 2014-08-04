@@ -7,36 +7,36 @@ import scala.xml.PrettyPrinter
 import java.io.File
 
 object Emoticons extends App {
-  val base = EmoticonStructure.load("faces/face_000.svg")
+    val base = EmoticonStructure.load("faces/face_000.svg")
 
-  def loadParameters(code : String) = {
-	val level = 2 - code.filter(_ == '0').length
-	val file = "faces/face_"+code+".svg"
-	val baseLocal = "faces/face_base-"+level+"_"+code+".svg"
-	val baseGen = "gen/face_base-"+level+"_"+code+".svg"
-	if (new File(baseLocal).exists())
-		base.getParametersFromFile(file, baseLocal)
-	else
-		base.getParametersFromFile(file, baseGen)
-  }
+    def loadParameters(code : String) = {
+    	val level = 2 - code.filter(_ == '0').length
+    	val file = "faces/face_"+code+".svg"
+    	val baseFile = if (level>0) "face_base-"+level+"_"+code+".svg" else "face_base-0.svg"
+    	if (new File("faces/"+baseFile).exists())
+    		base.getParametersFromFile(file, "faces/"+baseFile)
+    	else
+    		base.getParametersFromFile(file, "gen/"+baseFile)
+    }
   
-  def saveEmoticon(filename : String, param : MorphableParameter.ParameterSet) {
+    def saveEmoticon(filename : String, param : MorphableParameter.ParameterSet) {
 		println("Creating: "+filename)
 		val out = new PrintWriter(filename)
  		out.write(new PrettyPrinter(100,2).formatNodes(base.format(param)))
 
 		out.close();
-	}
+    }
 	
-	val shape_ooo= base.getParametersFromFile("faces/face_000.svg")
-	saveEmoticon("gen/face_000.svg", shape_ooo)
+    val shape_ooo= base.getParametersFromFile("faces/face_000.svg")
+    saveEmoticon("gen/face_000.svg", shape_ooo)
+	saveEmoticon("gen/face_base-0.svg", shape_ooo)
 
-	val shape_poo= base.getParametersFromFile("faces/face_+00.svg", shape_ooo)
-	val shape_moo= base.getParametersFromFile("faces/face_-00.svg", shape_ooo)
-	val shape_opo= base.getParametersFromFile("faces/face_0+0.svg", shape_ooo)
-	val shape_omo= base.getParametersFromFile("faces/face_0-0.svg", shape_ooo)
-	val shape_oop= base.getParametersFromFile("faces/face_00+.svg", shape_ooo)
-	val shape_oom= base.getParametersFromFile("faces/face_00-.svg", shape_ooo)
+	val shape_poo= loadParameters("+00")
+	val shape_moo= loadParameters("-00")
+	val shape_opo= loadParameters("0+0")
+	val shape_omo= loadParameters("0-0")
+	val shape_oop= loadParameters("00+")
+	val shape_oom= loadParameters("00-")
 	
 	def emoticon(v: Double, a: Double, p:Double)  = {
 		val sv = Math.abs(1-2*v)
