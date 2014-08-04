@@ -31,6 +31,7 @@ case class SVGMatrix(val a : Double = 1.0,
     		  (e * b - f * a) /det)
   }
 
+  def apply(v : (Double, Double)) : (Double, Double) = apply(v._1, v._2)
   def apply(x : Double, y : Double) : (Double, Double) = (a * x + c * y + e, b * x + d *y + f)
   
   override def toString() = List(a,b,c,d,e,f).map(SVGUtil.format(_)).mkString("matrix(",",",")");
@@ -66,7 +67,7 @@ object SVGMatrix {
 
 object SVGUtil {
 
-  def format(value : Double) = "%1.3f".format(value).replaceAll("\\.?0*$","")
+  def format(value : Double) = "%1.2f".format(value).replaceAll("\\.?0*$","")
 
   def hexParser(value : CharSequence):Int = {
     def hexDigitParser(value : Char):Int = {
@@ -96,45 +97,48 @@ object SVGUtil {
 	  var mode= "  "
 	  var index= 0
 	  var argnum= 1
-	  var x=  0.0
-	  var x0= 0.0
-	  var y=  0.0
-	  var y0= 0.0
+	  var cur = (0.0, 0.0)
+	  var ref = (0.0, 0.0)
+	  var curOut = (0.0, 0.0)
+	  var refOut = (0.0, 0.0)
 	  PATHSEG.replaceAllIn(path, seg => {
 		  val text= seg.matched
 		  if (text.length==1) {
-			  x0= x
-			  y0= y
 			  argnum= text.toUpperCase match {
 				  case "C" => 3
 				  case "Q" => 2
 				  case _ => 1
 			  }
-			  x0=x
-			  y0=y
+			  ref= cur
+			  refOut = curOut
 			  index=0
-			  if (text.toUpperCase==mode.toUpperCase) {
+			  if (text.toLowerCase==mode.toLowerCase) {
 				  mode= text
 				  ""
 			  } else {
 				  mode= text
-				  text.toUpperCase
+				  text.toLowerCase
 			  }
 
 	 	  } else {
-	 	 	  if (index == argnum) { x0=x; y0=y; index=0 }
+	 	 	  if (index == argnum) { 
+	 	 	    ref = cur
+	 	 	    refOut = curOut
+	 	 	    index=0 
+	 	 	  }
 	 	 	  index += 1
 	 	 	  if (mode == mode.toUpperCase) {
-	 	 	 	  x= seg.group(1).toDouble
-	 	 	 	  y= seg.group(3).toDouble
+	 	 	 	  cur = (seg.group(1).toDouble, seg.group(3).toDouble)
 	 	 	  } else {
 	 	 	 	  val dx= seg.group(1).toDouble
 	 	 	 	  val dy= seg.group(3).toDouble
-	 	 	 	  x= x0+dx
-	 	 	 	  y= y0+dy
+	 	 	 	  cur = (ref._1 + dx, ref._2 + dy)
 	 	 	  }
-	 	 	  val v = matrix.apply(x, y)
-	 	 	  format(v._1)+","+format(v._2)
+	 	 	  val v = matrix.apply(cur)
+	 	 	  val reft = matrix.apply(ref)
+	 	 	  val xOut = format(v._1 - reft._1)
+	 	 	  val yOut = format(v._2 - reft._2)
+	 	 	  xOut+","+yOut
 	 	  }
 	  }).replaceAll("  "," ")
   }

@@ -32,8 +32,7 @@ class EmoticonStructure(val node : Node) {
 	def getMap() : Map[String, EmoticonStructure] = {
 		val recurse = children.map { _.getMap() }.fold(Map()) ( _ ++ _ )
 		val nodeId = node.attribute("id").map{ _.text }
-		val excluded = node.attribute("morph").exists { _.text == "fixed" } ||
-			node.prefix == "sodipodi" || node.prefix == "inkscape"
+		val excluded = node.attribute("morph").exists { _.text == "fixed" }
 		val excludeChildren = node.attribute("morph").exists( _.text == "fix-children")
 		if (excluded)
 		  Map()
@@ -118,8 +117,11 @@ object EmoticonStructure {
 		//doc.head
 	}
 
-  	def load(file : String) = {
-  	  new EmoticonStructure(loadAsXML(file))
+  	def load(file : String, minimize : Boolean) = {
+  	  new EmoticonStructure(if (minimize)
+  		  new SVGTransformFlattener().removeInkscapeStuff(loadAsXML(file))
+  	    else 
+  	      loadAsXML(file))
   	}
 }
 

@@ -6,6 +6,10 @@ import scala.xml.UnprefixedAttribute
 import scala.xml.Null
 import scala.xml.PrefixedAttribute
 import scala.xml.MetaData
+import scala.xml.Text
+import scala.xml.TopScope
+import scala.xml.NamespaceBinding
+import scala.xml.NamespaceBinding
 
 /*
  * Pushes transformations down to the child elements
@@ -18,21 +22,9 @@ class SVGTransformFlattener {
 	var updateMap = Map[String, SVGMatrix]()
 	var clipPathRef = Map[String, SVGMatrix]()
   
-	val idMap = Map("defs4"->"defs",
-			"path164" -> "head-outline",
-			"path3622" -> "left-eye-outline",
-			"clipPath2967" -> "clipPath-left-eye",
-			"lens" -> "left-eyeball",
-			"g4403" -> "left-lens",
-			"use3959" -> "right-eye-outline",
-			"g4015" -> "right-eyeball",
-			"clipPath4022" -> "clipPath-right-eye",
-			"use5959" -> "use-left-eye-outline-2",
-			"use2969" -> "use-left-eye-outline-1")
-	
 	def flatten(node : Node) : Node = {
 	  findTransforms(node, SVGMatrix())
-	  fixIds(applyTransforms(node, SVGMatrix()))
+	  applyTransforms(node, SVGMatrix())
 	}
   
 	def findTransforms(node : Node, matrix : SVGMatrix) {
@@ -70,7 +62,7 @@ class SVGTransformFlattener {
 	  	val newRefMatrix = (
 	  	    optId.flatMap { clipPathRef.get(_) }.getOrElse(SVGMatrix()))
 
-	  	val flatAttribs = if (label=="g")
+	  	val flatAttribs = if (label=="g" || label=="use")
   	  	  		attribs.remove("transform").remove("style")
 	  		else 
 	  			attribs.remove("transform")
@@ -84,7 +76,8 @@ class SVGTransformFlattener {
 	          val d2 = SVGUtil.normalizePath(d, matrix)
 	          val style = attribs.get("style").get.text
 	          val style2 = "stroke-width:([^;p]*)".r.replaceAllIn(style, 
-	              w => "stroke-width:" + (Math.round( 2* w.group(1).toDouble * Math.sqrt(matrix.det.abs))/2.0).toString())
+	              w => "stroke-width:" + 
+	              SVGUtil.format(Math.round( 2* w.group(1).toDouble * Math.sqrt(matrix.det.abs))/2.0))
 		      flatAttribs
 		      	.append(new UnprefixedAttribute("style", style2, Null))
 		      	.append(new UnprefixedAttribute("d", d2, Null))
@@ -105,6 +98,44 @@ class SVGTransformFlattener {
 	  }
 	}
 	
+	def removeInkscapeStuff(node : Node) : Node = node match {
+	  case Elem(prefix, label, attribs, scope, children @ _*) => {
+		def newAttr(attr : MetaData) : MetaData = {
+		  if (attr == Null)
+		    Null
+		  else if (attr.prefixedKey.matches("^(inkscape|sodipodi|xmlns):.*"))
+			  newAttr(attr.next)
+		  else 
+	        attr.copy(newAttr(attr.next))
+	    }
+		
+		if ((prefix!=null && prefix.matches("rdf|dc|sodipodi|inkscape")) || 
+		    label.matches("metadata|namedview")) {
+			Text("")
+		} else
+		Elem(prefix, label,
+	    	newAttr(attribs),
+	    	if (label=="svg")
+		        new NamespaceBinding(null,"http://www.w3.org/2000/svg",
+		        new NamespaceBinding("xlink","http://www.w3.org/1999/xlink",TopScope))
+	    	else TopScope,
+     		children.map(removeInkscapeStuff(_)):_*)
+	  }
+	  case _ => node
+	}
+	
+	val idMap = Map("defs4"->"defs",
+			"path164" -> "head-outline",
+			"path3622" -> "left-eye-outline",
+			"clipPath2967" -> "clipPath-left-eye",
+			"lens" -> "left-eyeball",
+			"g4403" -> "left-lens",
+			"use3959" -> "right-eye-outline",
+			"g4015" -> "right-eyeball",
+			"clipPath4022" -> "clipPath-right-eye",
+			"use5959" -> "use-left-eye-outline-2",
+			"use2969" -> "use-left-eye-outline-1")
+	
 	def fixIds(node : Node) : Node = {
 	  	  node match {
 	  case Elem(prefix, label, attribs, scope, children @ _*) => {
@@ -123,10 +154,10 @@ class SVGTransformFlattener {
 	      else 
 	        attr.append(newAttr(attr.next))
 	    }
-	      
+	    
 	    Elem(prefix, label,
 	    	newAttr(attribs),
-	        scope,
+	    	scope,
      		children.map(fixIds(_)):_*)
 	  }
 	  case _ => node

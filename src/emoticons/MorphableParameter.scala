@@ -12,7 +12,7 @@ case class NumberParam(val value:Double) extends Param {
 	  NumberParam(thisFactor * value + otherFactor * otherParam.asInstanceOf[NumberParam].value)
 	}
   
-  	def isSignificant() = value.abs > 0.001
+  	def isSignificant() = value.abs > 0.5
 }
 
 case class ColorParam(val r:Double, g:Double, b:Double) extends Param {

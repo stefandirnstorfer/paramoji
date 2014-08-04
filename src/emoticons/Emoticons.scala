@@ -7,16 +7,18 @@ import scala.xml.PrettyPrinter
 import java.io.File
 
 object Emoticons extends App {
-    val base = EmoticonStructure.load("faces/face_000.svg")
-
+    val base = EmoticonStructure.load("faces/face_000.svg", false)
+    val shape0 = base.getParametersFromFile("faces/face_000.svg", "faces/face_000.svg")
+    
     def loadParameters(code : String) = {
     	val level = 2 - code.filter(_ == '0').length
     	val file = "faces/face_"+code+".svg"
     	val baseFile = if (level>0) "face_base-"+level+"_"+code+".svg" else "face_base-0.svg"
-    	if (new File("faces/"+baseFile).exists())
+    	val params = if (new File("faces/"+baseFile).exists())
     		base.getParametersFromFile(file, "faces/"+baseFile)
     	else
     		base.getParametersFromFile(file, "gen/"+baseFile)
+    	params + ("tongue" -> shape0("tongue"))
     }
   
     def saveEmoticon(filename : String, param : MorphableParameter.ParameterSet) {
@@ -185,9 +187,10 @@ object Emoticons extends App {
 	saveEmoticon("gen/face_---.svg", emoticon3(0,0,0))
 
 	println("Writing Javascript code")
+    val jsbase = EmoticonStructure.load("faces/face_000.svg", true)
 	val paramSets = List(shape_ooo, shape_poo, shape_moo, shape_opo, shape_omo, shape_oop, shape_oom,
 	        shape_ppo, shape_pmo, shape_pop, shape_pom, shape_mpo, shape_mmo, shape_mop, shape_mom, shape_opp, shape_omp, shape_opm, shape_omm,
 	        shape_ppp, shape_ppm, shape_pmp, shape_pmm, shape_mpp, shape_mpm, shape_mmp, shape_mmm)
-    JSParamFormatter.saveToFile("gen/emoticon.js", base, paramSets)	
+    JSParamFormatter.saveToFile("gen/emoticon.js", jsbase, paramSets)	
 }
 
