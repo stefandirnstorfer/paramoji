@@ -73,13 +73,10 @@ class SVGTransformFlattener {
 		      flatAttribs.append(new UnprefixedAttribute("transform", matrix.toString(), Null))
 	        else if ("path"==label) {
 	          val d = attribs.get("d").get.text
-	          val d2 = SVGUtil.normalizePath(d, matrix)
-	          val style = attribs.get("style").get.text
-	          val style2 = "stroke-width:([^;p]*)".r.replaceAllIn(style, 
-	              w => "stroke-width:" + 
-	              SVGUtil.format(Math.round( 2* w.group(1).toDouble * Math.sqrt(matrix.det.abs))/2.0))
+	          val d2 = SVGUtil.normalizePath(d, 
+	              optId.exists( _.matches("(mouth|left-eye|nose|head)-outline|left-eye-brow|(left|right)-lidshadow")), 
+	              matrix)
 		      flatAttribs
-		      	.append(new UnprefixedAttribute("style", style2, Null))
 		      	.append(new UnprefixedAttribute("d", d2, Null))
 	        } else if (label == "use") {
 		 	    val ref = attribs.filter( _.prefixedKey == "xlink:href").value.text.replace("#","")

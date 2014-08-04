@@ -91,7 +91,9 @@ object SVGUtil {
   def formatColor(r: Int, g:Int, b:Int) : String = 
     "#"+(List(r,g,b).map { channel => hexFormat(min(255,max(0,channel)),2) }.mkString)
 
-  def normalizePath(path: String, matrix : SVGMatrix = SVGMatrix()) : String = {
+  def toCase(text : String, isAbsolute : Boolean) = if (isAbsolute) text.toUpperCase() else text.toLowerCase()
+  
+  def normalizePath(path: String, toAbsolute : Boolean, matrix : SVGMatrix = SVGMatrix()) : String = {
 	  val NUMBER= "[+-]?[0-9]+(\\.[0-9]+)?".r
 	  val PATHSEG= ("[a-zA-Z]|("+NUMBER+"),("+NUMBER+")").r
 	  var mode= "  "
@@ -112,12 +114,12 @@ object SVGUtil {
 			  ref= cur
 			  refOut = curOut
 			  index=0
-			  if (text.toLowerCase==mode.toLowerCase) {
+			  if (toCase(text, toAbsolute) == toCase(mode, toAbsolute)) {
 				  mode= text
 				  ""
 			  } else {
 				  mode= text
-				  text.toLowerCase
+				  toCase(text, toAbsolute)
 			  }
 
 	 	  } else {
@@ -127,7 +129,7 @@ object SVGUtil {
 	 	 	    index=0 
 	 	 	  }
 	 	 	  index += 1
-	 	 	  if (mode == mode.toUpperCase) {
+	 	 	  if (mode == mode.toUpperCase()) {
 	 	 	 	  cur = (seg.group(1).toDouble, seg.group(3).toDouble)
 	 	 	  } else {
 	 	 	 	  val dx= seg.group(1).toDouble
@@ -135,10 +137,14 @@ object SVGUtil {
 	 	 	 	  cur = (ref._1 + dx, ref._2 + dy)
 	 	 	  }
 	 	 	  val v = matrix.apply(cur)
-	 	 	  val reft = matrix.apply(ref)
-	 	 	  val xOut = format(v._1 - reft._1)
-	 	 	  val yOut = format(v._2 - reft._2)
-	 	 	  xOut+","+yOut
+	 	 	  if (toAbsolute) { 
+	 	 	    format(v._1)+","+format(v._2)
+	 	 	  } else {
+	 	 		  val reft = matrix.apply(ref)
+	 	 		  val xOut = format(v._1 - reft._1)
+	 	 		  val yOut = format(v._2 - reft._2)
+	 	 		  xOut+","+yOut
+	 	 	  }
 	 	  }
 	  }).replaceAll("  "," ")
   }

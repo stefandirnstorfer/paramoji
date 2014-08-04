@@ -41,10 +41,7 @@ class SimpleAttributePattern(text : String) extends AttributePattern {
 	override def toString() = format
 }
 
-class PathAttributePattern(text : String) extends SimpleAttributePattern(SVGUtil.normalizePath(text)) {
-	override def getParams(text : String) : List[Param] = {
-	    super.getParams(SVGUtil.normalizePath(text))
-	}
+class PathAttributePattern(text : String) extends SimpleAttributePattern(text) {
 }
 
 class StyleAttributePattern(text : String) extends AttributePattern {

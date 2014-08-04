@@ -18,7 +18,7 @@ class EmoticonStructure(val node : Node) {
 	val attributes  = node.attributes.flatMap { attr => attr.key match {
 				case "transform" => List("transform" -> new SimpleAttributePattern(attr.value.toString))
 				case "style" => List("style" -> new StyleAttributePattern(attr.value.toString))
-				case "d" => List("d" -> new PathAttributePattern(SVGUtil.normalizePath(attr.value.toString)))
+				case "d" => List("d" -> new PathAttributePattern(attr.value.toString))
 				case _ => List()
 	}}.toList
 
