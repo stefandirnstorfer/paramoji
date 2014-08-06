@@ -8,7 +8,7 @@ import java.io.File
 
 object Emoticons extends App {
     val base = EmoticonStructure.load("faces/face_000.svg", false)
-//    val shape0 = base.getParametersFromFile("faces/face_000.svg", "faces/face_000.svg")
+    val shape0 = base.getParametersFromFile("faces/face_000.svg", "faces/face_000.svg")
     
     def loadParameters(code : String) = {
     	val level = 2 - code.filter(_ == '0').length
@@ -33,6 +33,8 @@ object Emoticons extends App {
     saveEmoticon("gen/face_000.svg", shape_ooo)
 	saveEmoticon("gen/face_base-0.svg", shape_ooo)
 
+	println(shape_ooo("iris"))
+	
 	val shape_poo= loadParameters("+00")
 	val shape_moo= loadParameters("-00")
 	val shape_opo= loadParameters("0+0")

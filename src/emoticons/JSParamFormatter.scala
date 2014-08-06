@@ -15,7 +15,7 @@ class JSParam(params : List[Param]) extends Param {
       				formatF(params.map{_.asInstanceOf[ColorParam].b})+")"
       		case _ : NumberParam =>
       			"'+f(["+params.map{_.toString}.mkString(",")+"])+'";
-      }
+        }
 	}
     else
       params(0).toString

@@ -10,7 +10,6 @@ class MatchException(msg : String, cause : Throwable) extends Exception(msg) {
 	def this(msg : String) = this(msg, null)
 }
 
-
 class EmoticonStructure(val node : Node) {
 	type ParameterSet = Map[String, List[Param]]
 	val children = node.child.filter { !_.label.startsWith("#") }.map { new EmoticonStructure(_) }
@@ -98,7 +97,7 @@ class EmoticonStructure(val node : Node) {
 		    if (nodeId.isDefined && param.contains(nodeId.get))
 		    	format_replaceAttribs(attribs, param(nodeId.get).iterator)
 		    else
-		        attribs.remove("morph"), 
+		        attribs, 
 			scope, 
 				children.map { _.format(param) }:_*
 		)

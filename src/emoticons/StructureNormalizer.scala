@@ -17,8 +17,6 @@ import scala.xml.NamespaceBinding
  */
 class SVGTransformFlattener {
 
-	val FILTERED_GROUPS = List("upper-teeth","lower-teeth")
-  
 	var updateMap = Map[String, SVGMatrix]()
 	var clipPathRef = Map[String, SVGMatrix]()
   
@@ -56,6 +54,7 @@ class SVGTransformFlattener {
 	  node match {
 	  case Elem(prefix, label, attribs, scope, children @ _*) => {
 	    val optId = attribs.get("id").map(_.text)
+	    val optMorph = attribs.get("morph").map(_.text)
 		val matrix = refMatrix.multiply(
 		    optId.flatMap { updateMap.get(_) }.getOrElse(SVGMatrix()))
 	  	
@@ -66,33 +65,61 @@ class SVGTransformFlattener {
   	  	  		attribs.remove("transform").remove("style")
 	  		else 
 	  			attribs.remove("transform")
-	  	val isFiltered = optId.exists(FILTERED_GROUPS.contains(_))
+	  	val isFiltered = attribs.get("morph").exists(_.text.matches("fix|fix-children")) || 
+	  		optId.exists(_ == "lower-teeth")
 	  	
-	    Elem(prefix, label,
-	        if (isFiltered)
-		      flatAttribs.append(new UnprefixedAttribute("transform", matrix.toString(), Null))
-	        else if ("path"==label) {
-	          val d = attribs.get("d").get.text
-	          val d2 = SVGUtil.normalizePath(d, 
-	              optId.exists( _.matches("(mouth|left-eye|nose|head)-outline|left-eye-brow|(left|right)-lidshadow")), 
-	              matrix)
-		      flatAttribs
-		      	.append(new UnprefixedAttribute("d", d2, Null))
-	        } else if (label == "use") {
-		 	    val ref = attribs.filter( _.prefixedKey == "xlink:href").value.text.replace("#","")
-		 	    val mapMatrix = updateMap.get(ref).getOrElse(SVGMatrix())
-		 	    val newMatrix = matrix.multiply(mapMatrix.inverse())
-  		        flatAttribs.append(new UnprefixedAttribute("transform", newMatrix.toString(), Null))
-		    } else
-		        flatAttribs,
-		     scope,
-		     	(if (isFiltered)
-		     		children
-		     	else
-		     		children.map(applyTransforms(_, newRefMatrix))):_*)
+	    if (optMorph.exists(_.matches("transform-only|relative")))
+	      fixScalePath(node.asInstanceOf[Elem], matrix)
+	    else
+		    Elem(prefix, label,
+		        if (isFiltered)
+			      flatAttribs.append(new UnprefixedAttribute("transform", matrix.toString(), Null))
+		        else if ("path"==label) {
+		          val d = attribs.get("d").get.text
+		          val d2 = SVGUtil.normalizePath(d, 
+		              !optMorph.exists( _.matches("relative")), 
+		              matrix)
+			      flatAttribs
+			      	.append(new UnprefixedAttribute("d", d2, Null))
+		        } else if (label == "use") {
+			 	    val ref = attribs.filter( _.prefixedKey == "xlink:href").value.text.replace("#","")
+			 	    val mapMatrix = updateMap.get(ref).getOrElse(SVGMatrix())
+			 	    val newMatrix = matrix.multiply(mapMatrix.inverse())
+	  		        flatAttribs.append(new UnprefixedAttribute("transform", newMatrix.toString(), Null))
+			    } else
+			        flatAttribs,
+			     scope,
+			     	(if (isFiltered)
+			     		children
+			     	else
+			     		children.map(applyTransforms(_, newRefMatrix))):_*)
 	  }
 	  case _ => node
 	  }
+	}
+	
+	def fixScalePath(path : Elem, transform : SVGMatrix) : Node = {
+	  val d = path.attributes("d").text
+	  val d2 = SVGUtil.normalizePath(d, true)
+	  val NUMBER= "[+-]?[0-9]+(\\.[0-9]+)?".r
+	  val PATHSEG= (" ("+NUMBER+"),("+NUMBER+")").r
+	  val points = PATHSEG.findAllMatchIn(d2).map(m => (m.subgroups(0).toDouble, m.subgroups(2).toDouble)).toList
+	  val x0 = points.map(_._1).min
+	  val y0 = points.map(_._2).min
+	  val w = points.map(_._1).max - x0
+	  val h = points.map(_._2).max - y0
+	  val matrix = SVGMatrix((w+h)/2,0,0,(w+h)/2,x0,y0)
+	  //val unitD = SVGUtil.normalizePath(d, true, matrix.inverse)
+	  val unitD = "M 1,0.5 C 1,0.75 0.75,1 0.5,1 0.25,1 0,0.75 0,0.5 0,0.25 0.25,0 0.5,0 0.75,0 1,0.25 1,0.5 z"
+	  Elem(path.prefix, path.label,
+	      path.attributes
+	      	.append(new UnprefixedAttribute("d", unitD, Null))
+	      	.append(new UnprefixedAttribute("transform", transform.multiply(matrix).toString, Null))
+	      	.append(new UnprefixedAttribute("style", 
+	      	    "stroke-width:([0-9.]*)".r.replaceAllIn(
+	      	        path.attributes("style").text,
+	      	        m => "stroke-width:" + m.subgroups(0).toDouble/Math.sqrt(w*h)), Null)),
+	      path.scope)
 	}
 	
 	def removeInkscapeStuff(node : Node) : Node = node match {
@@ -100,7 +127,8 @@ class SVGTransformFlattener {
 		def newAttr(attr : MetaData) : MetaData = {
 		  if (attr == Null)
 		    Null
-		  else if (attr.prefixedKey.matches("^(inkscape|sodipodi|xmlns):.*"))
+		  else if (attr.key.matches("morph") ||
+		           attr.prefixedKey.matches("^(inkscape|sodipodi|xmlns):.*"))
 			  newAttr(attr.next)
 		  else 
 	        attr.copy(newAttr(attr.next))
@@ -119,46 +147,5 @@ class SVGTransformFlattener {
      		children.map(removeInkscapeStuff(_)):_*)
 	  }
 	  case _ => node
-	}
-	
-	val idMap = Map("defs4"->"defs",
-			"path164" -> "head-outline",
-			"path3622" -> "left-eye-outline",
-			"clipPath2967" -> "clipPath-left-eye",
-			"lens" -> "left-eyeball",
-			"g4403" -> "left-lens",
-			"use3959" -> "right-eye-outline",
-			"g4015" -> "right-eyeball",
-			"clipPath4022" -> "clipPath-right-eye",
-			"use5959" -> "use-left-eye-outline-2",
-			"use2969" -> "use-left-eye-outline-1")
-	
-	def fixIds(node : Node) : Node = {
-	  	  node match {
-	  case Elem(prefix, label, attribs, scope, children @ _*) => {
-	  	def mapA(id : String) = idMap.get(id).getOrElse(id)
-	  	def mapR(url : String) = "#([0-9a-zA-Z]*)".r.replaceAllIn(url, m => "#" + mapA(m.subgroups(0)))
-	  	
-		def newAttr(attr : MetaData) : MetaData = {
-		  if (attr == Null)
-		    Null
-		  else if (attr.key == "id")
-			  new UnprefixedAttribute("id", mapA(attr.value.text), newAttr(attr.next))
-		  else if (attr.key == "clip-path")
-			  new UnprefixedAttribute("clip-path", mapR(attr.value.text), newAttr(attr.next))
-		  else if (attr.prefixedKey == "xlink:href")
-			  new PrefixedAttribute("xlink","href", mapR(attr.value.text), newAttr(attr.next))
-	      else 
-	        attr.append(newAttr(attr.next))
-	    }
-	    
-	    Elem(prefix, label,
-	    	newAttr(attribs),
-	    	scope,
-     		children.map(fixIds(_)):_*)
-	  }
-	  case _ => node
-	  }
-
 	}
 }
