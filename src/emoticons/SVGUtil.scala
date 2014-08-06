@@ -115,11 +115,16 @@ object SVGUtil {
 			  refOut = curOut
 			  index=0
 			  if (toCase(text, toAbsolute) == toCase(mode, toAbsolute)) {
-				  mode= text
+				  mode = text
 				  ""
 			  } else {
-				  mode= text
+			    if (mode.toUpperCase()=="M" && text.toUpperCase()=="L") {
+			      mode = text
+			      ""
+			    } else {
+				  mode = text
 				  toCase(text, toAbsolute)
+			    }
 			  }
 
 	 	  } else {
