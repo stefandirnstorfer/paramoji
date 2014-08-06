@@ -51,7 +51,11 @@ function animate(dv, da, dp) {
 	    da = decay * (Math.random()-.5) * Math.sqrt(dt) + (1-decay) * da;
 	    dp = decay * (Math.random()-.5) * Math.sqrt(dt) + (1-decay) * dp;
 	    var map = function(x) { return x>100 ? 100 : (x<0 ? 0 : x); }
-	    setParam(map(v+dv*dt),map(a+da*dt),map(p+dp*dt), true);
+	    setParam(map(v+dv*dt), map(a+da*dt), map(p+dp*dt), true);
+	    if (v <= 0 || v >= 100) dv = 0;
+	    if (a <= 0 || a >= 100) da = 0;
+	    if (p <= 0 || p >= 100) dp = 0;
+
 	}
 	window.requestAnimationFrame(function() { animate(dv, da, dp); });
     } else {

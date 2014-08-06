@@ -79,8 +79,12 @@ class SVGTransformFlattener {
 		          val d2 = SVGUtil.normalizePath(d, 
 		              !optMorph.exists( _.matches("relative")), 
 		              matrix)
+		          val style2 = "stroke-width:([0-9.]*)".r.replaceAllIn(attribs("style").text, 
+		              w => "stroke-width:" +(w.group(1).toDouble * Math.sqrt(matrix.det.abs)))
+
 			      flatAttribs
 			      	.append(new UnprefixedAttribute("d", d2, Null))
+			      	.append(new UnprefixedAttribute("style", style2, Null))
 		        } else if (label == "use") {
 			 	    val ref = attribs.filter( _.prefixedKey == "xlink:href").value.text.replace("#","")
 			 	    val mapMatrix = updateMap.get(ref).getOrElse(SVGMatrix())

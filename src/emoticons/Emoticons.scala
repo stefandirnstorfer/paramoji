@@ -32,8 +32,6 @@ object Emoticons extends App {
     val shape_ooo= base.getParametersFromFile("faces/face_000.svg")
     saveEmoticon("gen/face_000.svg", shape_ooo)
 	saveEmoticon("gen/face_base-0.svg", shape_ooo)
-
-	println(shape_ooo("iris"))
 	
 	val shape_poo= loadParameters("+00")
 	val shape_moo= loadParameters("-00")
