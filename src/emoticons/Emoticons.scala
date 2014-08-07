@@ -9,6 +9,14 @@ import java.io.File
 object Emoticons extends App {
     val base = EmoticonStructure.load("faces/face_000.svg", false)
     val shape0 = base.getParametersFromFile("faces/face_000.svg", "faces/face_000.svg")
+
+   	var zeros = List[Int](10, 16, 22, 34, 40, 46)
+    def setZero(list : List[Param], index : Int) : List[Param]=
+      if (list==Nil) Nil else
+      (if (zeros.contains(index))
+    	  NumberParam(0.0)
+       else
+         list.head) :: setZero(list.tail, index+1)
     
     def loadParameters(code : String) = {
     	val level = 2 - code.filter(_ == '0').length
@@ -18,7 +26,8 @@ object Emoticons extends App {
     		base.getParametersFromFile(file, "faces/"+baseFile)
     	else
     		base.getParametersFromFile(file, "gen/"+baseFile)
-    	params
+    	params + ("mouth-outline" -> setZero(params("mouth-outline"),0))
+    	//params
     }
   
     def saveEmoticon(filename : String, param : MorphableParameter.ParameterSet) {
