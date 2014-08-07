@@ -114,7 +114,7 @@ class SVGTransformFlattener {
 	  val h = points.map(_._2).max - y0
 	  val matrix = SVGMatrix((w+h)/2,0,0,(w+h)/2,x0,y0)
 	  //val unitD = SVGUtil.normalizePath(d, true, matrix.inverse)
-	  val unitD = "M 1,0.5 C 1,0.75 0.75,1 0.5,1 0.25,1 0,0.75 0,0.5 0,0.25 0.25,0 0.5,0 0.75,0 1,0.25 1,0.5 z"
+	  val unitD = "M 1,0.5 C 1,0.78 0.78,1 0.5,1 0.22,1 0,0.78 0,0.5 0,0.22 0.22,0 0.5,0 0.78,0 1,0.22 1,0.5 z"
 	  Elem(path.prefix, path.label,
 	      path.attributes
 	      	.append(new UnprefixedAttribute("d", unitD, Null))
