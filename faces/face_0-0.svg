@@ -41,7 +41,7 @@
      inkscape:current-layer="emoticon-front-view"
      inkscape:guide-bbox="true"
      inkscape:snap-global="true"
-     inkscape:snap-nodes="true"
+     inkscape:snap-nodes="false"
      showguides="true"
      inkscape:window-maximized="1"
      inkscape:window-x="1985"
@@ -348,10 +348,10 @@
       </g>
     </g>
     <path
-       d="M 159.23,193.82 C 159.14,195.61 153.72,196.06 150,196.6 146.28,197.14 139.45,198.97 125,198.97 110.55,198.97 106.36,197.97 100,197.35 93.64,196.73 88.35,194.81 88.7,193.8 89.06,192.8 93.41,194.4 100,195.1 106.59,195.8 110.56,196.39 125,196.39 139.45,196.39 145.78,195.03 150,194.5 154.22,193.98 159.32,192.02 159.23,193.82 Z"
+       d="m 159.23,194.11635 c 0.32463,2.03768 -13.86384,4.95868 -34.23,4.85365 -20.36616,-0.10503 -36.467039,-3.40073 -36.3,-5.17 0.167039,-1.76927 15.74063,2.90341 36.3,2.88635 20.55937,-0.0171 33.90537,-4.60768 34.23,-2.57 z"
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-miterlimit:4;stroke-opacity:1"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="czzzczzzc"
+       sodipodi:nodetypes="zzzzz"
        id="mouth-outline" />
   </g>
   <g

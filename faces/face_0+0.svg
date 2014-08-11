@@ -41,7 +41,7 @@
      inkscape:current-layer="emoticon-front-view"
      inkscape:guide-bbox="true"
      inkscape:snap-global="true"
-     inkscape:snap-nodes="false"
+     inkscape:snap-nodes="true"
      showguides="true"
      inkscape:window-maximized="1"
      inkscape:window-x="1985"
@@ -78,6 +78,10 @@
        orientation="1,0"
        position="150,175"
        id="guide3035" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="136.9637,62.981298"
+       id="guide3377" />
   </sodipodi:namedview>
   <defs
      id="defs">
@@ -348,10 +352,10 @@
       </g>
     </g>
     <path
-       d="M 173.57,187.71 C 173.45,191.76 162.98,198.75 150,201.16 143.74,202.33 137.68,203.06 125,203 114.38,202.95 108.2,202.2 100,200.11 90.73,197.74 77.47,191.16 77.46,185.22 77.45,181.53 94.05,177.76 100,176.84 105.95,175.91 113.03,175.35 125,175.32 136.97,175.3 144.04,176.26 150,177.08 155.96,177.89 173.73,181.82 173.57,187.71 Z"
+       d="M 172.74492,187.0187 C 170.53249,199.74708 142.32436,202.99917 125,203 107.67564,203.00083 78.634936,200.54642 77.735028,187.0187 77.069154,177.00907 110.62435,175.50759 125,175.32 c 14.37565,-0.18759 49.25031,3.03801 47.74492,11.6987 z"
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-miterlimit:4;stroke-opacity:1"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="czzzczzzc"
+       sodipodi:nodetypes="szszs"
        id="mouth-outline" />
   </g>
   <g
