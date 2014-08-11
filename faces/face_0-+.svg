@@ -35,17 +35,17 @@
      inkscape:pageshadow="2"
      inkscape:window-height="1056"
      id="namedview3097"
-     inkscape:zoom="8.6295666"
-     inkscape:cy="84.570957"
+     inkscape:zoom="3.636"
+     inkscape:cy="125"
      inkscape:window-y="24"
      inkscape:current-layer="emoticon-front-view"
      inkscape:guide-bbox="true"
      inkscape:snap-global="true"
-     inkscape:snap-nodes="true"
+     inkscape:snap-nodes="false"
      showguides="true"
      inkscape:window-maximized="1"
      inkscape:window-x="1985"
-     inkscape:cx="128.0253"
+     inkscape:cx="125"
      showgrid="false"
      inkscape:window-width="1855"
      inkscape:pageopacity="0"
@@ -206,10 +206,10 @@
     </g>
   </g>
   <path
-     d="M 117.87,134.12 C 109.04,132.07 101.55,130.76 94.72,129.22 87.88,127.68 81.57,126.83 67.05,123.14 L 67.59,121.92 C 81.28,123.97 88.08,124.8 95.14,125.4 102.21,126 109.14,126.9 118.34,126.27 Z"
+     d="m 117.87,135.77017 c -14.99123,-7.28146 -24.373985,-8.94511 -50.269945,-9.87989 L 67.59,123.57017 c 19.165743,0.58031 36.90633,3.65794 51.02503,3.24989 z"
      style="fill:#292929;fill-opacity:1;fill-rule:nonzero;stroke-width:1;stroke-miterlimit:122.5;stroke-opacity:1;stroke-dasharray:none"
      inkscape:connector-curvature="0"
-     sodipodi:nodetypes="czcczcc"
+     sodipodi:nodetypes="ccccc"
      id="left-eye-brow" />
   <g
      id="nose">
