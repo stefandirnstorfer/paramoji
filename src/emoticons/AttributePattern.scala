@@ -45,7 +45,9 @@ class PathAttributePattern(text : String) extends SimpleAttributePattern(text) {
 }
 
 class StyleAttributePattern(text : String) extends AttributePattern {
-	val styles = text.split(";").map { new SimpleAttributePattern(_) }
+	val styles = text.split(";")
+			.filter( _.matches("(stroke-width|stroke|fill|opacity):.*"))
+			.map { new SimpleAttributePattern(_) }
 	
 	def getParams(text : String) : List[Param] = {
 		val stylesIn = text.split(";")

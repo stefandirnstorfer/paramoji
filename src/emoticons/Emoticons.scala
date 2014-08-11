@@ -26,8 +26,7 @@ object Emoticons extends App {
     		base.getParametersFromFile(file, "faces/"+baseFile)
     	else
     		base.getParametersFromFile(file, "gen/"+baseFile)
-    	params + ("mouth-outline" -> setZero(params("mouth-outline"),0))
-    	//params
+    	params
     }
   
     def saveEmoticon(filename : String, param : MorphableParameter.ParameterSet) {
