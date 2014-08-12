@@ -68,7 +68,9 @@ class SVGTransformFlattener {
 	  	val isFiltered = attribs.get("morph").exists(_.text.matches("fix|fix-children")) || 
 	  		optId.exists(_ == "lower-teeth")
 	  	
-	    if (optMorph.exists(_.matches("transform-only|relative")))
+	  	if (optId.exists(_=="mouth-outline"))
+	  	  symmetrizeMouth(node.asInstanceOf[Elem], matrix)
+	    else if (optMorph.exists(_.matches("transform-only|relative")))
 	      fixScalePath(node.asInstanceOf[Elem], matrix)
 	    else
 		    Elem(prefix, label,
@@ -102,11 +104,30 @@ class SVGTransformFlattener {
 	  }
 	}
 	
+	val NUMBER= "[+-]?[0-9]+(\\.[0-9]+)?".r
+    val PATHSEG= ("("+NUMBER+"),("+NUMBER+")").r
+	def symmetrizeMouth(path : Elem, transform : SVGMatrix) : Node = {
+	  val d = path.attributes("d").text
+	  val d2 = SVGUtil.normalizePath(d, true, transform)
+	  val points = PATHSEG.findAllMatchIn(d2).map(m => (m.subgroups(0).toDouble, m.subgroups(2).toDouble)).toList
+	  val points2 = ((0 to points.length-1).map { i =>
+	    val j = (18-i)%12
+	    ((points(i)._1+250-points(j)._1)/2, (points(i)._2+points(j)._2)/2)
+	  }.toList).iterator
+	  val dNew = PATHSEG.replaceAllIn(d2, m => {
+	    val p = points2.next
+	    "%1.3f".format(p._1)+","+"%1.3f".format(p._2)
+	  })
+	  Elem(path.prefix, path.label,
+	      path.attributes
+	      	.append(new UnprefixedAttribute("d", dNew, Null))
+	      	.remove("transform"),
+	      path.scope)
+	}
+	
 	def fixScalePath(path : Elem, transform : SVGMatrix) : Node = {
 	  val d = path.attributes("d").text
 	  val d2 = SVGUtil.normalizePath(d, true)
-	  val NUMBER= "[+-]?[0-9]+(\\.[0-9]+)?".r
-	  val PATHSEG= (" ("+NUMBER+"),("+NUMBER+")").r
 	  val points = PATHSEG.findAllMatchIn(d2).map(m => (m.subgroups(0).toDouble, m.subgroups(2).toDouble)).toList
 	  val x0 = points.map(_._1).min
 	  val y0 = points.map(_._2).min
