@@ -36,7 +36,7 @@
      inkscape:pageopacity="0"
      inkscape:window-width="1855"
      showgrid="false"
-     inkscape:cx="143.20468"
+     inkscape:cx="125"
      inkscape:window-x="1985"
      inkscape:window-maximized="1"
      showguides="true"
@@ -45,8 +45,8 @@
      inkscape:guide-bbox="true"
      inkscape:current-layer="emoticon-front-view"
      inkscape:window-y="24"
-     inkscape:cy="123.39298"
-     inkscape:zoom="3.2409494"
+     inkscape:cy="125"
+     inkscape:zoom="3.636"
      id="namedview3097"
      inkscape:window-height="1056"
      inkscape:pageshadow="2"
@@ -337,10 +337,10 @@
       </g>
     </g>
     <path
-       d="M 169.42,208.28 C 154.91,202.93 139.53,202.5 125,202.53 110.04,202.99 92.73,203.53 80.02,206.05 88.07,185.41 105.11,174.77 125,175.38 147.71,176.58 164.71,186.8 169.42,208.28 Z"
+       d="m 169.42,208.28 c -11.35402,-3.42432 -29.03159,-6.04852 -44.42,-5.75 -15.38841,0.29852 -28.473106,0.82487 -42.558243,4.99504 C 88.016509,185.5099 102.83093,175.43758 125,175.38 c 22.16907,-0.0576 39.71,11.42 44.42,32.9 z"
        style="fill:none;stroke:#000000;stroke-width:1px"
        id="mouth-outline"
-       sodipodi:nodetypes="ccccc"
+       sodipodi:nodetypes="czczc"
        inkscape:connector-curvature="0" />
   </g>
   <g
