@@ -47,7 +47,7 @@ viewBox="0 0 250 250" id="emoticon-front-view" sodipodi:docname="face_000.svg" h
         d="M 1,0.5 C 1,0.78 0.78,1 0.5,1 0.22,1 0,0.78 0,0.5 0,0.22 0.22,0 0.5,0 0.78,0 1,0.22 1,0.5 z" transform="matrix(17.83,0,0,17.83,84.21,115.2)" style="fill:#9d4922;stroke:#000000;stroke-width:0.06" id="iris" morph="relative" inkscape:connector-curvature="0">
 </path>
         <path 
-        d="M 1,0.5 C 1,0.78 0.78,1 0.5,1 0.22,1 0,0.78 0,0.5 0,0.22 0.22,0 0.5,0 0.78,0 1,0.22 1,0.5 z" transform="matrix(5.72,0,0,5.72,90.18,121.25)" style="fill:#000000;stroke:#000000;stroke-width:0.17" id="pupil" morph="relative" inkscape:connector-curvature="0" sodipodi:nodetypes="sssss">
+        d="M 1,0.5 C 1,0.78 0.78,1 0.5,1 0.22,1 0,0.78 0,0.5 0,0.22 0.22,0 0.5,0 0.78,0 1,0.22 1,0.5 z" transform="matrix(4.64,0,0,4.64,90.72,121.79)" style="fill:#000000;stroke:#000000;stroke-width:0.17" id="pupil" morph="relative" inkscape:connector-curvature="0" sodipodi:nodetypes="sssss">
 </path>
         <path 
         d="M 1,0.5 C 1,0.78 0.78,1 0.5,1 0.22,1 0,0.78 0,0.5 0,0.22 0.22,0 0.5,0 0.78,0 1,0.22 1,0.5 z" transform="matrix(1.16,0,0,1.16,89.88,122.29)" style="fill:#ffffff;stroke:none" id="glare" inkscape:connector-curvature="0" morph="transform-only">
@@ -126,7 +126,7 @@ viewBox="0 0 250 250" id="emoticon-front-view" sodipodi:docname="face_000.svg" h
       </g>
     </g>
     <path 
-    d="M 164.95,199.18 C 151.64,197.18 137.34,197.72 125,197.89 112.66,198.06 98.65,198.3 87.44,199.23 86.98,184.19 108.6,187.11 125,187 141.4,186.89 163.93,183.76 164.95,199.18 Z" style="fill:none;stroke:#000000;stroke-width:1px" id="mouth-outline" sodipodi:nodetypes="ccccc" inkscape:connector-curvature="0">
+    style="fill:none;stroke:#000000;stroke-width:1px" d="M 163.76,199.19 C 151.5,197.73 137.34,197.89 125,197.89 112.66,197.89 98.51,197.73 86.23,199.19 86.52,183.99 108.6,187 125,187 141.4,187 163.48,183.99 163.76,199.19 Z" id="mouth-outline" sodipodi:nodetypes="ccccc" inkscape:connector-curvature="0">
 </path>
   </g>
   <g id="wrinkles">

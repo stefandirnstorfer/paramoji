@@ -47,7 +47,7 @@ viewBox="0 0 250 250" id="emoticon-front-view" sodipodi:docname="face_000.svg" h
         d="M 1,0.5 C 1,0.78 0.78,1 0.5,1 0.22,1 0,0.78 0,0.5 0,0.22 0.22,0 0.5,0 0.78,0 1,0.22 1,0.5 z" transform="matrix(17.83,0,0,17.83,84.21,116.53)" style="fill:#9d4922;stroke:#000000;stroke-width:0.06" id="iris" morph="relative" inkscape:connector-curvature="0">
 </path>
         <path 
-        d="M 1,0.5 C 1,0.78 0.78,1 0.5,1 0.22,1 0,0.78 0,0.5 0,0.22 0.22,0 0.5,0 0.78,0 1,0.22 1,0.5 z" transform="matrix(5.72,0,0,5.72,90.18,122.58)" style="fill:#000000;stroke:#000000;stroke-width:0.17" id="pupil" morph="relative" inkscape:connector-curvature="0" sodipodi:nodetypes="sssss">
+        d="M 1,0.5 C 1,0.78 0.78,1 0.5,1 0.22,1 0,0.78 0,0.5 0,0.22 0.22,0 0.5,0 0.78,0 1,0.22 1,0.5 z" transform="matrix(4.64,0,0,4.64,90.72,123.12)" style="fill:#000000;stroke:#000000;stroke-width:0.17" id="pupil" morph="relative" inkscape:connector-curvature="0" sodipodi:nodetypes="sssss">
 </path>
         <path 
         d="M 1,0.5 C 1,0.78 0.78,1 0.5,1 0.22,1 0,0.78 0,0.5 0,0.22 0.22,0 0.5,0 0.78,0 1,0.22 1,0.5 z" transform="matrix(1.49,0,0,1.49,90.49,123.46)" style="fill:#ffffff;stroke:none" id="glare" inkscape:connector-curvature="0" morph="transform-only">
@@ -126,7 +126,7 @@ viewBox="0 0 250 250" id="emoticon-front-view" sodipodi:docname="face_000.svg" h
       </g>
     </g>
     <path 
-    d="M 164.13,200.87 C 151.16,197.43 137.2,196.96 125,196.84 111.58,195.82 97.28,198.36 86.07,200.84 93.26,185.43 112.8,184.11 125,183.93 139.18,183.96 158.14,187.18 164.13,200.87 Z" style="fill:none;stroke:#000000;stroke-width:1px" id="mouth-outline" sodipodi:nodetypes="ccccc" inkscape:connector-curvature="0">
+    style="fill:none;stroke:#000000;stroke-width:1px" d="M 164.03,200.85 C 151.94,197.89 137.81,196.39 125,196.84 112.19,196.39 98.06,197.89 85.97,200.85 92.56,186.31 111.81,184.04 125,183.93 138.19,184.04 157.44,186.31 164.03,200.85 Z" id="mouth-outline" sodipodi:nodetypes="ccccc" inkscape:connector-curvature="0">
 </path>
   </g>
   <g id="wrinkles">

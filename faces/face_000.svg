@@ -126,7 +126,7 @@ viewBox="0 0 250 250" id="emoticon-front-view" sodipodi:docname="face_000.svg" h
       </g>
     </g>
     <path 
-    d="M 162.29,188.9 C 150,197.54 136.6,197.13 125,197.17 113.07,196.69 100,197.21 88.38,187.75 100.28,184.18 113.21,184.8 125,184.61 137.24,184.98 150,184.3 162.29,188.9 Z" style="fill:none;stroke:#000000;stroke-width:1px" id="mouth-outline" sodipodi:nodetypes="ccccc" inkscape:connector-curvature="0">
+    style="fill:none;stroke:#000000;stroke-width:1px" d="M 161.96,188.33 C 150,197.38 136.77,196.91 125,197.17 113.24,196.91 100,197.38 88.05,188.33 100.14,184.24 112.99,184.89 125,184.61 137.02,184.89 149.86,184.24 161.96,188.33 Z" id="mouth-outline" sodipodi:nodetypes="ccccc" inkscape:connector-curvature="0">
 </path>
   </g>
   <g id="wrinkles">
