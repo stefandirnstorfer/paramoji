@@ -1,5 +1,5 @@
 <svg 
-viewBox="0 0 250 250" id="emoticon-front-view" sodipodi:docname="face_000.svg" height="100%" width="100%" inkscape:version="0.48.4 r9939" version="1.1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+id="emoticon-front-view" viewBox="0 0 250 250" sodipodi:docname="face_000.svg" height="100%" width="100%" inkscape:version="0.48.4 r9939" version="1.1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
   <metadata id="metadata3099">
     <rdf:RDF>
       <cc:Work rdf:about="">
@@ -10,10 +10,7 @@ viewBox="0 0 250 250" id="emoticon-front-view" sodipodi:docname="face_000.svg" h
     </rdf:RDF>
   </metadata>
   <sodipodi:namedview 
-  inkscape:snap-page="true" inkscape:snap-grids="true" pagecolor="#ffffff" borderopacity="1" gridtolerance="10" inkscape:pageopacity="0" inkscape:window-width="1855" showgrid="false" inkscape:cx="143.20468" inkscape:window-x="65" inkscape:window-maximized="1" showguides="true" inkscape:snap-nodes="true" inkscape:snap-global="true" inkscape:guide-bbox="true" inkscape:current-layer="emoticon-front-view" inkscape:window-y="24" inkscape:cy="123.39298" inkscape:zoom="3.2409494" id="namedview3097" inkscape:window-height="1056" inkscape:pageshadow="2" guidetolerance="10" objecttolerance="10" bordercolor="#666666" inkscape:snap-bbox="true">
-    <sodipodi:guide id="guide3030" position="0,175" orientation="0,1"/>
-    <sodipodi:guide id="guide3034" position="125,175" orientation="1,0"/>
-    <sodipodi:guide orientation="0,1" position="96.48962,127.74375" id="guide3037"/>
+  id="namedview3097" inkscape:snap-page="true" inkscape:snap-grids="true" pagecolor="#ffffff" borderopacity="1" gridtolerance="10" inkscape:pageopacity="0" inkscape:window-width="1855" showgrid="false" inkscape:cx="124.7506" inkscape:window-x="1985" inkscape:window-maximized="1" showguides="true" inkscape:snap-nodes="true" inkscape:snap-global="true" inkscape:guide-bbox="true" inkscape:current-layer="emoticon-front-view" inkscape:window-y="24" inkscape:cy="118.90579" inkscape:zoom="4.5420026" inkscape:window-height="1056" inkscape:pageshadow="2" guidetolerance="10" objecttolerance="10" bordercolor="#666666" inkscape:snap-bbox="true">
 </sodipodi:namedview>
   <defs id="defs">
     <clipPath id="clipPath-left-eye">
@@ -76,7 +73,7 @@ viewBox="0 0 250 250" id="emoticon-front-view" sodipodi:docname="face_000.svg" h
 </path>
   <g id="nose">
     <path 
-    d="M 108.74,154.98 C 106.56,160.57 109.17,164.56 111.8,166.05 114.42,167.52 120.25,167.83 126.23,167.86 132.22,167.88 141.13,168.59 140.94,160.96 140.69,151.13 135.19,158.8 131.98,139.92 135.23,157.1 146.19,153.93 146.93,161.88 147.67,169.83 142.28,167.03 136.74,168.12 131.22,169.22 133.77,170.9 126.58,170.71 119.41,170.52 121.36,168.98 117.17,167.9 112.99,166.81 111.9,167.28 108.83,167.06 105.75,166.86 103.65,162.45 108.74,154.98 Z" style="fill:#1a1a1a;stroke:#000000;stroke-width:1" id="nose-outline" sodipodi:nodetypes="czzzczzzzzc" inkscape:connector-curvature="0">
+    d="M 111.17,156 C 104.06,167.88 120.5,170.08 125.11,169.6 156.69,165.81 128.54,149.72 130.02,136.72 129.78,145.83 147.47,161.83 142.28,167.92 130.18,172.61 125.06,171.82 125.06,171.82 125.06,171.82 120.1,171.86 110.48,168.36 104.33,166.73 106.68,162.3 111.17,156 Z" style="fill:#1a1a1a;stroke:#000000;stroke-width:1" id="nose-outline" sodipodi:nodetypes="cccsccc" inkscape:connector-curvature="0">
 </path>
   </g>
   <use 
@@ -85,10 +82,10 @@ viewBox="0 0 250 250" id="emoticon-front-view" sodipodi:docname="face_000.svg" h
   <g id="mouth">
     <g id="mouth-interior" clip-path="url(#clipPath-mouth)">
       <rect 
-      style="fill:#000000;stroke:none" x="68.159775" width="119.94381" id="mouth-background" height="66.55629" y="159.93378">
+      style="fill:#000000;stroke:none" id="mouth-background" x="68.159775" width="119.94381" height="66.55629" y="159.93378">
 </rect>
       <path 
-      d="M 94.84,211.42 C 94.51,191.12 110.73,189.74 126.96,189.07 144.51,188.36 158.42,193.11 158.42,211.42 137.23,211.42 116.04,211.42 94.84,211.42 Z" style="fill:#800f08;stroke:none" inkscape:connector-curvature="0" id="tongue" sodipodi:nodetypes="cscc">
+      d="M 94.84,211.42 C 94.51,191.12 110.73,189.74 126.96,189.07 144.51,188.36 158.42,193.11 158.42,211.42 137.23,211.42 116.04,211.42 94.84,211.42 Z" style="fill:#800f08;stroke:none" id="tongue" inkscape:connector-curvature="0" sodipodi:nodetypes="cscc">
 </path>
       <g transform="matrix(1,0,0,1,0.5,-0.68)" morph="fix-children" id="upper-teeth">
         <rect 
@@ -131,10 +128,10 @@ viewBox="0 0 250 250" id="emoticon-front-view" sodipodi:docname="face_000.svg" h
   </g>
   <g id="wrinkles">
     <path 
-    d="M 119.73,122.95 C 120.76,130.72 120.46,137.15 119.22,143.16" style="fill:none;stroke:#000000;stroke-width:0.5" inkscape:connector-curvature="0" id="wrinkle-left-brow" sodipodi:nodetypes="cc">
+    d="M 119.73,122.95 C 120.76,130.72 120.46,137.15 119.22,143.16" style="fill:none;stroke:#000000;stroke-width:0.5" id="wrinkle-left-brow" inkscape:connector-curvature="0" sodipodi:nodetypes="cc">
 </path>
     <path 
-    d="M 80.46,205.86 C 88.25,192.28 105.94,176.63 106.83,162.54" style="fill:none;stroke:#000000;stroke-width:0.5" inkscape:connector-curvature="0" id="wrinkle-left-cheek" sodipodi:nodetypes="cc">
+    d="M 80.46,205.86 C 88.25,192.28 105.94,176.63 106.83,162.54" style="fill:none;stroke:#000000;stroke-width:0.5" id="wrinkle-left-cheek" inkscape:connector-curvature="0" sodipodi:nodetypes="cc">
 </path>
     <use 
     transform="matrix(-1,0,0,1,250,0)" morph="fixed" height="250" y="0" x="0" xlink:href="#wrinkle-left-brow" id="wrinkle-right-brow" width="250">

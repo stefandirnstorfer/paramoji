@@ -1,5 +1,5 @@
 <svg 
-viewBox="0 0 250 250" id="emoticon-front-view" sodipodi:docname="face_000.svg" height="100%" width="100%" inkscape:version="0.48.4 r9939" version="1.1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+id="emoticon-front-view" viewBox="0 0 250 250" sodipodi:docname="face_000.svg" height="100%" width="100%" inkscape:version="0.48.4 r9939" version="1.1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
   <metadata id="metadata3099">
     <rdf:RDF>
       <cc:Work rdf:about="">
@@ -10,10 +10,7 @@ viewBox="0 0 250 250" id="emoticon-front-view" sodipodi:docname="face_000.svg" h
     </rdf:RDF>
   </metadata>
   <sodipodi:namedview 
-  inkscape:snap-page="true" inkscape:snap-grids="true" pagecolor="#ffffff" borderopacity="1" gridtolerance="10" inkscape:pageopacity="0" inkscape:window-width="1855" showgrid="false" inkscape:cx="143.20468" inkscape:window-x="65" inkscape:window-maximized="1" showguides="true" inkscape:snap-nodes="true" inkscape:snap-global="true" inkscape:guide-bbox="true" inkscape:current-layer="emoticon-front-view" inkscape:window-y="24" inkscape:cy="123.39298" inkscape:zoom="3.2409494" id="namedview3097" inkscape:window-height="1056" inkscape:pageshadow="2" guidetolerance="10" objecttolerance="10" bordercolor="#666666" inkscape:snap-bbox="true">
-    <sodipodi:guide id="guide3030" position="0,175" orientation="0,1"/>
-    <sodipodi:guide id="guide3034" position="125,175" orientation="1,0"/>
-    <sodipodi:guide orientation="0,1" position="96.48962,127.74375" id="guide3037"/>
+  id="namedview3097" inkscape:snap-page="true" inkscape:snap-grids="true" pagecolor="#ffffff" borderopacity="1" gridtolerance="10" inkscape:pageopacity="0" inkscape:window-width="1855" showgrid="false" inkscape:cx="124.7506" inkscape:window-x="1985" inkscape:window-maximized="1" showguides="true" inkscape:snap-nodes="true" inkscape:snap-global="true" inkscape:guide-bbox="true" inkscape:current-layer="emoticon-front-view" inkscape:window-y="24" inkscape:cy="118.90579" inkscape:zoom="4.5420026" inkscape:window-height="1056" inkscape:pageshadow="2" guidetolerance="10" objecttolerance="10" bordercolor="#666666" inkscape:snap-bbox="true">
 </sodipodi:namedview>
   <defs id="defs">
     <clipPath id="clipPath-left-eye">
@@ -76,7 +73,7 @@ viewBox="0 0 250 250" id="emoticon-front-view" sodipodi:docname="face_000.svg" h
 </path>
   <g id="nose">
     <path 
-    d="M 107.52,162 C 108.46,167.48 108.24,170.63 111.25,174.18 114.25,177.73 119.46,182.41 125.44,182.44 131.43,182.46 141.7,175.29 139.72,167.97 137.78,160.64 135.7,161.94 129.74,146.31 136.32,165.75 144.97,160.95 145.7,168.9 146.45,176.85 141.4,174.16 137.07,177.48 132.77,180.81 132.88,183.04 125.7,182.85 118.51,182.66 116.92,181.12 114.73,178.7 112.54,176.28 110.9,174.41 107.61,174.08 104.3,173.77 102.43,169.47 107.52,162 Z" style="fill:#1a1a1a;stroke:#000000;stroke-width:1" id="nose-outline" sodipodi:nodetypes="czzzczzzzzc" inkscape:connector-curvature="0">
+    d="M 107.57,165.65 C 108.57,172.31 114.5,176.79 125.22,177.11 150.62,174.16 144.1,162.8 141.03,153.04 148.56,164 147.59,172.82 141.88,175.22 138.18,175.98 129.44,177.98 125.12,177.64 120.66,178.42 114.74,176.26 110.32,174.67 106.71,172.75 105.01,172.62 107.57,165.65 Z" style="fill:#1a1a1a;stroke:#000000;stroke-width:1" id="nose-outline" sodipodi:nodetypes="cccsccc" inkscape:connector-curvature="0">
 </path>
   </g>
   <use 
@@ -85,10 +82,10 @@ viewBox="0 0 250 250" id="emoticon-front-view" sodipodi:docname="face_000.svg" h
   <g id="mouth">
     <g id="mouth-interior" clip-path="url(#clipPath-mouth)">
       <rect 
-      style="fill:#000000;stroke:none" x="68.159775" width="119.94381" id="mouth-background" height="66.55629" y="159.93378">
+      style="fill:#000000;stroke:none" id="mouth-background" x="68.159775" width="119.94381" height="66.55629" y="159.93378">
 </rect>
       <path 
-      d="M 94.84,211.42 C 94.51,191.12 110.73,189.74 126.96,189.07 144.51,188.36 158.42,193.11 158.42,211.42 137.23,211.42 116.04,211.42 94.84,211.42 Z" style="fill:#800f08;stroke:none" inkscape:connector-curvature="0" id="tongue" sodipodi:nodetypes="cscc">
+      d="M 94.84,211.42 C 94.51,191.12 110.73,189.74 126.96,189.07 144.51,188.36 158.42,193.11 158.42,211.42 137.23,211.42 116.04,211.42 94.84,211.42 Z" style="fill:#800f08;stroke:none" id="tongue" inkscape:connector-curvature="0" sodipodi:nodetypes="cscc">
 </path>
       <g transform="matrix(1,0,0,1,0.5,7.32)" morph="fix-children" id="upper-teeth">
         <rect 
@@ -126,15 +123,15 @@ viewBox="0 0 250 250" id="emoticon-front-view" sodipodi:docname="face_000.svg" h
       </g>
     </g>
     <path 
-    style="fill:none;stroke:#000000;stroke-width:1px" d="M 156.74,205.29 C 147.79,200.71 136.09,201.08 125,201.28 113.91,201.08 102.21,200.71 93.26,205.29 93.71,194.73 116.25,198.24 125,197.86 133.75,198.24 156.29,194.73 156.74,205.29 Z" id="mouth-outline" sodipodi:nodetypes="ccccc" inkscape:connector-curvature="0">
+    style="fill:none;stroke:#000000;stroke-width:1px" d="M 156.74,205.29 C 151.09,197.41 137.85,193.28 125,193.28 112.15,193.28 98.91,197.41 93.26,205.29 95.03,196.05 113.49,191.64 125,191.64 136.51,191.64 154.97,196.05 156.74,205.29 Z" id="mouth-outline" sodipodi:nodetypes="ccccc" inkscape:connector-curvature="0">
 </path>
   </g>
   <g id="wrinkles">
     <path 
-    d="M 100.42,115.98 C 102.99,114.5 107.25,113.79 108.22,118.4" style="fill:none;stroke:#000000;stroke-width:0.5" inkscape:connector-curvature="0" id="wrinkle-left-brow" sodipodi:nodetypes="cc">
+    d="M 100.42,115.98 C 102.99,114.5 107.25,113.79 108.22,118.4" style="fill:none;stroke:#000000;stroke-width:0.5" id="wrinkle-left-brow" inkscape:connector-curvature="0" sodipodi:nodetypes="cc">
 </path>
     <path 
-    d="M 85.03,209.72 C 84.83,194.15 94.81,180.06 102.23,174" style="fill:none;stroke:#000000;stroke-width:0.5" inkscape:connector-curvature="0" id="wrinkle-left-cheek" sodipodi:nodetypes="cc">
+    d="M 85.03,209.72 C 84.83,194.15 94.81,180.06 102.23,174" style="fill:none;stroke:#000000;stroke-width:0.5" id="wrinkle-left-cheek" inkscape:connector-curvature="0" sodipodi:nodetypes="cc">
 </path>
     <use 
     transform="matrix(-1,0,0,1,250,0)" morph="fixed" height="250" y="0" x="0" xlink:href="#wrinkle-left-brow" id="wrinkle-right-brow" width="250">
