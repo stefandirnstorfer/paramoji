@@ -38,7 +38,7 @@ function drawEmoticon(v,a,p) {
 }
 
 var oldtime = undefined;
-function animate(dv, da, dp) {
+function runAnimation(dv, da, dp) {
     var now = new Date().getTime();
     if (!oldtime) oldtime = now;
     var speed = parseFloat($('#slider-speed').val());
@@ -57,7 +57,7 @@ function animate(dv, da, dp) {
 	    if (p <= 0 || p >= 100) dp = 0;
 
 	}
-	window.requestAnimationFrame(function() { animate(dv, da, dp); });
+	window.requestAnimationFrame(function() { runAnimation(dv, da, dp); });
     } else {
 	oldtime = undefined;
     }
