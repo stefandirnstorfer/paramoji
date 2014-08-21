@@ -1,6 +1,6 @@
 #reading the data
 require(rjson)
-data<-readLines('data/data-campaign3.json')
+data<-readLines('data/data-campaign4.json')
 data<-lapply(data, function(x) data.frame(fromJSON(x), stringsAsFactors=FALSE))
 data<-data.frame(Reduce(rbind, data))
 data$Ptest=as.numeric(data$Ptest)
@@ -10,7 +10,7 @@ data$Pref=as.numeric(data$Pref)
 data$Aref=as.numeric(data$Aref)
 data$Vref=as.numeric(data$Vref)
 
-training<-readLines('data/training-campaign3.json')
+training<-readLines('data/training-campaign4.json')
 training<-lapply(training, function(x) data.frame(fromJSON(x), stringsAsFactors=FALSE))
 training<-data.frame(Reduce(rbind, training))
 
@@ -48,10 +48,11 @@ plot(jitter(data.step), data.quality2, col=(users.training>2)+1, xlab='data.step
 lines(seq(1,10), step.quality)
 
 d <- data[data.uid %in% users[users.training==1], ]
-l <- data.frame(rbind(lm(d$Vref ~ d$Vtest + d$Atest + d$Ptest)$coefficients,
-lm(d$Aref ~ d$Vtest + d$Atest + d$Ptest)$coefficients,
-lm(d$Pref ~ d$Vtest + d$Atest + d$Ptest)$coefficients), 
+l <- data.frame(rbind(lm(d$Vtest ~ d$Vref + d$Aref + d$Pref)$coefficients,
+lm(d$Atest ~ d$Vref + d$Aref + d$Pref)$coefficients,
+lm(d$Ptest ~ d$Vref + d$Aref + d$Pref)$coefficients), 
   row.names=c('V','A','P'))
+M<- matrix(c(l$d.Vref,0,l$d.Aref,0,l$d.Pref,0,l$X.Intercept,1),4,4)
 print(l)
 
 
