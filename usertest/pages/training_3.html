@@ -1,58 +1,71 @@
 <html>
-<link rel="stylesheet" type="text/css" href="style.css"/>
-<meta name="viewport" content="width=300"/>
-<body>
-  <h1>Training #3/3</h1>
-  <table>
-    <tr>
-      <td colspan="2">
-	<h2>Confidence</h2>
-	Which of the two faces is <b>{{moreless}}</b> confident and 
-	is <b>{{moreless}}</b> likely to take action?
-      </td>
-    </tr>
-    <tr>
-      <td align="center">
-	<embed src="/face.svg?size=120&v=0.5&a=0.5&p=0" width="120" hight="120"/>
-      </td>
-      <td align="center">
-	<embed src="/face.svg?size=120&v=0.5&a=0.5&p=1" width="120" hight="120"/>
-      </td>
-    </tr>
-    <tr>
-      <td align="center">
-	<form method="GET" action="http:submit">
-	  <div style="display:none">
-	    <input name="test" value="0">
-	    <input name="MW_ID" value="{{worker}}"/>
-	    <input name="CAMP_ID" value="{{campaign}}"/>
-	    <input name="type" value="potency"/>
-	  </div>
-	  <button type="submit" value="Submit">This one</button>
-	</form>
-      </td>
-      <td align="center">
-	<form method="GET" action="http:submit">
-	  <div style="display:none">
-	    <input name="test" value="1">
-	    <input name="MW_ID" value="{{worker}}"/>
-	    <input name="CAMP_ID" value="{{campaign}}"/>
-	    <input name="type" value="potency"/>
-	  </div>
-	  <button type="submit" value="Submit">This one</button>
-	</form>
-      </td>
-    </tr>
-  </table>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <link rel="stylesheet" type="text/css" href="style.css"/>
+  <meta name="viewport" content="width=400"/>
+  <body>
+    <h1>Training #3/3</h1>
+    <form method="GET" action="http:submit">
+      <div style="display:none">
+	<input name="MW_ID" value="{{worker}}"/>
+	<input name="CAMP_ID" value="{{campaign}}"/>
+	<input name="type" value="potency"/>
+      </div>
+      <table>
+	<tr>
+	  <td colspan="6">
+	    Please, compare these two emoticons.
+	  </td>
+	</tr>
+	<tr>
+	  <td colspan="3" align="left">
+	    <embed src="face.svg?size=120&v=.5&a=0.5&p=0" width="150" hight="150"/>
+	  </td>
+	  <td colspan="3" align="right">
+	    <embed src="face.svg?size=120&v=.5&a=0.5&p=1" width="150" hight="150"/>
+	  </td>
+	</tr>
+	<tr>
+	  <td colspan="6">
+	    <b>Confidence</b>
+	    Which of the two faces is more confident and 
+	    is more likely to take action?
+	  </td>
+	</tr>
+	<tr>
+	  <td colspan="2" align="center">
+	    <label>
+	      <input type="radio" name="test" value="0"><br/>
+	      Left is more confident
+	    </label>
+	  </td>
+	  <td colspan="2" align="center">
+	    <label>
+	      <input type="radio" name="test" value="0.5" required><br/>
+	      No difference
+	    </label>
+	  </td>
+	  <td colspan="2" align="center">
+	    <label>
+	      <input type="radio" name="test" value="1"><br/>
+	      Right is more confident
+	    </label>
+	  </td>
+	</tr>
+	<tr>
+	  <td colspan="6" align="center">
+	    <button type="submit" value="Submit">Submit</button>
+	  </td>
+	</tr>
+      </table>
+    </form>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-53997760-1', 'auto');
-  ga('send', 'pageview');
+      ga('create', 'UA-53997760-1', 'auto');
+      ga('send', 'pageview');
 
-</script>
-</body>
+    </script>
+  </body>
 </html>

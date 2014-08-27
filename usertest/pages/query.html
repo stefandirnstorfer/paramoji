@@ -3,41 +3,7 @@
 <meta name="viewport" content="width=300"/>
 <body>
   <h1>Emoticon #{{work}}/10</h1>
-  <embed src="/face.svg?size=250&a={{arousal}}&v={{valence}}&p={{potency}}" width="250" hight="250"/>
   <form method="GET" action="http:submit2">
-      <h2>Valuation:</h2>
-      Does this face display a positive valuation?
-      <p>
-	<label><input type="radio" value="1.00" name="Vtest" required/>+1 Positive valuation</label>
-	<br/>
-	<label><input type="radio" value="0.50" name="Vtest"/>0 Neutral</label>
-	<br/>
-	<label><input type="radio" value="0.00" name="Vtest"/>-1 Negative valuation</label>
-      </p>
-      <h2>Surprise:</h2>
-      Does this face see something unexpected?
-      <p>
-	<label><input type="radio" value="1.00" name="Atest" required/>Ugh, Surprised!!</label>
-	<br/>
-	<label><input type="radio" value="0.50" name="Atest"/>Neutral</label>
-	<br/>
-	<label><input type="radio" value="0.00" name="Atest"/>No sudden changes occurred</label>
-      </p>
-      <h2>Confidence:</h2>
-      Does this face know what it is doing?
-      <p>
-	<label><input type="radio" value="1.00" name="Ptest" required/>Very confident and determined</label>
-	<br/>
-	<label><input type="radio" value="0.50" name="Ptest"/>Neutral</label>
-	<br/>
-	<label><input type="radio" value="0.00" name="Ptest"/>Where is Mummy?</label>
-      </p>
-    <p>
-      When you are finished press submit:
-      <div id="submit-div">
-	<button type="submit" value="Submit">Submit</button>
-      </div>
-    </p>
     <div style="display:none">
       <input name="MW_ID" value="{{worker}}"/>
       <input name="CAMP_ID" value="{{campaign}}"/>
@@ -45,6 +11,107 @@
       <input name="Aref" value="{{arousal}}"/>
       <input name="Pref" value="{{potency}}"/>
     </div>
+    <table>
+      <tr>
+	<td colspan="6">
+	  Please, compare these two emoticons.
+	</td>
+      </tr>
+      <tr>
+	<td colspan="3" align="left">
+	  <embed src="/face.svg?size=250&a={{arousal}}&v={{valence}}&p={{potency}}" width="150" hight="150"/>
+	</td>
+	<td colspan="3" align="right">
+	  <embed src="face.svg?size=120&v=.5&a=0.5&p=0.5" width="150" hight="150"/>
+	</td>
+      </tr>
+	<tr>
+	  <td colspan="6">
+	    <b>Valuation:</b>
+	    Which of the two faces has a more positve valuation and 
+	    appreciates more what it sees?
+	  </td>
+	</tr>
+	<tr>
+	  <td colspan="2" align="center">
+	    <label>
+	      <input type="radio" name="Vtest" value="1"><br/>
+	      Left is more positive
+	    </label>
+	  </td>
+	  <td colspan="2" align="center">
+	    <label>
+	      <input type="radio" name="Vtest" value="0.5" required><br/>
+	      No difference
+	    </label>
+	  </td>
+	  <td colspan="2" align="center">
+	    <label>
+	      <input type="radio" name="Vtest" value="0"><br/>
+	      Right is more positive
+	    </label>
+	  </td>
+	</tr>
+	<tr>
+	  <td colspan="6">
+	    <b>Surprise</b>
+	    Which of the two faces is more surprised and 
+	    is more likely to see something unexpected?
+	  </td>
+	</tr>
+	<tr>
+	  <td colspan="2" align="center">
+	    <label>
+	      <input type="radio" name="Atest" value="1"><br/>
+	      Left is more surprised
+	    </label>
+	  </td>
+	  <td colspan="2" align="center">
+	    <label>
+	      <input type="radio" name="Atest" value="0.5" required><br/>
+	      No difference
+	    </label>
+	  </td>
+	  <td colspan="2" align="center">
+	    <label>
+	      <input type="radio" name="Atest" value="0"><br/>
+	      Right is more surprised
+	    </label>
+	  </td>
+	</tr>
+	<tr>
+	  <td colspan="6">
+	    <b>Confidence</b>
+	    Which of the two faces is more confident and 
+	    is more likely to take action?
+	  </td>
+	</tr>
+	<tr>
+	  <td colspan="2" align="center">
+	    <label>
+	      <input type="radio" name="Ptest" value="1"><br/>
+	      Left is more confident
+	    </label>
+	  </td>
+	  <td colspan="2" align="center">
+	    <label>
+	      <input type="radio" name="Ptest" value="0.5" required><br/>
+	      No difference
+	    </label>
+	  </td>
+	  <td colspan="2" align="center">
+	    <label>
+	      <input type="radio" name="Ptest" value="0"><br/>
+	      Right is more confident
+	    </label>
+	  </td>
+	</tr>
+	<tr>
+	  <td colspan="6" align="center">
+	    <button type="submit" value="Submit">Submit</button>
+	  </td>
+	</tr>
+    </table>
   </form>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

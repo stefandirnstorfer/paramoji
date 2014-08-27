@@ -47,7 +47,6 @@ function handleRequest(req, res) {
 		    var content = {
 			"worker" : worker,
 			"campaign" : campaign,
-			"moreless" : workerInfo.ref ? 'more' : 'less',
 		    }
 		    serveFile(res, "pages/training_"+(workerInfo.training+1)+".html", content);
 		}
@@ -81,9 +80,8 @@ function handleRequest(req, res) {
 	} 
 	else if (urlParts.pathname=="/submit") {
 	    redirectAction(res, urlParts.query);
-	    urlParts.query.ref = workerInfo.ref;
 	    workerInfo.training += 1;
-	    if (urlParts.query.test==workerInfo.ref) {
+	    if (urlParts.query.test==1) {
 		workerInfo.success += 1;
 	    }
 	    writeData('data/training.json', JSON.stringify(urlParts.query)+'\n');
