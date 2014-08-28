@@ -1,0 +1,76 @@
+body {
+    margin: 0 0 0 0;
+    font-family: Arial;
+}
+
+#frame {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-around;
+}
+
+#frame .stock {
+    background: #eee;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+#frame .stock .visual {
+    width: 50%;
+}
+
+#frame .stock .control {
+    width: 50%;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+    justify-content: space-between;
+}
+
+.stock .control .button {
+    height: 20%;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    vertical-align: middle;
+}
+.stock .control .button.hold {
+    background: lime;
+}
+
+
+@media (orientation:portrait) {
+    #frame>div {
+	width: 30vw;
+	height: 23vh;
+	font-size: 3vw;
+    }
+    #master td {
+	font-size: 3vw;
+    }
+    .stock .control .pl td {
+	font-size: 2vw;
+    }
+
+}
+
+@media (orientation:landscape) {
+    #frame>div {
+	width: 22vw;
+	height: 30vh;
+	font-size: 2vw;
+    }
+    #master td {
+	font-size: 2vw;
+    }
+    .stock .control .pl td {
+	font-size: 1.2vw;
+    }
+}

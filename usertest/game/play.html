@@ -1,0 +1,76 @@
+<html>
+<head> 
+  <meta content="text/html" charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no"/>
+  <link rel="stylesheet" type="text/css" href="style.css"/>
+  <script src="../../gen/emoticon.js"></script>
+  <script src="../../jquery.js"></script>
+  <script src="play.js"></script>
+  <title>Response game</title>
+</head>
+<body>
+  <div id="frame">
+    <div id="master">
+      <table width="100%">
+	<tr>
+	  <td>Cash:</td>
+	  <td align="right"><span id="cash">10000.00</span></td>
+	</tr>
+	<tr>
+	  <td>Assets:</td>
+	  <td align="right"><span id="asset">0</span></td>
+	</tr>
+	<tr style="background:black; height=1px;"><td/><td/></tr>
+	<tr>
+	  <td>Total:</td>
+	  <td align="right"><span id="total">10000.00</span></td>
+	</tr>
+      </table>
+      <form>
+	<label><input type="radio" name="visual" value="text">Values</label>
+	<br/>
+	<label><input type="radio" name="visual" value="emoticon" checked>Emoticons</label>
+      </form>
+    </div>
+    <div class="stock template">
+      <div class="visual">
+	<div class="plot">
+	</div>
+      </div>
+      <div class="control">
+	<div>
+	  € <span class="price">1000.00</span>
+	  <div class="pl" style="display:none">
+	    <table width="100%">
+	      <tr>
+		<td>Fee:</td>
+		<td align="right"><span class="fee">1.00</span></td>
+	      </tr>
+	      <tr>
+		<td>Price:</td>
+		<td align="right"><span class="paid">0.00</span></td>
+	      </tr>
+	      <tr style="background:black; height:1px"><td colspan="2"></tr>
+	      <tr>
+		<td>Profit:</td>
+		<td align="right"><span class="net">-1.00</span></td>
+	      </tr>
+	    </table>
+	  </div>
+	</div>
+	<div class="button">buy</div>
+      </div>
+    </div>
+    <div class="stock"></div>
+    <div class="stock"></div>
+    <div class="stock"></div>
+    <div class="stock"></div>
+    <div class="stock"></div>
+    <div class="stock"></div>
+    <div class="stock"></div>
+    <div class="stock"></div>
+    <div class="stock"></div>
+    <div class="stock"></div>
+  </div>
+</body>
+</html>
