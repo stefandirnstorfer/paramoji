@@ -3,8 +3,9 @@
   <meta content="text/html" charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, user-scalable=no"/>
   <link rel="stylesheet" type="text/css" href="style.css"/>
-  <script src="../../gen/emoticon.js"></script>
-  <script src="../../jquery.js"></script>
+  <script src="http://d3js.org/d3.v3.js"></script>
+  <script src="emoticon.js"></script>
+  <script src="jquery.js"></script>
   <script src="play.js"></script>
   <title>Response game</title>
 </head>
@@ -27,9 +28,10 @@
 	</tr>
       </table>
       <form>
-	<label><input type="radio" name="visual" value="text">Values</label>
-	<br/>
 	<label><input type="radio" name="visual" value="emoticon" checked>Emoticons</label>
+	<br/>
+	<label><input type="radio" name="visual" value="chart">Chart</label>
+	</p>
       </form>
     </div>
     <div class="stock template">

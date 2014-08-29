@@ -25,6 +25,11 @@ body {
     width: 50%;
 }
 
+#frame .stock .visual .plot {
+    margin: 2%;
+    height: 96%;
+}
+
 #frame .stock .control {
     width: 50%;
     margin: 5px;
@@ -74,3 +79,21 @@ body {
 	font-size: 1.2vw;
     }
 }
+
+svg {
+  font: 1vw sans-serif;
+}
+
+svg .axis path,
+svg .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+svg .line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+

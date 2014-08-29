@@ -3,6 +3,7 @@ $(function() {
     $('.stock:not(.template)').html($('.stock.template').html());
     $('.stock').click(trade);
     $('.stock').each(function(evt) { update($(this)); });
+    refreshAll()
 });
 
 function trade(evt) {
@@ -38,10 +39,15 @@ function trim(x) {
 }
 
 function update(stock) {
+    var SIGMA0 = 0.4;
+    var LAMBDA0 = 1000;
     var price= 1000.0;
-    var lambda= 1000;
-    var sigma= 1
-    var mu= 0;
+    var lambda= LAMBDA0;
+    var sigma= SIGMA0;
+    var mu= Math.random()/2-0.25;
+    var t0 = Date.now()
+    var xData = [];
+    var yData = [];
 
     var updateStep = function() {
 	var r = mu + sigma * rnd_snd();
@@ -51,20 +57,27 @@ function update(stock) {
 	lambda = 1000* 1e-4 + (1-1e-4)*(0.1*dt + 0.9*lambda);
 	mu = 0.01*r + 0.98 * mu;
 
-	sigma = Math.sqrt(0.001 + 0.009*Math.pow((r - mu),2) + 0.99*Math.pow(sigma,2));
+	sigma = Math.sqrt(0.001*SIGMA0 + 0.009*Math.pow((r - mu),2) + 0.99*Math.pow(sigma,2));
 	stock.find('.price').text(price.toFixed(2));
 
 	var visual = $('input[name="visual"]:checked').attr('value');
 	if (visual=="text") {
-	    stock.find('.plot').html('m='+mu.toFixed(2)+'<br/>s='+
+	    Stock.find('.plot').html('m='+mu.toFixed(2)+'<br/>s='+
 				     sigma.toFixed(2)+'<br/>l='+
 				     lambda.toFixed(0));
-	} else {
-	    
+	} 
+	else if (visual=="emoticon") {
 	    var v = trim(mu/0.15 * 100 + 50);
 	    var a = trim(50 - 50*Math.log(lambda/1000));
-	    
-	    stock.find('.plot').html(emoticon_svg(v,a,50,Math.random()));
+	    var p = trim(sigma/SIGMA0*50);
+	    stock.find('.plot').html(emoticon_svg(v,a,p,Math.random()));
+	}
+	else {
+	    xData.push(Date.now()-t0);
+	    xData.push(Date.now()-t0+dt);
+	    yData.push(price);
+	    yData.push(price);
+	    drawChart(stock.find('.plot')[0], xData, yData);
 	}
 
 	if (stock.find('.button').is('.hold')) {
@@ -72,11 +85,23 @@ function update(stock) {
 	    var paid = parseFloat(stock.find('.paid').text());
 	    stock.find('.net').text(
 		(price - fee- paid).toFixed(2))
-	    updatePL();
 	}
 	setTimeout(updateStep, dt);
     }
     updateStep();
+}
+
+function refreshAll() {
+    updatePL();
+    var visual = $('input[name="visual"]:checked').attr('value');
+    if (visual=="chart") {
+	$('g[data-now]').each(function(i,elt) {
+	    var dt = Date.now() - parseInt($(elt).attr('data-now'));
+	    var v = parseFloat($(elt).attr('data-shift-ms'));
+	    $(elt).attr('transform','translate(-'+dt*v+',0)');
+	});
+    }
+    window.requestAnimationFrame(refreshAll);
 }
 
 function updatePL() {
@@ -97,4 +122,65 @@ function emoticon_svg(v, a, p, index) {
 	.replace(/id="/g, 'id="emo' + index + '-')
 	.replace(/url\(#/g, 'url(#emo' + index + '-')
 	.replace(/href="#/g, 'href="#emo' + index + '-');
+}
+
+function drawChart(elt, xData, yData) {
+    var width = parseInt(d3.select(elt).style('width'));
+    var height = parseInt(d3.select(elt).style('height'));
+    var WINDOW = 10000;
+
+
+    var maxx = xData[xData.length-2];
+    while (xData[1] < maxx-WINDOW) {
+	xData.shift();
+	yData.shift();
+    }
+    var x = d3.scale.linear()
+	.range([0, width])
+	.domain([maxx-WINDOW, maxx]);
+
+    var domain = d3.extent(yData);
+    var y = d3.scale.linear()
+	.range([height, 0])
+	.domain([domain[0]-1, domain[1]+1]);
+
+
+    var xAxis = d3.svg.axis()
+	.scale(x)
+	.orient("top")
+	.tickFormat("");
+
+    var yAxis = d3.svg.axis()
+	.scale(y)
+	.orient("right");
+
+    var line = d3.svg.line()
+	.x(function(d,i) {return x(xData[i])})
+	.y(function(d,i) {return y(yData[i])});
+
+    d3.select(elt).select('svg').remove();
+    var svg = d3.select(elt).append("svg")
+	.attr("width", "100%")
+	.attr("height", "100%")
+	.attr("viewBox", "0 0 "+width+" "+(height+1))
+	.append("g")
+
+
+    svg.append("g")
+	.attr("class", "x axis")
+	.attr("transform", "translate(0," + (height) + ")")
+	.call(xAxis);
+
+    svg.append("g")
+	.attr("class", "y axis")
+	.call(yAxis);
+
+    svg.append("g")
+       .attr('transform','translate(0,0)')
+       .attr('data-shift-ms',x(1)-x(0))
+       .attr('data-now',Date.now())
+	.append("path")
+	.datum(xData)
+	.attr("class", "line")
+	.attr("d", line);
 }
