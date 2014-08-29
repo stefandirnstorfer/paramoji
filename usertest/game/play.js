@@ -1,6 +1,9 @@
 var updateFun=[];
+var STOP = false;
+var t0;
 
 $(function() {
+    t0 = Date.now();
     $('.stock:not(.template)').html($('.stock.template').html());
     $('.stock').click(trade);
     $('.stock').each(function(i, elt) { update(i, $(elt)); });
@@ -35,7 +38,13 @@ function rnd_snd() {
 	return (Math.random()*2-1)+(Math.random()*2-1)+(Math.random()*2-1);
 }
 
-function trim(x) {
+function trim(x, min, max, f) {
+    if (f) {
+	x= f(x);
+	min = f(min);
+	max = f(max);
+    }
+    x = 100*(x-min)/(max-min);
     return x>0 ? (x<100 ? x : 100) : 0;
 }
 
@@ -46,31 +55,30 @@ function update(index, stock) {
     var lambda= LAMBDA0;
     var sigma= SIGMA0;
     var mu= Math.random()/2-0.25;
-    var t0 = Date.now()
     var xData = [];
     var yData = [];
 
     var updateStep = function() {
-	var r = mu + sigma * rnd_snd();
+	var r = mu + sigma * 3.6*(Math.random()-0.5);
 	var dt = -lambda * Math.log(Math.random());
-	price = price + r;
+	price = Math.max(0,price + r);
 	
 	lambda = 1000* 1e-4 + (1-1e-4)*(0.1*dt + 0.9*lambda);
-	mu = 0.01*r + 0.98 * mu;
+	mu = 0.02*r + 0.97 * mu;
 
-	sigma = Math.sqrt(0.001*SIGMA0 + 0.009*Math.pow((r - mu),2) + 0.99*Math.pow(sigma,2));
+	sigma = Math.sqrt(0.01*SIGMA0 + 0.4*Math.pow((r),2) + 0.59*Math.pow(sigma,2));
 	updateFun[index] = function(visual) {
 	    stock.find('.price').text(price.toFixed(2));
 
 	    if (visual=="text") {
-	    Stock.find('.plot').html('m='+mu.toFixed(2)+'<br/>s='+
+	    stock.find('.plot').html('m='+mu.toFixed(2)+'<br/>s='+
 				     sigma.toFixed(2)+'<br/>l='+
 				     lambda.toFixed(0));
 	    } 
 	    else if (visual=="emoticon") {
-		var v = trim(mu/0.15 * 100 + 50);
-		var a = trim(50 - 50*Math.log(lambda/1000));
-		var p = trim(sigma/SIGMA0*50);
+		var v = trim(mu, -0.15, 0.15);
+		var a = trim(lambda, 3000, 100, Math.log);
+		var p = trim(sigma, 0.64, 0.25, Math.log);
 		stock.find('.plot').html(emoticon_svg(v,a,p,Math.random()));
 	    }
 	    else {
@@ -94,6 +102,7 @@ function update(index, stock) {
 }
 
 function refreshAll() {
+    if (STOP) return;
     updatePL();
     var visual = $('input[name="visual"]:checked').attr('value');
     $('.stock').each(function(i, elt) {
@@ -120,9 +129,14 @@ function updatePL() {
 	    asset += price;
 	}
     });
+    var cash = parseFloat($('#cash').text());
     $('#asset').text(asset.toFixed(2));
-    $('#total').text(
-	(parseFloat($('#cash').text()) + asset).toFixed(2));
+    $('#total').text((cash + asset).toFixed(2));
+    if (cash > 10100) {
+	$('#youwon').show();
+	$('#wintime').text(((Date.now()-t0)/1000).toFixed(0));
+	STOP = true;
+    }
 }
 
 function emoticon_svg(v, a, p, index) {
