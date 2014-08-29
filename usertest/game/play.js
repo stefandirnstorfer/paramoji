@@ -1,8 +1,9 @@
+var updateFun=[];
 
 $(function() {
     $('.stock:not(.template)').html($('.stock.template').html());
     $('.stock').click(trade);
-    $('.stock').each(function(evt) { update($(this)); });
+    $('.stock').each(function(i, elt) { update(i, $(elt)); });
     refreshAll()
 });
 
@@ -38,10 +39,10 @@ function trim(x) {
     return x>0 ? (x<100 ? x : 100) : 0;
 }
 
-function update(stock) {
+function update(index, stock) {
     var SIGMA0 = 0.4;
     var LAMBDA0 = 1000;
-    var price= 1000.0;
+    var price= 100.0;
     var lambda= LAMBDA0;
     var sigma= SIGMA0;
     var mu= Math.random()/2-0.25;
@@ -58,34 +59,35 @@ function update(stock) {
 	mu = 0.01*r + 0.98 * mu;
 
 	sigma = Math.sqrt(0.001*SIGMA0 + 0.009*Math.pow((r - mu),2) + 0.99*Math.pow(sigma,2));
-	stock.find('.price').text(price.toFixed(2));
+	updateFun[index] = function(visual) {
+	    stock.find('.price').text(price.toFixed(2));
 
-	var visual = $('input[name="visual"]:checked').attr('value');
-	if (visual=="text") {
+	    if (visual=="text") {
 	    Stock.find('.plot').html('m='+mu.toFixed(2)+'<br/>s='+
 				     sigma.toFixed(2)+'<br/>l='+
 				     lambda.toFixed(0));
-	} 
-	else if (visual=="emoticon") {
-	    var v = trim(mu/0.15 * 100 + 50);
-	    var a = trim(50 - 50*Math.log(lambda/1000));
-	    var p = trim(sigma/SIGMA0*50);
-	    stock.find('.plot').html(emoticon_svg(v,a,p,Math.random()));
-	}
-	else {
-	    xData.push(Date.now()-t0);
-	    xData.push(Date.now()-t0+dt);
-	    yData.push(price);
-	    yData.push(price);
-	    drawChart(stock.find('.plot')[0], xData, yData);
-	}
+	    } 
+	    else if (visual=="emoticon") {
+		var v = trim(mu/0.15 * 100 + 50);
+		var a = trim(50 - 50*Math.log(lambda/1000));
+		var p = trim(sigma/SIGMA0*50);
+		stock.find('.plot').html(emoticon_svg(v,a,p,Math.random()));
+	    }
+	    else {
+		xData.push(Date.now()-t0);
+		xData.push(Date.now()-t0+dt);
+		yData.push(price);
+		yData.push(price);
+		drawChart(stock.find('.plot')[0], xData, yData);
+	    }
 
-	if (stock.find('.button').is('.hold')) {
-	    var fee = parseFloat(stock.find('.fee').text());
-	    var paid = parseFloat(stock.find('.paid').text());
-	    stock.find('.net').text(
-		(price - fee- paid).toFixed(2))
-	}
+	    if (stock.find('.button').is('.hold')) {
+		var fee = parseFloat(stock.find('.fee').text());
+		var paid = parseFloat(stock.find('.paid').text());
+		stock.find('.net').text(
+		    (price - fee- paid).toFixed(2))
+	    }
+	};
 	setTimeout(updateStep, dt);
     }
     updateStep();
@@ -94,13 +96,19 @@ function update(stock) {
 function refreshAll() {
     updatePL();
     var visual = $('input[name="visual"]:checked').attr('value');
-    if (visual=="chart") {
-	$('g[data-now]').each(function(i,elt) {
-	    var dt = Date.now() - parseInt($(elt).attr('data-now'));
-	    var v = parseFloat($(elt).attr('data-shift-ms'));
-	    $(elt).attr('transform','translate(-'+dt*v+',0)');
-	});
-    }
+    $('.stock').each(function(i, elt) {
+	if (updateFun[i]) {
+	    updateFun[i](visual);
+	    updateFun[i] = undefined;
+	} 
+	else if (visual=="chart") {
+	    $(elt).find('g[data-now]').each(function(i,elt) {
+		var dt = Date.now() - parseInt($(elt).attr('data-now'));
+		var v = parseFloat($(elt).attr('data-shift-ms'));
+		$(elt).attr('transform','translate(-'+dt*v+',0)');
+	    });
+	}
+    });
     window.requestAnimationFrame(refreshAll);
 }
 
