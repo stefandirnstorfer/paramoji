@@ -70,13 +70,13 @@ body {
     #frame>div {
 	width: 22vw;
 	height: 30vh;
-	font-size: 2vw;
+	font-size: 3vh;
     }
     #master td {
-	font-size: 2vw;
+	font-size: 3vh;
     }
     .stock .control .pl td {
-	font-size: 1.2vw;
+	font-size: 2.2vh;
     }
 }
 

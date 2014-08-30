@@ -1,5 +1,6 @@
 var updateFun=[];
 var STOP = false;
+var tradeCount = 0;
 var t0;
 
 $(function() {
@@ -12,6 +13,7 @@ $(function() {
 
 function trade(evt) {
     evt.preventDefault();
+    tradeCount ++;
     var button = $(this).find('.button');
     var pl = $(this).find('.pl');
     button.toggleClass('hold');
@@ -64,9 +66,12 @@ function update(index, stock) {
 	price = Math.max(0,price + r);
 	
 	lambda = 1000* 1e-4 + (1-1e-4)*(0.1*dt + 0.9*lambda);
-	mu = 0.02*r + 0.97 * mu;
+	mu = 0.022*r + 0.97 * mu;
+	if (tradeCount>100) mu= mu + 0.01*2;
 
-	sigma = Math.sqrt(0.01*SIGMA0 + 0.4*Math.pow((r),2) + 0.59*Math.pow(sigma,2));
+	sigma = Math.min(2,
+			 Math.sqrt(0.01*SIGMA0 + 0.4*Math.pow((r),2) 
+				   + 0.59*Math.pow(sigma,2)));
 	updateFun[index] = function(visual) {
 	    stock.find('.price').text(price.toFixed(2));
 
@@ -80,8 +85,7 @@ function update(index, stock) {
 		var a = trim(lambda, 3000, 100, Math.log);
 		var p = trim(sigma, 0.64, 0.25, Math.log);
 		stock.find('.plot').html(emoticon_svg(v,a,p,Math.random()));
-	    }
-	    else {
+	    } else {
 		xData.push(Date.now()-t0);
 		xData.push(Date.now()-t0+dt);
 		yData.push(price);
@@ -132,7 +136,7 @@ function updatePL() {
     var cash = parseFloat($('#cash').text());
     $('#asset').text(asset.toFixed(2));
     $('#total').text((cash + asset).toFixed(2));
-    if (cash > 10100) {
+    if (cash + asset > 100) {
 	$('#youwon').show();
 	$('#wintime').text(((Date.now()-t0)/1000).toFixed(0));
 	STOP = true;
