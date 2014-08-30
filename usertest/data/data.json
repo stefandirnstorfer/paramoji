@@ -94,3 +94,11 @@
 {"MW_ID":"stefan3","CAMP_ID":"undefined","Vref":"1","Aref":"0.5","Pref":"1","Vtest":"1","Atest":"0.5","Ptest":"1","time":"2014-08-27T13:59:11"}
 {"MW_ID":"stefan3","CAMP_ID":"undefined","Vref":"0.5","Aref":"0.5","Pref":"0","Vtest":"0.5","Atest":"0.5","Ptest":"0.5","time":"2014-08-27T14:01:04"}
 {"MW_ID":"stefan3","CAMP_ID":"undefined","Vref":"1","Aref":"0","Pref":"1","Vtest":"1","Atest":"0.5","Ptest":"1","time":"2014-08-27T14:01:17"}
+{"MW_ID":"stefan","CAMP_ID":"undefined","Vref":"0","Aref":"1","Pref":"0","Vtest":"0","Atest":"1","Ptest":"0","time":"2014-08-30T20:07:30"}
+{"MW_ID":"stefan","CAMP_ID":"undefined","Vref":"0","Aref":"0.5","Pref":"1","Vtest":"0","Atest":"0.5","Ptest":"1","time":"2014-08-30T20:07:40"}
+{"MW_ID":"stefan","CAMP_ID":"undefined","Vref":"0.5","Aref":"1","Pref":"1","Vtest":"0.5","Atest":"1","Ptest":"1","time":"2014-08-30T20:07:47"}
+{"MW_ID":"stefan","CAMP_ID":"undefined","Vref":"1","Aref":"1","Pref":"1","Vtest":"1","Atest":"1","Ptest":"1","time":"2014-08-30T20:07:51"}
+{"MW_ID":"stefan","CAMP_ID":"undefined","Vref":"0","Aref":"1","Pref":"1","Vtest":"0","Atest":"1","Ptest":"1","time":"2014-08-30T20:07:59"}
+{"MW_ID":"stefan","CAMP_ID":"undefined","Vref":"1","Aref":"0.5","Pref":"1","Vtest":"1","Atest":"0.5","Ptest":"1","time":"2014-08-30T20:08:07"}
+{"MW_ID":"stefan","CAMP_ID":"undefined","Vref":"1","Aref":"1","Pref":"0","Vtest":"1","Atest":"1","Ptest":"0","time":"2014-08-30T20:08:17"}
+{"MW_ID":"stefan","CAMP_ID":"undefined","Vref":"0.5","Aref":"0","Pref":"0","Vtest":"0.5","Atest":"0","Ptest":"0","time":"2014-08-30T20:08:40"}

@@ -100,3 +100,6 @@
 {"MW_ID":"stefan3","CAMP_ID":"undefined","type":"valence","test":"1","time":"2014-08-27T13:55:40"}
 {"MW_ID":"stefan3","CAMP_ID":"undefined","type":"arousal","test":"1","time":"2014-08-27T13:55:43"}
 {"MW_ID":"stefan3","CAMP_ID":"undefined","type":"potency","test":"1","time":"2014-08-27T13:55:46"}
+{"MW_ID":"stefan","CAMP_ID":"undefined","type":"valence","test":"1","time":"2014-08-30T20:07:10"}
+{"MW_ID":"stefan","CAMP_ID":"undefined","type":"arousal","test":"1","time":"2014-08-30T20:07:14"}
+{"MW_ID":"stefan","CAMP_ID":"undefined","type":"potency","test":"1","time":"2014-08-30T20:07:19"}
