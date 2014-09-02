@@ -40,12 +40,22 @@ case class SVGMatrix(val a : Double = 1.0,
 object SVGMatrix {
   val TRANSLATE_PATTERN = "translate\\(([^,]*),([^)]*)\\)".r
   val SCALE_PATTERN = "scale\\(([^,]*),([^)]*)\\)".r
+  val ROTATE_PATTERN = "rotate\\(([^,]*)\\)".r
   val MATRIX_PATTERN = "matrix\\(([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^)]*)\\)".r
   
+  def rotate(rad : Double) = {
+  	SVGMatrix(Math.cos(rad), Math.sin(rad), -Math.sin(rad), Math.cos(rad),0,0)
+  }
+  
+  def translate(dx : Double, dy : Double) = {
+    SVGMatrix(1,0,0,1, dx, dy)
+  }
+  	
   def parseSVGTransformAttribute(text : String) : SVGMatrix = {
     val matchTranslate = TRANSLATE_PATTERN.findPrefixMatchOf(text)
     val matchMatrix =  MATRIX_PATTERN.findPrefixMatchOf(text)
     val matchScale = SCALE_PATTERN.findPrefixMatchOf(text)
+    val matchRotate = ROTATE_PATTERN.findPrefixMatchOf(text)
     if (matchTranslate.isDefined) {
       val list = matchTranslate.get.subgroups.map( _.toDouble )
       SVGMatrix(1,0,0,1, list(0), list(1))
@@ -58,7 +68,11 @@ object SVGMatrix {
           val list = matchMatrix.get.subgroups.map( _.toDouble )
           SVGMatrix(list(0),0,0,list(1),0,0)
         } else {
-    	  throw new Exception("Unknown transform pattern : " + text)
+          if (matchRotate.isDefined) {
+            val list = matchRotate.get.subgroups.map( _.toDouble )
+            rotate(list(0) * Math.PI / 180)
+          }
+          else throw new Exception("Unknown transform pattern : " + text)
         }
       }
     }
