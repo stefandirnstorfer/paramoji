@@ -103,3 +103,11 @@
 {"MW_ID":"stefan","CAMP_ID":"undefined","type":"valence","test":"1","time":"2014-08-30T20:07:10"}
 {"MW_ID":"stefan","CAMP_ID":"undefined","type":"arousal","test":"1","time":"2014-08-30T20:07:14"}
 {"MW_ID":"stefan","CAMP_ID":"undefined","type":"potency","test":"1","time":"2014-08-30T20:07:19"}
+{"MW_ID":"stefan","CAMP_ID":"undefined","type":"valence","test":"1","time":"2014-09-02T14:13:00"}
+{"MW_ID":"stefan","CAMP_ID":"undefined","type":"arousal","test":"1","time":"2014-09-02T14:13:04"}
+{"MW_ID":"stefan","CAMP_ID":"undefined","type":"valence","test":"0.5","time":"2014-09-02T14:13:44"}
+{"MW_ID":"stefan","CAMP_ID":"undefined","type":"arousal","test":"0.5","time":"2014-09-02T14:13:45"}
+{"MW_ID":"stefan","CAMP_ID":"undefined","type":"potency","test":"0","time":"2014-09-02T14:14:25"}
+{"MW_ID":"stefan","CAMP_ID":"undefined","type":"valence","test":"1","time":"2014-09-02T14:14:30"}
+{"MW_ID":"stefan","CAMP_ID":"undefined","type":"arousal","test":"1","time":"2014-09-02T14:14:32"}
+{"MW_ID":"stefan","CAMP_ID":"undefined","type":"potency","test":"1","time":"2014-09-02T14:14:38"}
