@@ -67,7 +67,7 @@ function update(index, stock) {
 	
 	lambda = 1000* 1e-4 + (1-1e-4)*(0.1*dt + 0.9*lambda);
 	mu = 0.022*r + 0.97 * mu;
-	if (tradeCount>100) mu= mu + 0.01*2;
+	if (tradeCount>50) mu= mu + 0.015;
 
 	sigma = Math.min(2,
 			 Math.sqrt(0.01*SIGMA0 + 0.4*Math.pow((r),2) 

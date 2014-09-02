@@ -53,23 +53,23 @@ body {
 
 @media (orientation:portrait) {
     #frame>div {
-	width: 30vw;
-	height: 23vh;
-	font-size: 3vw;
+	width: 48vw;
+	height: 15vh;
+	font-size: 2.5vh;
     }
     #master td {
-	font-size: 3vw;
+	font-size: 2.5vh;
     }
     .stock .control .pl td {
-	font-size: 2vw;
+	font-size: 1.5vh;
     }
 
 }
 
 @media (orientation:landscape) {
     #frame>div {
-	width: 22vw;
-	height: 30vh;
+	width: 30vw;
+	height: 22vh;
 	font-size: 3vh;
     }
     #master td {
