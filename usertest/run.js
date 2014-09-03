@@ -67,7 +67,7 @@ function handleRequest(req, res) {
 			"campaign" : campaign,
 			"valence" : Math.floor(Math.random()*3)/2,
 			"arousal" : Math.floor(Math.random()*3)/2,
-			"potency" : Math.floor(Math.random()*3)/2,
+			"potency" : .5 //Math.floor(Math.random()*3)/2,
 		    }
 		    serveFile(res, "pages/query.html", content);
 		} else {
@@ -81,9 +81,14 @@ function handleRequest(req, res) {
 	else if (urlParts.pathname=="/submit") {
 	    redirectAction(res, urlParts.query);
 	    workerInfo.training += 1;
-	    if (urlParts.query.test==1) {
-		workerInfo.success += 1;
+	    var success = true;
+	    for (var key in urlParts.query) {
+		if (key.match(/test$/)) {
+		    success = success && urlParts.query[key]==1
+		}
 	    }
+	    if (success)
+		workerInfo.success += 1;
 	    writeData('data/training.json', JSON.stringify(urlParts.query)+'\n');
 	} 
 	else if (urlParts.pathname=="/submit2") {

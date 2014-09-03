@@ -17,7 +17,7 @@
 	</tr>
 	<tr>
 	  <td colspan="3" align="left">
-	    <embed src="face.svg?size=120&v=.5&a=0.5&p=0" width="180" hight="180"/>
+	    <embed src="face.svg?size=120&v=.5&a=0.5&p=.7" width="180" hight="180"/>
 	  </td>
 	  <td colspan="3" align="right">
 	    <embed src="face.svg?size=120&v=.5&a=0.5&p=.5" width="150" hight="150"/>
@@ -25,28 +25,55 @@
 	</tr>
 	<tr>
 	  <td colspan="6">
-	    <b>Determination:</b>
-	    Which of the two faces is more determined and 
-	    is more likely to take action?
+	    <b>Valuation:</b>
+	    Which of the two faces has a more positve valuation and 
+	    appreciates more what it sees?
 	  </td>
 	</tr>
 	<tr>
 	  <td colspan="2" align="center">
 	    <label>
-	      <input type="radio" name="test" value="0"><br/>
-	      Left is more determined
+	      <input type="radio" name="Vtest" value="0"><br/>
+	      Left is more positive
 	    </label>
 	  </td>
 	  <td colspan="2" align="center">
 	    <label>
-	      <input type="radio" name="test" value="0.5" required><br/>
-	      No difference
+	      <input type="radio" name="Vtest" value="1" required><br/>
+	      About the same
 	    </label>
 	  </td>
 	  <td colspan="2" align="center">
 	    <label>
-	      <input type="radio" name="test" value="1"><br/>
-	      Right is more determined
+	      <input type="radio" name="Vtest" value="0"><br/>
+	      Right is more positive
+	    </label>
+	  </td>
+	</tr>
+	<tr>
+	  <td colspan="6">
+	    <b>Surprise:</b>
+	    Which of the two faces is more surprised and 
+	    is more likely to see something unexpected?
+	  </td>
+	</tr>
+	<tr>
+	  <td colspan="2" align="center">
+	    <label>
+	      <input type="radio" name="Atest" value="0"><br/>
+	      Left is more surprised
+	    </label>
+	  </td>
+	  <td colspan="2" align="center">
+	    <label>
+	      <input type="radio" name="Atest" value="1" required><br/>
+	      About the same
+	    </label>
+	  </td>
+	  <td colspan="2" align="center">
+	    <label>
+	      <input type="radio" name="Atest" value="0"><br/>
+	      Right is more surprised
 	    </label>
 	  </td>
 	</tr>
@@ -55,7 +82,6 @@
 	    <button type="submit" value="Submit">Submit</button>
 	  </td>
 	</tr>
-      </table>
     </form>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
