@@ -1,6 +1,6 @@
 #reading the data
 require(rjson)
-data<-readLines('data/data-campaign4.json')
+data<-readLines('data/data-campaign5.json')
 data<-lapply(data, function(x) data.frame(fromJSON(x), stringsAsFactors=FALSE))
 data<-data.frame(Reduce(rbind, data))
 data$Ptest=as.numeric(data$Ptest)
@@ -10,13 +10,15 @@ data$Pref=as.numeric(data$Pref)
 data$Aref=as.numeric(data$Aref)
 data$Vref=as.numeric(data$Vref)
 
-training<-readLines('data/training-campaign4.json')
+data=data[data$Pref==0.5,]
+
+training<-readLines('data/training-campaign5.json')
 training<-lapply(training, function(x) data.frame(fromJSON(x), stringsAsFactors=FALSE))
 training<-data.frame(Reduce(rbind, training))
 
 # filter incomplete users
 data.uid <- as.character(data$MW_ID)
-users<-names(table(data.uid))[table(data.uid)==10]
+#users<-names(table(data.uid))[table(data.uid)==10]
 
 # determine quality
 data.quality2 <- (data$Vtest-data$Vref)^2 + 0.3*(data$Atest-data$Aref)^2 + 0.05*(data$Ptest-data$Pref)
@@ -47,7 +49,7 @@ step.quality <- sapply(seq(1,10), function(step) {
 plot(jitter(data.step), data.quality2, col=(users.training>2)+1, xlab='data.step')
 lines(seq(1,10), step.quality)
 
-d <- data[data.uid %in% users[users.training==1], ]
+d <- data[data.uid %in% users[users.training<=100], ]
 l <- data.frame(rbind(lm(d$Vtest ~ d$Vref + d$Aref + d$Pref)$coefficients,
 lm(d$Atest ~ d$Vref + d$Aref + d$Pref)$coefficients,
 lm(d$Ptest ~ d$Vref + d$Aref + d$Pref)$coefficients), 
