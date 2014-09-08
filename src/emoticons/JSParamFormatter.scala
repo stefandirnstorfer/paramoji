@@ -1,29 +1,35 @@
 package emoticons
 
 import java.io.PrintWriter
+import scala.collection.mutable.MutableList
 
-class JSParam(params : List[Param]) extends Param {
-  def morph(thisFactor : Double, otherFactor : Double, otherParam : Param): Param = throw new UnsupportedOperationException
-  def isSignificant() = true
-  
-  def f(values:List[Double]) = "f([" + values.map(x => "%1.0f".format(x)).mkString(",") +"])"
-  def fround(values : List[Double]) = "'+Math.round("+f(values)+")+'";
-  override def toString : String = {
-	if (params.tail.exists( _.isSignificant )) {
+class JSParamFormatter {
+	val coords = MutableList[JSParam]();
+
+	class JSParam(params : List[Param]) extends Param {
+	  def morph(thisFactor : Double, otherFactor : Double, otherParam : Param): Param = throw new UnsupportedOperationException
+	  def isSignificant() = true
+	  
+	  def f(values:List[Double]) = "f([" + values.map(x => "%1.0f".format(x)).mkString(",") +"])"
+	  def fround(values : List[Double]) = "'+Math.round("+f(values)+")+'";
+	  override def toString() : String = {
+		if (params.tail.exists( _.isSignificant )) {
+			coords += this
+			"?"
+		} else
+	      params(0).toString
+	  }
+	  def format() = {
 		params.head match {
-      		case _ : ColorParam => "rgb("+fround(params.map{_.asInstanceOf[ColorParam].r})+","+
+      		case _ : ColorParam => "'rgb("+fround(params.map{_.asInstanceOf[ColorParam].r})+","+
       				fround(params.map{_.asInstanceOf[ColorParam].g})+","+
-      				fround(params.map{_.asInstanceOf[ColorParam].b})+")"
+      				fround(params.map{_.asInstanceOf[ColorParam].b})+")'"
       		case _ : NumberParam =>
-      			"'+"+f(params.map{k => k.asInstanceOf[NumberParam].value })+"+'";
+      			f(params.map{k => k.asInstanceOf[NumberParam].value });
         }
+	  }
 	}
-    else
-      params(0).toString
-  }
-}
-
-object JSParamFormatter {
+  
   
 	val jsf = """var sv= Math.abs(v-50)/50, sa= Math.abs(a-50)/50, sp= Math.abs(p-50)/50;
 	var f = function(x) {
@@ -64,11 +70,14 @@ object JSParamFormatter {
 	}
 	
 	def saveToFile(filename : String, base : EmoticonStructure, paramSets : List[Map[String, List[Param]]]) {
-	  	val out = new PrintWriter(filename)
-	  	out.print("function emoticon_svg_raw(v,a,p) { "+jsf+" return '")
 	  	val jsparam = merge(paramSets)
-	  	out.print(base.format(jsparam).toString)
-	  	out.println("'; }")
+		val xml = base.format(jsparam).toString
+	  	val out = new PrintWriter(filename)
+	  	out.println("function emoticon_svg_raw(v,a,p) { "+jsf)
+	  	out.println("var i=0, d="+coords.map(_.format).mkString("[",",","]")+";")
+	  	out.print("return '")
+	  	out.print(xml)
+	  	out.println("'.replace(/\\?/g, function(x) { d[i++];}; }")
 	  	out.close()
 	}
 }
