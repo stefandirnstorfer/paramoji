@@ -1,32 +1,29 @@
 #reading the data
 require(rjson)
-data<-readLines('data/data-campaign5.json')
+data<-readLines('data/data-campaign6.json')
 data<-lapply(data, function(x) data.frame(fromJSON(x), stringsAsFactors=FALSE))
 data<-data.frame(Reduce(rbind, data))
-data$Ptest=as.numeric(data$Ptest)
+#data$Ptest=as.numeric(data$Ptest)
 data$Atest=as.numeric(data$Atest)
 data$Vtest=as.numeric(data$Vtest)
-data$Pref=as.numeric(data$Pref)
+#data$Pref=as.numeric(data$Pref)
 data$Aref=as.numeric(data$Aref)
 data$Vref=as.numeric(data$Vref)
 
-data=data[data$Pref==0.5,]
-
-training<-readLines('data/training-campaign5.json')
+training<-readLines('data/training-campaign6.json')
 training<-lapply(training, function(x) data.frame(fromJSON(x), stringsAsFactors=FALSE))
-training<-data.frame(Reduce(rbind, training))
 
 # filter incomplete users
 data.uid <- as.character(data$MW_ID)
-#users<-names(table(data.uid))[table(data.uid)==10]
+users<-names(table(data.uid))[table(data.uid)==10]
 
 # determine quality
-data.quality2 <- (data$Vtest-data$Vref)^2 + 0.3*(data$Atest-data$Aref)^2 + 0.05*(data$Ptest-data$Pref)
+data.quality2 <- (data$Vtest-data$Vref)^2 + 0.3*(data$Atest-data$Aref)^2#+ 0.05*(data$Ptest-data$Pref)
 users.quality <- sapply(users, function(user) {
   sqrt(mean(data.quality2[data.uid==user]))
 })
 users.training <- sapply(users, function(user) {
-  as.numeric(table(as.character(training$MW_ID))[user])/3
+  sum(as.logical(sapply(training, function(x) x$MW_ID == user)))/3
 })
 plot(users.training, users.quality, col=(users.training>2)+1)
 table(users.training)
@@ -49,12 +46,12 @@ step.quality <- sapply(seq(1,10), function(step) {
 plot(jitter(data.step), data.quality2, col=(users.training>2)+1, xlab='data.step')
 lines(seq(1,10), step.quality)
 
-d <- data[data.uid %in% users[users.training<=100], ]
-l <- data.frame(rbind(lm(d$Vtest ~ d$Vref + d$Aref + d$Pref)$coefficients,
-lm(d$Atest ~ d$Vref + d$Aref + d$Pref)$coefficients,
-lm(d$Ptest ~ d$Vref + d$Aref + d$Pref)$coefficients), 
-  row.names=c('V','A','P'))
-M<- matrix(c(l$d.Vref,0,l$d.Aref,0,l$d.Pref,0,l$X.Intercept,1),4,4)
-print(l)
-
-
+f <- matrix(c(rep(c(0,.5,1), each=3), rep(c(0,.5,1), 3)), 9,2)
+data2 <- data[data$MW_ID %in% users[users.training==1],]
+Vmean = sapply(1:9, function(x) mean(data2[data2$Vref == f[x,1] & data2$Aref == f[x,2], 'Vtest']))
+Amean = sapply(1:9, function(x) mean(data2[data2$Vref == f[x,1] & data2$Aref == f[x,2], 'Atest']))
+plot(Vmean, Amean)
+for (s in c(1,2,3)) {
+  lines(Vmean[seq(3*s-2, 3*s)], Amean[seq(3*s-2, 3*s)])
+  lines(Vmean[seq(s,9,by=3)], Amean[seq(s,9,by=3)])
+}

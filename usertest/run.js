@@ -37,11 +37,11 @@ function handleRequest(req, res) {
 	    workById[worker]= workerInfo;
 	}
 
-	if (urlParts.pathname=="/") {
-	    if (!worker) {
-		denyAccess(res, "Worker ID is missing");
-	    }
-	    else if (!workerInfo.active) {
+	if (!worker && !urlParts.pathname.match(/\./)) {
+	    denyAccess(res, "Worker ID is missing");
+	}
+	else if (urlParts.pathname=="/") {
+	    if (!workerInfo.active) {
 		if (workerInfo.training < 3) {
 		    workerInfo.ref = Math.floor(Math.random()*2); 
 		    var content = {

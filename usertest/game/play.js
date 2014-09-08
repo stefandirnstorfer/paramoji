@@ -25,13 +25,13 @@ function trade(evt) {
 	var fee = parseFloat($(this).find('.fee').text());
 	$('#cash').text(
 	    (parseFloat($('#cash').text()) -fee -price).toFixed(2));
-	pl.show();
+	pl.fadeIn(10);
     } else {
 	button.text('buy');
 	var price = parseFloat($(this).find('.price').text());
 	$('#cash').text(
 	    (parseFloat($('#cash').text()) + price).toFixed(2));
-	pl.hide();
+	pl.fadeOut(800);
     }
     updatePL();
 }

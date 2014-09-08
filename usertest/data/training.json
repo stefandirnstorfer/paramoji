@@ -126,3 +126,9 @@
 {"MW_ID":"stefan","CAMP_ID":"undefined","type":"valence","test":"1","time":"2014-09-03T10:05:05"}
 {"MW_ID":"stefan","CAMP_ID":"undefined","type":"arousal","test":"1","time":"2014-09-03T10:05:06"}
 {"MW_ID":"stefan","CAMP_ID":"undefined","type":"potency","Vtest":"1","Atest":"1","time":"2014-09-03T10:05:08"}
+{"MW_ID":"stefan","CAMP_ID":"undefined","type":"valence","test":"1","time":"2014-09-08T13:09:55"}
+{"MW_ID":"stefan","CAMP_ID":"undefined","type":"arousal","test":"1","time":"2014-09-08T13:10:10"}
+{"MW_ID":"stefan","CAMP_ID":"undefined","type":"potency","Vtest":"1","Atest":"0","time":"2014-09-08T13:10:15"}
+{"MW_ID":"stefan","CAMP_ID":"undefined","type":"valence","test":"1","time":"2014-09-08T13:10:19"}
+{"MW_ID":"stefan","CAMP_ID":"undefined","type":"arousal","test":"1","time":"2014-09-08T13:10:20"}
+{"MW_ID":"stefan","CAMP_ID":"undefined","type":"potency","Vtest":"1","Atest":"1","time":"2014-09-08T13:10:23"}
