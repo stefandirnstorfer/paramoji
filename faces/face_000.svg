@@ -37,14 +37,14 @@
      inkscape:pageopacity="0"
      inkscape:window-width="1855"
      showgrid="false"
-     inkscape:cx="125"
+     inkscape:cx="76.59516"
      inkscape:window-x="1985"
      inkscape:window-maximized="1"
      showguides="true"
      inkscape:snap-nodes="true"
      inkscape:snap-global="true"
      inkscape:guide-bbox="true"
-     inkscape:current-layer="head"
+     inkscape:current-layer="emoticon-front-view"
      inkscape:window-y="24"
      inkscape:cy="125"
      inkscape:zoom="3.636"
@@ -184,15 +184,6 @@
      id="left-eye-brow"
      sodipodi:nodetypes="ccccc"
      inkscape:connector-curvature="0" />
-  <g
-     id="nose">
-    <path
-       d="M 109.35,151.47 C 106.23,164.41 120.29,165.12 124.89,165.23 148.36,165.9 140.07,151.96 136.81,136.04 139.63,148.61 154.31,161.42 142.48,163.43 131.7,165.27 130.03,168.32 124.94,167.99 119.54,168.24 114.63,162.59 109.44,163.55 106.47,163.4 104.49,159.38 109.35,151.47 Z"
-       style="fill:#1a1a1a;stroke:#000000;stroke-width:1"
-       id="nose-outline"
-       sodipodi:nodetypes="cccsccc"
-       inkscape:connector-curvature="0" />
-  </g>
   <use
      transform="matrix(-1,0,0,1,250,0)"
      x="0"
@@ -364,5 +355,15 @@
        xlink:href="#wrinkle-left-cheek"
        id="wrinkle-right-cheek"
        width="250" />
+  </g>
+  <g
+     id="nose"
+     style="stroke:none;fill:#000000;fill-opacity:1;opacity:1">
+    <path
+       d="m 115.51155,165.29153 c 1.10011,-2.98004 5.86726,-3.35548 8.52585,-2.20022 m 10.17602,-31.07811 c 0.32783,15.46533 12.21009,25.39529 8.25082,30.52805 -2.76392,3.58312 -5.33909,-2.57695 -10.17601,2.47525"
+       style="fill:none;stroke:#000000;stroke-opacity:1"
+       id="nose-outline"
+       sodipodi:nodetypes="cccsc"
+       inkscape:connector-curvature="0" />
   </g>
 </svg>
