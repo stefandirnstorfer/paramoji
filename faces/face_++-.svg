@@ -37,17 +37,17 @@
      inkscape:pageopacity="0"
      inkscape:window-width="1855"
      showgrid="false"
-     inkscape:cx="124.7506"
+     inkscape:cx="76.59516"
      inkscape:window-x="1985"
      inkscape:window-maximized="1"
      showguides="true"
      inkscape:snap-nodes="true"
      inkscape:snap-global="true"
      inkscape:guide-bbox="true"
-     inkscape:current-layer="right-eye"
+     inkscape:current-layer="nose"
      inkscape:window-y="24"
-     inkscape:cy="118.90579"
-     inkscape:zoom="4.5420026"
+     inkscape:cy="125"
+     inkscape:zoom="3.636"
      inkscape:window-height="1056"
      inkscape:pageshadow="2"
      guidetolerance="10"
@@ -93,10 +93,11 @@
     </clipPath>
   </defs>
   <g
-     id="head">
+     id="head"
+     morph="fixed">
     <path
+       style="fill:#e9c6af;stroke:none;stroke-width:1.0;fill-opacity:0.52968037"
        d="M 124.98,230.66 C 172.77,230.75 215.51,200.57 215.91,132.64 216.3,64.72 173.26,31.81 123.18,31.53 73.1,31.24 33.88,66.28 33.59,132.64 33.3,199.01 77.19,230.57 124.98,230.66 Z"
-       style="fill:#e9c6af;stroke:#000000;stroke-width:1"
        id="head-outline"
        sodipodi:nodetypes="zzzzz"
        inkscape:connector-curvature="0" />
@@ -113,18 +114,17 @@
        clip-path="url(#clipPath-left-eye)"
        id="left-eyeball">
       <g
-         id="left-lens"
-         transform="translate(0,-4)">
+         id="left-lens">
         <path
            d="M 1,0.5 C 1,0.78 0.78,1 0.5,1 0.22,1 0,0.78 0,0.5 0,0.22 0.22,0 0.5,0 0.78,0 1,0.22 1,0.5 z"
-           transform="matrix(17.83,0,0,17.83,84.21,109.44)"
+           transform="matrix(17.83,0,0,17.83,84.21,105.44)"
            style="fill:#9d4922;stroke:#000000;stroke-width:0.06"
            id="iris"
            morph="relative"
            inkscape:connector-curvature="0" />
         <path
            d="M 1,0.5 C 1,0.78 0.78,1 0.5,1 0.22,1 0,0.78 0,0.5 0,0.22 0.22,0 0.5,0 0.78,0 1,0.22 1,0.5 z"
-           transform="matrix(10.1,0,0,10.1,87.99,113.29)"
+           transform="matrix(10.1,0,0,10.1,87.99,109.29)"
            style="fill:#000000;stroke:#000000;stroke-width:0.17"
            id="pupil"
            morph="relative"
@@ -132,7 +132,7 @@
            sodipodi:nodetypes="sssss" />
         <path
            d="M 1,0.5 C 1,0.78 0.78,1 0.5,1 0.22,1 0,0.78 0,0.5 0,0.22 0.22,0 0.5,0 0.78,0 1,0.22 1,0.5 z"
-           transform="matrix(7.06,0,0,7.06,83.88,110.47)"
+           transform="matrix(7.06,0,0,7.06,83.88,106.47)"
            style="fill:#ffffff;stroke:none"
            id="glare"
            inkscape:connector-curvature="0"
@@ -161,7 +161,7 @@
        clip-path="url(#clipPath-right-eye)"
        id="right-eyeball">
       <use
-         transform="translate(64,0)"
+         transform="matrix(1,0,0,1,64,0)"
          id="right-lens"
          y="0"
          height="1"
@@ -170,8 +170,8 @@
          x="0"
          morph="fixed" />
       <path
-         d="m 125,110.51 0,-35.51 75,0 0,35.06 C 162.33,85.7 146.04,87.34 125,110.51 z"
-         style="opacity:0.23999999;fill:#000000;stroke:#000000;stroke-width:0px"
+         d="M 125,110.51 125,75 200,75 200,110.06 C 162.33,85.7 146.04,87.34 125,110.51 Z"
+         style="opacity:0.24;fill:#000000;stroke:#000000;stroke-width:0px"
          id="right-lid-shadow"
          sodipodi:nodetypes="ccccc"
          inkscape:connector-curvature="0" />
@@ -183,15 +183,6 @@
      id="left-eye-brow"
      sodipodi:nodetypes="ccccc"
      inkscape:connector-curvature="0" />
-  <g
-     id="nose">
-    <path
-       d="M 100.21,152.94 C 104.47,154.94 113.11,150.92 125.22,151.61 142.12,152.57 154.07,155.52 152.21,151.59 155.61,154.85 150.02,155.58 146.88,155.11 140.64,154.18 138.3,153.17 125.12,154.01 119.79,154.35 114.61,153.41 111.77,154.94 108.64,154.87 102.57,155.78 100.21,152.94 Z"
-       style="fill:#1a1a1a;stroke:#000000;stroke-width:1"
-       id="nose-outline"
-       sodipodi:nodetypes="cccsccc"
-       inkscape:connector-curvature="0" />
-  </g>
   <use
      transform="matrix(-1,0,0,1,250,0)"
      x="0"
@@ -363,5 +354,14 @@
        xlink:href="#wrinkle-left-cheek"
        id="wrinkle-right-cheek"
        width="250" />
+  </g>
+  <g
+     id="nose">
+    <path
+       d="m 111.2,159.54 c 2.86,-2.7 9.24,-3.45 11.33,-0.29 m 26.51066,-13.1195 c 3.97481,7.65005 -0.0458,11.26989 -2.87066,12.2295 -4.76451,1.61852 -7.72,-3.68 -13.74,0.95"
+       style="fill:none;stroke:#000000"
+       id="nose-path"
+       sodipodi:nodetypes="cccsc"
+       inkscape:connector-curvature="0" />
   </g>
 </svg>

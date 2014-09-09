@@ -10,7 +10,7 @@ id="emoticon-front-view" viewBox="0 0 250 250" sodipodi:docname="face_000.svg" h
     </rdf:RDF>
   </metadata>
   <sodipodi:namedview 
-  id="namedview3097" inkscape:snap-page="true" inkscape:snap-grids="true" pagecolor="#ffffff" borderopacity="1" gridtolerance="10" inkscape:pageopacity="0" inkscape:window-width="1855" showgrid="false" inkscape:cx="124.7506" inkscape:window-x="1985" inkscape:window-maximized="1" showguides="true" inkscape:snap-nodes="true" inkscape:snap-global="true" inkscape:guide-bbox="true" inkscape:current-layer="emoticon-front-view" inkscape:window-y="24" inkscape:cy="118.90579" inkscape:zoom="4.5420026" inkscape:window-height="1056" inkscape:pageshadow="2" guidetolerance="10" objecttolerance="10" bordercolor="#666666" inkscape:snap-bbox="true">
+  id="namedview3097" inkscape:snap-page="true" inkscape:snap-grids="true" pagecolor="#ffffff" borderopacity="1" gridtolerance="10" inkscape:pageopacity="0" inkscape:window-width="1855" showgrid="false" inkscape:cx="76.59516" inkscape:window-x="1985" inkscape:window-maximized="1" showguides="true" inkscape:snap-nodes="true" inkscape:snap-global="true" inkscape:guide-bbox="true" inkscape:current-layer="emoticon-front-view" inkscape:window-y="24" inkscape:cy="125" inkscape:zoom="3.636" inkscape:window-height="1056" inkscape:pageshadow="2" guidetolerance="10" objecttolerance="10" bordercolor="#666666" inkscape:snap-bbox="true">
 </sodipodi:namedview>
   <defs id="defs">
     <clipPath id="clipPath-left-eye">
@@ -29,9 +29,9 @@ id="emoticon-front-view" viewBox="0 0 250 250" sodipodi:docname="face_000.svg" h
 </use>
     </clipPath>
   </defs>
-  <g id="head">
+  <g id="head" morph="fixed">
     <path 
-    d="M 124.98,230.66 C 172.77,230.75 215.51,200.57 215.91,132.64 216.29,64.72 173.26,31.81 123.18,31.52 73.1,31.24 33.88,66.28 33.59,132.65 33.3,199.01 77.19,230.57 124.98,230.66 Z" style="fill:#e9c6af;stroke:#000000;stroke-width:1" id="head-outline" sodipodi:nodetypes="zzzzz" inkscape:connector-curvature="0">
+    style="fill:#e9c6af;stroke:none;stroke-width:1.0;fill-opacity:0.52968037" d="M 124.98,230.66 C 172.77,230.75 215.51,200.57 215.91,132.64 216.3,64.72 173.26,31.81 123.18,31.53 73.1,31.24 33.88,66.28 33.59,132.64 33.3,199.01 77.19,230.57 124.98,230.66 Z" id="head-outline" sodipodi:nodetypes="zzzzz" inkscape:connector-curvature="0">
 </path>
   </g>
   <g id="left-eye">
@@ -71,11 +71,6 @@ id="emoticon-front-view" viewBox="0 0 250 250" sodipodi:docname="face_000.svg" h
   <path 
   d="M 115.42,110.85 C 102.08,100.9 87.05,98.22 71.05,100.1 L 70.8,97.24 C 85.94,94.91 101.71,97.01 114.69,102.36 Z" style="fill:#292929;stroke-width:1" id="left-eye-brow" sodipodi:nodetypes="ccccc" inkscape:connector-curvature="0">
 </path>
-  <g id="nose">
-    <path 
-    d="M 107.32,149.71 C 106.18,158.42 114.75,158.66 125.11,158.97 150.36,158.5 137.98,148.03 135.21,135.63 137.19,144.31 149.18,155.8 143.36,159.5 135.83,159.07 132.95,162.7 125.06,161.98 117.1,160.83 114.31,160.6 109.61,160.54 107.33,159.33 105.22,154.83 107.32,149.71 Z" style="fill:#1a1a1a;stroke:#000000;stroke-width:1" id="nose-outline" sodipodi:nodetypes="cccsccc" inkscape:connector-curvature="0">
-</path>
-  </g>
   <use 
   transform="matrix(-1,0,0,1,250,0)" x="0" width="250" xlink:href="#left-eye-brow" height="250" y="0" id="right-eye-brow">
 </use>
@@ -139,5 +134,10 @@ id="emoticon-front-view" viewBox="0 0 250 250" sodipodi:docname="face_000.svg" h
     <use 
     transform="matrix(-1,0,0,1,250,0)" morph="fixed" height="250" y="0" x="0" xlink:href="#wrinkle-left-cheek" id="wrinkle-right-cheek" width="250">
 </use>
+  </g>
+  <g id="nose">
+    <path 
+    d="M 115.51,165.29 C 117.93,164.29 121.6,164.36 124.26,165.51 M 132.23,130.91 C 135.2,146.38 146.42,157.41 142.46,162.54 139.7,166.12 136.68,163.05 132.29,165.9" style="fill:none;stroke:#000000" id="nose-path" sodipodi:nodetypes="cccsc" inkscape:connector-curvature="0">
+</path>
   </g>
 </svg>
