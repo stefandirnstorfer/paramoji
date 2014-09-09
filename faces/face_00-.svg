@@ -39,7 +39,7 @@
      inkscape:window-y="24"
      inkscape:current-layer="emoticon-front-view"
      inkscape:guide-bbox="true"
-     inkscape:snap-global="true"
+     inkscape:snap-global="false"
      inkscape:snap-nodes="true"
      showguides="true"
      inkscape:window-maximized="1"
@@ -185,10 +185,10 @@
   <g
      id="nose">
     <path
-       d="M 106.95,153.59 C 105.41,161.82 117.15,159.36 125.05,159.59 147.86,160.8 149.19,157.61 144.31,145.55 148.98,156.27 149.86,157.07 145.34,160.98 143.77,160.96 139.84,157.7 125.03,161.31 118.13,160.18 115.24,159.84 110.63,161.11 107.63,160.23 103.85,159.97 106.95,153.59 Z"
-       style="fill:#1a1a1a;stroke:#000000;stroke-width:1"
+       d="m 115.51155,160.66802 c 1.81823,-1.44531 4.83974,-0.29147 6.32418,0.88212 m 12.37769,-34.16045 c 0.32783,15.46533 11.99597,24.27258 9.13149,30.08772 -1.22275,2.48228 -5.55926,0.94572 -8.41467,4.01642"
+       style="fill:none;stroke:#000000;stroke-width:1"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccsccc"
+       sodipodi:nodetypes="cccsc"
        id="nose-outline" />
   </g>
   <use

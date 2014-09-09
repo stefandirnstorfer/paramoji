@@ -183,12 +183,13 @@
      sodipodi:nodetypes="ccccc"
      inkscape:connector-curvature="0" />
   <g
-     id="nose">
+     id="nose"
+     transform="translate(-0.2750275,11.0011)">
     <path
-       d="M 107.56,158.49 C 106.56,169.29 116.68,176.05 125,175.82 148.21,172.66 136.37,149.44 135.16,142.38 139.72,159.32 150.37,164.65 140.98,171 137.1,173.61 126.53,177.01 125,176.99 117.49,177.15 114.44,171.14 108.22,170.57 105.02,170.31 102.47,165.96 107.56,158.49 Z"
-       style="fill:#1a1a1a;stroke:#000000;stroke-width:1"
-       id="nose-outline"
-       sodipodi:nodetypes="cccsccc"
+       d="m 113.31133,165.29153 c 0.82508,-3.53006 7.2424,0.21988 9.90099,1.37514 m 11.0011,-34.65347 c 0.32783,15.46533 12.21009,25.39529 8.25082,30.52805 -2.76392,3.58312 -4.23898,3.19863 -9.62595,4.40044"
+       style="fill:none;stroke:#000000;stroke-width:1"
+       id="nose-path"
+       sodipodi:nodetypes="cccsc"
        inkscape:connector-curvature="0" />
   </g>
   <use

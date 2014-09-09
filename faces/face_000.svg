@@ -362,7 +362,7 @@
     <path
        d="m 115.51155,165.29153 c 1.10011,-2.98004 5.86726,-3.35548 8.52585,-2.20022 m 10.17602,-31.07811 c 0.32783,15.46533 12.21009,25.39529 8.25082,30.52805 -2.76392,3.58312 -5.33909,-2.57695 -10.17601,2.47525"
        style="fill:none;stroke:#000000;stroke-opacity:1"
-       id="nose-outline"
+       id="nose-path"
        sodipodi:nodetypes="cccsc"
        inkscape:connector-curvature="0" />
   </g>
