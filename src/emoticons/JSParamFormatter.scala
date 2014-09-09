@@ -77,7 +77,7 @@ class JSParamFormatter {
 	  	out.println("var i=0, d="+coords.map(_.format).mkString("[",",","]")+";")
 	  	out.print("return '")
 	  	out.print(xml)
-	  	out.println("'.replace(/\\?/g, function(x) { d[i++];}; }")
+	  	out.println("'.replace(/\\?/g, function(x) { return d[i++];}); }")
 	  	out.close()
 	}
 }
