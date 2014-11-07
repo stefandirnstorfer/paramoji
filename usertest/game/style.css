@@ -63,6 +63,9 @@ body {
     .stock .control .pl td {
 	font-size: 1.5vh;
     }
+    table {
+	border-spacing: 1px;
+    }
 
 }
 
