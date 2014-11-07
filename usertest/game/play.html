@@ -3,7 +3,6 @@
   <meta content="text/html" charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, user-scalable=no"/>
   <link rel="stylesheet" type="text/css" href="style.css"/>
-  <script src="http://d3js.org/d3.v3.js"></script>
   <script src="emoticon.js"></script>
   <script src="jquery.js"></script>
   <script src="play.js"></script>
@@ -15,7 +14,7 @@
       <table width="100%">
 	<tr>
 	  <td>Cash:</td>
-	  <td align="right"><span id="cash">0.00</span></td>
+	  <td align="right"><span id="cash">1000.00</span></td>
 	</tr>
 	<tr>
 	  <td>Assets:</td>
@@ -29,15 +28,9 @@
       </table>
       <div style="display:none" id="youwon">
 	You won! Time was <span id="wintime">?</span> seconds.
-      </div>
-      <form>
-	<label><input type="radio" name="visual" value="emoticon" checked>Emoticons</label>
 	<br/>
-	<label><input type="radio" name="visual" value="chart">Chart</label>
-	<!--br/>
-	<label><input type="radio" name="visual" value="text">Text</label-->
-	</p>
-      </form>
+	<button onclick="analyze()">Analyse</button>
+      </div>
     </div>
     <div class="stock template">
       <div class="visual">
@@ -47,13 +40,13 @@
       <div class="control">
 	<div>
 	  <div style="text-align:right">
-	    € <span class="price">1000.00</span>
+	    € <span class="price">100.00</span>
 	  </div>
 	  <div class="pl" style="display:none">
 	    <table width="100%">
 	      <tr>
 		<td>Fee:</td>
-		<td align="right"><span class="fee">0.10</span></td>
+		<td align="right"><span class="fee">1.00</span></td>
 	      </tr>
 	      <tr>
 		<td>Cost:</td>

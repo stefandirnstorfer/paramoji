@@ -1,39 +1,50 @@
-var updateFun=[];
-var STOP = false;
+var T0 = Date.now();
+var C0 = 1000;
+var cashDeserved = C0;
+var globalDrift = 0;
 var tradeCount = 0;
-var t0;
+var STOP = false;
+
+var data = [];
+var HISTORY = [];
 
 $(function() {
-    t0 = Date.now();
+    T0 = Date.now();
     $('.stock:not(.template)').html($('.stock.template').html());
-    $('.stock').click(trade);
-    $('.stock').each(function(i, elt) { update(i, $(elt)); });
-    refreshAll()
+    $('.stock').each(function(i, elt) { 
+	$(elt).click(function(evt) { trade(evt, i); });
+	initStock($(elt), i);
+    });
+    updateAll()
 });
 
-function trade(evt) {
+function trade(evt, index) {
+    var target = $(evt.target).parents('.stock');
     evt.preventDefault();
+    if (STOP) return;
     tradeCount ++;
-    var button = $(this).find('.button');
-    var pl = $(this).find('.pl');
+    var button = target.find('.button');
+    var pl = target.find('.pl');
     button.toggleClass('hold');
     if (button.is('.hold')) {
 	button.text('sell');
-	$(this).find('.paid').text($(this).find('.price').text());
-	$(this).find('.net').text('-'+$(this).find('.fee').text());
-	var price = parseFloat($(this).find('.price').text());
-	var fee = parseFloat($(this).find('.fee').text());
+	target.find('.paid').text(target.find('.price').text());
+	target.find('.net').text('-'+target.find('.fee').text());
+	var price = parseFloat(target.find('.price').text());
+	var fee = parseFloat(target.find('.fee').text());
 	$('#cash').text(
 	    (parseFloat($('#cash').text()) -fee -price).toFixed(2));
 	pl.fadeIn(10);
+	HISTORY.push($.extend({action : 'buy', index : index}, data[index]));
     } else {
 	button.text('buy');
-	var price = parseFloat($(this).find('.price').text());
+	var price = parseFloat(target.find('.price').text());
 	$('#cash').text(
 	    (parseFloat($('#cash').text()) + price).toFixed(2));
 	pl.fadeOut(800);
+	HISTORY.push($.extend({action : 'sell', index : index}, data[index]));
     }
-    updatePL();
+    cashDeserved += 2;
 }
 
 function rnd_snd() {
@@ -50,95 +61,90 @@ function trim(x, min, max, f) {
     return x>0 ? (x<100 ? x : 100) : 0;
 }
 
-function update(index, stock) {
-    var SIGMA0 = 0.4;
-    var LAMBDA0 = 1000;
-    var price= 100.0;
-    var lambda= LAMBDA0;
-    var sigma= SIGMA0;
-    var mu= Math.random()/2-0.25;
-    var xData = [];
-    var yData = [];
-
-    var updateStep = function() {
-	var r = mu + sigma * 3.6*(Math.random()-0.5);
-	var dt = -lambda * Math.log(Math.random());
-	price = Math.max(0,price + r);
-	
-	lambda = 1000* 1e-4 + (1-1e-4)*(0.1*dt + 0.9*lambda);
-	mu = 0.022*r + 0.97 * mu;
-	if (tradeCount>50) mu= mu + 0.015;
-
-	sigma = Math.min(2,
-			 Math.sqrt(0.01*SIGMA0 + 0.4*Math.pow((r),2) 
-				   + 0.59*Math.pow(sigma,2)));
-	updateFun[index] = function(visual) {
-	    stock.find('.price').text(price.toFixed(2));
-
-	    if (visual=="text") {
-	    stock.find('.plot').html('m='+mu.toFixed(2)+'<br/>s='+
-				     sigma.toFixed(2)+'<br/>l='+
-				     lambda.toFixed(0));
-	    } 
-	    else if (visual=="emoticon") {
-		var v = trim(mu, -0.15, 0.15);
-		var a = trim(lambda, 3000, 100, Math.log);
-		var p = trim(sigma, 0.64, 0.25, Math.log);
-		stock.find('.plot').html(emoticon_svg(v,a,p,Math.random()));
-	    } else {
-		xData.push(Date.now()-t0);
-		xData.push(Date.now()-t0+dt);
-		yData.push(price);
-		yData.push(price);
-		drawChart(stock.find('.plot')[0], xData, yData);
-	    }
-
-	    if (stock.find('.button').is('.hold')) {
-		var fee = parseFloat(stock.find('.fee').text());
-		var paid = parseFloat(stock.find('.paid').text());
-		stock.find('.net').text(
-		    (price - fee- paid).toFixed(2))
-	    }
-	};
-	setTimeout(updateStep, dt);
-    }
-    updateStep();
+function initStock(stock, index) {
+    data[index] = {
+	price : 100.0,
+	v : Math.random() * 100,
+	a : Math.random() * 100,
+	p : 50,
+	dv : 0,
+	da : 0,
+	dp : 0
+    };
 }
 
-function refreshAll() {
-    if (STOP) return;
-    updatePL();
-    var visual = $('input[name="visual"]:checked').attr('value');
-    $('.stock').each(function(i, elt) {
-	if (updateFun[i]) {
-	    updateFun[i](visual);
-	    updateFun[i] = undefined;
-	} 
-	else if (visual=="chart") {
-	    $(elt).find('g[data-now]').each(function(i,elt) {
-		var dt = Date.now() - parseInt($(elt).attr('data-now'));
-		var v = parseFloat($(elt).attr('data-shift-ms'));
-		$(elt).attr('transform','translate(-'+dt*v+',0)');
-	    });
+function updateEmotion(data, dt) {
+    var decay = 0.1;
+    data.dv = decay * (Math.random()-.5) * Math.sqrt(dt) + (1-decay) * data.dv;
+    data.da = decay * (Math.random()-.5) * Math.sqrt(dt) + (1-decay) * data.da;
+    data.dp = decay * (Math.random()-.5) * Math.sqrt(dt) + (1-decay) * data.dp;
+    var map = function(x) { return x>100 ? 100 : (x<0 ? 0 : x); }
+    data.v = map(data.v + data.dv*dt);
+    data.a = map(data.a + data.da*dt);
+    data.p = map(data.p + data.dp*dt);
+    if (data.v <= 0 || data.v >= 100) data.dv = 0;
+    if (data.a <= 0 || data.a >= 100) data.da = 0;
+    if (data.p <= 0 || data.p >= 100) data.dp = 0;
+}
+
+function updateStock(stock, index, dt) {
+
+    var SIGMA = 1;
+    if (Math.random()<dt*0.002) {
+	data[index].price = Math.max(0, data[index].price + 
+				     + 0.002 * globalDrift * dt
+				     + SIGMA * Math.sqrt(dt/1000) * rnd_snd());
+	stock.find('.price').text(data[index].price.toFixed(2));
+
+	updateEmotion(data[index], dt);
+	var v = data[index].v;
+	var a = data[index].a;
+	var p = 50;
+	stock.find('.plot').html(emoticon_svg(v,a,p,Math.random()));
+
+	if (stock.find('.button').is('.hold')) {
+	    var fee = parseFloat(stock.find('.fee').text());
+	    var paid = parseFloat(stock.find('.paid').text());
+	    stock.find('.net').text(
+		(data[index].price - fee - paid).toFixed(2))
 	}
-    });
-    window.requestAnimationFrame(refreshAll);
+    }
 }
 
-function updatePL() {
+function updateAll() {
+    var time= Date.now();
+    var nextStep = function() {
+	var dt = Date.now() - time;
+	$('.stock').each(function(i, elt) {
+	    updateStock($(elt), i,dt);
+	});
+	updatePL(dt);
+	time = time + dt;
+	if (!STOP)
+	    window.requestAnimationFrame(nextStep);
+    };
+    nextStep();
+}
+
+function updatePL(dt) {
+    var heldStocks = 0;
     var asset = 0.0;
     $('.stock').each(function() {
 	if ($(this).find('.button').is('.hold')) {
+	    heldStocks++;
 	    var price= parseFloat($(this).find('.price').text());
 	    asset += price;
 	}
     });
     var cash = parseFloat($('#cash').text());
+    globalDrift = Math.min(20, cashDeserved - cash - asset);
+
     $('#asset').text(asset.toFixed(2));
     $('#total').text((cash + asset).toFixed(2));
-    if (cash + asset > 100) {
+
+    if (cash + asset > C0 + 100) {
 	$('#youwon').show();
-	$('#wintime').text(((Date.now()-t0)/1000).toFixed(0));
+	$('#wintime').text(((Date.now()-T0)/1000).toFixed(0));
 	STOP = true;
     }
 }
@@ -150,63 +156,18 @@ function emoticon_svg(v, a, p, index) {
 	.replace(/href="#/g, 'href="#emo' + index + '-');
 }
 
-function drawChart(elt, xData, yData) {
-    var width = parseInt(d3.select(elt).style('width'));
-    var height = parseInt(d3.select(elt).style('height'));
-    var WINDOW = 10000;
-
-
-    var maxx = xData[xData.length-2];
-    while (xData[1] < maxx-WINDOW) {
-	xData.shift();
-	yData.shift();
+function analyze() {
+    $('body').children().remove();
+    for (i in HISTORY) {
+	var h = HISTORY[i];
+	var elt=$('<div>'+h.action+'</div>');
+	$('body').append(elt);
+	elt.css('position','absolute');
+	elt.css('left', (10 + 0.8*h.v).toFixed(0)+'vw');
+	elt.css('top',(90 - 0.8*h.a).toFixed(0)+'vh');
+	elt.css('color', h.action=='buy' ? 'green' : 'red');
+	elt.css('font-size','5vh');
     }
-    var x = d3.scale.linear()
-	.range([0, width])
-	.domain([maxx-WINDOW, maxx]);
-
-    var domain = d3.extent(yData);
-    var y = d3.scale.linear()
-	.range([height, 0])
-	.domain([domain[0]-1, domain[1]+1]);
-
-
-    var xAxis = d3.svg.axis()
-	.scale(x)
-	.orient("top")
-	.tickFormat("");
-
-    var yAxis = d3.svg.axis()
-	.scale(y)
-	.orient("right");
-
-    var line = d3.svg.line()
-	.x(function(d,i) {return x(xData[i])})
-	.y(function(d,i) {return y(yData[i])});
-
-    d3.select(elt).select('svg').remove();
-    var svg = d3.select(elt).append("svg")
-	.attr("width", "100%")
-	.attr("height", "100%")
-	.attr("viewBox", "0 0 "+width+" "+(height+1))
-	.append("g")
-
-
-    svg.append("g")
-	.attr("class", "x axis")
-	.attr("transform", "translate(0," + (height) + ")")
-	.call(xAxis);
-
-    svg.append("g")
-	.attr("class", "y axis")
-	.call(yAxis);
-
-    svg.append("g")
-       .attr('transform','translate(0,0)')
-       .attr('data-shift-ms',x(1)-x(0))
-       .attr('data-now',Date.now())
-	.append("path")
-	.datum(xData)
-	.attr("class", "line")
-	.attr("d", line);
 }
+
+
