@@ -19,28 +19,27 @@ $(function() {
 });
 
 function trade(evt, index) {
-    var target = $(evt.target).parents('.stock');
+    var target = $(evt.target);
+    while (!target.is('.stock')) target=target.parent();
     evt.preventDefault();
     if (STOP) return;
     tradeCount ++;
     var button = target.find('.button');
     var pl = target.find('.pl');
+    var price = parseFloat(target.find('.price').text());
+    var cash = parseFloat($('#cash').text());
     button.toggleClass('hold');
     if (button.is('.hold')) {
 	button.text('sell');
 	target.find('.paid').text(target.find('.price').text());
 	target.find('.net').text('-'+target.find('.fee').text());
-	var price = parseFloat(target.find('.price').text());
 	var fee = parseFloat(target.find('.fee').text());
-	$('#cash').text(
-	    (parseFloat($('#cash').text()) -fee -price).toFixed(2));
+	$('#cash').text((cash -fee -price).toFixed(2));
 	pl.fadeIn(10);
 	HISTORY.push($.extend({action : 'buy', index : index}, data[index]));
     } else {
 	button.text('buy');
-	var price = parseFloat(target.find('.price').text());
-	$('#cash').text(
-	    (parseFloat($('#cash').text()) + price).toFixed(2));
+	$('#cash').text((cash + price).toFixed(2));
 	pl.fadeOut(800);
 	HISTORY.push($.extend({action : 'sell', index : index}, data[index]));
     }
