@@ -35,6 +35,14 @@ div#frame {
     div#frame {
 	flex-direction: column !important;
     }
+    div#emoticon {
+	height:50%;
+	flex-grow: 0 !important;
+    }
+    div#control {
+	height:50%;
+	flex-grow: 0 !important;
+    }
 }
 
 div#control {
