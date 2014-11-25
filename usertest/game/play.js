@@ -1,5 +1,5 @@
 var T0 = Date.now();
-var C0 = 1000;
+var C0 = 0;
 var cashDeserved = C0;
 var globalDrift = 0;
 var tradeCount = 0;
@@ -33,8 +33,7 @@ function trade(evt, index) {
 	button.text('sell');
 	target.find('.paid').text(target.find('.price').text());
 	target.find('.net').text('-'+target.find('.fee').text());
-	var fee = parseFloat(target.find('.fee').text());
-	$('#cash').text((cash -fee -price).toFixed(2));
+	$('#cash').text((cash -price).toFixed(2));
 	pl.fadeIn(10);
 	HISTORY.push($.extend({action : 'buy', index : index}, data[index]));
     } else {
@@ -43,7 +42,7 @@ function trade(evt, index) {
 	pl.fadeOut(800);
 	HISTORY.push($.extend({action : 'sell', index : index}, data[index]));
     }
-    cashDeserved += 3;
+    cashDeserved += 2;
 }
 
 function rnd_snd() {
@@ -66,15 +65,15 @@ function initStock(stock, index) {
 	v : Math.random() * 100,
 	a : Math.random() * 100,
 	p : 50,
-	dv : 0,
-	da : 0,
-	dp : 0
+	dv : 0,	da : 0,	dp : 0,
+	vdisp: 50, adisp: 50, pdisp: 50
     };
+    stock.find('.plot').html(emoticon_svg(50,50,50,index));
 }
 
 function updateEmotion(data, dt) {
     var decay = 0.1;
-    var S = 0.05;
+    var S = 0.01;
     data.dv += decay * S * rnd_snd() * Math.sqrt(dt);
     data.da += decay * S * rnd_snd() * Math.sqrt(dt);
     data.dp += decay * S * rnd_snd() * Math.sqrt(dt);
@@ -89,7 +88,7 @@ function updateEmotion(data, dt) {
 
 function updateStock(stock, index, dt) {
 
-    var SIGMA = 1;
+    var SIGMA = 0.5;
     if (Math.random()<dt*0.002) {
 	data[index].price = Math.max(0, data[index].price + 
 				     + 0.002 * globalDrift * dt
@@ -100,13 +99,17 @@ function updateStock(stock, index, dt) {
 	var v = data[index].v;
 	var a = data[index].a;
 	var p = 50;
-	stock.find('.plot').html(emoticon_svg(v,a,p,Math.random()));
-
-	if (stock.find('.button').is('.hold')) {
-	    var fee = parseFloat(stock.find('.fee').text());
-	    var paid = parseFloat(stock.find('.paid').text());
-	    stock.find('.net').text(
-		(data[index].price - fee - paid).toFixed(2))
+	var dthresh = Math.min(10,0.05*dt-2);
+	if (Math.abs(v - data[index].vdisp) > dthresh ||
+	    Math.abs(a - data[index].adisp) > dthresh) {
+	    data[index].vdisp = v;
+	    data[index].adisp = a;
+	    var newface= $(emoticon_svg(v,a,p,index));
+	    newface.find('path,g').each(function(i, e) {
+		var match = stock.find('#'+$(e).attr('id'));
+		match.attr('d', $(e).attr('d'));
+		match.attr('transform', $(e).attr('transform'));
+	    });
 	}
     }
 }
@@ -137,7 +140,7 @@ function updatePL(dt) {
 	}
     });
     var cash = parseFloat($('#cash').text());
-    globalDrift = Math.min(20, cashDeserved - cash - asset);
+    globalDrift = Math.max(-1,Math.min(1, cashDeserved - cash - asset));
 
     $('#asset').text(asset.toFixed(2));
     $('#total').text((cash + asset).toFixed(2));
