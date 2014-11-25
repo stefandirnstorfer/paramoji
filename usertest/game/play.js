@@ -43,7 +43,7 @@ function trade(evt, index) {
 	pl.fadeOut(800);
 	HISTORY.push($.extend({action : 'sell', index : index}, data[index]));
     }
-    cashDeserved += 2;
+    cashDeserved += 3;
 }
 
 function rnd_snd() {
@@ -163,8 +163,8 @@ function analyze() {
 	var elt=$('<div>'+h.action+'</div>');
 	$('body').append(elt);
 	elt.css('position','absolute');
-	elt.css('left', (10 + 0.8*h.v).toFixed(0)+'vw');
-	elt.css('top',(90 - 0.8*h.a).toFixed(0)+'vh');
+	elt.css('left', (5 + 0.8*h.v).toFixed(0)+'vw');
+	elt.css('top',(85 - 0.8*h.a).toFixed(0)+'vh');
 	elt.css('color', h.action=='buy' ? 'green' : 'red');
 	elt.css('font-size','5vh');
     }

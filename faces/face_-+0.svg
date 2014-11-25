@@ -44,7 +44,7 @@
      inkscape:snap-nodes="true"
      inkscape:snap-global="true"
      inkscape:guide-bbox="true"
-     inkscape:current-layer="nose"
+     inkscape:current-layer="emoticon-front-view"
      inkscape:window-y="24"
      inkscape:cy="125"
      inkscape:zoom="3.636"
@@ -105,10 +105,10 @@
   <g
      id="left-eye">
     <path
-       d="M 109.21,95.58 C 120.51,107.63 117.74,134.04 100.05,138.72 67.86,147.91 56.65,118.86 66.23,94.11 76.92,92.03 91.28,91.76 109.21,95.58 Z"
+       d="m 110.58514,109.05635 c 8.82475,13.70017 1.48092,33.86675 -13.010388,36.53934 -18.735708,3.45537 -39.274587,-11.60917 -29.694587,-36.35917 11.515083,-0.15481 27.25022,-0.69984 42.704975,-0.18017 z"
        style="fill:#ffffff;stroke:#000000;stroke-width:1"
        id="left-eye-outline"
-       sodipodi:nodetypes="ccccc"
+       sodipodi:nodetypes="cscc"
        inkscape:connector-curvature="0" />
     <g
        clip-path="url(#clipPath-left-eye)"
@@ -178,7 +178,7 @@
     </g>
   </g>
   <path
-     d="M 113.91,94.52 C 92.41,87.21 78.06,88.49 60.62,92.82 L 56.87,90.38 C 76.05,71.55 100,85.87 112.23,90.98 Z"
+     d="m 113.63498,104.97105 c -23.4252,-2.19715 -36.950117,-0.14039 -52.739952,1.60033 l -3.199945,-3.54011 C 76.600055,91.35198 89.27393,97.146128 111.95498,101.43105 z"
      style="fill:#292929;stroke-width:1"
      id="left-eye-brow"
      sodipodi:nodetypes="ccccc"
@@ -325,7 +325,7 @@
   <g
      id="wrinkles">
     <path
-       d="M 114.09,86.65 C 117.66,90.54 117.04,94.39 115.71,96.87"
+       d="m 114.36503,98.751211 c 3.57,3.889999 2.95,7.739999 1.62,10.219999"
        style="fill:none;stroke:#000000;stroke-width:0.5"
        id="wrinkle-left-brow"
        inkscape:connector-curvature="0"
@@ -358,7 +358,7 @@
   <g
      id="nose">
     <path
-       d="m 109.73,160.85 c 4.07,0.37 11.45,-1.46 12.13,1.19 m 21.18,-20.84 c 8.14,7.71 9.67422,15.6712 4.49,19.5 -4.95574,3.66005 -9.00028,-2.90519 -14.79,0.57"
+       d="m 109.73,160.85 c 4.07,0.37 11.45,-1.46 12.13,1.19 m 20.07989,-17.26464 c 6.76486,3.30956 10.77433,12.09584 5.59011,15.92464 -4.95574,3.66005 -9.00028,-2.90519 -14.79,0.57"
        style="fill:none;stroke:#000000"
        id="nose-path"
        sodipodi:nodetypes="cccsc"
