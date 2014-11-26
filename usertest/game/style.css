@@ -18,11 +18,17 @@ body {
     background: #eee;
     border-radius: 3px;
     position: relative;
+    color: gray;
 }
+
+#frame .stock.hold {
+    background: gray;
+    color: white;
+}
+
 
 #frame .stock .info {
     position: absolute;
-    color: gray;
     margin: 3px 0 0 3px;
 }
 
@@ -37,15 +43,14 @@ body {
     width: 3em;
     text-align: center;
     border: 1px solid gray;
-    color: gray;
     border-radius: 5px;
     vertical-align: middle;
     margin: 3px 3px 0 0;
 }
-.stock .button.hold {
-    background: lime;
-}
 
+.stock.hold .button {
+    border: 1px solid white;
+}
 
 @media (orientation:portrait) {
     #frame>div, #frame>div .plot {

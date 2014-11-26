@@ -28,8 +28,8 @@ function trade(evt, index) {
     var pl = target.find('.pl');
     var price = parseFloat(target.find('.price').text());
     var cash = parseFloat($('#cash').text());
-    button.toggleClass('hold');
-    if (button.is('.hold')) {
+    target.toggleClass('hold');
+    if (target.is('.hold')) {
 	button.text('sell');
 	target.find('.paid').text(target.find('.price').text());
 	target.find('.net').text('-'+target.find('.fee').text());
@@ -78,6 +78,7 @@ function updateEmotion(data, dt) {
     data.da += decay * S * rnd_snd() * Math.sqrt(dt);
     data.dp += decay * S * rnd_snd() * Math.sqrt(dt);
     var map = function(x) { return x>100 ? 100 : (x<0 ? 0 : x); }
+    dt = 100;
     data.v = map(data.v + data.dv * dt);
     data.a = map(data.a + data.da * dt);
     data.p = map(data.p + data.dp * dt);
@@ -133,7 +134,7 @@ function updatePL(dt) {
     var heldStocks = 0;
     var asset = 0.0;
     $('.stock').each(function() {
-	if ($(this).find('.button').is('.hold')) {
+	if ($(this).is('.hold')) {
 	    heldStocks++;
 	    var price= parseFloat($(this).find('.price').text());
 	    asset += price;
@@ -146,6 +147,7 @@ function updatePL(dt) {
     $('#total').text((cash + asset).toFixed(2));
 
     if (cash + asset > C0 + 100) {
+	$.post('/submit', JSON.stringify(HISTORY));
 	$('#youwon').show();
 	$('#wintime').text(((Date.now()-T0)/1000).toFixed(0));
 	STOP = true;
