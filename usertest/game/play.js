@@ -29,18 +29,19 @@ function trade(evt, index) {
     var price = parseFloat(target.find('.price').text());
     var cash = parseFloat($('#cash').text());
     target.toggleClass('hold');
+    var data2 = data.map(function(x) { return $.extend({}, x); });
     if (target.is('.hold')) {
 	button.text('sell');
 	target.find('.paid').text(target.find('.price').text());
 	target.find('.net').text('-'+target.find('.fee').text());
 	$('#cash').text((cash -price).toFixed(2));
 	pl.fadeIn(10);
-	HISTORY.push($.extend({action : 'buy', index : index}, data[index]));
+	HISTORY.push({action : 'buy', index : index, data : data2});
     } else {
 	button.text('buy');
 	$('#cash').text((cash + price).toFixed(2));
 	pl.fadeOut(800);
-	HISTORY.push($.extend({action : 'sell', index : index}, data[index]));
+	HISTORY.push({action : 'sell', index : index, data : data2});
     }
     cashDeserved += 2;
 }
@@ -165,11 +166,12 @@ function analyze() {
     $('body').children().remove();
     for (i in HISTORY) {
 	var h = HISTORY[i];
+	var c = h.data[HISTORY[i].index];
 	var elt=$('<div>'+h.action+'</div>');
 	$('body').append(elt);
 	elt.css('position','absolute');
-	elt.css('left', (5 + 0.8*h.v).toFixed(0)+'vw');
-	elt.css('top',(85 - 0.8*h.a).toFixed(0)+'vh');
+	elt.css('left', (5 + 0.8*c.v).toFixed(0)+'vw');
+	elt.css('top',(85 - 0.8*c.a).toFixed(0)+'vh');
 	elt.css('color', h.action=='buy' ? 'green' : 'red');
 	elt.css('font-size','5vh');
     }

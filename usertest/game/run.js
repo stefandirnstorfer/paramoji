@@ -23,13 +23,11 @@ function handleRequest(req, res) {
     try {
 	var urlParts = url.parse(req.url, true);
 	if (urlParts.pathname=="/submit") {
-	    console.log('received post message');
 	    if (req.method=='POST') {
 		(function() {
 		    var buf= '{"time":"'+timeStamp()+'","history":';
 		    req.on('data', function(chunk) {buf+=chunk;} );
 		    req.on('end', function() { 
-			console.log('received '+buf);
 			writeData('data.json', buf+'}\n'); 
 			res.end();
 		    });
@@ -81,7 +79,7 @@ function serveFile(res, filename, content) {
 }
 
 function denyAccess(res, message) {
-    console.log(message);
+    console.log(timeStamp() + ': ' + message);
     res.writeHead(406, { 'Content-Type': 'text/plain' });
     res.end(message);
 }
