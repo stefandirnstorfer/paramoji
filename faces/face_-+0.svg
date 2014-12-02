@@ -35,20 +35,20 @@
      borderopacity="1"
      gridtolerance="10"
      inkscape:pageopacity="0"
-     inkscape:window-width="1855"
+     inkscape:window-width="1423"
      showgrid="false"
-     inkscape:cx="76.59516"
+     inkscape:cx="125"
      inkscape:window-x="1985"
-     inkscape:window-maximized="1"
+     inkscape:window-maximized="0"
      showguides="true"
      inkscape:snap-nodes="true"
-     inkscape:snap-global="true"
+     inkscape:snap-global="false"
      inkscape:guide-bbox="true"
      inkscape:current-layer="emoticon-front-view"
      inkscape:window-y="24"
      inkscape:cy="125"
-     inkscape:zoom="3.636"
-     inkscape:window-height="1056"
+     inkscape:zoom="2.864"
+     inkscape:window-height="863"
      inkscape:pageshadow="2"
      guidetolerance="10"
      objecttolerance="10"
@@ -105,7 +105,7 @@
   <g
      id="left-eye">
     <path
-       d="m 110.58514,109.05635 c 8.82475,13.70017 1.48092,33.86675 -13.010388,36.53934 -18.735708,3.45537 -39.274587,-11.60917 -29.694587,-36.35917 11.515083,-0.15481 27.25022,-0.69984 42.704975,-0.18017 z"
+       d="m 111.1352,110.98154 c 7.99966,14.52526 0.93086,31.94156 -13.560448,34.61415 -18.735708,3.45537 -38.724532,-9.68398 -29.144532,-34.43398 11.515083,-0.15481 27.25022,-0.69984 42.70498,-0.18017 z"
        style="fill:#ffffff;stroke:#000000;stroke-width:1"
        id="left-eye-outline"
        sodipodi:nodetypes="cscc"
@@ -123,9 +123,8 @@
            morph="relative"
            inkscape:connector-curvature="0" />
         <path
-           d="M 1,0.5 C 1,0.78 0.78,1 0.5,1 0.22,1 0,0.78 0,0.5 0,0.22 0.22,0 0.5,0 0.78,0 1,0.22 1,0.5 z"
-           transform="matrix(7.46,0,0,7.46,89.31,115.49)"
-           style="fill:#000000;stroke:#000000;stroke-width:0.17"
+           d="m 95.576284,119.22 c 0,1.42032 -1.115965,2.53628 -2.536284,2.53628 -1.420319,0 -2.536284,-1.11596 -2.536284,-2.53628 0,-1.42032 1.115965,-2.53628 2.536284,-2.53628 1.420319,0 2.536284,1.11596 2.536284,2.53628 z"
+           style="fill:#000000;stroke:#000000;stroke-width:0.86233646"
            id="pupil"
            morph="relative"
            inkscape:connector-curvature="0"
@@ -139,8 +138,8 @@
            morph="transform-only" />
       </g>
       <path
-         d="M 50,75 125,75 125,99.61 C 95.02,92.53 67.04,87.81 50,124.06 Z"
-         style="opacity:0.24;fill:#000000;stroke:#000000;stroke-width:0px"
+         d="m 50,75 75,0 0,41.66171 c -29.429945,-5.42983 -50.809285,-3.92946 -74.724972,4.37299 z"
+         style="opacity:0.23999999;fill:#000000;stroke:#000000;stroke-width:0px"
          id="left-lid-shadow"
          sodipodi:nodetypes="ccccc"
          inkscape:connector-curvature="0" />
@@ -170,15 +169,15 @@
          x="0"
          morph="fixed" />
       <path
-         d="M 125,117.39 125,75 200,75 200,99.3 C 155.72,81.05 140.04,100.74 125,117.39 Z"
-         style="opacity:0.24;fill:#000000;stroke:#000000;stroke-width:0px"
+         d="m 125,117.39 0,-42.39 75,0 1.10011,46.3022 C 159.02033,111.30303 150.49105,113.66629 125,117.39 z"
+         style="opacity:0.23999999;fill:#000000;stroke:#000000;stroke-width:0px"
          id="right-lid-shadow"
          sodipodi:nodetypes="ccccc"
          inkscape:connector-curvature="0" />
     </g>
   </g>
   <path
-     d="m 113.63498,104.97105 c -23.4252,-2.19715 -36.950117,-0.14039 -52.739952,1.60033 l -3.199945,-3.54011 C 76.600055,91.35198 89.27393,97.146128 111.95498,101.43105 z"
+     d="m 113.63498,109.09646 c -23.4252,0.003 -37.7752,-0.14039 -53.565035,1.60033 L 56.87,107.15668 c 16.704752,-10.304149 34.08393,-4.27033 56.76498,0.0146 z"
      style="fill:#292929;stroke-width:1"
      id="left-eye-brow"
      sodipodi:nodetypes="ccccc"
@@ -210,7 +209,7 @@
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="cscc" />
       <g
-         transform="matrix(1,0,0,1,0.5,-6.35)"
+         transform="translate(0.5,-4.35)"
          morph="fix-children"
          id="upper-teeth">
         <rect
@@ -265,7 +264,7 @@
            style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.00625432;stroke-opacity:1" />
       </g>
       <g
-         transform="matrix(1,0,0,1,0.5,26.66)"
+         transform="translate(0.5,22.66)"
          id="lower-teeth"
          morph="fix-children">
         <rect
@@ -325,7 +324,7 @@
   <g
      id="wrinkles">
     <path
-       d="m 114.36503,98.751211 c 3.57,3.889999 2.95,7.739999 1.62,10.219999"
+       d="m 115.46514,103.15165 c 3.57,3.89 2.95,7.74 1.62,10.22"
        style="fill:none;stroke:#000000;stroke-width:0.5"
        id="wrinkle-left-brow"
        inkscape:connector-curvature="0"
