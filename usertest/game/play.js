@@ -28,20 +28,23 @@ function trade(evt, index) {
     var pl = target.find('.pl');
     var price = parseFloat(target.find('.price').text());
     var cash = parseFloat($('#cash').text());
-    target.toggleClass('hold');
-    var data2 = data.map(function(x) { return $.extend({}, x); });
-    if (target.is('.hold')) {
+    HISTORY.push({action : data[index].hold ? 'sell' : 'buy', 
+		  index : index, 
+		  time : Date.now() - T0,
+		  data : data.map(function(x) { return $.extend({}, x); })
+		 });
+    data[index].hold = 1- data[index].hold;
+    target.toggleClass('hold', data[index].hold);
+    if (data[index].hold) {
 	button.text('sell');
 	target.find('.paid').text(target.find('.price').text());
 	target.find('.net').text('-'+target.find('.fee').text());
 	$('#cash').text((cash -price).toFixed(2));
 	pl.fadeIn(10);
-	HISTORY.push({action : 'buy', index : index, data : data2});
     } else {
 	button.text('buy');
 	$('#cash').text((cash + price).toFixed(2));
 	pl.fadeOut(800);
-	HISTORY.push({action : 'sell', index : index, data : data2});
     }
     cashDeserved += 2;
 }
@@ -67,7 +70,8 @@ function initStock(stock, index) {
 	a : Math.random() * 100,
 	p : 50,
 	dv : 0,	da : 0,	dp : 0,
-	vdisp: 50, adisp: 50, pdisp: 50
+	vdisp: 50, adisp: 50, pdisp: 50,
+	hold : 0
     };
     stock.find('.plot').html(emoticon_svg(50,50,50,index));
 }
@@ -83,9 +87,9 @@ function updateEmotion(data, dt) {
     data.v = map(data.v + data.dv * dt);
     data.a = map(data.a + data.da * dt);
     data.p = map(data.p + data.dp * dt);
-    if (data.v <= 0 || data.v >= 100) data.dv = 0;
-    if (data.a <= 0 || data.a >= 100) data.da = 0;
-    if (data.p <= 0 || data.p >= 100) data.dp = 0;
+    if (data.v <= 0 || data.v >= 100) data.dv = -data.dv;
+    if (data.a <= 0 || data.a >= 100) data.da = -data.da;
+    if (data.p <= 0 || data.p >= 100) data.dp = -data.dp;
 }
 
 function updateStock(stock, index, dt) {
@@ -99,7 +103,7 @@ function updateStock(stock, index, dt) {
 
 	updateEmotion(data[index], dt);
 	var v = data[index].v;
-	var a = data[index].a;
+	var a = data[index].a * (data[index].hold ? (100-v) : v)/100;
 	var p = 50;
 	var dthresh = Math.min(10,0.05*dt-2);
 	if (Math.abs(v - data[index].vdisp) > dthresh ||
@@ -119,7 +123,7 @@ function updateStock(stock, index, dt) {
 function updateAll() {
     var time= Date.now();
     var nextStep = function() {
-	var dt = Date.now() - time;
+	var dt = Math.min(500, Date.now() - time);
 	$('.stock').each(function(i, elt) {
 	    updateStock($(elt), i,dt);
 	});
