@@ -77,11 +77,11 @@ function initStock(stock, index) {
 }
 
 function updateEmotion(data, dt) {
-    var decay = 0.1;
-    var S = 0.01;
-    data.dv += decay * S * rnd_snd() * Math.sqrt(dt);
-    data.da += decay * S * rnd_snd() * Math.sqrt(dt);
-    data.dp += decay * S * rnd_snd() * Math.sqrt(dt);
+    var decay = 0.9;
+    var S = 0.02;
+    data.dv = decay * data.dv + (1-decay) * S * rnd_snd() * Math.sqrt(dt);
+    data.da = decay * data.da + (1-decay) * S * rnd_snd() * Math.sqrt(dt);
+    data.dp = decay * data.dp + (1-decay) * S * rnd_snd() * Math.sqrt(dt);
     var map = function(x) { return x>100 ? 100 : (x<0 ? 0 : x); }
     dt = 100;
     data.v = map(data.v + data.dv * dt);
@@ -103,8 +103,8 @@ function updateStock(stock, index, dt) {
 
 	updateEmotion(data[index], dt);
 	var v = data[index].v;
-	var a = data[index].a * (data[index].hold ? (100-v) : v)/100;
-	var p = 50;
+	var a = data[index].a * data[index].a/100;
+	var p = v<50 ? (a>50 ? a : 50) : 50;
 	var dthresh = Math.min(10,0.05*dt-2);
 	if (Math.abs(v - data[index].vdisp) > dthresh ||
 	    Math.abs(a - data[index].adisp) > dthresh) {
