@@ -139,8 +139,8 @@
            morph="transform-only" />
       </g>
       <path
-         d="M 50,75 125,75 125,112.54 C 97.35,108.41 57.32,85.9 50,124.06 Z"
-         style="opacity:0.24;fill:#000000;stroke:#000000;stroke-width:0px"
+         d="m 50,75 75,0 0,48.5411 C 97.625028,118.03596 57.32,85.9 50,124.06 z"
+         style="opacity:0.23999999;fill:#000000;stroke:#000000;stroke-width:0px"
          id="left-lid-shadow"
          sodipodi:nodetypes="ccccc"
          inkscape:connector-curvature="0" />
@@ -170,8 +170,8 @@
          x="0"
          morph="fixed" />
       <path
-         d="M 125,121.79 125,75 200,75 200,106.73 C 176.32,94.48 159.73,111.89 125,121.79 Z"
-         style="opacity:0.24;fill:#000000;stroke:#000000;stroke-width:0px"
+         d="M 125,128.39066 125,75 l 75,0 0,34.48028 c -23.68,-12.250005 -43.2953,4.33491 -75,18.91038 z"
+         style="opacity:0.23999999;fill:#000000;stroke:#000000;stroke-width:0px"
          id="right-lid-shadow"
          sodipodi:nodetypes="ccccc"
          inkscape:connector-curvature="0" />
@@ -265,7 +265,7 @@
            style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.00625432;stroke-opacity:1" />
       </g>
       <g
-         transform="matrix(1,0,0,1,0.5,26.66)"
+         transform="translate(0.5,25.28486)"
          id="lower-teeth"
          morph="fix-children">
         <rect
@@ -331,7 +331,7 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       d="M 65.91,199.09 C 72.63,174.32 96.82,172.75 101.99,159.58"
+       d="m 74.985908,209.26602 c 5.61989,-28.34536 22.934202,-36.79105 28.104202,-49.96105"
        style="fill:none;stroke:#000000;stroke-width:0.5"
        id="wrinkle-left-cheek"
        inkscape:connector-curvature="0"
