@@ -1,5 +1,4 @@
 import unittest
-import xml.etree.ElementTree as ET
 from xml.dom import minidom, Node
 
 from structure import EmoticonStructure

@@ -1,6 +1,7 @@
 from xml.dom import minidom, Node
 
 from attribute_pattern import SimpleAttributePattern
+from svg_util import create_id_map
 
 class EmoticonStructure:
 
@@ -29,19 +30,10 @@ class EmoticonStructure:
                     "d" : SimpleAttributePattern(node.getAttribute("d"))
                 }
 
-    def _id_map(self, node, map):
-        if node.nodeType == Node.ELEMENT_NODE:
-            node_id = node.getAttribute('id')
-            if node_id:
-                map[node_id] = node
-            for child in node.childNodes:
-                self._id_map(child, map)
-        return map
-
     def get_params(self, node = None):
         if not node:
             node = self.node
-        id_map = self._id_map(node.firstChild, {})
+        id_map = create_id_map(node.firstChild, {})
         params = []
 
         for node_id in sorted(self.pattern.keys()):
@@ -53,7 +45,7 @@ class EmoticonStructure:
         return params
 
     def set_params(self, params):
-        id_map = self._id_map(self.node.firstChild, {})
+        id_map = create_id_map(self.node.firstChild, {})
         index = 0
 
         for node_id in sorted(self.pattern.keys()):
