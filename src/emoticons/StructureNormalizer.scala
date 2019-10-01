@@ -149,28 +149,28 @@ class SVGTransformFlattener {
 	
 	def removeInkscapeStuff(node : Node) : Node = node match {
 	  case Elem(prefix, label, attribs, scope, children @ _*) => {
-		def newAttr(attr : MetaData) : MetaData = {
-		  if (attr == Null)
-		    Null
-		  else if (attr.key.matches("morph") ||
-		           attr.prefixedKey.matches("^(inkscape|sodipodi|xmlns):.*"))
-			  newAttr(attr.next)
-		  else 
-	        attr.copy(newAttr(attr.next))
-	    }
-		
-		if ((prefix!=null && prefix.matches("rdf|dc|sodipodi|inkscape")) || 
-		    label.matches("metadata|namedview")) {
-			Text("")
-		} else
-		Elem(prefix, label,
-	    	newAttr(attribs),
-	    	if (label=="svg")
-		        new NamespaceBinding(null,"http://www.w3.org/2000/svg",
-		        new NamespaceBinding("xlink","http://www.w3.org/1999/xlink",TopScope))
-	    	else TopScope,
-     		children.map(removeInkscapeStuff(_)):_*)
-	  }
+			def newAttr(attr : MetaData) : MetaData = {
+				if (attr == Null)
+					Null
+				else if (attr.key.matches("morph") ||
+								 attr.prefixedKey.matches("^(inkscape|sodipodi|xmlns):.*"))
+					newAttr(attr.next)
+				else
+						attr.copy(newAttr(attr.next))
+				}
+
+			if ((prefix!=null && prefix.matches("rdf|dc|sodipodi|inkscape")) ||
+					label.matches("metadata|namedview")) {
+				Text("")
+			} else
+			Elem(prefix, label,
+					newAttr(attribs),
+					if (label=="svg")
+							new NamespaceBinding(null,"http://www.w3.org/2000/svg",
+							new NamespaceBinding("xlink","http://www.w3.org/1999/xlink",TopScope))
+					else TopScope,
+					children.map(removeInkscapeStuff(_)):_*)
+			}
 	  case _ => node
 	}
 }

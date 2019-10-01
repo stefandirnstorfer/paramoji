@@ -91,18 +91,18 @@ class EmoticonStructure(val node : Node) {
 	}
 
 	def format(param : Map[String,List[Param]]) : Node = node match {
-	case Elem(prefix, label, attribs, scope, _*) => {
-		val nodeId = node.attribute("id").map{ _.text }
-		Elem(prefix, label,
-		    if (nodeId.isDefined && param.contains(nodeId.get))
-		    	format_replaceAttribs(attribs, param(nodeId.get).iterator)
-		    else
-		        attribs, 
-			scope, 
-				children.map { _.format(param) }:_*
-		)
-	}
-	case _ => node
+		case Elem(prefix, label, attribs, scope, _*) => {
+			val nodeId = node.attribute("id").map{ _.text }
+			Elem(prefix, label,
+					if (nodeId.isDefined && param.contains(nodeId.get))
+						format_replaceAttribs(attribs, param(nodeId.get).iterator)
+					else
+							attribs,
+				scope,
+					children.map { _.format(param) }:_*
+			)
+		}
+		case _ => node
 	}
 	
 }
