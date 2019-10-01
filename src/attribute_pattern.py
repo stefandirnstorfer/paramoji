@@ -10,6 +10,9 @@ class AttributePattern:
     def format(self, params):
         pass
 
+    def length(self):
+        pass
+
 
 # Numeric attribute pattern
 class SimpleAttributePattern(AttributePattern):
@@ -36,6 +39,9 @@ class SimpleAttributePattern(AttributePattern):
 
     def does_match(self, text):
         return re.match(self.regex, text)
+
+    def length(self):
+        return len(re.findall(r"\*", self.value))
 
     def __repr__(self):
         return "[" + self.value + "]"

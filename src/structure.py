@@ -1,8 +1,6 @@
 from xml.dom import minidom, Node
 
-
 from attribute_pattern import SimpleAttributePattern
-
 
 class EmoticonStructure:
 
@@ -31,8 +29,42 @@ class EmoticonStructure:
                     "d" : SimpleAttributePattern(node.getAttribute("d"))
                 }
 
-    def get_params(self, node):
-        for node_id in self.pattern.keys():
-            pass
+    def _id_map(self, node, map):
+        if node.nodeType == Node.ELEMENT_NODE:
+            node_id = node.getAttribute('id')
+            if node_id:
+                map[node_id] = node
+            for child in node.childNodes:
+                self._id_map(child, map)
+        return map
 
-        return []
+    def get_params(self, node = None):
+        if not node:
+            node = self.node
+        id_map = self._id_map(node.firstChild, {})
+        params = []
+
+        for node_id in sorted(self.pattern.keys()):
+            pattern_set = self.pattern[node_id]
+            node = id_map[node_id]
+            for attr in sorted(pattern_set.keys()):
+                params = params + pattern_set[attr].get_params(node.getAttribute(attr))
+
+        return params
+
+    def set_params(self, params):
+        id_map = self._id_map(self.node.firstChild, {})
+        index = 0
+
+        for node_id in sorted(self.pattern.keys()):
+            pattern_set = self.pattern[node_id]
+            node = id_map[node_id]
+            for attr in sorted(pattern_set.keys()):
+                n = pattern_set[attr].length()
+                if n > 0:
+                    node.setAttribute(attr, pattern_set[attr].format(params[index : index+n]))
+                    index = index + n
+        return params
+
+    def format(self):
+        return self.node.toprettyxml()
