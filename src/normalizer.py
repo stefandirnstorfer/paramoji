@@ -5,6 +5,11 @@ from xml.dom import minidom, Node
 from svg_util import identiy_matrix, parse_svg_matrix, matmult, format_matrix
 
 
+NUMBER= r"[+-]?[0-9]+(\.[0-9]+)?"
+COORD= re.compile("(" + NUMBER + "),(" + NUMBER + ")")
+PATHSEG= re.compile("[a-zA-Z]|(" + NUMBER + "),(" + NUMBER + ")")
+
+
 def flatten_transformation(node):
     remove_inkscape_stuff(node)
     update_map = { '' : identiy_matrix()}
@@ -12,6 +17,7 @@ def flatten_transformation(node):
     matrix = identiy_matrix()
     _find_transforms(node.firstChild, matrix, update_map, clip_path_ref)
     _apply_transforms(node.firstChild, matrix, update_map, clip_path_ref)
+
 
 def _find_transforms(node, matrix, update_map, clip_path_ref):
     if node.nodeType == Node.ELEMENT_NODE:
@@ -34,6 +40,7 @@ def _find_transforms(node, matrix, update_map, clip_path_ref):
         for child in node.childNodes:
             _find_transforms(child, matrix, update_map, clip_path_ref)
 
+
 def _apply_transforms(node, ref_matrix, update_map, clip_path_ref):
     if node.nodeType == Node.ELEMENT_NODE:
         node_id = node.getAttribute("id")
@@ -44,19 +51,19 @@ def _apply_transforms(node, ref_matrix, update_map, clip_path_ref):
 
         if node.getAttribute("transform"):
             node.removeAttribute("transform")
-        isFiltered = (morph in ["fixed","fix-children"]) or node_id == "lower-teeth"
 
-        #if node_id == "mouth-outline":
-            #symmetrizeMouth(node.asInstanceOf[Elem], matrix)
         #elif morph in ["transform-only", "relative"]:
             #fixScalePath(node.asInstanceOf[Elem], matrix)
         #else:
-        if isFiltered:
+        if morph in ["fixed","fix-children"]:
             node.setAttribute("transform", format_matrix(matrix))
         else:
             if node.tagName == "path":
                 d = node.getAttribute("d")
-                node.setAttribute("d", normalize_path(d, morph != "relative", matrix))
+                d = normalize_path(d, morph != "relative", matrix)
+                if node_id == "mouth-outline":
+                    d = symmetrize_mouth(d)
+                node.setAttribute("d", d)
             elif node.tagName == "use":
                 ref = node.getAttribute("xlink:href").replace("#","")
                 ref_matrix = update_map.get(ref)
@@ -67,8 +74,6 @@ def _apply_transforms(node, ref_matrix, update_map, clip_path_ref):
                 _apply_transforms(child, new_ref_matrix, update_map, clip_path_ref)
 
 def normalize_path(path, toAbsolute, matrix):
-    NUMBER= r"[+-]?[0-9]+(\\.[0-9]+)?"
-    PATHSEG= re.compile("[a-zA-Z]|("+NUMBER+"),("+NUMBER+")")
 
     mode = "  "
     index = 0
@@ -83,8 +88,8 @@ def normalize_path(path, toAbsolute, matrix):
         text = match.group(0)
         nonlocal mode, cur, argnum, index, ref
         argnums = {
-            "L" : 2,
-            "M" : 2,
+            "L" : 1,
+            "M" : 1,
             "C" : 3,
             "Q" : 2,
             "Z" : 0
@@ -116,9 +121,19 @@ def normalize_path(path, toAbsolute, matrix):
             if not toAbsolute:
                 base = numpy.matmul(matrix, [ref[0], ref[1], 1.0])
                 v = v - base
-            return format("%.3f,%.3f") % (v[0], v[1])
+            return format("%1.3f,%1.3f") % (v[0], v[1])
 
     return re.sub(PATHSEG, segment, path).replace("  ", " ")
+
+def symmetrize_mouth(path):
+    points = [[float(m.group(1)), float(m.group(3))] for m in re.finditer(COORD, path)]
+    points2 = []
+    for i in range(len(points)):
+        j = ((len(points)-1)*3//2 - i) % (len(points) - 1)
+        points2.append([(points[i][0] + 250 - points[j][0])/2, (points[i][1] + points[j][1])/2])
+    it = ["%1.3f,%1.3f" % (p[0], p[1]) for p in points2].__iter__()
+    return re.sub(COORD, lambda x: it.__next__(), path)
+
 
 def remove_inkscape_stuff(node):
     if node.nodeType == Node.ELEMENT_NODE:

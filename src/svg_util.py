@@ -41,7 +41,7 @@ def parse_svg_matrix(text):
 
 
 def format_matrix(mat):
-    return "matrix(%.3f,%.3f,%.3f,%.3f,%.3f,%.3f)" % (mat[0,0], mat[1,0], mat[0,1], mat[1,1], mat[0,2], mat[1,2])
+    return "matrix(%1.3f,%1.3f,%1.3f,%1.3f,%1.3f,%1.3f)" % (mat[0,0], mat[1,0], mat[0,1], mat[1,1], mat[0,2], mat[1,2])
 
 def matmult(mat1, mat2):
     return numpy.matmul(mat1, mat2)
