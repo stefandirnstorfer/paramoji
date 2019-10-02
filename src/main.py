@@ -1,13 +1,19 @@
 from xml.dom import minidom, Node
-import re
+import numpy
 
-from normalizer import remove_inkscape_stuff
+from structure import EmoticonStructure
+from normalizer import normalize_svg
 
 def main():
-    base = minidom.parse('faces/face_000.svg')
-    remove_inkscape_stuff(base.firstChild)
-    with open("myfile.xml", "w") as xml_file:
-        base.writexml(xml_file)
+    node = minidom.parse('faces/face_000.svg')
+    normalize_svg(node)
+    emoticon = EmoticonStructure(node)
+
+    base = emoticon.get_params()
+    print(base)
+    print(emoticon.node.toprettyxml())
+
+    emoticon.writexml("gen/test.svg")
 
 
 

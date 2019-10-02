@@ -1,7 +1,7 @@
 import unittest
 import numpy
 
-from svg_util import parse_svg_matrix, matmult
+from svg_util import parse_svg_matrix
 
 
 class MatrixTest(unittest.TestCase):
@@ -28,8 +28,8 @@ class MatrixTest(unittest.TestCase):
     def test_multiply(self):
         A = parse_svg_matrix("translate(2,1)")
         B = parse_svg_matrix("scale(2,3)")
-        self.assertMatrixEquals([[2,0,4], [0,3,3]], matmult(B, A))
-        self.assertMatrixEquals([[2,0,2], [0,3,1]], matmult(A, B))
+        self.assertMatrixEquals([[2,0,4], [0,3,3]], numpy.matmul(B, A))
+        self.assertMatrixEquals([[2,0,2], [0,3,1]], numpy.matmul(A, B))
 
 if __name__ == '__main__':
     unittest.main()

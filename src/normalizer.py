@@ -2,7 +2,7 @@ import re
 import numpy
 from xml.dom import minidom, Node
 
-from svg_util import identiy_matrix, parse_svg_matrix, matmult, format_matrix
+from svg_util import identiy_matrix, parse_svg_matrix, format_matrix
 
 
 NUMBER= r"[+-]?[0-9]+(\.[0-9]+)?"
@@ -10,23 +10,23 @@ COORD= re.compile("(" + NUMBER + "),(" + NUMBER + ")")
 PATHSEG= re.compile("[a-zA-Z]|(" + NUMBER + "),(" + NUMBER + ")")
 
 
-def flatten_transformation(node):
-    remove_inkscape_stuff(node)
-    update_map = { '' : identiy_matrix()}
+def normalize_svg(node):
+    transform_map = { '' : identiy_matrix()}
     clip_path_ref = {}
     matrix = identiy_matrix()
-    _find_transforms(node.firstChild, matrix, update_map, clip_path_ref)
-    _apply_transforms(node.firstChild, matrix, update_map, clip_path_ref)
+    remove_inkscape_stuff(node.firstChild, "")
+    _find_transforms(node.firstChild, matrix, transform_map, clip_path_ref)
+    _apply_transforms(node.firstChild, matrix, transform_map, clip_path_ref)
 
 
-def _find_transforms(node, matrix, update_map, clip_path_ref):
+def _find_transforms(node, matrix, transform_map, clip_path_ref):
     if node.nodeType == Node.ELEMENT_NODE:
         node_id = node.getAttribute("id")
         clip_path = node.getAttribute("clip-path")
         transform = node.getAttribute("transform")
 
         if transform:
-            matrix = matmult(matrix, parse_svg_matrix(transform))
+            matrix = numpy.matmul(matrix, parse_svg_matrix(transform))
 
         if clip_path:
             ref_id = re.match(r"url\(#([^)]*)\)", clip_path).group(1)
@@ -35,43 +35,46 @@ def _find_transforms(node, matrix, update_map, clip_path_ref):
             clip_path_ref[ref_id] = matrix
 
         if node_id:
-            update_map[node_id] = matrix
+            transform_map[node_id] = matrix
 
-        for child in node.childNodes:
-            _find_transforms(child, matrix, update_map, clip_path_ref)
+        children = [c for c in node.childNodes]
+        for child in children:
+            _find_transforms(child, matrix, transform_map, clip_path_ref)
 
 
-def _apply_transforms(node, ref_matrix, update_map, clip_path_ref):
+def _apply_transforms(node, ref_matrix, transform_map, clip_path_ref):
     if node.nodeType == Node.ELEMENT_NODE:
         node_id = node.getAttribute("id")
         morph = node.getAttribute("morph")
 
-        matrix = matmult(ref_matrix, update_map[node_id])
+        matrix = numpy.matmul(ref_matrix, transform_map[node_id])
         new_ref_matrix = clip_path_ref[node_id] if node_id in clip_path_ref.keys() else identiy_matrix()
 
         if node.getAttribute("transform"):
             node.removeAttribute("transform")
 
-        #elif morph in ["transform-only", "relative"]:
-            #fixScalePath(node.asInstanceOf[Elem], matrix)
-        #else:
-        if morph in ["fixed","fix-children"]:
+        if morph in ["transform-only", "relative", "to-circle"]:
+            fix_circle(node, matrix)
+        elif morph in ["fixed","fix-children"]:
             node.setAttribute("transform", format_matrix(matrix))
         else:
             if node.tagName == "path":
                 d = node.getAttribute("d")
-                d = normalize_path(d, morph != "relative", matrix)
+                d = normalize_path(d, True, matrix)
                 if node_id == "mouth-outline":
                     d = symmetrize_mouth(d)
                 node.setAttribute("d", d)
             elif node.tagName == "use":
                 ref = node.getAttribute("xlink:href").replace("#","")
-                ref_matrix = update_map.get(ref)
-                new_matrix = matmult(matrix, numpy.linalg.inv(ref_matrix))
+                ref_matrix = transform_map.get(ref)
+                new_matrix = numpy.matmul(matrix, numpy.linalg.inv(ref_matrix))
                 node.setAttribute("transform", format_matrix(new_matrix))
 
             for child in node.childNodes:
-                _apply_transforms(child, new_ref_matrix, update_map, clip_path_ref)
+                _apply_transforms(child, new_ref_matrix, transform_map, clip_path_ref)
+            for child in node.childNodes:
+                if child.nodeType == Node.TEXT_NODE:
+                    node.removeChild(child)
 
 def normalize_path(path, toAbsolute, matrix):
 
@@ -135,12 +138,33 @@ def symmetrize_mouth(path):
     return re.sub(COORD, lambda x: it.__next__(), path)
 
 
-def remove_inkscape_stuff(node):
+def fix_circle(node, matrix):
+    path_matrix = numpy.matmul(matrix, parse_svg_matrix(node.getAttribute("transform")))
+    path = normalize_path(node.getAttribute("d"), True, path_matrix)
+    points = [[float(m.group(1)), float(m.group(3))] for m in re.finditer(COORD, path)]
+    x0 = min([p[0] for p in points])
+    y0 = min([p[1] for p in points])
+    w = max([p[0] for p in points]) - x0
+    h = max([p[1] for p in points]) - y0
+
+    unitD = "M 1,0.5 C 1,0.78 0.78,1 0.5,1 0.22,1 0,0.78 0,0.5 0,0.22 0.22,0 0.5,0 0.78,0 1,0.22 1,0.5 z"
+    node.setAttribute("d", unitD)
+
+    transform = format_matrix(numpy.array([[(w+h)/2, 0, x0],[0, (w+h)/2, y0]]))
+    node.setAttribute("transform", transform)
+
+
+def remove_inkscape_stuff(node, indent):
     if node.nodeType == Node.ELEMENT_NODE:
         attrs= [a for a in node.attributes.values() if re.match(r"xmlns:(df|dc|sodipodi|inkscape|rdf|cc)|^(df|dc|sodipodi|inkscape|rdf):", a.name)]
         for a in attrs:
             node.removeAttribute(a.name)
         if re.match(r"^(df|dc|sodipodi|inkscape|rdf):", node.tagName) or node.tagName == "metadata":
             node.parentNode.removeChild(node)
-        for child in node.childNodes:
-            remove_inkscape_stuff(child)
+        children = [c for c in node.childNodes]
+        for i in range(len(children)):
+            child= children[i]
+            remove_inkscape_stuff(child, indent+"  ")
+    if node.nodeType == Node.TEXT_NODE:
+        node.nodeValue = ""
+        node.parentNode.removeChild(node)

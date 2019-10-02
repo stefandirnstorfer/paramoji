@@ -60,3 +60,8 @@ class EmoticonStructure:
 
     def format(self):
         return self.node.toprettyxml()
+
+    def writexml(self, filename):
+        xml_file = open(filename, "w")
+        xml_file.write(self.node.toprettyxml())
+        xml_file.close()
