@@ -62,7 +62,7 @@ function emoticon_svg_raw(v,a,p) {
       [106,131,135,105,116,127,79,85,102,100,113,118,87,93,109,76,79,97,83,103,104,63,57,77,61,52,76],
       [98,113,116,100,112,119,92,106,118,97,112,118,102,110,119,96,111,115,98,114,116,93,108,116,94,110,119],
       [96,126,134,99,118,127,74,98,112,93,115,124,80,98,110,69,91,102,72,107,112,53,65,77,52,62,77],
-      [7,5,7,7,12,7,11,6,10,-1,-1,-1,-2,-1,-1,0,-2,-2,-6,-4,-6,-7,-7,-7,-6,-8,-8],
+      [7,5,7,7,12,7,11,6,10,-1,-1,-1,-2,0,-1,0,-2,-2,-6,-4,-6,-7,-7,-7,-6,-8,-8],
       [27,26,24,26,28,26,28,22,26,22,22,22,22,22,22,24,22,22,27,25,25,26,26,26,28,26,26],
       [157,164,163,160,154,160,159,171,166,164,164,164,167,162,163,167,164,165,168,168,168,172,172,169,177,176,176],
       [205,202,207,194,197,195,182,173,183,199,201,202,179,188,188,177,175,176,199,206,208,181,187,186,164,164,166],
@@ -165,18 +165,18 @@ function emoticon_svg_raw(v,a,p) {
       + '			<rect height="66.55629" id="mouth-background" style="fill:#000000;stroke:none" width="119.94381" x="68.159775" y="159.93378"/>'
       + '			<path d="M 95,2.1e+02 C 95,1.9e+02 1.1e+02,1.9e+02 1.3e+02,1.9e+02 1.4e+02,1.9e+02 1.6e+02,1.9e+02 1.6e+02,2.1e+02 1.4e+02,2.1e+02 1.2e+02,2.1e+02 95,2.1e+02 Z" id="tongue" style="fill:#800f08;stroke:none"/>'
       + '			<g id="upper-teeth" morph="fix-children" transform="matrix(1,0,0,1,0.5,?)">'
-      + '				<rect height="15.123333" id="tooth-02" rx="1.3362287" ry="1.3245033" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.00441658;stroke-opacity:1" transform="matrix(0.99122501,0.13218537,0,1,0,0)" width="10.355772" x="96.361504" y="158.0847"/>'
-      + '				<rect height="15.123333" id="tooth-03" rx="1.3247935" ry="1.3245033" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.00010955;stroke-opacity:1" transform="matrix(0.99978101,0.02092668,0,1,0,0)" width="10.267149" x="107.20548" y="169.91676"/>'
-      + '				<rect height="15.123333" id="tooth-04" rx="1.3245033" ry="1.3245033" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" width="10.2649" x="119.18203" y="172.32661"/>'
-      + '				<rect height="15.123333" id="tooth-05" rx="1.3247935" ry="1.3245033" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.00010955;stroke-opacity:1" transform="matrix(0.99978101,-0.02092669,0,1,0,0)" width="10.267148" x="131.21086" y="175.00304"/>'
-      + '				<rect height="15.123333" id="tooth-06" rx="1.3411231" ry="1.3245033" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.00625432;stroke-opacity:1" transform="matrix(0.9876076,-0.15694341,0,1,0,0)" width="10.393703" x="144.89429" y="194.77757"/>'
+      + '				<use id="tooth-02" transform="matrix(1,0.14,0,1,-24,-18)" xlink:href="#tooth-04"/>'
+      + '				<use id="tooth-03" transform="matrix(1,0.05,0,1,-12,-6)" xlink:href="#tooth-04"/>'
+      + '				<rect height="15" id="tooth-04" rx="2" ry="2" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" width="10" x="118" y="174"/>'
+      + '				<use id="tooth-05" transform="matrix(1,-0.05,0,1,12,6)" xlink:href="#tooth-04"/>'
+      + '				<use id="tooth-06" transform="matrix(1,-0.14,0,1,24,16)" xlink:href="#tooth-04"/>'
       + '			</g>'
       + '			<g id="lower-teeth" morph="fix-children" transform="matrix(1,0,0,1,0.5,?)">'
-      + '				<rect height="15.123333" id="tooth-09" rx="1.3245033" ry="1.3245033" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" width="10.2649" x="95.314705" y="172.09084"/>'
-      + '				<rect height="15.123333" id="tooth-10" rx="1.3245033" ry="1.3245033" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" width="10.2649" x="107.31471" y="172.09084"/>'
-      + '				<rect height="15.123333" id="tooth-11" rx="1.3245033" ry="1.3245033" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" width="10.2649" x="119.31471" y="172.09084"/>'
-      + '				<rect height="15.123333" id="tooth-12" rx="1.3245033" ry="1.3245033" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" width="10.2649" x="131.31459" y="172.09084"/>'
-      + '				<rect height="15.123333" id="tooth-13" rx="1.3245033" ry="1.3245033" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" width="10.2649" x="143.31459" y="172.09084"/>'
+      + '				<use id="tooth-09" transform="translate(-24,0)" xlink:href="#tooth-04"/>'
+      + '				<use id="tooth-10" transform="translate(-12,0)" xlink:href="#tooth-04"/>'
+      + '				<use id="tooth-11" transform="translate(0,0)" xlink:href="#tooth-04"/>'
+      + '				<use id="tooth-12" transform="translate(12,0)" xlink:href="#tooth-04"/>'
+      + '				<use id="tooth-13" transform="translate(24,0)" xlink:href="#tooth-04"/>'
       + '			</g>'
       + '		</g>'
       + '		<path d="M ?,? C ?,? ?,? 1.2e+02,? ?,? ?,? ?,? ?,? ?,? 1.2e+02,? ?,? ?,? ?,? Z" id="mouth-outline" style="fill:none;stroke:#000000;stroke-width:1px"/>'

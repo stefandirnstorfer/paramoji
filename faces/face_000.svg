@@ -82,39 +82,19 @@ id="emoticon-front-view" viewBox="0 0 250 250" sodipodi:docname="face_000.svg" h
       <path 
       d="M 94.84,211.42 C 94.51,191.12 110.73,189.74 126.96,189.07 144.51,188.36 158.42,193.11 158.42,211.42 137.23,211.42 116.04,211.42 94.84,211.42 Z" style="fill:#800f08;stroke:none" id="tongue" inkscape:connector-curvature="0" sodipodi:nodetypes="cscc">
 </path>
-      <g transform="matrix(1,0,0,1,0.5,-1.01)" morph="fix-children" id="upper-teeth">
-        <rect 
-        width="10.355772" x="96.361504" ry="1.3245033" transform="matrix(0.99122501,0.13218537,0,1,0,0)" inkscape:transform-center-y="1.3353219" rx="1.3362287" y="158.0847" height="15.123333" id="tooth-02" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.00441658;stroke-opacity:1">
-</rect>
-        <rect 
-        rx="1.3247935" y="169.91676" height="15.123333" transform="matrix(0.99978101,0.02092668,0,1,0,0)" id="tooth-03" width="10.267149" x="107.20548" ry="1.3245033" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.00010955;stroke-opacity:1">
-</rect>
-        <rect 
-        width="10.2649" x="119.18203" ry="1.3245033" rx="1.3245033" y="172.32661" height="15.123333" id="tooth-04" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1">
-</rect>
-        <rect 
-        rx="1.3247935" y="175.00304" height="15.123333" transform="matrix(0.99978101,-0.02092669,0,1,0,0)" id="tooth-05" width="10.267148" x="131.21086" ry="1.3245033" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.00010955;stroke-opacity:1">
-</rect>
-        <rect 
-        width="10.393703" x="144.89429" ry="1.3245033" transform="matrix(0.9876076,-0.15694341,0,1,0,0)" rx="1.3411231" y="194.77757" height="15.123333" id="tooth-06" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.00625432;stroke-opacity:1">
-</rect>
+      <g transform="matrix(1,0,0,1,0,0)" morph="fix-children" id="upper-teeth">
+        <use id="tooth-02" xlink:href="#tooth-04" transform="matrix(1,0.14,0,1,-24,-18)"/>
+        <use id="tooth-03" xlink:href="#tooth-04" transform="matrix(1,0.05,0,1,-12,-6)"/>
+        <rect height="15" id="tooth-04" rx="2" ry="2" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" width="10" x="118" y="174"/>
+        <use id="tooth-05" xlink:href="#tooth-04" transform="matrix(1,-0.05,0,1,12,6)"/>
+        <use id="tooth-06" xlink:href="#tooth-04" transform="matrix(1,-0.14,0,1,24,16)"/>
       </g>
-      <g transform="matrix(1,0,0,1,0.5,22)" id="lower-teeth" morph="fix-children">
-        <rect 
-        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" ry="1.3245033" x="95.314705" width="10.2649" id="tooth-09" height="15.123333" y="172.09084" rx="1.3245033">
-</rect>
-        <rect 
-        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" id="tooth-10" height="15.123333" y="172.09084" rx="1.3245033" ry="1.3245033" x="107.31471" width="10.2649">
-</rect>
-        <rect 
-        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" ry="1.3245033" x="119.31471" width="10.2649" id="tooth-11" height="15.123333" y="172.09084" rx="1.3245033">
-</rect>
-        <rect 
-        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" id="tooth-12" height="15.123333" y="172.09084" rx="1.3245033" ry="1.3245033" x="131.31459" width="10.2649">
-</rect>
-        <rect 
-        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" ry="1.3245033" x="143.31459" width="10.2649" id="tooth-13" height="15.123333" y="172.09084" rx="1.3245033">
-</rect>
+      <g transform="matrix(1,0,0,1,0,22)" id="lower-teeth" morph="fix-children">
+          <use id="tooth-09" transform="translate(-24,0)" xlink:href="#tooth-04"/>
+          <use id="tooth-10" transform="translate(-12,0)" xlink:href="#tooth-04"/>
+          <use id="tooth-11" transform="translate(0,0)" xlink:href="#tooth-04"/>
+          <use id="tooth-12" transform="translate(12,0)" xlink:href="#tooth-04"/>
+          <use id="tooth-13" transform="translate(24,0)" xlink:href="#tooth-04"/>
       </g>
     </g>
     <path 
