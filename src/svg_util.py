@@ -43,11 +43,12 @@ def parse_svg_matrix(text):
 def format_matrix(mat):
     return "matrix(%1.3f,%1.3f,%1.3f,%1.3f,%1.3f,%1.3f)" % (mat[0,0], mat[1,0], mat[0,1], mat[1,1], mat[0,2], mat[1,2])
 
-def create_id_map(node, id_map):
+
+def node_list(node, nodes):
     if node.nodeType == Node.ELEMENT_NODE:
         node_id = node.getAttribute('id')
         if node_id:
-            id_map[node_id] = node
+            nodes.append(node)
         for child in node.childNodes:
-            create_id_map(child, id_map)
-    return id_map
+            node_list(child, nodes)
+    return nodes

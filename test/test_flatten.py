@@ -1,4 +1,5 @@
 import unittest
+import re
 from xml.dom import minidom, Node
 
 from normalizer import normalize_svg, fix_circle
@@ -9,12 +10,12 @@ class FlattenTest(unittest.TestCase):
     def test_transform_g(self):
         node = minidom.parseString('<svg><g transform="translate(1,2)"><path d="M3,3" id="me"/></g></svg>')
         normalize_svg(node)
-        self.assertEqual('<?xml version="1.0" ?><svg><g><path d="M4.000,5.000" id="me"/></g></svg>', node.toxml())
+        self.assertEqual('<svg><g><path d="M4.000,5.000" id="me"/></g></svg>', node.firstChild.toxml())
 
     def test_transform_multiply(self):
         node = minidom.parseString('<svg><g transform="scale(2)"><g transform="translate(1,2)"><path d="M3,3" id="me"/></g></g></svg>')
         normalize_svg(node)
-        self.assertEqual('<?xml version="1.0" ?><svg><g><g><path d="M8.000,10.000" id="me"/></g></g></svg>', node.toxml())
+        self.assertEqual('<svg><g><g><path d="M8.000,10.000" id="me"/></g></g></svg>', node.firstChild.toxml())
 
     def test_transform_use(self):
         node = minidom.parseString('<svg xmlns:xlink="http://www.w3.org/1999/xlink"><g transform="scale(2)"><path id="me"/></g><use xlink:href="#me"/></svg>')
@@ -29,8 +30,7 @@ class FlattenTest(unittest.TestCase):
     def test_remove_whitespace(self):
         node = minidom.parseString("<svg>  \n  <g>  \n  </g> \n  </svg>")
         normalize_svg(node)
-        print(node.toxml())
-        self.assertEqual('<?xml version="1.0" ?><svg><g/></svg>', node.toxml())
+        self.assertEqual('<svg><g/></svg>', node.firstChild.toxml())
 
 
 class ToCircleTest(unittest.TestCase):
@@ -50,6 +50,14 @@ class ToCircleTest(unittest.TestCase):
 
         fix_circle(node.firstChild, identiy_matrix())
         self.assertTrue('transform="matrix(40.000,0.000,0.000,40.000,4.000,40.000)' in node.toxml())
+
+    def test_circle_stroke(self):
+        node = minidom.parseString('<path d="M 0,0 10,10" morph="to-circle" style="stroke-width:1px"/>')
+
+        fix_circle(node.firstChild, identiy_matrix())
+        style= re.findall(r'style="[^"]*"', node.toxml())
+        self.assertEqual(1, len(style))
+        self.assertEqual('style="stroke-width:0.1px"', style[0])
 
 
 if __name__ == '__main__':

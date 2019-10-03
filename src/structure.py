@@ -1,7 +1,8 @@
+import numpy
 from xml.dom import minidom, Node
 
 from attribute_pattern import SimpleAttributePattern
-from svg_util import create_id_map
+from svg_util import node_list
 
 class EmoticonStructure:
 
@@ -27,35 +28,36 @@ class EmoticonStructure:
 
             if node_id:
                 self.pattern[node_id] = {
-                    "d" : SimpleAttributePattern(node.getAttribute("d"))
+                    "d" : SimpleAttributePattern(node.getAttribute("d")),
+                    "transform" : SimpleAttributePattern(node.getAttribute("transform"))
                 }
 
     def get_params(self, node = None):
         if not node:
             node = self.node
-        id_map = create_id_map(node.firstChild, {})
+        nodes = node_list(node.firstChild, [])
         params = []
 
-        for node_id in sorted(self.pattern.keys()):
-            pattern_set = self.pattern[node_id]
-            node = id_map[node_id]
-            for attr in sorted(pattern_set.keys()):
-                params = params + pattern_set[attr].get_params(node.getAttribute(attr))
+        for node in nodes:
+            if node.getAttribute('id') in self.pattern:
+                pattern_set = self.pattern[node.getAttribute('id')]
+                for attr in sorted(pattern_set.keys()):
+                    params = params + pattern_set[attr].get_params(node.getAttribute(attr))
 
-        return params
+        return numpy.array(params)
 
     def set_params(self, params):
-        id_map = create_id_map(self.node.firstChild, {})
+        nodes = node_list(self.node.firstChild, [])
         index = 0
 
-        for node_id in sorted(self.pattern.keys()):
-            pattern_set = self.pattern[node_id]
-            node = id_map[node_id]
-            for attr in sorted(pattern_set.keys()):
-                n = pattern_set[attr].length()
-                if n > 0:
-                    node.setAttribute(attr, pattern_set[attr].format(params[index : index+n]))
-                    index = index + n
+        for node in nodes:
+            if node.getAttribute('id') in self.pattern:
+                pattern_set = self.pattern[node.getAttribute('id')]
+                for attr in sorted(pattern_set.keys()):
+                    n = pattern_set[attr].length()
+                    if n > 0:
+                        node.setAttribute(attr, pattern_set[attr].format(params[index : index+n]))
+                        index = index + n
         return params
 
     def format(self):

@@ -153,6 +153,11 @@ def fix_circle(node, matrix):
     transform = format_matrix(numpy.array([[(w+h)/2, 0, x0],[0, (w+h)/2, y0]]))
     node.setAttribute("transform", transform)
 
+    style = node.getAttribute("style")
+    if style:
+        style = re.sub(r"(stroke-width:)([0-9.]+)", lambda m: m.group(1) + "%.2g" % (float(m.group(2)) / (w+h)*2), style)
+        node.setAttribute("style", style)
+
 
 def remove_inkscape_stuff(node, indent):
     if node.nodeType == Node.ELEMENT_NODE:
