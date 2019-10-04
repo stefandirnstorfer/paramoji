@@ -5,12 +5,24 @@
     <link rel="stylesheet" type="text/css" href="style.css"/>
     <script src="jquery.js"></script>
     <script src="gen/emoticon.js"></script>
+    <script src="gen/emoticon2.js"></script>
     <script src="action.js"></script>
     <title>Emoticons</title>
 </head>
+<script>
+    function myemo(v,a,p) {
+        let svg = emoticon_svg_raw2(v, a, p);
+        let re = /id="([^"]+)"/g;
+        let ids = [];
+        let m;
+        while(m = re.exec(svg)) ids.push(m[1]);
+        for (let id of ids) svg=svg.replace(re.compile(id,"g"), "2"+id)
+        return svg;
+    }
+</script>
 <body>
 <div id="frame">
-    <div id="emoticon" data-content="emoticon_svg_raw(v, a, p)">
+    <div id="emoticon" data-content="emoticon_svg_raw(v, a, p) + myemo(v, a, p)">
         <div id="svg-frame"></div>
     </div>
     <div id="control">

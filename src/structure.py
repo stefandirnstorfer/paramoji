@@ -32,6 +32,20 @@ class EmoticonStructure:
                     "transform" : SimpleAttributePattern(node.getAttribute("transform"))
                 }
 
+    def get_labels(self):
+        nodes = node_list(self.node.firstChild, [])
+        labels = []
+
+        for node in nodes:
+            node_id = node.getAttribute('id')
+            if node_id in self.pattern:
+                pattern_set = self.pattern[node.getAttribute('id')]
+                for attr in sorted(pattern_set.keys()):
+                    labels = labels + pattern_set[attr].length() * [node_id]
+
+        return labels
+
+
     def get_params(self, node = None):
         if not node:
             node = self.node

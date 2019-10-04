@@ -1,7 +1,7 @@
 var v, a, p;
-$(function() {
-    $('input').bind('input',refresh);
-    $('input').bind('change',refresh);
+$(function () {
+    $('input').bind('input', refresh);
+    $('input').bind('change', refresh);
     setParam(50, 50, 50);
 });
 
@@ -14,16 +14,16 @@ function refresh() {
 
 function setParam(new_v, new_a, new_p, isanimated) {
     if (!isanimated || !$('#fix-v').is(':checked')) {
-	v = new_v;
-	$('#slider-valence').val(v);
+        v = new_v;
+        $('#slider-valence').val(v);
     }
     if (!isanimated || !$('#fix-a').is(':checked')) {
-	a = new_a;
-	$('#slider-arousal').val(a);
+        a = new_a;
+        $('#slider-arousal').val(a);
     }
     if (!isanimated || !$('#fix-p').is(':checked')) {
-	p = new_p;
-	$('#slider-potency').val(p);
+        p = new_p;
+        $('#slider-potency').val(p);
     }
 
     $('#label-valence').text(v.toFixed());
@@ -33,32 +33,38 @@ function setParam(new_v, new_a, new_p, isanimated) {
     drawEmoticon(v, a, p);
 }
 
-function drawEmoticon(v,a,p) {
-    $('#emoticon').html(emoticon_svg_raw(v,a,p));
+function drawEmoticon(v, a, p) {
+    emoticon = $('#emoticon');
+    emoticon.html(eval(emoticon.attr("data-content")));
 }
 
 var oldtime = undefined;
+
 function runAnimation(dv, da, dp) {
     var now = new Date().getTime();
     if (!oldtime) oldtime = now;
     var speed = parseFloat($('#slider-speed').val());
-    var dt = (now - oldtime) * speed/200;
+    var dt = (now - oldtime) * speed / 200;
     if ($('#animate').is(':checked')) {
-	if (dt > 5) {
-	    oldtime = now;
-	    var decay = 0.1;
-	    dv = decay * (Math.random()-.5) * Math.sqrt(dt) + (1-decay) * dv;
-	    da = decay * (Math.random()-.5) * Math.sqrt(dt) + (1-decay) * da;
-	    dp = decay * (Math.random()-.5) * Math.sqrt(dt) + (1-decay) * dp;
-	    var map = function(x) { return x>100 ? 100 : (x<0 ? 0 : x); }
-	    setParam(map(v+dv*dt), map(a+da*dt), map(p+dp*dt), true);
-	    if (v <= 0 || v >= 100) dv = 0;
-	    if (a <= 0 || a >= 100) da = 0;
-	    if (p <= 0 || p >= 100) dp = 0;
+        if (dt > 5) {
+            oldtime = now;
+            var decay = 0.1;
+            dv = decay * (Math.random() - .5) * Math.sqrt(dt) + (1 - decay) * dv;
+            da = decay * (Math.random() - .5) * Math.sqrt(dt) + (1 - decay) * da;
+            dp = decay * (Math.random() - .5) * Math.sqrt(dt) + (1 - decay) * dp;
+            var map = function (x) {
+                return x > 100 ? 100 : (x < 0 ? 0 : x);
+            };
+            setParam(map(v + dv * dt), map(a + da * dt), map(p + dp * dt), true);
+            if (v <= 0 || v >= 100) dv = 0;
+            if (a <= 0 || a >= 100) da = 0;
+            if (p <= 0 || p >= 100) dp = 0;
 
-	}
-	window.requestAnimationFrame(function() { runAnimation(dv, da, dp); });
+        }
+        window.requestAnimationFrame(function () {
+            runAnimation(dv, da, dp);
+        });
     } else {
-	oldtime = undefined;
+        oldtime = undefined;
     }
 }

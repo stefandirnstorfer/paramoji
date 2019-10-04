@@ -14,10 +14,6 @@ div {
     overflow: hidden;
 }
 
-div#emoticon {
-    flex-grow: 2;
-}
-
 div#svg-frame {
     height: 100%;
 }
@@ -26,28 +22,24 @@ div#frame {
     border: 0;
     width: 100vw;
     height: 100vh;
-    padding:0px;
-    display:flex;
-    flex-direction: row;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 3fr 2fr;
 }
 
 @media (orientation:portrait) {
     div#frame {
-	flex-direction: column !important;
-    }
-    div#emoticon {
-	height:50%;
-	flex-grow: 0 !important;
-    }
-    div#control {
-	height:50%;
-	flex-grow: 0 !important;
+        grid-template-columns: 1fr !important;
+        grid-template-rows: 3fr 2fr;
     }
 }
 
+div#emoticon {
+    display: grid;
+    grid-auto-flow: column;
+}
+
 div#control {
-    min-width: 40%;
-    flex-direction: column;
     overflow-y: scroll;
 }
 
