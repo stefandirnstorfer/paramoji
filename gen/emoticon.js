@@ -34,7 +34,7 @@ function emoticon_svg_raw(v,a,p) {
       // glare
       [0,1,1,1,1,1,1,3,3,1,1,1,1,1,1,1,2,3,3,3,3,3,3,3,4,4,4],
       [0,1,1,1,1,1,1,3,3,1,1,1,1,1,1,1,2,3,3,3,3,3,3,3,4,4,4],
-      [88,89,88,87,88,87,86,86,86,90,91,91,89,90,90,89,89,87,88,90,89,88,89,89,87,88,88],
+      [88,89,88,87,88,87,86,86,86,90,91,90,89,90,90,89,89,87,88,90,89,88,89,89,87,88,88],
       [133,135,135,132,132,134,126,121,120,123,124,125,119,121,123,120,119,118,114,115,116,112,113,114,110,112,116],
       // left-lid-shadow
       [132,132,145,132,132,145,132,132,145,119,119,132,119,119,132,119,119,132,100,117,124,100,100,113,100,100,113],
@@ -71,7 +71,7 @@ function emoticon_svg_raw(v,a,p) {
       // upper-teeth
       [7,5,7,7,12,7,11,6,10,-1,-1,-1,-2,0,-1,0,-2,-2,-6,-4,-6,-7,-7,-7,-6,-8,-8],
       // lower-teeth
-      [27,26,24,26,28,26,28,22,26,22,22,22,22,22,22,24,22,22,27,25,25,26,26,26,28,26,26],
+      [28,26,24,26,28,26,28,22,26,22,22,22,22,22,22,24,22,22,27,25,25,26,26,26,28,26,26],
       // mouth-outline
       [157,164,163,160,154,160,159,171,166,164,164,164,167,162,163,167,164,165,168,168,168,172,172,169,177,176,176],
       [205,202,207,194,197,195,182,173,183,199,201,202,179,188,188,177,175,176,199,206,208,181,187,186,164,164,166],
@@ -143,13 +143,13 @@ function emoticon_svg_raw(v,a,p) {
       + '			<use height="1" id="use-left-eye-outline-1" transform="matrix(1,0,0,1,0,0)" width="1" x="0" xlink:href="#left-eye-outline" y="0"/>'
       + '		</clipPath>'
       + '		<clipPath id="clipPath-right-eye">'
-      + '			<use height="250" id="use-left-eye-outline-2" morph="fixed" transform="matrix(-1.000,0.000,0.000,1.000,250.000,0.000)" width="250" x="0" xlink:href="#left-eye-outline" y="0"/>'
+      + '			<use height="250" id="use-left-eye-outline-2" morph="fixed" transform="matrix(-1,0,0,1,250,0)" width="250" x="0" xlink:href="#left-eye-outline" y="0"/>'
       + '		</clipPath>'
       + '		<clipPath clipPathUnits="userSpaceOnUse" id="clipPath-mouth">'
       + '			<use height="250" id="use-mouth-outline" transform="matrix(1,0,0,1,0,0)" width="250" x="0" xlink:href="#mouth-outline" y="0"/>'
       + '		</clipPath>'
       + '	</defs>'
-      + '	<g id="head" morph="fixed" transform="matrix(1.000,0.000,0.000,1.000,0.000,0.000)">'
+      + '	<g id="head" morph="fixed" transform="matrix(1,0,0,1,0,0)">'
       + '		<path d="M 124.98,230.66 C 172.77,230.75 215.51,200.57 215.91,132.64 216.3,64.72 173.26,31.81 123.18,31.53 73.1,31.24 33.88,66.28 33.59,132.64 33.3,199.01 77.19,230.57 124.98,230.66 Z" id="head-outline" style="fill:#e9c6af;stroke:none;stroke-width:1.0;fill-opacity:0.52968037"/>'
       + '	</g>'
       + '	<g id="left-eye">'
@@ -164,9 +164,9 @@ function emoticon_svg_raw(v,a,p) {
       + '		</g>'
       + '	</g>'
       + '	<g id="right-eye">'
-      + '		<use height="250" id="right-eye-outline" morph="fixed" transform="matrix(-1.000,0.000,0.000,1.000,250.000,0.000)" width="250" x="0" xlink:href="#left-eye-outline" y="0"/>'
+      + '		<use height="250" id="right-eye-outline" morph="fixed" transform="matrix(-1,0,0,1,250,0)" width="250" x="0" xlink:href="#left-eye-outline" y="0"/>'
       + '		<g clip-path="url(#clipPath-right-eye)" id="right-eyeball">'
-      + '			<use height="1" id="right-lens" morph="fixed" transform="matrix(1.000,0.000,0.000,1.000,64.000,0.000)" width="1" x="0" xlink:href="#left-lens" y="0"/>'
+      + '			<use height="1" id="right-lens" morph="fixed" transform="matrix(1,0,0,1,64,0)" width="1" x="0" xlink:href="#left-lens" y="0"/>'
       + '			<path d="M 125,? 125,75 200,75 200,? C ?,? ?,? 125,? Z" id="right-lid-shadow" style="opacity:0.24;fill:#000000;stroke:#000000;stroke-width:0px"/>'
       + '		</g>'
       + '	</g>'
@@ -196,8 +196,8 @@ function emoticon_svg_raw(v,a,p) {
       + '	<g id="wrinkles">'
       + '		<path d="M ?,? C ?,? ?,? ?,?" id="wrinkle-left-brow" style="fill:none;stroke:#000000;stroke-width:0.5"/>'
       + '		<path d="M ?,? C ?,? ?,? ?,?" id="wrinkle-left-cheek" style="fill:none;stroke:#000000;stroke-width:0.5"/>'
-      + '		<use height="250" id="wrinkle-right-brow" morph="fixed" transform="matrix(-1.000,0.000,0.000,1.000,250.000,0.000)" width="250" x="0" xlink:href="#wrinkle-left-brow" y="0"/>'
-      + '		<use height="250" id="wrinkle-right-cheek" morph="fixed" transform="matrix(-1.000,0.000,0.000,1.000,250.000,0.000)" width="250" x="0" xlink:href="#wrinkle-left-cheek" y="0"/>'
+      + '		<use height="250" id="wrinkle-right-brow" morph="fixed" transform="matrix(-1,0,0,1,250,0)" width="250" x="0" xlink:href="#wrinkle-left-brow" y="0"/>'
+      + '		<use height="250" id="wrinkle-right-cheek" morph="fixed" transform="matrix(-1,0,0,1,250,0)" width="250" x="0" xlink:href="#wrinkle-left-cheek" y="0"/>'
       + '	</g>'
       + '	<g id="nose">'
       + '		<path d="M ?,? C ?,? ?,? 124,? M ?,? C ?,? ?,? ?,? ?,? ?,? 133,?" id="nose-path" style="fill:none;stroke:#000000"/>'
