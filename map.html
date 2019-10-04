@@ -4,7 +4,7 @@
   position: absolute;
   }
 </style>
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
 <script>
 var c30 = Math.cos(30/180*Math.PI);
 var s30 = Math.sin(30/180*Math.PI);
@@ -56,20 +56,15 @@ function convert(c) {
 for (i in faces) {
   var x = faces[i][1];
   var y = faces[i][2];
-  var scale = Math.pow(x*x + y*y, -0.2);
-  if (!isFinite(scale)) scale=1.5;
-  x = (x-0.5) * scale * 100 + 500;
-  y = (y-0.5) * scale * 105 + 300;
+  var scale = Math.pow(x*x + y*y, -0.2)*2;
+  if (!isFinite(scale)) scale=2;
+  x = (x-0.5) * scale * 100 + 800;
+  y = (y-0.5) * scale * 105 + 500;
   size = 100 * scale;
   var s = faces[i][0];
   console.log(i);
   $('body').prepend('<div style="top:'+y+'px; left:'+x+'px">' +
-    '<embed src="gen/face_'+s+'.svg"  width='+size+' height='+size+'/>');
-  $('body').prepend('<div style="top:'+y+'px; left:'+(x+500)+'px">' +
-    '<embed src="http://liquidizer.org/emoticons/face.svg?size=' + size +
-		 '&v='+convert(s[0])+
-		 '&a='+convert(s[1])+
-		 '&p='+convert(s[2])+'"  width='+size+' height='+size+'/>');
+    '<embed src="faces/face_'+s+'.svg"  width='+size+' height='+size+'/>');
 }
 });
 </script>

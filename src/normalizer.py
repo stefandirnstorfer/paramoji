@@ -144,18 +144,18 @@ def fix_circle(node, matrix):
     points = [[float(m.group(1)), float(m.group(3))] for m in re.finditer(COORD, path)]
     x0 = min([p[0] for p in points])
     y0 = min([p[1] for p in points])
-    w = max([p[0] for p in points]) - x0
-    h = max([p[1] for p in points]) - y0
+    x1 = max([p[0] for p in points])
+    y1 = max([p[1] for p in points])
 
-    unitD = "M 1,0.5 C 1,0.78 0.78,1 0.5,1 0.22,1 0,0.78 0,0.5 0,0.22 0.22,0 0.5,0 0.78,0 1,0.22 1,0.5 z"
+    unitD = "M 1,0 C 1,0.56 0.56,1 0,1 -0.56,1 -1,0.56 -1,0 -1,-0.56 -0.56,-1 0,-1 0.56,-1 1,-0.56 1,0 z"
     node.setAttribute("d", unitD)
 
-    transform = format_matrix(numpy.array([[(w+h)/2, 0, x0],[0, (w+h)/2, y0]]))
+    transform = format_matrix(numpy.array([[(x1-x0)/2, 0, (x0+x1)/2],[0, (y1-y0)/2, (y0+y1)/2]]))
     node.setAttribute("transform", transform)
 
     style = node.getAttribute("style")
     if style:
-        style = re.sub(r"(stroke-width:)([0-9.]+)", lambda m: m.group(1) + "%.2g" % (float(m.group(2)) / (w+h)*2), style)
+        style = re.sub(r"(stroke-width:)([0-9.]+)", lambda m: m.group(1) + "%.2g" % (float(m.group(2)) / (x1+y1-x0-y0)*2), style)
         node.setAttribute("style", style)
 
 
