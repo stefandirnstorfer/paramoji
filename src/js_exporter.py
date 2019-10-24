@@ -42,7 +42,7 @@ def js_export2(base, params, filename):
     file = open(filename, "w")
     file.write("function emoticon_svg_raw2(v,a,p) {\n")
     file.write("  v=v/50-1; a=a/50-1; p=p/50-1;\n")
-    file.write("  X=[1, v, a, p, v*a, v*p, a*p, v*v, a*a, p*p];\n")
+    file.write("  X=[1, v, a, p];\n")
     file.write("  let l=0, d=[")
 
     last_label = ""

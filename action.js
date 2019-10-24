@@ -2,8 +2,13 @@ var v, a, p;
 $(function () {
     $('input').bind('input', refresh);
     $('input').bind('change', refresh);
-    setParam(50, 50, 50);
+    setParam(qparam('v'), qparam('a'), qparam('p'));
 });
+
+function qparam(name) {
+    var m= location.search.match(RegExp(name + "=([0-9]+)"));
+    return m ? parseInt(m[1]) : 50;
+}
 
 function refresh() {
     v = parseFloat($('#slider-valence').val());
