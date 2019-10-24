@@ -6,7 +6,7 @@ from normalizer import normalize_svg
 from js_exporter import js_export, js_export2
 
 def main():
-    node = minidom.parse('faces/v1/face_000.svg')
+    node = minidom.parse('src/faces/face_000.svg')
     normalize_svg(node)
     emoticon = EmoticonStructure(node)
 
@@ -14,8 +14,13 @@ def main():
     X = numpy.stack(numpy.meshgrid(ticks, ticks, ticks), -1).reshape(-1, 3)
     Y = numpy.array([load_parameters(emoticon, c) for c in X])
 
-    #B = numpy.array([X.shape[0]*[1], X[:,0], X[:,1], X[:,2], X[:,0]*X[:,1], X[:,0]*X[:,2], X[:,1]*X[:,2], X[:,0]**2, X[:,1]**2, X[:,2]**2]).T
+    js_export(emoticon, Y.T, "gen/emoticon.js")
+
     B = numpy.array([X.shape[0]*[1], X[:,0], X[:,1], X[:,2]]).T
+
+    Y[13,:] = 10 * Y[13,:]
+    B[13,:] = 10 * B[13,:]
+
     x = numpy.linalg.lstsq(B, Y, rcond=None)
 
     Y2 = numpy.matmul(B, x[0])
@@ -23,12 +28,11 @@ def main():
     error_by_face = numpy.concatenate((X, numpy.matrix(e).T),1)
     print(error_by_face)
 
-    js_export(emoticon, Y.T, "gen/emoticon.js")
     js_export2(emoticon, x[0].T, "gen/emoticon2.js")
 
 def load_parameters(base, coord):
     code = "".join([["-","0","+"][int(c + 1)] for c in coord])
-    file = "faces/v1/face_" + code + ".svg"
+    file = "src/faces/face_" + code + ".svg"
     node = minidom.parse(file)
     normalize_svg(node)
     return base.get_params(node)

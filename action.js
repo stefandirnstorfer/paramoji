@@ -35,6 +35,7 @@ function setParam(new_v, new_a, new_p, isanimated) {
     $('#label-arousal').text(a.toFixed());
     $('#label-potency').text(p.toFixed());
 
+    window.history.replaceState({}, "Emoticons", "?v="+v.toFixed()+"&a="+a.toFixed()+"&p="+p.toFixed());
     drawEmoticon(v, a, p);
 }
 
