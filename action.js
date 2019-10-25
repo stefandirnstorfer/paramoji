@@ -2,6 +2,8 @@ var v, a, p;
 $(function () {
     $('input').bind('input', refresh);
     $('input').bind('change', refresh);
+    $('#version-2').attr('checked', sessionStorage.getItem('#version-2'));
+    $('#version-1').attr('checked', sessionStorage.getItem('#version-2') ? sessionStorage.getItem('#version-1') : 'checked');
     setParam(qparam('v'), qparam('a'), qparam('p'));
 });
 
@@ -40,8 +42,17 @@ function setParam(new_v, new_a, new_p, isanimated) {
 }
 
 function drawEmoticon(v, a, p) {
-    emoticon = $('#emoticon');
-    emoticon.html(eval(emoticon.attr("data-content")));
+    emoticon = $('#emoticon div').each((i,c) => {
+        var key= $(c).attr("data-if");
+        if ($(key).is(':checked')) {
+            $(c).show();
+            sessionStorage.setItem(key, 'checked');
+            $(c).html(eval($(c).attr("data-content")))
+        } else {
+            sessionStorage.removeItem(key);
+            $(c).hide();
+        }
+    });
 }
 
 var oldtime = undefined;

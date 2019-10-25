@@ -6,6 +6,7 @@ function emoticon_svg_raw2(v,a,p) {
       [105,  40,  20,  20], [136, -80,  -30,  70],
       [ 60,  0,    0,   0], [128,  30, -81, -80],
       // left-lens
+      [ 90,   0,   0,  30], // #left-lens[transform]
       [125, -20, -80,  20], // #left-lens[transform]
       [  4,   0,  30,   0], // #pupil[radius]
       [  2,   5,  15,   0], // #glare[radius]
@@ -17,6 +18,8 @@ function emoticon_svg_raw2(v,a,p) {
       [117, -80,-167, -52],
       [ 50,  -0,   0,   0],
       [141, -30, -95,   3],
+      // right-eye
+      [70, 0, 0, -60],
       // right-lid-shadow
       [129, -26,-149,  36],
       [200,  -1,   1,   0],
@@ -133,7 +136,7 @@ function emoticon_svg_raw2(v,a,p) {
       '	<g id="left-eye">',
       '		<path d="M ?,? L ?,? ?,? Z" id="left-eye-outline" style="fill:#ffffff;stroke:#000000;stroke-width:1"/>',
       '		<g clip-path="url(#clipPath-left-eye)" id="left-eyeball">',
-      '			<g id="left-lens" transform="translate(88,?)">',
+      '			<g id="left-lens" transform="translate(?,?)">',
       '				<circle r="9" fill="#9d4922" id="iris"/>',
       '				<circle r="?" fill="black" id="pupil"/>',
       '				<circle r="?" cx="-5" cy="-3" fill="white" id="glare"/>',
@@ -144,7 +147,7 @@ function emoticon_svg_raw2(v,a,p) {
       '	<g id="right-eye">',
       '		<use height="250" id="right-eye-outline" transform="matrix(-1,0,0,1,250,0)" width="250" x="0" xlink:href="#left-eye-outline" y="0"/>',
       '		<g clip-path="url(#clipPath-right-eye)" id="right-eyeball">',
-      '			<use id="right-lens" x="74" xlink:href="#left-lens"/>',
+      '			<use id="right-lens" x="?" xlink:href="#left-lens"/>',
       '			<path d="M 125,? 125,75 200,75 ?,? C ?,? ?,? 125,? Z" id="right-lid-shadow" style="opacity:0.24;fill:#000000;stroke:#000000;stroke-width:0px"/>',
       '		</g>',
       '	</g>',

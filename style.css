@@ -35,13 +35,8 @@ input[type=range] {
 }
 
 div {
-    padding: 10px;
     margin: 0;
     overflow: hidden;
-}
-
-div#svg-frame {
-    height: 100%;
 }
 
 div#frame {

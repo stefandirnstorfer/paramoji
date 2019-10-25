@@ -5,13 +5,26 @@
     <link rel="stylesheet" type="text/css" href="style.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
     <script src="emoticon.js"></script>
+    <script src="emoticon2.js"></script>
     <script src="action.js"></script>
     <title>Emoticons</title>
 </head>
+<script>
+    function myemo(v,a,p) {
+        let svg = emoticon_svg_raw2(v, a, p);
+        let re = /id="([^"]+)"/g;
+        let ids = [];
+        let m;
+        while(m = re.exec(svg)) ids.push(m[1]);
+        for (let id of ids) svg=svg.replace(re.compile(id,"g"), "2"+id)
+        return svg;
+    }
+</script>
 <body>
 <div id="frame">
-    <div id="emoticon" data-content="emoticon_svg_raw(v, a, p)">
-        <div id="svg-frame"></div>
+    <div id="emoticon">
+        <div data-content="emoticon_svg_raw(v, a, p)" data-if="#version-1"></div>
+        <div data-content="myemo(v, a, p)" data-if="#version-2"></div>
     </div>
     <div id="control">
         <div id="dimensions">
@@ -81,7 +94,8 @@
                     <td><button onclick="setParam(50,0,0)">Exhausted</button></td>
                     <td><button onclick="setParam(0,0,50)">Grumpy</button></td>
                 </tr>
-            </table>            </p>
+            </table>
+            </p>
         </div>
         <div id="animation">
             <h1>Animation</h1>
@@ -94,6 +108,13 @@
             <label><input type="checkbox" id="fix-a"> Fix arousal</label>
             <br/>
             <label><input type="checkbox" id="fix-p"> Fix potency</label>
+        </div>
+        <hr/>
+        <div id="version">
+            <label><input type="checkbox" id="version-1"> Version 1</label>
+            <br/>
+            <label><input type="checkbox" id="version-2" checked> Version 2</label>
+            <br/>
         </div>
     </div>
 </div>
