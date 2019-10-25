@@ -1,13 +1,29 @@
 function emoticon_svg_raw2(v,a,p) {
-  X=[1, v/500-0.1, a/500-0.1, p/500-0.1];
-  let l=0, d=[
+  const X = c => [1, v/500-0.1, a/500-0.1, p/500-0.1].reduceRight((a,b) => a + b*c.pop(), 0);
+  const curve = (x1, y1, x2, y2, offset) => {
+      const dx= x2-x1,
+          dy= y2-y1,
+          l  = Math.sqrt(dx*dx+dy*dy),
+          nx= dy/l * offset,
+          ny=-dx/l * offset;
+      return [
+          (x1+x2)/2 + nx,
+          (y1+y2)/2 + ny
+      ];
+  };
+  const curveX = c => ((data,i) => curve(data[i-2], data[i-1], data[i+1], data[i+2], X(c)));
+  const copyX = di => ((data,i) => [data[i+di], data[i+di+1]])
+  let data=[
       // left-eye-outline
-      [105, -40,  -0,  90], [115,-90,-160, 100], // M
+      copyX(8), // M
+      curveX([5, 0, 50, 0]), // right bow
       [105,  40,  20,  20], [136, -80,  -30,  70],
-      [ 60,  0,    0,   0], [128,  30, -81, -80],
+      curveX([10, -80, 120, 0]), //bottom
+      [ 60,   0,   0,  40], [128,  30, -81, -80],
+      curveX([8, 100, 80, 75]), // top
+      [105, -40,  -0,  90], [115, -90,-160, 140], // M
       // left-lens
-      [ 90,   0,   0,  30], // #left-lens[transform]
-      [125, -20, -80,  20], // #left-lens[transform]
+      [ 90,   0,   0,  30], [127, -50, -80,  20], // #left-lens
       [  4,   0,  30,   0], // #pupil[radius]
       [  2,   5,  15,   0], // #glare[radius]
       // left-lid-shadow
@@ -116,73 +132,83 @@ function emoticon_svg_raw2(v,a,p) {
       [161, -20,-105,  -0],
       [132,   4,  -3,  -3],
       [166, -17, -89,   2],
-  ].map(c => X.reduceRight((a,b) => a + b*c.pop(), 0));
+  ]
+  data = data.map(c => Array.isArray(c) ? X(c) : c);
+  var i=0;
+  while (i< data.length) {
+      if (typeof data[i] == 'function') {
+          var inserted= data[i](data,i);
+          data.splice.apply(data, [i, 1].concat(inserted));
+      }
+      i++;
+  }
+  var index=0;
   return [
       '<svg height="100%" version="1.1" viewBox="0 0 250 250" width="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">',
-      '	<defs id="defs">',
-      '		<clipPath id="clipPath-left-eye">',
-      '			<use id="use-left-eye-outline-1" xlink:href="#left-eye-outline"/>',
-      '		</clipPath>',
-      '		<clipPath id="clipPath-right-eye">',
-      '			<use id="use-left-eye-outline-2" transform="matrix(-1,0,0,1,250,0)" xlink:href="#left-eye-outline"/>',
-      '		</clipPath>',
-      '		<clipPath clipPathUnits="userSpaceOnUse" id="clipPath-mouth">',
-      '			<use id="use-mouth-outline" xlink:href="#mouth-outline"/>',
-      '		</clipPath>',
-      '	</defs>',
-      '	<g id="head">',
-      '		<path d="M 125,230 C 175,230 215,200 215,125 215,65 175,30 125,30 75,30 35,65 35,125 35,200 75,230 125,230 Z" fill="#e9c6afa0" id="head-outline"/>',
-      '	</g>',
-      '	<g id="left-eye">',
-      '		<path d="M ?,? L ?,? ?,? Z" id="left-eye-outline" style="fill:#ffffff;stroke:#000000;stroke-width:1"/>',
-      '		<g clip-path="url(#clipPath-left-eye)" id="left-eyeball">',
-      '			<g id="left-lens" transform="translate(?,?)">',
-      '				<circle r="9" fill="#9d4922" id="iris"/>',
-      '				<circle r="?" fill="black" id="pupil"/>',
-      '				<circle r="?" cx="-5" cy="-3" fill="white" id="glare"/>',
-      '			</g>',
-      '			<path d="M 50,75 125,75 125,? C ?,? ?,? ?,? Z" id="left-lid-shadow" style="opacity:0.24;fill:#000000"/>',
-      '		</g>',
-      '	</g>',
-      '	<g id="right-eye">',
-      '		<use height="250" id="right-eye-outline" transform="matrix(-1,0,0,1,250,0)" width="250" x="0" xlink:href="#left-eye-outline" y="0"/>',
-      '		<g clip-path="url(#clipPath-right-eye)" id="right-eyeball">',
-      '			<use id="right-lens" x="?" xlink:href="#left-lens"/>',
-      '			<path d="M 125,? 125,75 200,75 ?,? C ?,? ?,? 125,? Z" id="right-lid-shadow" style="opacity:0.24;fill:#000000;stroke:#000000;stroke-width:0px"/>',
-      '		</g>',
-      '	</g>',
-      '	<path d="M ?,? C ?,? ?,? ?,? L ?,? C ?,? ?,? ?,? Z" id="left-eye-brow" style="fill:#292929;stroke-width:1"/>',
-      '	<use height="250" id="right-eye-brow" transform="matrix(-1,0,0,1,250,0)" width="250" x="0" xlink:href="#left-eye-brow" y="0"/>',
-      '	<g id="mouth">',
-      '		<g clip-path="url(#clipPath-mouth)" id="mouth-interior">',
-      '			<rect height="70" fill="black" id="mouth-background" width="120" x="65" y="160"/>',
-      '			<path d="M 94.8,211 C 94.5,191 111,190 127,189 145,188 158,193 158,211 137,211 116,211 94.8,211 Z" id="tongue" style="fill:#800f08;stroke:none"/>',
-      '			<g id="upper-teeth" transform="matrix(1,0,0,1,0.103,?)">',
-      '				<use id="tooth-02" transform="matrix(1,0.14,0,1,-24,-18)" xlink:href="#tooth-04"/>',
-      '				<use id="tooth-03" transform="matrix(1,0.05,0,1,-12,-6)" xlink:href="#tooth-04"/>',
-      '				<rect height="15" id="tooth-04" rx="2" ry="2" fill="white" stroke="black" width="10" x="118" y="174"/>',
-      '				<use id="tooth-05" transform="matrix(1,-0.05,0,1,12,6)" xlink:href="#tooth-04"/>',
-      '				<use id="tooth-06" transform="matrix(1,-0.14,0,1,24,16)" xlink:href="#tooth-04"/>',
-      '			</g>',
-      '			<g id="lower-teeth" transform="matrix(1,0,0,1,0.103,?)">',
-      '				<use id="tooth-09" x="-24" xlink:href="#tooth-04"/>',
-      '				<use id="tooth-10" x="-12" xlink:href="#tooth-04"/>',
-      '				<use id="tooth-11" xlink:href="#tooth-04"/>',
-      '				<use id="tooth-12" x="12" xlink:href="#tooth-04"/>',
-      '				<use id="tooth-13" x="24" xlink:href="#tooth-04"/>',
-      '			</g>',
-      '		</g>',
-      '		<path d="M ?,? C ?,? ?,? 125,? ?,? ?,? ?,? ?,? ?,? 125,? ?,? ?,? ?,? Z" id="mouth-outline" style="fill:none;stroke:#000000;stroke-width:1px"/>',
-      '	</g>',
-      '	<g id="wrinkles">',
-      '		<path d="M ?,? C ?,? ?,? ?,?" id="wrinkle-left-brow" style="fill:none;stroke:#000000;stroke-width:0.5"/>',
-      '		<path d="M ?,? C ?,? ?,? ?,?" id="wrinkle-left-cheek" style="fill:none;stroke:#000000;stroke-width:0.5"/>',
-      '		<use height="250" id="wrinkle-right-brow" transform="matrix(-1,0,0,1,250,0)" width="250" x="0" xlink:href="#wrinkle-left-brow" y="0"/>',
-      '		<use height="250" id="wrinkle-right-cheek" transform="matrix(-1,0,0,1,250,0)" width="250" x="0" xlink:href="#wrinkle-left-cheek" y="0"/>',
-      '	</g>',
-      '	<g id="nose">',
-      '		<path d="M ?,? C ?,? ?,? ?,? M ?,? C ?,? ?,? ?,? ?,? ?,? ?,?" id="nose-path" style="fill:none;stroke:#000000"/>',
-      '	</g>',
+      '  <defs id="defs">',
+      '    <clipPath id="clipPath-left-eye">',
+      '      <use id="use-left-eye-outline-1" xlink:href="#left-eye-outline"/>',
+      '    </clipPath>',
+      '    <clipPath id="clipPath-right-eye">',
+      '      <use id="use-left-eye-outline-2" transform="matrix(-1,0,0,1,250,0)" xlink:href="#left-eye-outline"/>',
+      '    </clipPath>',
+      '    <clipPath clipPathUnits="userSpaceOnUse" id="clipPath-mouth">',
+      '      <use id="use-mouth-outline" xlink:href="#mouth-outline"/>',
+      '    </clipPath>',
+      '  </defs>',
+      '  <g id="head">',
+      '    <path d="M 125,230 C 175,230 215,200 215,125 C 215,65 175,30 125,30 S 35,65 35,125 C 35,200 75,230 125,230 Z" fill="#e9c6afa0" id="head-outline"/>',
+      '  </g>',
+      '  <g id="left-eye">',
+      '    <path d="M ?,? Q ?,? ?,? ?,? ?,? ?,? ?,? Z" id="left-eye-outline" style="fill:#ffffff;stroke:#000000;stroke-width:1"/>',
+      '    <g clip-path="url(#clipPath-left-eye)" id="left-eyeball">',
+      '      <g id="left-lens" transform="translate(?,?)">',
+      '        <circle r="9" fill="#9d4922" id="iris"/>',
+      '        <circle r="?" fill="black" id="pupil"/>',
+      '        <circle r="?" cx="-5" cy="-3" fill="white" id="glare"/>',
+      '      </g>',
+      '      <path d="M 50,75 125,75 125,? C ?,? ?,? ?,? Z" id="left-lid-shadow" style="opacity:0.24;fill:#000000"/>',
+      '    </g>',
+      '  </g>',
+      '  <g id="right-eye">',
+      '    <use height="250" id="right-eye-outline" transform="matrix(-1,0,0,1,250,0)" width="250" x="0" xlink:href="#left-eye-outline" y="0"/>',
+      '    <g clip-path="url(#clipPath-right-eye)" id="right-eyeball">',
+      '      <use id="right-lens" x="?" xlink:href="#left-lens"/>',
+      '      <path d="M 125,? 125,75 200,75 ?,? C ?,? ?,? 125,? Z" id="right-lid-shadow" style="opacity:0.24;fill:#000000;stroke:#000000;stroke-width:0px"/>',
+      '    </g>',
+      '  </g>',
+      '  <path d="M ?,? C ?,? ?,? ?,? L ?,? C ?,? ?,? ?,? Z" id="left-eye-brow" style="fill:#292929;stroke-width:1"/>',
+      '  <use height="250" id="right-eye-brow" transform="matrix(-1,0,0,1,250,0)" width="250" x="0" xlink:href="#left-eye-brow" y="0"/>',
+      '  <g id="mouth">',
+      '    <g clip-path="url(#clipPath-mouth)" id="mouth-interior">',
+      '      <rect height="70" fill="black" id="mouth-background" width="120" x="65" y="160"/>',
+      '      <path d="M 94.8,211 C 94.5,191 111,190 127,189 145,188 158,193 158,211 137,211 116,211 94.8,211 Z" id="tongue" style="fill:#800f08;stroke:none"/>',
+      '      <g id="upper-teeth" transform="matrix(1,0,0,1,0.103,?)">',
+      '        <use id="tooth-02" transform="matrix(1,0.14,0,1,-24,-18)" xlink:href="#tooth-04"/>',
+      '        <use id="tooth-03" transform="matrix(1,0.05,0,1,-12,-6)" xlink:href="#tooth-04"/>',
+      '        <rect height="15" id="tooth-04" rx="2" ry="2" fill="white" stroke="black" width="10" x="118" y="174"/>',
+      '        <use id="tooth-05" transform="matrix(1,-0.05,0,1,12,6)" xlink:href="#tooth-04"/>',
+      '        <use id="tooth-06" transform="matrix(1,-0.14,0,1,24,16)" xlink:href="#tooth-04"/>',
+      '      </g>',
+      '      <g id="lower-teeth" transform="matrix(1,0,0,1,0.103,?)">',
+      '        <use id="tooth-09" x="-24" xlink:href="#tooth-04"/>',
+      '        <use id="tooth-10" x="-12" xlink:href="#tooth-04"/>',
+      '        <use id="tooth-11" xlink:href="#tooth-04"/>',
+      '        <use id="tooth-12" x="12" xlink:href="#tooth-04"/>',
+      '        <use id="tooth-13" x="24" xlink:href="#tooth-04"/>',
+      '      </g>',
+      '    </g>',
+      '    <path d="M ?,? C ?,? ?,? 125,? ?,? ?,? ?,? ?,? ?,? 125,? ?,? ?,? ?,? Z" id="mouth-outline" style="fill:none;stroke:#000000;stroke-width:1px"/>',
+      '  </g>',
+      '  <g id="wrinkles">',
+      '    <path d="M ?,? C ?,? ?,? ?,?" id="wrinkle-left-brow" style="fill:none;stroke:#000000;stroke-width:0.5"/>',
+      '    <path d="M ?,? C ?,? ?,? ?,?" id="wrinkle-left-cheek" style="fill:none;stroke:#000000;stroke-width:0.5"/>',
+      '    <use height="250" id="wrinkle-right-brow" transform="matrix(-1,0,0,1,250,0)" width="250" x="0" xlink:href="#wrinkle-left-brow" y="0"/>',
+      '    <use height="250" id="wrinkle-right-cheek" transform="matrix(-1,0,0,1,250,0)" width="250" x="0" xlink:href="#wrinkle-left-cheek" y="0"/>',
+      '  </g>',
+      '  <g id="nose">',
+      '    <path d="M ?,? C ?,? ?,? ?,? M ?,? C ?,? ?,? ?,? ?,? ?,? ?,?" id="nose-path" style="fill:none;stroke:#000000"/>',
+      '  </g>',
       '</svg>'
-    ].join("\n").replace(/\?/g, () => d[l++]);
+    ].join("\n").replace(/\?/g, () => data[index++]);
 }
