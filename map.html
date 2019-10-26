@@ -31,7 +31,7 @@ function myemo(v,a,p, old) {
     let m; while(m = re.exec(svg)) ids.push(m[1]);
     for (let id of ids) svg = svg.replace(re.compile(id,"g"), id_prefix+"_"+id);
     id_prefix ++;
-    return '<a href="/?v='+v+'&a='+a+'&p='+p+'">'+svg+'</a>';
+    return '<a href="index.html?v='+v+'&a='+a+'&p='+p+'">'+svg+'</a>';
 }
 var faces= [
     [(param)=>myemo( 50, 50, 50, param), 0, 0],

@@ -16,12 +16,12 @@ function emoticon_svg_raw2(v,a,p) {
   let data=[
       // left-eye-outline
       copyX(8), // M
-      curveX([5, 0, 80, 0]), // right bow
-      [105,  40,  20,  20], [136, -80,  -30,  70],
-      curveX([10, -80, 120, 0]), //bottom
-      [ 60,   0,   0,  40], [128,  30, -81, -80],
-      curveX([8, 100, 80, 75]), // top
-      [105, -40,  -0,  90], [115, -90,-160, 140], // M
+      curveX([8, 0, 70, 0]), // right bow
+      [105,  40,  20,  20], [136, -80,  -30,  70], // right bottom
+      curveX([10, -80, 120, 0]), // lower lid
+      [ 60,   0,   0,  40], [128,  30, -81, -80], // left
+      curveX([8, 80, 70, 70]), // upper lid
+      [105, -40,  -0,  90], [115, -100,-170, 140], // right top
       // left-lens
       [ 90,   0,   0,  30], [127, -50, -80,  20], // #left-lens
       [  4,   0,  30,   0], // #pupil[radius]
@@ -37,16 +37,12 @@ function emoticon_svg_raw2(v,a,p) {
       (data,i) => curve(200, data[i-1], 125, data[i+1], X([-20, -120, -120, 40])),
       [130, -80, -140, 100],
       // left-eye-brow
-      [110, -18,  -0,  95], [103,-138,-167, 199],
-      [ 93, -11,  -9,  82], [ 98,-165,-165, 105],
-      [ 79, -22, -17,  82], [ 96,-156,-160,  32],
-      [ 64,  -4, -17,  58], [106, -83,-142, -16],
-      [ 63, -10, -20,  69], [105, -73,-146, -16],
-      [ 79, -33, -23,  92], [ 94,-142,-172,  28],
-      [ 93, -18, -15,  93], [ 93,-159,-171, 104],
-      [110, -12,  -3, 103], [ 97,-135,-171, 159],
+      [ 105,  -15,   0,   150], [ 100, -137, -169,  270],
+      curveX([-2, -80, 20, -100]),
+      [  63,   0,  -20,   60], [ 105,  -80, -140,  -20],
+      [  4, -10,  10, 10],
       // upper-teeth
-      [  0,   0, -70,   0],
+      [  0,    0, -70,   0],
       // lower-teeth
       [ 22,   20,  20,   0],
       // mouth-outline
@@ -130,20 +126,20 @@ function emoticon_svg_raw2(v,a,p) {
       '<svg height="100%" version="1.1" viewBox="0 0 250 250" width="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">',
       '  <defs id="defs">',
       '    <clipPath id="clipPath-left-eye">',
-      '      <use id="use-left-eye-outline-1" xlink:href="#left-eye-outline"/>',
+      '      <use xlink:href="#left-eye-outline"/>',
       '    </clipPath>',
       '    <clipPath id="clipPath-right-eye">',
-      '      <use id="use-left-eye-outline-2" transform="matrix(-1,0,0,1,250,0)" xlink:href="#left-eye-outline"/>',
+      '      <use transform="matrix(-1,0,0,1,250,0)" xlink:href="#left-eye-outline"/>',
       '    </clipPath>',
-      '    <clipPath clipPathUnits="userSpaceOnUse" id="clipPath-mouth">',
-      '      <use id="use-mouth-outline" xlink:href="#mouth-outline"/>',
+      '    <clipPath id="clipPath-mouth">',
+      '      <use xlink:href="#mouth-outline"/>',
       '    </clipPath>',
       '  </defs>',
       '  <g id="head">',
-      '    <path d="M 125,230 C 175,230 215,200 215,125 C 215,65 175,30 125,30 S 35,65 35,125 C 35,200 75,230 125,230 Z" fill="#e9c6afa0" id="head-outline"/>',
+      '    <path d="M 125,230 C 175,230 215,200 215,130 S 175,30 125,30 S 35,65 35,130 S 75,230 125,230 Z" fill="#e9c6afa0"/>',
       '  </g>',
       '  <g id="left-eye">',
-      '    <path d="M ?,? Q ?,? ?,? ?,? ?,? ?,? ?,? Z" id="left-eye-outline" style="fill:#ffffff;stroke:#000000;stroke-width:1"/>',
+      '    <path d="M ?,? Q ?,? ?,? ?,? ?,? ?,? ?,? Z" id="left-eye-outline" fill="white" stroke="black" stroke-width="1"/>',
       '    <g clip-path="url(#clipPath-left-eye)" id="left-eyeball">',
       '      <g id="left-lens" transform="translate(?,?)">',
       '        <circle r="9" fill="#9d4922" id="iris"/>',
@@ -154,14 +150,14 @@ function emoticon_svg_raw2(v,a,p) {
       '    </g>',
       '  </g>',
       '  <g id="right-eye">',
-      '    <use height="250" id="right-eye-outline" transform="matrix(-1,0,0,1,250,0)" width="250" x="0" xlink:href="#left-eye-outline" y="0"/>',
+      '    <use id="right-eye-outline" transform="matrix(-1,0,0,1,250,0)" xlink:href="#left-eye-outline"/>',
       '    <g clip-path="url(#clipPath-right-eye)" id="right-eyeball">',
       '      <use id="right-lens" x="?" xlink:href="#left-lens"/>',
       '      <path d="M 125,70 L 180,70 L 200,? Q ?,? 125,? Z" id="right-lid-shadow" opacity="0.25" fill="black"/>',
       '    </g>',
       '  </g>',
-      '  <path d="M ?,? C ?,? ?,? ?,? L ?,? C ?,? ?,? ?,? Z" id="left-eye-brow" style="fill:#292929;stroke-width:1"/>',
-      '  <use height="250" id="right-eye-brow" transform="matrix(-1,0,0,1,250,0)" width="250" x="0" xlink:href="#left-eye-brow" y="0"/>',
+      '  <path d="M ?,? Q ?,? ?,?" id="left-eye-brow" stroke-width="?" stroke="#292929" fill="none"/>' +
+      '  <use id="right-eye-brow" transform="matrix(-1,0,0,1,250,0)" xlink:href="#left-eye-brow"/>',
       '  <g id="mouth">',
       '    <g clip-path="url(#clipPath-mouth)" id="mouth-interior">',
       '      <rect height="70" fill="black" id="mouth-background" width="120" x="65" y="160"/>',
@@ -192,6 +188,7 @@ function emoticon_svg_raw2(v,a,p) {
       '  <g id="nose">',
       '    <path d="M ?,? C ?,? ?,? ?,? M ?,? C ?,? ?,? ?,? ?,? ?,? ?,?" id="nose-path" style="fill:none;stroke:#000000"/>',
       '  </g>',
+      '  <path d="M ?,? Q ?,? ?,?" id="left-eye-brow-copy" stroke-width="4" stroke="red" fill="none"/>',
       '</svg>'
     ].join("\n").replace(/\?/g, () => data[index++]);
 }
