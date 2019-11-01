@@ -1,5 +1,6 @@
 
 const controls=[];
+const updates={}
 var i = 0;
 while (i < emoticon_data.length) {
     if (typeof emoticon_data[i] == 'string') {
@@ -57,6 +58,7 @@ function dragstart(event, index) {
                 contentType: 'application/json'
             })
         ]).then((result) => {
+            updates[controls[index][3]]= {x: result[0], y:result[1]};
             controls[index][1] = result[0]
             controls[index][2] = result[1]
         }, (error) => {
@@ -69,4 +71,14 @@ function dragstart(event, index) {
     };
     window.addEventListener('mousemove', drag);
     window.addEventListener('mouseup', dragend);
+}
+
+function save() {
+    $.ajax({
+        url: "http://localhost:5555/save",
+        type: "POST",
+        data: JSON.stringify(updates),
+        dataType: "json",
+        contentType: 'application/json'
+    })
 }
