@@ -32,7 +32,6 @@ function setParam(new_v, new_a, new_p, isanimated) {
         p = new_p;
         $('#slider-potency').val(p);
     }
-
     $('#label-valence').text(v.toFixed());
     $('#label-arousal').text(a.toFixed());
     $('#label-potency').text(p.toFixed());
@@ -42,7 +41,7 @@ function setParam(new_v, new_a, new_p, isanimated) {
 }
 
 function drawEmoticon(v, a, p) {
-    emoticon = $('#emoticon div').each((i,c) => {
+    emoticon = $('#emoticon .set-emoticon').each((i,c) => {
         var key= $(c).attr("data-if");
         if ($(key).is(':checked')) {
             $(c).show();

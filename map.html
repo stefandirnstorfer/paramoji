@@ -15,8 +15,8 @@
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+    <script src="emoticon_old.js"></script>
     <script src="emoticon.js"></script>
-    <script src="emoticon2.js"></script>
 <script>
 var c30 = Math.cos(30/180*Math.PI);
 var s30 = Math.sin(30/180*Math.PI);
@@ -25,11 +25,11 @@ var s15 = Math.sin(15/180*Math.PI);
 
 var id_prefix= 0;
 function myemo(v,a,p, old) {
-    let svg = (old ? emoticon_svg_raw : emoticon_svg_raw2)(v, a, p);
+    let svg = (old ? emoticon_svg_old : emoticon_svg)(v, a, p);
     let re = /id="([^"]+)"/g;
     let ids = [];
     let m; while(m = re.exec(svg)) ids.push(m[1]);
-    for (let id of ids) svg = svg.replace(re.compile(id,"g"), id_prefix+"_"+id);
+    svg = svg.replace(re.compile(ids.join('|'),"g"), id => id_prefix+"_"+id);
     id_prefix ++;
     return '<a href="index.html?v='+v+'&a='+a+'&p='+p+'">'+svg+'</a>';
 }

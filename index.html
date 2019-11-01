@@ -3,28 +3,29 @@
     <meta content="text/html" charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, user-scalable=no"/>
     <link rel="stylesheet" type="text/css" href="style.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="emoticon_old.js"></script>
     <script src="emoticon.js"></script>
-    <script src="emoticon2.js"></script>
+    <script src="controls.js"></script>
     <script src="action.js"></script>
     <title>Emoticons</title>
 </head>
 <script>
-    function myemo(v,a,p) {
-        let svg = emoticon_svg_raw2(v, a, p);
+    function oldemo(v,a,p) {
+        let svg = emoticon_svg_old(v, a, p);
         let re = /id="([^"]+)"/g;
         let ids = [];
         let m;
         while(m = re.exec(svg)) ids.push(m[1]);
-        for (let id of ids) svg=svg.replace(re.compile(id,"g"), "2"+id)
+        svg=svg.replace(re.compile(ids.join('|'),"g"), id => "2_"+id)
         return svg;
     }
 </script>
 <body>
 <div id="frame">
     <div id="emoticon">
-        <div data-content="emoticon_svg_raw(v, a, p)" data-if="#version-1"></div>
-        <div data-content="myemo(v, a, p)" data-if="#version-2"></div>
+        <div data-content="oldemo(v, a, p)" data-if="#version-1" class="set-emoticon"></div>
+        <div data-content="emoticon_svg(v, a, p)" data-if="#version-2" class="set-emoticon"></div>
     </div>
     <div id="control">
         <div id="dimensions">
@@ -52,6 +53,14 @@
                     <td><span id="label-potency">0</span></td>
                 </tr>
             </table>
+        </div>
+        <hr/>
+        <div id="version">
+            <label><input type="checkbox" id="version-1"> Version 1</label>
+            <br/>
+            <label><input type="checkbox" id="version-2" checked> Version 2</label>
+            <br/>
+            <label><input type="checkbox" id="show-controls"> Controls</label>
         </div>
         <div id="shortcuts">
             <h1>Shortcuts</h1>
@@ -109,12 +118,9 @@
             <br/>
             <label><input type="checkbox" id="fix-p"> Fix potency</label>
         </div>
-        <hr/>
-        <div id="version">
-            <label><input type="checkbox" id="version-1"> Version 1</label>
-            <br/>
-            <label><input type="checkbox" id="version-2" checked> Version 2</label>
-            <br/>
+        <div>
+            <hr>
+            <button onclick="save">Save</button>
         </div>
         <div style="height:20px"></div>
     </div>
