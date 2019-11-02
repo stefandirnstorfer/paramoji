@@ -1,6 +1,6 @@
 
 const controls=[];
-const updates={}
+const updates={};
 var i = 0;
 while (i < emoticon_data.length) {
     if (typeof emoticon_data[i] == 'string') {
@@ -14,10 +14,13 @@ while (i < emoticon_data.length) {
 function controls_svg(X) {
     if (!$('#show-controls').is(':checked')) return '';
     return controls.map((c,i) =>
-        '<circle r="3" cx="?" cy="?" fill-opacity="0.1" stroke-width="0.1" stroke="black" onmousedown="dragstart(evt, ?)"/>'
-            .replace(/\?/, () => X(emoticon_data[c[0]]))
-            .replace(/\?/, () => X(emoticon_data[c[0]+1]))
-            .replace(/\?/, () => i))
+        //!c[3].match(/shadow/) ? '' :
+        '<circle r="3" cx="?" cy="?" transform="translate(?) rotate(?)" fill-opacity="0.1" stroke-width="0.1" stroke="black" onmousedown="dragstart(evt, ?)"/>'
+            .replace(/\?/, X(emoticon_data[c[0]]))
+            .replace(/\?/, X(emoticon_data[c[0]+1]))
+            .replace(/\?/, c[3].match(/left-eye-outline|lid-shadow/) ? "90,"+X(emoticon_data[0]) : "0,0")
+            .replace(/\?/, c[3].match(/left-eye-outline/) ? X(emoticon_data[1]) : 0)
+            .replace(/\?/, i))
         .join('');
 }
 
@@ -25,8 +28,8 @@ function dragstart(event, index) {
     console.log(controls[index][3])
     const m= event.target.getScreenCTM().inverse();
     const drag= (event) => {
-        const x= event.clientX * m.a + m.e;
-        const y= event.clientY * m.d + m.f;
+        const x= event.clientX * m.a + event.clientY * m.c + m.e;
+        const y= event.clientX * m.b + event.clientY * m.d + m.f;
         emoticon_data[controls[index][0]]= [x, 0, 0, 0];
         emoticon_data[controls[index][0]+1]= [y, 0, 0, 0];
         refresh()
