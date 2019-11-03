@@ -25,7 +25,7 @@
 <div id="frame">
     <div id="emoticon">
         <div data-content="oldemo(v, a, p)" data-if="#version-1" class="set-emoticon"></div>
-        <div data-content="emoticon_svg(v, a, p)" data-if="#version-2" class="set-emoticon"></div>
+        <div data-content="emoticon_svg(v, a, p, c)" data-if="#version-2" class="set-emoticon"></div>
     </div>
     <div id="control">
         <div id="dimensions">
@@ -46,11 +46,18 @@
                     <td><span id="label-arousal">0</span></td>
                 </tr>
                 <tr>
-                    <td>Potency</td>
+                    <td>Control</td>
                     <td>
                         <input style="width:90%;min:0;max:100;value:50" type="range" id="slider-potency"/>
                     </td>
                     <td><span id="label-potency">0</span></td>
+                </tr>
+                <tr>
+                    <td>Contempt</td>
+                    <td>
+                        <input style="width:90%;min:0;max:100;value:50" type="range" id="slider-contempt"/>
+                    </td>
+                    <td><span id="label-contempt">0</span></td>
                 </tr>
             </table>
         </div>
@@ -108,15 +115,15 @@
         </div>
         <div id="animation">
             <h1>Animation</h1>
-            <label><input type="checkbox" id="animate" onchange="runAnimation(0,0,0)"> Animate</label>
+            <label><input type="checkbox" id="animate" onchange="runAnimation({})"> Animate</label>
             <p/>
             Speed: <input style="width:100%;min:1;max:100;value:50" type="range" id="slider-speed"/>
             <p/>
-            <label><input type="checkbox" id="fix-v"> Fix valence</label>
+            <label><input type="checkbox" id="fix-valence"> Fix valence</label>
             <br/>
-            <label><input type="checkbox" id="fix-a"> Fix arousal</label>
+            <label><input type="checkbox" id="fix-arousal"> Fix arousal</label>
             <br/>
-            <label><input type="checkbox" id="fix-p"> Fix potency</label>
+            <label><input type="checkbox" id="fix-potency"> Fix potency</label>
         </div>
         <div>
             <hr>

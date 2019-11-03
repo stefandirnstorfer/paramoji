@@ -5,14 +5,15 @@ import numpy
 PORT_NUMBER = 5555
 
 def process(data):
-    ticks = [-1.0, 0.0, 1.0]
-    X = numpy.stack(numpy.meshgrid(ticks, ticks, ticks), -1).reshape(-1, 3)
-    X = numpy.vstack((X, numpy.array(data['position'])/50.0 -1.0))
+    n= len(data['current'])-1
+    ticks = [[-1.0, 0.0, 1.0]]*3 + [[0.0, 1.0]]*(n-3)
+    X = numpy.stack(numpy.meshgrid(*ticks), -1).reshape(-1, n)
+    X = numpy.vstack((X, numpy.array(data['position'])[0:n]))
 
-    B = numpy.array([X.shape[0]*[1], X[:,0]/10.0, X[:,1]/10.0, X[:,2]/10.0]).T
+    B = numpy.hstack((numpy.array([X.shape[0]*[1]]).T, X/10.0))
     Y = numpy.matmul(B, numpy.array(data['current']))
 
-    Y[len(Y)-1] = 10*data['target']
+    Y[len(Y)-1] = 10 * data['target']
     B[len(Y)-1,:] = 10 * B[len(Y)-1,:]
 
     x = numpy.linalg.lstsq(B, Y, rcond=None)
@@ -25,7 +26,7 @@ def save(data):
     f.close()
     for i in range(len(lines)):
         for key in data.keys():
-            if key in lines[i]:
+            if ('"'+key+'"') in lines[i]:
                 lines[i] = '    "'+key+'", ['+\
                        (",".join([("%4d"%y) for y in data[key]['x']])+'], ['+ \
                         ",".join([("%4d"%y) for y in data[key]['y']])+'],\n')

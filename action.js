@@ -1,62 +1,61 @@
-var v, a, p;
+var state= {
+    valence: 50,
+    arousal: 50,
+    potency: 50,
+    contempt: 0
+};
+
 $(function () {
     $('input').bind('input', refresh);
     $('input').bind('change', refresh);
-    $('#version-2').attr('checked', sessionStorage.getItem('#version-2'));
-    $('#version-1').attr('checked', sessionStorage.getItem('#version-2') ? sessionStorage.getItem('#version-1') : 'checked');
-    setParam(qparam('v'), qparam('a'), qparam('p'));
+    $('#version-1').attr('checked', sessionStorage.getItem('#version-1'));
+    $('#version-2').attr('checked', sessionStorage.getItem('#version-1') ? sessionStorage.getItem('#version-2') : 'checked');
+    for (var key in state) {
+        var m= location.search.match(RegExp(key.substring(0,1) + "=([0-9]+)"));
+        if (m) state[key]= parseInt(m[1]);
+    }
+    redrawEmoticon();
 });
 
-function qparam(name) {
-    var m= location.search.match(RegExp(name + "=([0-9]+)"));
-    return m ? parseInt(m[1]) : 50;
-}
-
 function refresh() {
-    v = parseFloat($('#slider-valence').val());
-    a = parseFloat($('#slider-arousal').val());
-    p = parseFloat($('#slider-potency').val());
-    setParam(v, a, p);
+    for (var key in state) {
+        state[key]=parseFloat($('#slider-' + key).val());
+    }
+    redrawEmoticon();
 }
 
-function setParam(new_v, new_a, new_p, isanimated) {
-    if (!isanimated || !$('#fix-v').is(':checked')) {
-        v = new_v;
-        $('#slider-valence').val(v);
-    }
-    if (!isanimated || !$('#fix-a').is(':checked')) {
-        a = new_a;
-        $('#slider-arousal').val(a);
-    }
-    if (!isanimated || !$('#fix-p').is(':checked')) {
-        p = new_p;
-        $('#slider-potency').val(p);
-    }
-    $('#label-valence').text(v.toFixed());
-    $('#label-arousal').text(a.toFixed());
-    $('#label-potency').text(p.toFixed());
-
-    window.history.replaceState({}, "Emoticons", "?v="+v.toFixed()+"&a="+a.toFixed()+"&p="+p.toFixed());
-    drawEmoticon(v, a, p);
+function setParam(v, a, p) {
+    state.valence = v;
+    state.arousal = a;
+    state.potency = p;
+    redrawEmoticon();
 }
 
-function drawEmoticon(v, a, p) {
-    emoticon = $('#emoticon .set-emoticon').each((i,c) => {
-        var key= $(c).attr("data-if");
+function redrawEmoticon() {
+    var query= [];
+    for (var key in state) {
+        $('#label-' + key).text(state[key].toFixed());
+        $('#slider-' + key).val(state[key]);
+        query.push(key.substring(0,1)+"="+state[key].toFixed());
+    }
+    window.history.replaceState({}, "Emoticons", "?" + query.join("&"));
+
+    var v=state.valence, a=state.arousal, p=state.potency, c=state.contempt;
+    emoticon = $('#emoticon .set-emoticon').each((i,elt) => {
+        var key= $(elt).attr("data-if");
         if ($(key).is(':checked')) {
-            $(c).show();
+            $(elt).show();
             sessionStorage.setItem(key, 'checked');
-            $(c).html(eval($(c).attr("data-content")))
+            $(elt).html(eval($(elt).attr("data-content")))
         } else {
             sessionStorage.removeItem(key);
-            $(c).hide();
+            $(elt).hide();
         }
     });
 }
 
 var oldtime = undefined;
-
-function runAnimation(dv, da, dp) {
+function runAnimation(dstate) {
     var now = new Date().getTime();
     if (!oldtime) oldtime = now;
     var speed = parseFloat($('#slider-speed').val());
@@ -65,20 +64,27 @@ function runAnimation(dv, da, dp) {
         if (dt > 5) {
             oldtime = now;
             var decay = 0.1;
-            dv = decay * (Math.random() - .5) * Math.sqrt(dt) + (1 - decay) * dv;
-            da = decay * (Math.random() - .5) * Math.sqrt(dt) + (1 - decay) * da;
-            dp = decay * (Math.random() - .5) * Math.sqrt(dt) + (1 - decay) * dp;
-            var map = function (x) {
-                return x > 100 ? 100 : (x < 0 ? 0 : x);
-            };
-            setParam(map(v + dv * dt), map(a + da * dt), map(p + dp * dt), true);
-            if (v <= 0 || v >= 100) dv = 0;
-            if (a <= 0 || a >= 100) da = 0;
-            if (p <= 0 || p >= 100) dp = 0;
-
+            for (var key in state) {
+                if ($('#fix-' + key).is(':checked')) continue;
+                x = state[key];
+                dx = dstate[key] || 0;
+                dx = decay * (Math.random() - .5) * Math.sqrt(dt) + (1 - decay) * dx;
+                x = x + dx * dt;
+                if (x > 100) {
+                    x = 100;
+                    dx = 0;
+                }
+                if (x < 0) {
+                    x = 0;
+                    dx = 0;
+                }
+                state[key] = x;
+                dstate[key] = dx;
+            }
         }
+        redrawEmoticon();
         window.requestAnimationFrame(function () {
-            runAnimation(dv, da, dp);
+            runAnimation(dstate);
         });
     } else {
         oldtime = undefined;
