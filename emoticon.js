@@ -7,22 +7,23 @@ const emoticon_data=[
     // left-eye-outline
     [127, -50, -80,  20],
     [0, -200, 0, 200],
-    copyX(15, 2), // M
-    "#left-eye-outline:1", [  24,   4,  82,   1], [  -1,  14,  -5,  14],
-    "#left-eye-outline:2", [  17,   4,  13,   1], [   8,  14,  88,  14],
-    "#left-eye-outline:3a", [   3,  15, -34, -14], [  10,-121, 108,  32],
-    "#left-eye-outline:3b", [ -17,   0, -22,  -6], [   8,-137,  89,   9],
-    "#left-eye-outline:4", [ -28,  21, -37, -20], [   0,   7,   6,  -4],
-    "#left-eye-outline:5a", [ -21,  17, -47, -16], [  -6,-119, -55,   8],
-    "#left-eye-outline:5b", [   0,  12, -25,  -7], [ -11,-156,-104,  26],
-    "#left-eye-outline:6", [  16,   4,   1,   1], [ -10,  14, -94,  14],
+    copyX(17, 2), // M
+    "#left-eye-outline:1a", [  23,   2,  68,   1], [  -5,  24, -45,  34],
+    "#left-eye-outline:1b", [  22,   2,  59,   1], [   2,  14,  26,  14],
+    "#left-eye-outline:2", [  18,   2,  20,   1], [   7,  14,  76,  14],
+    "#left-eye-outline:3a", [   5,  12,  -6, -10], [  11,-120, 116,  31],
+    "#left-eye-outline:3b", [ -21,   0, -80,  -6], [   9,-137,  96,   9],
+    "#left-eye-outline:4", [ -28,  19, -40, -20], [   1,  17,  16,  -5],
+    "#left-eye-outline:5a", [ -23,  -4, -68, -37], [  -6,-127, -63,  -1],
+    "#left-eye-outline:5b", [   2, -14, -27, -29], [ -13,-131,-125,  19],
+    "#left-eye-outline:6", [  18,   2,  17,   1], [  -9,   2, -85,  24],
     // left-lens
-    [  0,   0,   0,  20], // #left-lens
+    [  0,   0,   0,  20], [  0,   -30,   0,  0],// #left-lens
     [  4,   0,  30,   0], // #pupil[radius]
     [  2,   15,  5,   0], // #glare[radius]
     // left-lid-shadow
     /* 35 */              [ -15,-100,   0,   0],
-    "#left-lid-shadow:2", [  -2,  21,  -5,  -6], [ -12, -81, -81,  47],
+    "#left-lid-shadow:2", [  -3,  29, -26, -11], [ -11, -81, -61,  42],
     /* -40 */             [   5, -50,   0,   0],
     // right-eye
     [70, 0, 0, -40],
@@ -31,36 +32,37 @@ const emoticon_data=[
     "#right-lid-shadow:2", [  52, -35, -74, 106], [ -16, -86, -82,  86],
     /* 125 */             copyX(-5,1 ),
     // left-eye-brow
-    "#left-eye-brow:1", [ 104,  10,  26, 122], [ 102,-116,-157, 229],
-    "#left-eye-brow:2", [  85,   4,   8,  83], [ 102,-158,-151,  94],
-    "#left-eye-brow:3", [  63,   1, -19,  58], [ 102, -41,-101, -49],
+    "#left-eye-brow:1", [ 104,   2,  26, 115], [ 103,-128,-159, 211],
+    "#left-eye-brow:2", [  84,  21,  -9,  82], [ 102,-158,-151,  87],
+    "#left-eye-brow:3", [  62,  21, -39,  58], [ 103, -58, -84, -49],
     [  4, -10,  10, 10],
     // teeth
-    [ 22,   20,  20,   0],
+    [ 31,   20,  20,   0],
     [  0,    0, -60,   0],
     // lips
-    "#lips:1", [ 164,  27,  42,   2], [ 188,-141, -34,  18],
-    "#lips:2", [ 159,  48,  71, -27], [ 195, -40,  34,  16],
-    "#lips:3", [ 145,   9,  53, -54], [ 195,   4,  43,  15],
-    /* 125 */             copyX(-1, 1),
+    "#lips:1", [ 164,  25,  44,   0], [ 183,-156, -25,   1],
+    "#lips:2", [ 156,  25,  67, -50], [ 190, -57,  38,  -4],
+    "#lips:3", [ 144,   3,  53, -55], [ 191, -12,  55,  10],
+    /* 125 */             copyX(-1,1),
     mirrorX(-5),
     mirrorX(-9),
-    "#lips:6", [  92, -48, -71,  27], [ 182, -36, -88,  27,-357],
-    "#lips:7", [ 105,  -9, -53,  54], [ 183,   3, -77,  20],
-    /* 125 */             copyX(-1, 1),
-    "mirror#lips:6", [ 158,  48,  71, -27], [ 182, -36, -88,  27],
+    "#lips:6", [  93, -25, -67,  50], [ 180, -56, -62,   4,-327],
+    "#lips:7", [ 107,  -3, -53,  55], [ 180, -11, -62,   8,-100],
+    /* 125 */             [  180, -11, -62,   8, -50],
+    "mirror#lips:6", [ 157,  25,  67, -50], [ 180, -56, -62,   4],
     copyX(-18, 2),
     // wrinkle-left-brow
     "#wrinkle-left-brow:1", [ 105,  12,  31,  64], [  94, -64,-157, 131],
     "#wrinkle-left-brow:2", [ 114, -17,  -1,  82], [ 101,-104,-193, 182],
-    "#wrinkle-left-brow:3", [ 113,  -5,  -2,  58], [ 108,-115,-183, 195],
+    "#wrinkle-left-brow:3", [ 113,   1,  -8,  52], [ 108,-117,-181, 197],
     // wrinkle-left-cheek
     "#wrinkle-left-cheek:1", [  73, -76, -37, -11, -29], [ 185,-145, -31,  34,  22],
-    "#wrinkle-left-cheek:2", [  82,   1,  -2,  31, -59], [ 179, -31, -36,  24,-218],
-    "#wrinkle-left-cheek:3", [  95, -79,  16,  31,  77], [ 164, -56, -65,  -3,  -9],
+    "#wrinkle-left-cheek:2", [  82,  -7,  -5,  35, -81], [ 179, -29, -51,  40,-258],
+    "#wrinkle-left-cheek:3", [  95, -56,  -7,  28,  81], [ 164, -70, -51,  -3, -53],
+    [0.5, 0, 0, 0, 10],
     "mirror:1#wrinkle-left-cheek:1", [ 177,  76,  37,  11], [ 185,-145, -31,  34],
-    "mirror:2#wrinkle-left-cheek:2", [ 168,  -1,   2, -31], [ 179, -31, -36,  24],
-    "mirror:3#wrinkle-left-cheek:3", [ 155,  79, -16, -31], [ 164, -56, -65,  -3],
+    "mirror:2#wrinkle-left-cheek:2", [ 168,   7,   5, -35], [ 179, -29, -51,  40],
+    "mirror:3#wrinkle-left-cheek:3", [ 155,  56,   7, -28], [ 164, -70, -51,  -3],
     // nose-path
     [165,  -50, -80,   0], // nose left
     [ -4,  -20,  -5,   0],
@@ -69,7 +71,7 @@ const emoticon_data=[
     [161,  -70, -80,  -0],
     "#nose:6", [ 140,  10,   0,   0], [ 163, -60, -80,   0],
     "#nose:5", [ 143,   1,  -3,  -3], [ 159, -58, -78,   9],
-    "#nose:8", [ 136,   9, -10,  -2], [ 141, -39, -67,  91],
+    "#nose:8", [ 136,   9, -10,  -2], [ 141, -39, -67,  91]
 ];
 
 function emoticon_svg(v, a, p, c) {
@@ -102,9 +104,9 @@ function emoticon_svg(v, a, p, c) {
       '  </g>',
       '  <g id="eyes" transform="translate(90,?)">',
       '    <g id="left-eye">',
-      '      <path transform="rotate(?)" d="M ?,? Q ?,? ?,? C ?,? ?,? ?,? ?,? ?,? ?,? Z" id="left-eye-outline" fill="white" stroke="black"/>',
+      '      <path transform="rotate(?)" d="M ?,? C ?,? ?,? ?,? ?,? ?,? ?,? ?,? ?,? ?,? Z" id="left-eye-outline" fill="white" stroke="black"/>',
       '      <g clip-path="url(#clipPath-left-eye)" id="left-eyeball">',
-      '        <g id="left-lens" transform="translate(?,0)">',
+      '        <g id="left-lens" transform="translate(?,?)">',
       '          <circle r="9" fill="#9d4922" id="iris"/>',
       '          <circle r="?" fill="black" id="pupil"/>',
       '          <circle r="?" cx="-5" cy="-3" fill="white" id="glare"/>',
@@ -124,7 +126,7 @@ function emoticon_svg(v, a, p, c) {
       '  <use id="right-eye-brow" transform="matrix(-1,0,0,1,250,0)" href="#left-eye-brow"/>',
       '  <g id="mouth">',
       '    <g clip-path="url(#clipPath-mouth)" id="mouth-interior">',
-      '      <rect height="70" fill="black" id="mouth-background" width="120" x="65" y="160"/>',
+      '      <rect height="90" fill="black" id="mouth-background" width="120" x="65" y="140"/>',
       '      <path d="M 94.8,211 C 94.5,191 111,190 127,189 145,188 158,193 158,211 137,211 116,211 94.8,211 Z" id="tongue" fill="#800f08"/>',
       '      <g id="lower-teeth" transform="translate(0,?)">',
       '        <use x="-24" href="#tooth"/>',
@@ -136,7 +138,7 @@ function emoticon_svg(v, a, p, c) {
       '      <g id="upper-teeth" transform="translate(0,?)">',
       '        <use transform="matrix(1,0.14,0,1,-24,-18)" href="#tooth"/>',
       '        <use transform="matrix(1,0.05,0,1,-12,-6)" href="#tooth"/>',
-      '        <rect height="15" id="tooth" rx="2" ry="2" fill="white" stroke="black" width="10" x="118" y="174"/>',
+      '        <rect height="24" id="tooth" rx="2" ry="2" fill="white" stroke="black" width="10" x="118" y="165"/>',
       '        <use transform="matrix(1,-0.05,0,1,12,6)" href="#tooth"/>',
       '        <use transform="matrix(1,-0.14,0,1,24,16)" href="#tooth"/>',
       '      </g>',
@@ -146,7 +148,7 @@ function emoticon_svg(v, a, p, c) {
       '  <g id="wrinkles">',
       '    <path d="M ?,? Q ?,? ?,?" id="wrinkle-left-brow" fill="none" stroke="black" stroke-width="0.5"/>',
       '    <use id="wrinkle-right-brow" transform="matrix(-1,0,0,1,250,0)" href="#wrinkle-left-brow"/>',
-      '    <path d="M ?,? Q ?,? ?,?" id="wrinkle-left-cheek" fill="none" stroke="black" stroke-width="0.5"/>',
+      '    <path d="M ?,? Q ?,? ?,?" id="wrinkle-left-cheek" fill="none" stroke="black" stroke-width="?"/>',
       '    <path d="M ?,? Q ?,? ?,?" id="wrinkle-right-cheek" fill="none" stroke="black" stroke-width="0.5"/>',
       '  </g>',
       '  <g id="nose">',
