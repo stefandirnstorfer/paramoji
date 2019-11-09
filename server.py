@@ -4,35 +4,48 @@ import numpy
 import math
 
 
-def normalize(data):
-    print("Normalizing")
+def align_y(data, group):
+    Y= numpy.array([data[pos]['y'][0:4] for pos in group], dtype='f')
+    Y0 = (numpy.mean(Y[:,0] - Y[:,2]/10))
+    gap = Y0 - (Y[:,0] - Y[:,2]/10)
+    Y[:,0]= Y[:,0]  + gap/2
+    Y[:,2]= numpy.round(Y[:,2]- 10*gap/2)
+    for i in range(len(group)):
+        data[group[i]]['y'][0:4] = Y[i, :].tolist()
+
+
+def normalize_eye_right_corner(data):
     group= ['#left-eye-outline:' + pos for pos in ['6','1','2']]
     X= numpy.array([data[pos]['x'] for pos in group], dtype='f')
-    Y= numpy.array([data[pos]['y'] for pos in group], dtype='f')
-    print(X)
+    X[:,0]= 16 + numpy.round(X[:,2]/10)
     Xmean = numpy.mean(X, axis=0)
-    Ymean = numpy.mean(Y, axis=0)
-    Xna= X[:,0]-X[:,2]/10
-    Yna= Y[:,0]-Y[:,2]/10
-    X0= numpy.mean(Xna)
-    Y0= numpy.mean(Yna)
-    X[:,0]= X[:,0] + math.round(X0 - Xna)
-    Y[:,0]= Y[:,0] + math.round(Y0 - Yna)
-    Xmean = numpy.mean(X, axis=0)
-    Ymean = numpy.mean(Y, axis=0)
-    Xna= X[:,0]-X[:,2]/10
-    Yna= Y[:,0]-Y[:,2]/10
-    X0= numpy.mean(Xna)
-    Y0= numpy.mean(Yna)
-    X[:,2]= X[:,2] + 10*math.round(X0 - Xna)
-    Y[:,2]= Y[:,2] + 10*math.round(Y0 - Yna)
     X[:,1]= Xmean[1]
     X[:,3]= Xmean[3]
-    Y[:,1]= Ymean[1]
-    Y[:,3]= Ymean[1]
     for i in range(len(group)):
         data[group[i]]['x'] = X[i, :].tolist()
-        data[group[i]]['y'] = Y[i, :].tolist()
+
+def normalize_mouth(data, lips):
+    group= ['#lips:' + pos for pos in lips]
+    X= numpy.array([data[pos]['x'] for pos in group], dtype='f')
+    X[1,:] = [250,0,0,0] - X[1,:]
+    Xna= X[:,0]-X[:,2]/10
+    X0= numpy.mean(Xna)
+    X[:,0]= X[:,0] + numpy.round(X0 - Xna)
+    Xmean = numpy.mean(X, axis=0)
+    X[:,1]= Xmean[1]
+    X[:,2]= Xmean[2]
+    X[:,3]= Xmean[3]
+    X[1,:] = [250,0,0,0] - X[1,:]
+    for i in range(len(group)):
+        data[group[i]]['x'] = X[i, :].tolist()
+
+
+def normalize(data):
+    normalize_eye_right_corner(data)
+    align_y(data, ['#lips:%d' % pos for pos in [1,2,3,6,7]])
+    align_y(data, ['#left-eye-outline:' + pos for pos in ['6','1','2','4','3a','3b','5a','5b']])
+    normalize_mouth(data, ['2', '6'])
+    normalize_mouth(data, ['3', '7'])
     return data
 
 

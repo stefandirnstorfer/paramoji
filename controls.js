@@ -46,7 +46,7 @@ function controls_svg(X) {
             if (c.show) {
                 //!c[3].match(/shadow/) ? '' :
                 result = result +
-                    '<circle r="3" cx="?" cy="?" transform="translate(?) rotate(?)" fill-opacity="0.1" stroke-width="0.1" stroke="black" onmousedown="dragstart(evt, \'?\')"/>'
+                    '<circle r="3" cx="?" cy="?" transform="translate(?) rotate(?)" fill="gray" fill-opacity="0.3" stroke-width="0.1" stroke="gray" onmousedown="dragstart(evt, \'?\')"/>'
                         .replace(/\?/, X(emoticon_data[c.index]))
                         .replace(/\?/, X(emoticon_data[c.index + 1]))
                         .replace(/\?/, key.match(/left-eye-outline|lid-shadow/) ? "90," + X(emoticon_data[0]) : "0,0")
@@ -59,6 +59,7 @@ function controls_svg(X) {
 }
 
 function dragstart(event, key) {
+    console.log(key)
     const m= event.target.getScreenCTM().inverse();
     const drag= (event) => {
         const x= event.clientX * m.a + event.clientY * m.c + m.e;
@@ -115,8 +116,10 @@ async function normalize() {
         contentType: 'application/json'
     });
     for (key in data) {
-        controls[key].persist(data[key].x, data[key].y)
-        controls[key].commit()
+        if (key.match(/^#/)) {
+            controls[key].persist(data[key].x, data[key].y);
+            controls[key].commit()
+        }
     }
     refresh()
 }
