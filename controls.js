@@ -67,43 +67,58 @@ function dragstart(event, key) {
         refresh()
     };
     const position = [state.valence/50-1, state.arousal/50-1, state.potency/50-1, state.contempt/100];
-    const dragend= () => {
+    const dragend= async () => {
         window.removeEventListener('mousemove', drag);
         window.removeEventListener('mouseup', dragend);
-        Promise.all([
-            $.ajax({
-                url: "http://localhost:5555/update",
-                type: "POST",
-                data: JSON.stringify({
-                    current: controls[key].x,
-                    position: position,
-                    target: emoticon_data[controls[key].index][0]
+        try {
+            const result= await Promise.all([
+                $.ajax({
+                    url: "http://localhost:5555/update",
+                    type: "POST",
+                    data: JSON.stringify({
+                        current: controls[key].x,
+                        position: position,
+                        target: emoticon_data[controls[key].index][0]
+                    }),
+                    dataType: "json",
+                    contentType: 'application/json'
                 }),
-                dataType: "json",
-                contentType: 'application/json'
-            }),
-            $.ajax({
-                url: "http://localhost:5555/update",
-                type: "POST",
-                data: JSON.stringify({
-                    current: controls[key].y,
-                    position: position,
-                    target: emoticon_data[controls[key].index + 1][0]
-                }),
-                dataType: "json",
-                contentType: 'application/json'
-            })
-        ]).then((result) => {
+                $.ajax({
+                    url: "http://localhost:5555/update",
+                    type: "POST",
+                    data: JSON.stringify({
+                        current: controls[key].y,
+                        position: position,
+                        target: emoticon_data[controls[key].index + 1][0]
+                    }),
+                    dataType: "json",
+                    contentType: 'application/json'
+                })]);
             controls[key].persist(result[0], result[1])
-        }, (error) => {
+        } catch(e) {
             console.log('resetting')
-        }).then(() => {
-            controls[key].commit();
-            refresh();
-        })
+        }
+        controls[key].commit();
+        await normalize();
     };
     window.addEventListener('mousemove', drag);
     window.addEventListener('mouseup', dragend);
+}
+
+async function normalize() {
+    console.log("Normalizing")
+    const data= await $.ajax({
+        url: "http://localhost:5555/normalize",
+        type: "POST",
+        data: JSON.stringify(controls),
+        dataType: "json",
+        contentType: 'application/json'
+    });
+    for (key in data) {
+        controls[key].persist(data[key].x, data[key].y)
+        controls[key].commit()
+    }
+    refresh()
 }
 
 function save() {

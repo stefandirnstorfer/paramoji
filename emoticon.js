@@ -7,20 +7,22 @@ const emoticon_data=[
     // left-eye-outline
     [127, -50, -80,  20],
     [0, -200, 0, 200],
-    copyX(11, 2), // M
-    "#left-eye-outline:1", [  26,   6,  75,  -4], [  -2,  14, -15, -12],
-    "#left-eye-outline:2", [  17,  -2,   0,  -7], [   7,   4,  74,  -7],
-    "#left-eye-outline:3", [  -6,   2, -46,  17], [  14,-147,  99, -17],
-    "#left-eye-outline:4", [ -27,  22, -21,  -4], [   1, -10,  15,  12],
-    "#left-eye-outline:5", [  -7, -21, -69,  19], [ -12,-143,-116,   1],
-    "#left-eye-outline:6", [  17,  12,  -8,  -4], [  -9,  13, -87,  -2],
+    copyX(15, 2), // M
+    "#left-eye-outline:1", [  23,   9,  72,   1], [   0,  13,  -5,  13],
+    "#left-eye-outline:2", [  17,   9,   9,   1], [   8,  13,  81,  13],
+    "#left-eye-outline:3a", [   3,  18, -37, -11], [  11,-136, 132,  17],
+    "#left-eye-outline:3b", [ -20,   2, -87,  -8], [   8,-138,  74,  10],
+    "#left-eye-outline:4", [ -28,  21, -37, -20], [   0,   7,  -2,  -4],
+    "#left-eye-outline:5a", [ -20,   8, -44,  -7], [  -6,-110, -70,  -1],
+    "#left-eye-outline:5b", [   1,   2, -35,   3], [ -13,-156, -91,  26],
+    "#left-eye-outline:6", [  16,   9,   0,   1], [  -9,  13, -95,  13],
     // left-lens
     [  0,   0,   0,  20], // #left-lens
     [  4,   0,  30,   0], // #pupil[radius]
     [  2,   15,  5,   0], // #glare[radius]
     // left-lid-shadow
     /* 35 */              [ -15,-100,   0,   0],
-    "#left-lid-shadow:2", [  -2,  20,   9, -25], [ -13, -92,-109,  42],
+    "#left-lid-shadow:2", [  -2,  21,  -5,  -6], [ -12, -81, -81,  47],
     /* -40 */             [   5, -50,   0,   0],
     // right-eye
     [70, 0, 0, -40],
@@ -30,7 +32,7 @@ const emoticon_data=[
     /* 125 */             copyX(-5,1 ),
     // left-eye-brow
     "#left-eye-brow:1", [ 104,  10,  26, 122], [ 102,-116,-157, 229],
-    "#left-eye-brow:2", [  84,  -6,   1,  78], [ 102,-151,-153,  92],
+    "#left-eye-brow:2", [  85,   4,   8,  83], [ 102,-158,-151,  94],
     "#left-eye-brow:3", [  63,   1, -19,  58], [ 102, -41,-101, -49],
     [  4, -10,  10, 10],
     // teeth
@@ -39,14 +41,14 @@ const emoticon_data=[
     // lips
     "#lips:1", [ 164,  29,  11,   3], [ 189,-164,  -9,  24],
     "#lips:2", [ 156,  27,  26, -36], [ 197, -13,  19,   8],
-    "#lips:3", [ 144,  41,  -7, -30], [ 199,  23,  23,   4],
+    "#lips:3", [ 143,  49, -11, -38], [ 199,  17,  26,  10],
     /* 125 */             copyX(-1, 1),
     mirrorX(-5),
     mirrorX(-9),
-    "#lips:6", [  97,   0,  -5,  32], [ 188,  19, -86,   0,-200],
+    "#lips:6", [  92,  31,  25,  22], [ 188, -23, -62,  -9,-345],
     "#lips:7", [ 110,  -8,  -2,  10], [ 186,  24, -92,   5],
     /* 125 */             copyX(-1, 1),
-    "mirror#lips:6", [ 153,   0,   5, -32], [ 188,  19, -86,   0],
+    "mirror#lips:6", [ 158, -31, -25, -22], [ 188, -23, -62,  -9],
     copyX(-18, 2),
     // wrinkle-left-brow
     "#wrinkle-left-brow:1", [ 105,  12,  31,  64], [  94, -64,-157, 131],
@@ -100,7 +102,7 @@ function emoticon_svg(v, a, p, c) {
       '  </g>',
       '  <g id="eyes" transform="translate(90,?)">',
       '    <g id="left-eye">',
-      '      <path transform="rotate(?)" d="M ?,? Q ?,? ?,? ?,? ?,? ?,? ?,? Z" id="left-eye-outline" fill="white" stroke="black"/>',
+      '      <path transform="rotate(?)" d="M ?,? Q ?,? ?,? C ?,? ?,? ?,? ?,? ?,? ?,? Z" id="left-eye-outline" fill="white" stroke="black"/>',
       '      <g clip-path="url(#clipPath-left-eye)" id="left-eyeball">',
       '        <g id="left-lens" transform="translate(?,0)">',
       '          <circle r="9" fill="#9d4922" id="iris"/>',

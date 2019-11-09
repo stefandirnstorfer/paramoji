@@ -1,10 +1,42 @@
 import http.server
 import json
 import numpy
+import math
 
-PORT_NUMBER = 5555
 
-def process(data):
+def normalize(data):
+    print("Normalizing")
+    group= ['#left-eye-outline:' + pos for pos in ['6','1','2']]
+    X= numpy.array([data[pos]['x'] for pos in group], dtype='f')
+    Y= numpy.array([data[pos]['y'] for pos in group], dtype='f')
+    print(X)
+    Xmean = numpy.mean(X, axis=0)
+    Ymean = numpy.mean(Y, axis=0)
+    Xna= X[:,0]-X[:,2]/10
+    Yna= Y[:,0]-Y[:,2]/10
+    X0= numpy.mean(Xna)
+    Y0= numpy.mean(Yna)
+    X[:,0]= X[:,0] + math.round(X0 - Xna)
+    Y[:,0]= Y[:,0] + math.round(Y0 - Yna)
+    Xmean = numpy.mean(X, axis=0)
+    Ymean = numpy.mean(Y, axis=0)
+    Xna= X[:,0]-X[:,2]/10
+    Yna= Y[:,0]-Y[:,2]/10
+    X0= numpy.mean(Xna)
+    Y0= numpy.mean(Yna)
+    X[:,2]= X[:,2] + 10*math.round(X0 - Xna)
+    Y[:,2]= Y[:,2] + 10*math.round(Y0 - Yna)
+    X[:,1]= Xmean[1]
+    X[:,3]= Xmean[3]
+    Y[:,1]= Ymean[1]
+    Y[:,3]= Ymean[1]
+    for i in range(len(group)):
+        data[group[i]]['x'] = X[i, :].tolist()
+        data[group[i]]['y'] = Y[i, :].tolist()
+    return data
+
+
+def minimpact(data):
     n= len(data['current'])-1
     ticks = [[-1.0, 0.0, 1.0]]*3 + [[0.0, 1.0]]*(n-3)
     X = numpy.stack(numpy.meshgrid(*ticks), -1).reshape(-1, n)
@@ -35,6 +67,7 @@ def save(data):
     f.close()
     return {"status" : "SUCCESS"}
 
+
 class myHandler(http.server.BaseHTTPRequestHandler):
 
     def do_OPTIONS(self):
@@ -49,9 +82,11 @@ class myHandler(http.server.BaseHTTPRequestHandler):
         data = json.loads(post_body)
         result = None
         if self.path == "/update":
-            result= process(data)
+            result= minimpact(data)
         if self.path == "/save":
             result= save(data)
+        if self.path == "/normalize":
+            result= normalize(data)
         self.send_response(200)
         self.send_header("Content-type", "application/json")
         self.send_header('Access-Control-Allow-Origin', '*')
@@ -59,6 +94,7 @@ class myHandler(http.server.BaseHTTPRequestHandler):
         self.wfile.write(json.dumps(result).encode())
 
 try:
+    PORT_NUMBER = 5555
     server = http.server.HTTPServer(('', PORT_NUMBER), myHandler)
     print ('Started httpserver on port ' , PORT_NUMBER)
 
