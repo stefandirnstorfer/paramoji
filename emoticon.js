@@ -3,20 +3,22 @@ const copyX = (di, len) => (data,i) => range(len).map(offset => data[i+di+offset
 const mirrorX = (di) => (data,i) => [250 - data[i+di], data[i+di+1]];
 
 
+DY=0
+DYA=0
 const emoticon_data=[
     // left-eye-outline
     [127, -50, -80,  20],
     [0, -200, 0, 200],
     copyX(17, 2), // M
-    "#left-eye-outline:1a", [  23,   2,  68,   1], [  -5,  24, -45,  34],
-    "#left-eye-outline:1b", [  22,   2,  59,   1], [   2,  14,  26,  14],
-    "#left-eye-outline:2", [  18,   2,  20,   1], [   7,  14,  76,  14],
-    "#left-eye-outline:3a", [   5,  12,  -6, -10], [  11,-120, 116,  31],
-    "#left-eye-outline:3b", [ -21,   0, -80,  -6], [   9,-137,  96,   9],
-    "#left-eye-outline:4", [ -28,  19, -40, -20], [   1,  17,  16,  -5],
-    "#left-eye-outline:5a", [ -23,  -4, -68, -37], [  -6,-127, -63,  -1],
-    "#left-eye-outline:5b", [   2, -14, -27, -29], [ -13,-131,-125,  19],
-    "#left-eye-outline:6", [  18,   2,  17,   1], [  -9,   2, -85,  24],
+    "#left-eye-outline:1a", [  23,   2,  68,   1], [  -4,  24, -45,  34],
+    "#left-eye-outline:1b", [  22,   2,  59,   1], [   2,  14,  25,  14],
+    "#left-eye-outline:2", [  18,   2,  20,   1], [   7,  14,  75,  14],
+    "#left-eye-outline:3a", [   5,  12,  -6, -10], [  11,-120, 115,  31],
+    "#left-eye-outline:3b", [ -21,   0, -80,  -6], [   9,-137,  95,   9],
+    "#left-eye-outline:4", [ -28,  19, -40, -20], [   1,  17,  15,  -5],
+    "#left-eye-outline:5a", [ -23,  -4, -68, -37], [  -6,-127, -59,  -1],
+    "#left-eye-outline:5b", [   2, -14, -27, -29], [ -12,-131,-125,  19],
+    "#left-eye-outline:6", [  18,   2,  17,   1], [  -8,   2, -85,  24],
     // left-lens
     [  0,   0,   0,  20], [  0,   -30,   0,  0],// #left-lens
     [  4,   0,  30,   0], // #pupil[radius]
@@ -37,19 +39,19 @@ const emoticon_data=[
     "#left-eye-brow:3", [  62,  21, -39,  58], [ 103, -58, -84, -49],
     [  4, -10,  10, 10],
     // teeth
-    [ 31,   20,  20,   0],
-    [  0,    0, -60,   0],
+    [ 27,   50,  20,   0],
+    [ -2,    20, -60,   0],
     // lips
-    "#lips:1", [ 164,  25,  44,   0], [ 183,-156, -25,   1],
-    "#lips:2", [ 156,  25,  67, -50], [ 190, -57,  38,  -4],
-    "#lips:3", [ 144,   3,  53, -55], [ 191, -12,  55,  10],
+    "#lips:1", [ 164,  25,  44,   0], [ 188,-116, -27,   1],
+    "#lips:2", [ 156,  25,  67, -50], [ 194, -17,  39,  -4],
+    "#lips:3", [ 144,   3,  53, -55], [ 196,  28,  53,  10],
     /* 125 */             copyX(-1,1),
     mirrorX(-5),
     mirrorX(-9),
-    "#lips:6", [  93, -25, -67,  50], [ 180, -56, -62,   4,-327],
-    "#lips:7", [ 107,  -3, -53,  55], [ 180, -11, -62,   8,-100],
-    /* 125 */             [  180, -11, -62,   8, -50],
-    "mirror#lips:6", [ 157,  25,  67, -50], [ 180, -56, -62,   4],
+    "#lips:6", [  93, -25, -67,  50], [ 184, -16, -61,   4,-327],
+    "#lips:7", [ 107,  -3, -53,  55], [ 184,  29, -61,   8,-100],
+    /* 125 */             [  184, 29, -62,   8, -50],
+    "mirror#lips:6", [ 157,  25,  67, -50], [ 184, -16, -61,   4],
     copyX(-18, 2),
     // wrinkle-left-brow
     "#wrinkle-left-brow:1", [ 105,  12,  31,  64], [  94, -64,-157, 131],
@@ -71,7 +73,7 @@ const emoticon_data=[
     [161,  -70, -80,  -0],
     "#nose:6", [ 140,  10,   0,   0], [ 163, -60, -80,   0],
     "#nose:5", [ 143,   1,  -3,  -3], [ 159, -58, -78,   9],
-    "#nose:8", [ 136,   9, -10,  -2], [ 141, -39, -67,  91]
+    "#nose:8", [ 136,   9, -10,  -2], [ 141, -39, -67,  91],
 ];
 
 function emoticon_svg(v, a, p, c) {
@@ -138,7 +140,7 @@ function emoticon_svg(v, a, p, c) {
       '      <g id="upper-teeth" transform="translate(0,?)">',
       '        <use transform="matrix(1,0.14,0,1,-24,-18)" href="#tooth"/>',
       '        <use transform="matrix(1,0.05,0,1,-12,-6)" href="#tooth"/>',
-      '        <rect height="24" id="tooth" rx="2" ry="2" fill="white" stroke="black" width="10" x="118" y="165"/>',
+      '        <rect height="20" id="tooth" rx="2" ry="2" fill="white" stroke="black" width="10" x="118" y="169"/>',
       '        <use transform="matrix(1,-0.05,0,1,12,6)" href="#tooth"/>',
       '        <use transform="matrix(1,-0.14,0,1,24,16)" href="#tooth"/>',
       '      </g>',
