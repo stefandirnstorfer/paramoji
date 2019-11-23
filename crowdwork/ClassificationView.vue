@@ -1,5 +1,5 @@
 <template lang="pug">
-    .root
+    .root(v-if="campaignId && workerId")
         .qualify.main(v-if="mode=='QUALIFY'")
             h2.title Qualification
             div.image(style="background-image:url(qualifyImage.png)")
@@ -28,7 +28,7 @@
                 button.btn.btn-secondary.disabled(v-if="currentTask.touches <=2") Continue
         .final-check.main(v-if="mode=='CHECK'")
             h2.title Final check
-            .big-view
+            .big-view.work-list
                 .work-check(v-for="(task,i) in work.items" @click="edit(i)")
                     .image.btn(:style="image(task)")
                     emoticon-display.btn(:state="task.state")
@@ -44,7 +44,12 @@
             .big-view
                 div.text-center
                     emoticon-display(style="height:20vh; overflow:hidden" :state="{valence: 90, arousal:30, potency: 60, contempt: 0}")
-                p Congratulation! You completed your task.
+                .card
+                    .card-header.bg-primary.text-white Congratulation! You completed your task.
+                    .card-body This is your confirmation key
+                div.text-secondary.mt-3 Work result:
+                    br
+                    | {{ work }}
 </template>
 
 <script>
@@ -55,6 +60,7 @@ import * as d3 from 'd3'
 const TASK_LEN= 5;
 
 export default {
+    props: ['campaignId', 'workerId'],
     data() {
         return {
             qualifyState: {valence: 50, arousal:50, potency: 50, contempt: 0},
@@ -63,7 +69,9 @@ export default {
             work: {
                 items: [],
                 startTime: Date.now(),
-                endTime: 0
+                endTime: 0,
+                campaignId: this.campaignId,
+                workerId: this.workerId
             },
             complete: false,
             finalCheck: false,
@@ -187,10 +195,13 @@ export default {
     grid-row: 2 / 5;
     grid-column: 1 / 3;
     display: grid;
-    grid-template-columns: repeat(auto-fill, 330px);
-    justify-content: start;
     overflow-y: auto;
     padding: 3ex;
+}
+
+.work-list {
+    grid-template-columns: repeat(auto-fill, 330px);
+    justify-content: start;
 }
 
 .work-check {
