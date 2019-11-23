@@ -7,7 +7,7 @@ module.exports = function(env, argv) {
     const config = {
         entry: './main.js',
         output: {
-            path: path.resolve(__dirname, './build/front'),
+            path: path.resolve(__dirname, '.'),
             publicPath: '/emoticons',
             filename: 'build.js'
         },
@@ -61,7 +61,7 @@ module.exports = function(env, argv) {
         plugins: [
             new VueLoaderPlugin(),
             new webpack.DefinePlugin({
-              IMAGE_BASE_URL: JSON.stringify("http://localhost:8111")
+              IMAGE_BASE_URL: JSON.stringify("http://h2615096.stratoserver.net/emoticon-data")
             })
         ],
         devtool: '#eval-source-map',

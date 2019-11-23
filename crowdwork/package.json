@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --open --hot --port 8081 --mode development"
+    "dev": "webpack-dev-server --open --hot --port 8081 --mode development",
+    "build": "webpack --mode production --progress --hide-modules"
   },
   "author": "",
   "license": "ISC",

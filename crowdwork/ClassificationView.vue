@@ -4,7 +4,7 @@
             h2.title Qualification
             div.image(style="background-image:url(qualifyImage.png)")
             div.text-center
-                p(v-if="!qualified") Match the emotion expressed by this face as good as possible. (Training)
+                p(v-if="!qualified") Match the emotional expression as good as possible. (Training)
                 h2(v-if="qualified") Matched
             emoticon-display.display(:state="qualifyState")
             div.controls
@@ -16,7 +16,8 @@
         .at-work.main(v-if="mode=='EDIT'")
             h2.title Emotion classification (step {{currentIndex +1}}/{{work.items.length}})
             div.image(:style="image(currentTask)")
-            div.text-center Match the emotion expressed by this face as good as possible.
+            div.text-center
+                | Match the emotional expression as good as possible.
             emoticon-display.display(:state="currentTask.state")
             div.controls
                 emotion-controls(v-model="currentTask.state" @change="touch(currentTask)")
@@ -51,6 +52,8 @@ import EmotionControls from './EmotionControls'
 import EmoticonDisplay from './EmoticonDisplay'
 import * as d3 from 'd3'
 
+const TASK_LEN= 5;
+
 export default {
     data() {
         return {
@@ -69,7 +72,7 @@ export default {
     },
     async created() {
         const data = await d3.csv(IMAGE_BASE_URL+"/selection.csv")
-        for (let i = 0; i<5; ++i) {
+        for (let i = 0; i< TASK_LEN; ++i) {
             const pick= Math.floor(Math.random()*data.length)
             this.work.items.push({
                 file: data[pick].file,
@@ -80,6 +83,7 @@ export default {
                     contempt: 0
                 },
                 touches: 0,
+                visits: 0,
                 startTime: 0
             });
             data.splice(pick, 1)
@@ -119,11 +123,12 @@ export default {
             if (this.currentTask) {
                 this.currentTask.endTime= Date.now()
             }
-            if (value < this.work.items.length) {
+            if (value < TASK_LEN) {
                 this.currentTask = this.work.items[this.currentIndex]
                 if (this.currentTask.touches == 0) {
                     this.currentTask.startTime = Date.now()
                 }
+                this.currentTask.visits++
             } else {
                 this.mode="CHECK"
             }
@@ -137,7 +142,6 @@ export default {
                 Math.pow(this.qualifyState.potency-77,2) +
                 Math.pow(this.qualifyState.contempt-19,2)
             )
-            console.log(dist)
             return dist < 15
         }
     },
