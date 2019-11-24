@@ -61,7 +61,7 @@ module.exports = function(env, argv) {
         plugins: [
             new VueLoaderPlugin(),
             new webpack.DefinePlugin({
-              IMAGE_BASE_URL: JSON.stringify("http://h2615096.stratoserver.net/emoticon-data")
+                BASE_URL: JSON.stringify("http://h2615096.stratoserver.net")
             })
         ],
         devtool: '#eval-source-map',

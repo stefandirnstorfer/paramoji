@@ -1,7 +1,7 @@
 <template lang="pug">
     .root(v-if="campaignId && workerId")
         .qualify.main(v-if="mode=='QUALIFY'")
-            h2.title Qualification
+            h2.title Training
             div.image(style="background-image:url(qualifyImage.png)")
             div.text-center
                 p(v-if="!qualified") Match the emotional expression as good as possible. (Training)
@@ -14,7 +14,7 @@
                 button.btn.btn-primary(@click="edit(0)" v-if="qualified") Start
                 button.btn.btn-secondary.disabled(v-if="!qualified") Start
         .at-work.main(v-if="mode=='EDIT'")
-            h2.title Emotion classification (step {{currentIndex +1}}/{{work.items.length}})
+            h2.title Step {{currentIndex +1}}/{{work.items.length}}
             div.image(:style="image(currentTask)")
             div.text-center
                 | Match the emotional expression as good as possible.
@@ -24,7 +24,7 @@
             div.text-left.m-3
                 button.btn.btn-outline-primary.mr-1(@click="back" v-if="currentIndex>0 && !complete") Back
             div.text-right.m-3
-                button.btn.btn-primary(@click="next" v-if="currentTask.touches > -2") Continue
+                button.btn.btn-primary(@click="next" v-if="currentTask.touches > 2") Continue
                 button.btn.btn-secondary.disabled(v-if="currentTask.touches <=2") Continue
         .final-check.main(v-if="mode=='CHECK'")
             h2.title Final check
@@ -46,7 +46,7 @@
                     emoticon-display(style="height:20vh; overflow:hidden" :state="{valence: 90, arousal:30, potency: 60, contempt: 0}")
                 .card
                     .card-header.bg-primary.text-white Congratulation! You completed your task.
-                    .card-body This is your confirmation key
+                    .card-body.display-4 {{ workConfirmation }}
                 div.text-secondary.mt-3 Work result:
                     br
                     | {{ work }}
@@ -55,12 +55,13 @@
 <script>
 import EmotionControls from './EmotionControls'
 import EmoticonDisplay from './EmoticonDisplay'
+import axios from 'axios'
 import * as d3 from 'd3'
 
-const TASK_LEN= 5;
+const TASK_LEN= 15;
 
 export default {
-    props: ['campaignId', 'workerId'],
+    props: ['campaignId', 'workerId', 'taskId'],
     data() {
         return {
             qualifyState: {valence: 50, arousal:50, potency: 50, contempt: 0},
@@ -71,16 +72,20 @@ export default {
                 startTime: Date.now(),
                 endTime: 0,
                 campaignId: this.campaignId,
-                workerId: this.workerId
+                workerId: this.workerId,
+                taskId: this.taskId
             },
+            workConfirmation: "Waiting for server",
             complete: false,
             finalCheck: false,
             mode: "QUALIFY"
         }
     },
     async created() {
-        const data = await d3.csv(IMAGE_BASE_URL+"/selection.csv")
-        for (let i = 0; i< TASK_LEN; ++i) {
+        const data = await d3.csv(BASE_URL+"/emoticon-data/selection.csv")
+        const storedWork= sessionStorage.getItem(this.campaignId+'/'+this.workerId)
+        this.work.items = storedWork ? JSON.parse(storedWork): []
+        while (this.work.items.length < TASK_LEN) {
             const pick= Math.floor(Math.random()*data.length)
             this.work.items.push({
                 file: data[pick].file,
@@ -96,15 +101,17 @@ export default {
             });
             data.splice(pick, 1)
         }
+        await axios.get(BASE_URL+'/api/ping').catch(() => { throw new Error("Server not available")})
     },
     methods: {
         image(entry) {
-            return {'background-image': `url(${IMAGE_BASE_URL+"/"+entry.file})`}
+            return {'background-image': `url(${BASE_URL+"/emoticon-data/"+entry.file})`}
         },
         touch(item) {
             item.touches ++;
         },
         next() {
+            sessionStorage.setItem(this.campaignId+'/'+this.workerId, JSON.stringify(this.work.items))
             if (this.complete) {
                 this.currentIndex= this.work.items.length
             } else {
@@ -121,8 +128,10 @@ export default {
             this.currentIndex= i
             this.mode='EDIT'
         },
-        finish() {
+        async finish() {
             this.work.endTime= Date.now()
+            const response = await axios.post(BASE_URL+'/api', this.work)
+            this.workConfirmation = response.data.code
             this.mode='FINISHED'
         }
     },
@@ -180,7 +189,8 @@ export default {
 
 .controls {
     grid-row: 2 / 5;
-    grid-column: 2
+    grid-column: 2;
+    overflow-y: auto;
 }
 
 .image {

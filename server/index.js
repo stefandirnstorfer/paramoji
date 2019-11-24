@@ -25,12 +25,13 @@ app.post('/api/', async function (req, res) {
         console.log(JSON.stringify(req.body))
         const campaignId = req.body.campaignId;
         const workerId = req.body.workerId;
+        const taskId = req.body.taskId || "";
         if (!campaignId || !workerId) {
             res.end("rejected");
             return
         }
         await res.json({
-            code: getVCode(campaignId, workerId)
+            code: getVCode(campaignId, workerId, taskId)
         });
         await DB.collection('microworker').insertOne(req.body);
     } catch(e) {
@@ -47,10 +48,10 @@ app.listen(3000, function () {
     console.log('Listening on port 3000!');
 });
 
-function getVCode(campaign, worker) {
+function getVCode(campaign, worker, task) {
     var secret_key = "d1bc28bec2c909e1c8160bf50d46ead1aaccece1a67298885a47a4d3d130de46";
     var shasum = crypto.createHash('sha256');
-    shasum.update(campaign + worker + secret_key);
+    shasum.update(campaign + worker + task + secret_key);
     return 'mw-' + shasum.digest('hex');
 }
 

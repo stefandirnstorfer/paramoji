@@ -8,7 +8,7 @@ Vue.config.productionTip = false;
 new Vue({
     el: "#app",
     template: '<div><error-dialog :error.sync="error"></error-dialog>'+
-        '<classification-view v-if="campaignId" :campaignId="campaignId" :workerId="workerId"></classification-view>' +
+        '<classification-view v-if="campaignId" :campaignId="campaignId" :workerId="workerId" :taskId="taskId"></classification-view>' +
         '</div>',
     data() { return {
         error: "",
@@ -16,12 +16,13 @@ new Vue({
         workerId : ""
     }},
     created() {
-        const m= window.location.search.match(/^\?CAMPID=([^&]*)&WORKERID=(.*)/)
-        if (!m || m.length!=3) {
+        const m= window.location.search.match(/^\?CAMPID=(.*)&WORKERID=(.*)&TASKID=(.*)/)
+        if (!m || m.length < 4) {
             this.error= "Worker and campain id not found"
         } else {
             this.campaignId = m[1];
             this.workerId = m[2];
+            this.taskId = m[3];
         }
     },
     methods: {

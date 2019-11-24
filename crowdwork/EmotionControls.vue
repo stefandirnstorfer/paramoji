@@ -1,16 +1,25 @@
 <template lang="pug">
-    div
+    .slider-group
         h2 Controls
-        .text Valence: {{state.valence}}
-        input(style="width:90%;min:0;max:100;value:50" type="range" v-model="state.valence" @change="change")
-        .text Arousal: {{state.arousal}}
-        input(style="width:90%;min:0;max:100;value:50" type="range" v-model="state.arousal" @change="change")
-        .text Control: {{state.potency}}
-        input(style="width:90%;min:0;max:100;value:50" type="range" v-model="state.potency" @change="change")
-        .text Contempt: {{state.contempt}}
-        input(style="width:90%;min:0;max:100;value:50" type="range" v-model="state.contempt" @change="change")
+        .input.ml-1 How does the face feel?
+        .left Calm
+        .right Aroused
+        .input
+            input(style="min:0;max:100;value:50" type="range" v-model="state.arousal" @change="change")
+        .left Opposed
+        .right Favorable
+        .input
+            input(style="min:0;max:100;value:50" type="range" v-model="state.valence" @change="change")
+        .left Insecure
+        .right In control
+        .input
+            input(style="min:0;max:100;value:50" type="range" v-model="state.potency" @change="change")
+        .left Equal
+        .right Superior
+        .input
+            input(style="min:0;max:100;value:50" type="range" v-model="state.contempt" @change="change")
         hr
-        .text
+        .left
             button.btn.btn-outline-primary(@click="reset") Reset
 </template>
 
@@ -54,9 +63,25 @@ export default {
 };
 </script>
 
-<style>
-.text {
-    margin: 5px;
+<style scoped>
+.slider-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 90%;
+}
+h2, .input {
+    grid-column: 1 / 3;
+}
+.left {
+    grid-column: 1;
+    margin-left: 5px;
+}
+.right {
+    text-align: right;
+    grid-column: 2;
+}
+input {
+    width: 100%;
 }
 input[type=range]::-webkit-slider-runnable-track {
     width: 100%;
