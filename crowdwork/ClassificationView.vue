@@ -75,6 +75,7 @@ export default {
                 workerId: this.workerId,
                 taskId: this.taskId
             },
+            workId: [this.campaignId, this.workerId, this.taskId].join('/'),
             workConfirmation: "Waiting for server",
             complete: false,
             finalCheck: false,
@@ -83,8 +84,10 @@ export default {
     },
     async created() {
         const data = await d3.csv(BASE_URL+"/emoticon-data/selection.csv")
-        const storedWork= sessionStorage.getItem(this.campaignId+'/'+this.workerId)
-        this.work.items = storedWork ? JSON.parse(storedWork): []
+        const storedWork= sessionStorage.getItem(this.workId)
+        if (storedWork) {
+            this.work.items = JSON.parse(storedWork);
+        }
         while (this.work.items.length < TASK_LEN) {
             const pick= Math.floor(Math.random()*data.length)
             this.work.items.push({
@@ -111,7 +114,7 @@ export default {
             item.touches ++;
         },
         next() {
-            sessionStorage.setItem(this.campaignId+'/'+this.workerId, JSON.stringify(this.work.items))
+            sessionStorage.setItem(this.workId, JSON.stringify(this.work.items))
             if (this.complete) {
                 this.currentIndex= this.work.items.length
             } else {

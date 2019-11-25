@@ -6,8 +6,8 @@
         .right Aroused
         .input
             input(style="min:0;max:100;value:50" type="range" v-model="state.arousal" @change="change")
-        .left Opposed
-        .right Favorable
+        .left Rejected
+        .right Confirmed
         .input
             input(style="min:0;max:100;value:50" type="range" v-model="state.valence" @change="change")
         .left Insecure
