@@ -4,14 +4,17 @@ var state= {
     potency: 50,
     contempt: 0
 };
+var realfaces=[];
+IMG_BASE= 'http://h2615096.stratoserver.net/emoticon-data/';
 
-$(function () {
+$(async function () {
     $('input').bind('input', refresh);
     $('input').bind('change', refresh);
     for (var key in state) {
         var m= location.search.match(RegExp(key.substring(0,1) + "=([0-9]+)"));
         if (m) state[key]= parseInt(m[1]);
     }
+    realfaces = await d3.csv('bestrep.csv');
     redrawEmoticon();
 });
 
@@ -42,6 +45,22 @@ function redrawEmoticon() {
     emoticon = $('#emoticon .set-emoticon').each((i,elt) => {
         $(elt).html(eval($(elt).attr("data-content")))
     });
+
+    var dists = realfaces.map(row => ({
+        file : row.file,
+        dist: Math.sqrt(
+            Math.pow(row.arousal - state.arousal, 2) +
+            Math.pow(row.valence - state.valence, 2) +
+            Math.pow(row.potency - state.potency, 2) +
+            Math.pow(row.contempt - state.contempt, 2)
+        )
+    }))
+        .sort((a,b) => a.dist - b.dist)
+        .slice(0,5)
+    console.table(dists)
+    d3.selectAll('.realface')
+        .data(dists)
+        .attr("style", d => 'background-image:url('+IMG_BASE+d.file+')')
 }
 
 var oldtime = undefined;
