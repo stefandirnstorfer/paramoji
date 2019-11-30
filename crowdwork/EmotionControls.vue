@@ -15,7 +15,7 @@
         .input
             input(style="min:0;max:100;value:50" type="range" v-model="state.potency" @change="change")
         .left Equal
-        .right Superior
+        .right Arrogant
         .input
             input(style="min:0;max:100;value:50" type="range" v-model="state.contempt" @change="change")
         hr

@@ -8,8 +8,6 @@ var state= {
 $(function () {
     $('input').bind('input', refresh);
     $('input').bind('change', refresh);
-    $('#version-1').attr('checked', sessionStorage.getItem('#version-1'));
-    $('#version-2').attr('checked', sessionStorage.getItem('#version-1') ? sessionStorage.getItem('#version-2') : 'checked');
     for (var key in state) {
         var m= location.search.match(RegExp(key.substring(0,1) + "=([0-9]+)"));
         if (m) state[key]= parseInt(m[1]);
@@ -42,15 +40,7 @@ function redrawEmoticon() {
 
     var v=state.valence, a=state.arousal, p=state.potency, c=state.contempt;
     emoticon = $('#emoticon .set-emoticon').each((i,elt) => {
-        var key= $(elt).attr("data-if");
-        if ($(key).is(':checked')) {
-            $(elt).show();
-            sessionStorage.setItem(key, 'checked');
-            $(elt).html(eval($(elt).attr("data-content")))
-        } else {
-            sessionStorage.removeItem(key);
-            $(elt).hide();
-        }
+        $(elt).html(eval($(elt).attr("data-content")))
     });
 }
 

@@ -157,12 +157,12 @@ export default {
     computed: {
         qualified() {
             const dist= Math.sqrt(
-                Math.pow(this.qualifyState.valence-63,2) +
-                Math.pow(this.qualifyState.arousal-31,2) +
-                Math.pow(this.qualifyState.potency-77,2) +
-                Math.pow(this.qualifyState.contempt-19,2)
+                Math.pow(this.qualifyState.valence-78,2) +
+                Math.pow(this.qualifyState.arousal-29,2) +
+                Math.pow(this.qualifyState.potency-17,2) +
+                Math.pow(this.qualifyState.contempt-70,2)
             )
-            return dist < 15
+            return dist < 18
         }
     },
     components: {

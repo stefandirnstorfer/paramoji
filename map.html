@@ -15,7 +15,6 @@
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
-    <script src="emoticon_old.js"></script>
     <script src="emoticon.js"></script>
     <script src="controls.js"></script>
 <script>
@@ -26,7 +25,7 @@ var s15 = Math.sin(15/180*Math.PI);
 
 var id_prefix= 0;
 function myemo(v,a,p, old) {
-    let svg = (old ? emoticon_svg_old : emoticon_svg)(v, a, p, 0);
+    let svg = emoticon_svg(v, a, p, 0);
     let re = /id="([^"]+)"/g;
     let ids = [];
     let m; while(m = re.exec(svg)) ids.push(m[1]);
@@ -90,10 +89,6 @@ $(function() {
 });
 </script>
 <body>
-    <div style="display:absolute">
-        <button onclick="redraw(true)">Old</button>
-        <button onclick="redraw(false)">New</button>
-    </div>
     <div id="faces" style="height:100vh"></div>
 </body>
 </html>
