@@ -70,6 +70,13 @@ div#control {
     background-position: center;
 }
 
+#emoticon-face {
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    margin: 1em;
+}
+
 .shortcuts {
     width: 100%;
 }
