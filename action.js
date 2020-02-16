@@ -4,7 +4,6 @@ var state= {
     potency: 50,
     contempt: 0
 };
-var realfaces=[];
 IMG_BASE= '/emoticons/';
 
 $(async function () {
@@ -16,13 +15,6 @@ $(async function () {
         var m= location.search.match(RegExp(key.substring(0,1) + "=([0-9]+)"));
         if (m) state[key]= parseInt(m[1]);
     }
-    realfaces = await d3.csv('bestrep.csv', function(row) {
-        row.arousal = parseInt(row.arousal);
-        row.valence = parseInt(row.valence);
-        row.potency = parseInt(row.potency);
-        row.contempt = parseInt(row.contempt);
-        return row;
-    });
     redrawEmoticon();
 });
 
@@ -39,11 +31,6 @@ function setParam(v, a, p, c) {
     state.potency = p;
     state.contempt = c == undefined ? 0 : c;
     redrawEmoticon();
-}
-
-function setParamFromFace(index) {
-    var row= realfaces[index];
-    setParam(row.valence, row.arousal, row.potency, row.contempt)
 }
 
 function setLargeFace(flag) {
@@ -63,24 +50,6 @@ function redrawEmoticon() {
     var v=state.valence, a=state.arousal, p=state.potency, c=state.contempt;
     $('#emoticon-svg').html(emoticon_svg(v, a, p, c));
 
-    var dists = realfaces.map((row,index) => ({
-        file : row.file,
-        index: index,
-        dist: Math.sqrt(
-            Math.pow(row.arousal - state.arousal, 2) +
-            Math.pow(row.valence - state.valence, 2) +
-            Math.pow(row.potency - state.potency, 2) +
-            Math.pow(row.contempt - state.contempt, 2)
-        )
-    }))
-        .sort((a,b) => a.dist - b.dist)
-        .slice(0,5)
-    d3.selectAll('.realface')
-        .data(dists)
-        .attr("style", d => 'background-image:url('+IMG_BASE+d.file+')')
-        .on('click', d => setParamFromFace(d.index))
-    d3.select('#emoticon-face')
-        .style('background-image','url('+IMG_BASE+dists[0].file+')')
 }
 
 var oldtime = undefined;
