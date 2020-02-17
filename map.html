@@ -25,7 +25,7 @@ var s15 = Math.sin(15/180*Math.PI);
 
 var id_prefix= 0;
 function myemo(v,a,p, old) {
-    let svg = emoticon_svg(v, a, p, 0);
+    let svg = emoticon_svg(v, a, p, 0, 50);
     let re = /id="([^"]+)"/g;
     let ids = [];
     let m; while(m = re.exec(svg)) ids.push(m[1]);

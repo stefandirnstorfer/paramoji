@@ -34,6 +34,10 @@ const emoticon_data=[
     "#left-eye-brow:2", [  84,  21,  -9,  82], [ 102,-158,-151,  87],
     "#left-eye-brow:3", [  62,  21, -39,  58], [ 103, -58, -84, -49],
     [  4, -10,  10, 10],
+    // wrinkle-left-brow
+    "#wrinkle-left-brow:1", [ 105,  12,  31,  64], [  94, -64,-157, 131],
+    "#wrinkle-left-brow:2", [ 114, -17,  -1,  82], [ 101,-104,-193, 182],
+    "#wrinkle-left-brow:3", [ 113,   1,  -8,  52], [ 108,-117,-181, 197],
     // teeth
     [ 27,   50,  20,   0],
     [ -2,    20, -60,   0],
@@ -49,10 +53,6 @@ const emoticon_data=[
     /* 125 */             [  182,  12, -78, -16, -35],
     "mirror#lips:6", [ 153,  26,  92, -59], [ 184, -26, -67, -25],
     copyX(-25, 2),
-    // wrinkle-left-brow
-    "#wrinkle-left-brow:1", [ 105,  12,  31,  64], [  94, -64,-157, 131],
-    "#wrinkle-left-brow:2", [ 114, -17,  -1,  82], [ 101,-104,-193, 182],
-    "#wrinkle-left-brow:3", [ 113,   1,  -8,  52], [ 108,-117,-181, 197],
     // wrinkle-left-cheek
     "#wrinkle-left-cheek:1", [  72, -61, -52,  16,  -9], [ 187,-158, -18,   1,   6],
     "#wrinkle-left-cheek:2", [  84, -17, -39,  25, -95], [ 179, -47, -47,  22,-256],
@@ -82,9 +82,16 @@ while (i< emoticon_data.length) {
 console.log(JSON.stringify(emoticon_data.filter(x => typeof x != 'string'))
     .replace(/(.{60}[^]]*\],)/g, '$1\n'))
 
-function emoticon_svg(v, a, p, c) {
-  const X = C => [1, v/500-0.1, a/500-0.1, p/500-0.1, c/1000].reduce((a,b,i) => a + b*(C[i] || 0), 0);
-  var data = emoticon_data.map(X)
+function emoticon_svg(v, a, p, c, e) {
+  v= v/500-0.1;
+  a= a/500-0.1;
+  p= p/500-0.1;
+  c= c/1000;
+  e= e/50 - 1;
+  eplus = Math.max(0, e);
+  eminus = Math.min(0, e);
+  const X = C => [1, v, a, p, c].reduce((a,b,i) => a + b*(C[i] || 0), 0);
+  const X2 = (C,f) => [1, v, f*e*0.1 + (1-Math.abs(f*e))*a, p, c].reduce((a,b,i) => a + b*(C[i] || 0), 0);
   var index=0;
   return [
       '<svg height="100%" version="1.1" viewBox="0 0 250 250" width="100%" xmlns="http://www.w3.org/2000/svg">',
@@ -101,60 +108,73 @@ function emoticon_svg(v, a, p, c) {
       '  </defs>',
       '  <g id="head">',
       '    <path d="M 125,230 C 175,230 215,200 215,130 S 175,30 125,30 S 35,65 35,130 S 75,230 125,230 Z" fill="#e9c6afa0"/>',
-      '  </g>',
-      '  <g id="eyes" transform="translate(90,?)">',
-      '    <g id="left-eye">',
-      '      <path transform="rotate(?)" d="M ?,? C ?,? ?,? ?,? ?,? ?,? ?,? ?,? ?,? ?,? Z" id="left-eye-outline" fill="white" stroke="black"/>',
-      '      <g clip-path="url(#clipPath-left-eye)" id="left-eyeball">',
-      '        <g id="left-lens" transform="translate(?,?)">',
-      '          <circle r="9" fill="#9d4922" id="iris"/>',
-      '          <circle r="?" fill="black" id="pupil"/>',
-      '          <circle r="?" cx="-5" cy="-3" fill="white" id="glare"/>',
-      '        </g>',
-      '        <path d="M -40,-30 H 35 V ? Q ?,? -40,? Z" id="left-lid-shadow" opacity="0.25" fill="black"/>',
-      '      </g>',
-      '    </g>',
-      '    <g id="right-eye">',
-      '      <use id="right-eye-outline" href="#right-eye-outline"/>',
-      '      <g clip-path="url(#clipPath-right-eye)" id="right-eyeball">',
-      '        <use id="right-lens" x="?" href="#left-lens"/>',
-      '        <path d="M 35,-30 H 110 V? Q ?,? 35,? Z" id="right-lid-shadow" opacity="0.25" fill="black"/>',
-      '      </g>',
-      '    </g>',
-      '  </g>',
-      '  <path d="M ?,? Q ?,? ?,?" id="left-eye-brow" stroke-width="?" stroke="#292929" fill="none"/>' +
-      '  <use id="right-eye-brow" transform="matrix(-1,0,0,1,250,0)" href="#left-eye-brow"/>',
-      '  <g id="mouth">',
-      '    <g clip-path="url(#clipPath-mouth)" id="mouth-interior">',
-      '      <rect height="90" fill="black" id="mouth-background" width="120" x="65" y="140"/>',
-      '      <path d="M 94.8,211 C 94.5,191 111,190 127,189 145,188 158,193 158,211 137,211 116,211 94.8,211 Z" id="tongue" fill="#800f08"/>',
-      '      <g id="lower-teeth" transform="translate(0,?)">',
-      '        <use x="-24" href="#tooth"/>',
-      '        <use x="-12" href="#tooth"/>',
-      '        <use x="0" href="#tooth"/>',
-      '        <use x="12" href="#tooth"/>',
-      '        <use x="24" href="#tooth"/>',
-      '      </g>',
-      '      <g id="upper-teeth" transform="translate(0,?)">',
-      '        <use transform="matrix(1,0.14,0,1,-24,-18)" href="#tooth"/>',
-      '        <use transform="matrix(1,0.05,0,1,-12,-6)" href="#tooth"/>',
-      '        <rect height="20" id="tooth" rx="2" ry="2" fill="white" stroke="black" width="10" x="118" y="169"/>',
-      '        <use transform="matrix(1,-0.05,0,1,12,6)" href="#tooth"/>',
-      '        <use transform="matrix(1,-0.14,0,1,24,16)" href="#tooth"/>',
-      '      </g>',
-      '    </g>',
-      '    <path d="M ?,? C ?,? ?,? 125,? S ?,? ?,? C ?,? ?,? 125,? S ?,? ?,? Z" id="lips" fill="none" stroke="black"/>',
-      '  </g>',
-      '  <g id="wrinkles">',
-      '    <path d="M ?,? Q ?,? ?,?" id="wrinkle-left-brow" fill="none" stroke="black" stroke-width="0.5"/>',
-      '    <use id="wrinkle-right-brow" transform="matrix(-1,0,0,1,250,0)" href="#wrinkle-left-brow"/>',
-      '    <path d="M ?,? Q ?,? ?,?" id="wrinkle-left-cheek" fill="none" stroke="black" stroke-width="0.5"/>',
-      '    <path d="M ?,? Q ?,? ?,?" id="wrinkle-right-cheek" fill="none" stroke="black" stroke-width="0.5"/>',
-      '  </g>',
-      '  <g id="nose" transform="matrix(1,?,0,1,132,0) translate(-132,0)">',
-      '    <path d="M 123,? q -3,? ?,0 M 132,? Q 137,? ?,? T ?,? ?,?" id="nose-path" fill="none" stroke="black"/>',
-      '  </g>',
+      '  </g>'
+      ].join("\n").replace(/\?/g, () => X(emoticon_data[index++])) +
+      [
+          '  <g id="eyes" transform="translate(90,?)">',
+          '    <g id="left-eye">',
+          '      <path transform="rotate(?)" d="M ?,? C ?,? ?,? ?,? ?,? ?,? ?,? ?,? ?,? ?,? Z" id="left-eye-outline" fill="white" stroke="black"/>',
+          '      <g clip-path="url(#clipPath-left-eye)" id="left-eyeball">',
+          '        <g id="left-lens" transform="translate(?,?)">',
+          '          <circle r="9" fill="#9d4922" id="iris"/>',
+          '          <circle r="?" fill="black" id="pupil"/>',
+          '          <circle r="?" cx="-5" cy="-3" fill="white" id="glare"/>',
+          '        </g>',
+          '        <path d="M -40,-30 H 35 V ? Q ?,? -40,? Z" id="left-lid-shadow" opacity="0.25" fill="black"/>',
+          '      </g>',
+          '    </g>',
+          '    <g id="right-eye">',
+          '      <use id="right-eye-outline" href="#right-eye-outline"/>',
+          '      <g clip-path="url(#clipPath-right-eye)" id="right-eyeball">',
+          '        <use id="right-lens" x="?" href="#left-lens"/>',
+          '        <path d="M 35,-30 H 110 V? Q ?,? 35,? Z" id="right-lid-shadow" opacity="0.25" fill="black"/>',
+          '      </g>',
+          '    </g>',
+          '  </g>',
+          '  <path d="M ?,? Q ?,? ?,?" id="left-eye-brow" stroke-width="?" stroke="#292929" fill="none"/>' +
+          '  <use id="right-eye-brow" transform="matrix(-1,0,0,1,250,0)" href="#left-eye-brow"/>',
+          '  <path d="M ?,? Q ?,? ?,?" id="wrinkle-left-brow" fill="none" stroke="black" stroke-width="0.5"/>',
+          '  <use id="wrinkle-right-brow" transform="matrix(-1,0,0,1,250,0)" href="#wrinkle-left-brow"/>'
+      ].join("\n").replace(/\?/g, () => X2(emoticon_data[index++], -1)) +
+      [
+          '  <g id="mouth">',
+          '    <g clip-path="url(#clipPath-mouth)" id="mouth-interior">',
+          '      <rect height="90" fill="black" id="mouth-background" width="120" x="65" y="140"/>',
+          '      <path d="M 94.8,211 C 94.5,191 111,190 127,189 145,188 158,193 158,211 137,211 116,211 94.8,211 Z" id="tongue" fill="#800f08"/>',
+          '      <g id="lower-teeth" transform="translate(0,?)">',
+          '        <use x="-24" href="#tooth"/>',
+          '        <use x="-12" href="#tooth"/>',
+          '        <use x="0" href="#tooth"/>',
+          '        <use x="12" href="#tooth"/>',
+          '        <use x="24" href="#tooth"/>',
+          '      </g>',
+          '      <g id="upper-teeth" transform="translate(0,?)">',
+          '        <use transform="matrix(1,0.14,0,1,-24,-18)" href="#tooth"/>',
+          '        <use transform="matrix(1,0.05,0,1,-12,-6)" href="#tooth"/>',
+          '        <rect height="20" id="tooth" rx="2" ry="2" fill="white" stroke="black" width="10" x="118" y="169"/>',
+          '        <use transform="matrix(1,-0.05,0,1,12,6)" href="#tooth"/>',
+          '        <use transform="matrix(1,-0.14,0,1,24,16)" href="#tooth"/>',
+          '      </g>',
+          '    </g>'
+      ].join("\n").replace(/\?/g, () => X(emoticon_data[index++])) +
+      [
+          '    <path d="M ?,? C ?,? ?,? 125,? S ?,? ?,? C ?,? ?,? 125,? S ?,? ?,? Z" id="lips" fill="none" stroke="black"/>',
+          '  <g id="wrinkles">',
+          ] .join("\n").replace(/\?/g, () => X2(emoticon_data[index++],1)) +
+      [
+      ].join("\n").replace(/\?/g, () => X(emoticon_data[index++])) +
+      [
+          '    <path d="M ?,? Q ?,? ?,?" id="wrinkle-left-cheek" fill="none" stroke="black" stroke-width="0.5"/>',
+          '    <path d="M ?,? Q ?,? ?,?" id="wrinkle-right-cheek" fill="none" stroke="black" stroke-width="0.5"/>',
+          '  </g>',
+      ].join("\n").replace(/\?/g, () => X2(emoticon_data[index++],1)) +
+      [
+          '  <g id="nose" transform="matrix(1,?,0,1,132,0) translate(-132,0)">',
+          '    <path d="M 123,? q -3,? ?,0 M 132,? Q 137,? ?,? T ?,? ?,?" id="nose-path" fill="none" stroke="black"/>',
+          '  </g>'
+      ].join("\n").replace(/\?/g, () => X2(emoticon_data[index++],0.5)) +
+      ['  </g>',
       controls_svg && controls_svg(X) || '',
       '</svg>'
-    ].join("\n").replace(/\?/g, () => data[index++]);
+    ].join("\n").replace(/\?/g, () => X(emoticon_data[index++]));
 }
