@@ -42,7 +42,7 @@ function emoticon_svg(v, a, p, c) {
     }
 
     function eye(no) {
-      var a2= no==0 ? a : a*(1-c/2);
+      var a2= (no==0 ? a : a*(1-c/2));
       var k= -(20 * v*(2-v));
       var j= 20 * (1-v*v);
       var h= a2*k + (1-a2)*(k+j)/2

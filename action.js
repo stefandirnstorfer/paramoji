@@ -2,9 +2,9 @@ var state= {
     valence: 50,
     arousal: 50,
     potency: 50,
-    contempt: 0
+    contempt: 0,
+    expression: 50
 };
-IMG_BASE= '/emoticons/';
 
 $(async function () {
     $('input').bind('input', refresh);
@@ -25,11 +25,12 @@ function refresh() {
     redrawEmoticon();
 }
 
-function setParam(v, a, p, c) {
+function setParam(v, a, p, c, e) {
     state.valence = v;
     state.arousal = a;
     state.potency = p;
     state.contempt = c == undefined ? 0 : c;
+    state.expression = e == undefined ? 50 : e;
     redrawEmoticon();
 }
 
@@ -47,8 +48,8 @@ function redrawEmoticon() {
     }
     window.history.replaceState({}, "Emoticons", "?" + query.join("&"));
 
-    var v=state.valence, a=state.arousal, p=state.potency, c=state.contempt;
-    $('#emoticon-svg').html(emoticon_svg(v, a, p, c));
+    var v=state.valence, a=state.arousal, p=state.potency, c=state.contempt, e=state.expression;
+    $('#emoticon-svg').html(emoticon_svg(v, a, p, c, e));
 
 }
 
