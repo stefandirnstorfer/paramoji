@@ -1,9 +1,12 @@
-function emoticon_svg(v, a, p, c) {
+function emoticon_svg(v, a, p, c, e) {
     var id=0;
     a=a/100;
     v=v/100;
     p=p/100;
     c=c/100;
+    ee=Math.max(0,e/50-1);
+    es=Math.max(0,1-e/50);
+    e=e/100;
     function t(body,x,y,a) {
         return '<g transform="translate('+x+','+y+') rotate('+(a||0)+')">'+body+'</g>'
     }
@@ -38,11 +41,11 @@ function emoticon_svg(v, a, p, c) {
       for (var i=0; i<12; i++) data[2*i] += Math.sign(data[2*i]) *(36-h1)*scale(data[2*i+1])
       return '<path d="'+p13(data)+'" '+
         'transform="matrix(1,?,0,1,0,0)" '.replace('?', -c/5) +
-        'style="fill:#e9c6afa0; stroke-width:1px; stroke:black"/>'
+        'style="fill:#00000030; stroke-width:1px; stroke:black"/>'
     }
 
     function eye(no) {
-      var a2= (no==0 ? a : a*(1-c/2));
+      var a2= (no==0 ? a : a*(1-c/2)) * (1-ee)*(1+es/2);
       var k= -(20 * v*(2-v));
       var j= 20 * (1-v*v);
       var h= a2*k + (1-a2)*(k+j)/2
@@ -67,18 +70,19 @@ function emoticon_svg(v, a, p, c) {
     }
 
     function mouth() {
+      var a2=a*(1-es)*(1+ee/2);
       var s= 1+v*v/3;
       var k= -(20 * (1-v*v));
       var j= s*20 * v*(2-v);
-      var h= a*k + (1-a)*(k+j)/2
-      var l= a*j + (1-a)*(k+j)/2
-      var o= 5 + a*5;
+      var h= a2*k + (1-a2)*(k+j)/2
+      var l= a2*j + (1-a2)*(k+j)/2
+      var o= 5 + a2*5;
       var data = [
         15, 0, // M
-        15, h*2/3 + 2*a*c, //C
-        o,  h + 5*a*c,
+        15, h*2/3 + 2*a2*c, //C
+        o,  h + 5*a2*c,
         0, h - 2*c,
-        -o, h - (5 + 5*a)*c, // C
+        -o, h - (5 + 5*a2)*c, // C
         -15, h*2/3 - 15*c,
         -15, 0,
         -15, l*2/3,//C
@@ -89,7 +93,7 @@ function emoticon_svg(v, a, p, c) {
         15, 0
       ];
       for (var i=0; i<13; i++) {
-        data[2*i] *= 1+v*v/2;
+        data[2*i] *= (1+v*v/2)*(1-es/2);
       }
       var index=0;
       return t(clip(p13(data),
@@ -103,8 +107,8 @@ function emoticon_svg(v, a, p, c) {
       '  <g id="head" transform="scale('+(a/2.1+0.5)+')">' +
       head(v,a,p,c) +
       t(
-        t(eye(0), 18, 0, 30 - 60*p) +
-        t(eye(1), -18, 0, -30 + 60*p), 0, 25*(1-p) -26) +
+        t(eye(0), 18 + 10*(v-0.5)*(p-0.5), 0, 30 - 60*p) +
+        t(eye(1), -18 - 10*(v-0.5)*(p-0.5), 0, -30 + 60*p), 0, 25*(1-p) -26) +
       mouth() +
       '</g></svg>';
 }
