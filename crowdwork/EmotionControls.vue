@@ -18,6 +18,10 @@
         .right Superior
         .input
             input(style="min:0;max:100;value:50" type="range" v-model="state.contempt" @change="change")
+        .left Suppressed
+        .right Overwelmed
+        .input
+            input(style="min:0;max:100;value:50" type="range" v-model="state.expression" @change="change")
         hr
         .left
             button.btn.btn-outline-primary(@click="reset") Reset
@@ -42,7 +46,8 @@ export default {
                 valence: 50,
                 arousal: 50,
                 potency: 50,
-                contempt: 0
+                contempt: 0,
+                expression: 50
             }
         },
         changed() {

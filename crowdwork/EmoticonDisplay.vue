@@ -30,7 +30,8 @@ export default {
                 this.state.valence,
                 this.state.arousal,
                 this.state.potency,
-                this.state.contempt
+                this.state.contempt,
+                this.state.expression
             ))
         }
     },

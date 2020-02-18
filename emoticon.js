@@ -4,8 +4,8 @@ function emoticon_svg(v, a, p, c, e) {
     v=v/100;
     p=p/100;
     c=c/100;
-    ee=Math.max(0,e/50-1);
-    es=Math.max(0,1-e/50);
+    var ee=Math.max(0,e/50-1);
+    var es=Math.max(0,1-e/50);
     e=e/100;
     function t(body,x,y,a) {
         return '<g transform="translate('+x+','+y+') rotate('+(a||0)+')">'+body+'</g>'

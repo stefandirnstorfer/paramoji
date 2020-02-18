@@ -96,7 +96,8 @@ export default {
                     valence: 50,
                     arousal: 50,
                     potency: 50,
-                    contempt: 0
+                    contempt: 0,
+                    expression: 50
                 },
                 touches: 0,
                 visits: 0,

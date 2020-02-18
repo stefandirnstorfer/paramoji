@@ -1,94 +1,114 @@
-export function emoticon_svg(v, a, p, c) {
-    const X = C => [1, v/500-0.1, a/500-0.1, p/500-0.1, c/1000].reduce((a,b,i) => a + b*(C[i] || 0), 0);
-    const data = [[127,-50,-80,20],[0,-200,0,200],[18,-1,17,0],[-7,2,-65,24],[23,-1,68,0],
-        [-3,24,-25,34],[22,-1,63,0],[2,17,27,16],[18,-1,24,0],[7,19,77,13],
-        [6,7,-13,-16],[10,-112,107,32],[-21,34,-98,-6],[7,-170,79,10],[-27,6,-51,-2],
-        [0,-67,9,-11],[-21,30,-104,-4],[-6,-160,-55,8],[3,7,-48,-20],[-11,-125,-105,27],
-        [18,-1,17,0],[-7,2,-65,24],[0,0,0,20],[0,-30,0,0],[4,0,30,0],[2,15,5,0],
-        [-15,-100,0,0],[-3,28,-25,-10],[-11,-79,-63,40],[5,-50,0,0],[70,0,0,-40],
-        [-15,-100,0,0],[52,-35,-74,106],[-16,-86,-82,86],[5,-50,0,0],[104,2,26,115],
-        [103,-128,-159,211],[84,21,-9,82],[102,-158,-151,87],[62,21,-39,58],
-        [103,-58,-84,-49],[4,-10,10,10],[27,50,20,0],[-2,20,-60,0],[160,25,94,-3],
-        [188,-116,-27,-42],[154,26,92,-59],[194,-10,33,-28],[142,15,56,-42],
-        [196,20,53,-27],[196,20,53,-27],[96,-26,-92,59],[194,-10,33,-28],
-        [90,-25,-94,3],[188,-116,-27,-42],[97,-26,-92,59],[184,-26,-67,-25,-254],
-        [108,-15,-56,42],[182,12,-78,-16,-74],[182,12,-78,-16,-35],[153,26,92,-59],
-        [184,-26,-67,-25],[160,25,94,-3],[188,-116,-27,-42],[105,12,31,64],
-        [94,-64,-157,131],[114,-17,-1,82],[101,-104,-193,182],[113,1,-8,52],
-        [108,-117,-181,197],[72,-61,-52,16,-9],[187,-158,-18,1,6],[84,-17,-39,25,-95],
-        [179,-47,-47,22,-256],[97,-69,-20,15,64],[164,-68,-49,-1,-51],[178,61,52,-16],
-        [187,-158,-18,1],[166,17,39,-25],[179,-47,-47,22],[153,69,20,-15],
-        [164,-68,-49,-1],[0,0,0,0,3],[165,-50,-80,0],[-4,-20,-5,0],[-9,-30,-10,-20],
-        [165,-50,-80,0],[161,-70,-80,0],[140,10,0,0],[163,-60,-80,0],[143,1,-3,-3],
-        [159,-58,-78,9],[136,9,-10,-2],[141,-39,-67,91]].map(X);
-    return [
-        '<svg height="100%" version="1.1" viewBox="0 0 250 250" width="100%" xmlns="http://www.w3.org/2000/svg">',
-        '  <defs id="defs">',
-        '    <clipPath id="clipPath-left-eye">',
-        '      <use href="#left-eye-outline"/>',
-        '    </clipPath>',
-        '    <clipPath id="clipPath-right-eye">',
-        '      <use id="right-eye-outline" transform="matrix(-1,0,0,1,70,0)" href="#left-eye-outline"/>',
-        '    </clipPath>',
-        '    <clipPath id="clipPath-mouth">',
-        '      <use href="#lips"/>',
-        '    </clipPath>',
-        '  </defs>',
-        '  <g id="head">',
-        '    <path d="M 125,230 C 175,230 215,200 215,130 S 175,30 125,30 S 35,65 35,130 S 75,230 125,230 Z" fill="#e9c6afa0"/>',
-        '  </g>',
-        '  <g id="eyes" transform="translate(90,?)">',
-        '    <g id="left-eye">',
-        '      <path transform="rotate(?)" d="M ?,? C ?,? ?,? ?,? ?,? ?,? ?,? ?,? ?,? ?,? Z" id="left-eye-outline" fill="white" stroke="black"/>',
-        '      <g clip-path="url(#clipPath-left-eye)" id="left-eyeball">',
-        '        <g id="left-lens" transform="translate(?,?)">',
-        '          <circle r="9" fill="#9d4922" id="iris"/>',
-        '          <circle r="?" fill="black" id="pupil"/>',
-        '          <circle r="?" cx="-5" cy="-3" fill="white" id="glare"/>',
-        '        </g>',
-        '        <path d="M -40,-30 H 35 V ? Q ?,? -40,? Z" id="left-lid-shadow" opacity="0.25" fill="black"/>',
-        '      </g>',
-        '    </g>',
-        '    <g id="right-eye">',
-        '      <use id="right-eye-outline" href="#right-eye-outline"/>',
-        '      <g clip-path="url(#clipPath-right-eye)" id="right-eyeball">',
-        '        <use id="right-lens" x="?" href="#left-lens"/>',
-        '        <path d="M 35,-30 H 110 V? Q ?,? 35,? Z" id="right-lid-shadow" opacity="0.25" fill="black"/>',
-        '      </g>',
-        '    </g>',
-        '  </g>',
-        '  <path d="M ?,? Q ?,? ?,?" id="left-eye-brow" stroke-width="?" stroke="#292929" fill="none"/>' +
-        '  <use id="right-eye-brow" transform="matrix(-1,0,0,1,250,0)" href="#left-eye-brow"/>',
-        '  <g id="mouth">',
-        '    <g clip-path="url(#clipPath-mouth)" id="mouth-interior">',
-        '      <rect height="90" fill="black" id="mouth-background" width="120" x="65" y="140"/>',
-        '      <path d="M 94.8,211 C 94.5,191 111,190 127,189 145,188 158,193 158,211 137,211 116,211 94.8,211 Z" id="tongue" fill="#800f08"/>',
-        '      <g id="lower-teeth" transform="translate(0,?)">',
-        '        <use x="-24" href="#tooth"/>',
-        '        <use x="-12" href="#tooth"/>',
-        '        <use x="0" href="#tooth"/>',
-        '        <use x="12" href="#tooth"/>',
-        '        <use x="24" href="#tooth"/>',
-        '      </g>',
-        '      <g id="upper-teeth" transform="translate(0,?)">',
-        '        <use transform="matrix(1,0.14,0,1,-24,-18)" href="#tooth"/>',
-        '        <use transform="matrix(1,0.05,0,1,-12,-6)" href="#tooth"/>',
-        '        <rect height="20" id="tooth" rx="2" ry="2" fill="white" stroke="black" width="10" x="118" y="169"/>',
-        '        <use transform="matrix(1,-0.05,0,1,12,6)" href="#tooth"/>',
-        '        <use transform="matrix(1,-0.14,0,1,24,16)" href="#tooth"/>',
-        '      </g>',
-        '    </g>',
-        '    <path d="M ?,? C ?,? ?,? 125,? S ?,? ?,? C ?,? ?,? 125,? S ?,? ?,? Z" id="lips" fill="none" stroke="black"/>',
-        '  </g>',
-        '  <g id="wrinkles">',
-        '    <path d="M ?,? Q ?,? ?,?" id="wrinkle-left-brow" fill="none" stroke="black" stroke-width="0.5"/>',
-        '    <use id="wrinkle-right-brow" transform="matrix(-1,0,0,1,250,0)" href="#wrinkle-left-brow"/>',
-        '    <path d="M ?,? Q ?,? ?,?" id="wrinkle-left-cheek" fill="none" stroke="black" stroke-width="0.5"/>',
-        '    <path d="M ?,? Q ?,? ?,?" id="wrinkle-right-cheek" fill="none" stroke="black" stroke-width="0.5"/>',
-        '  </g>',
-        '  <g id="nose" transform="matrix(1,?,0,1,132,0) translate(-132,0)">',
-        '    <path d="M 123,? q -3,? ?,0 M 132,? Q 137,? ?,? T ?,? ?,?" id="nose-path" fill="none" stroke="black"/>',
-        '  </g>',
-        '</svg>'
-    ].join("\n").replace(/\?/g, () => data.shift());
+export function emoticon_svg(v, a, p, c, e) {
+   var id=0;
+   a=a/100;
+   v=v/100;
+   p=p/100;
+   c=c/100;
+   var ee=Math.max(0,e/50-1);
+   var es=Math.max(0,1-e/50);
+   e=e/100;
+   function t(body,x,y,a) {
+       return '<g transform="translate('+x+','+y+') rotate('+(a||0)+')">'+body+'</g>'
+   }
+   function p13(data) {
+       data.push(data[0]);
+       data.push(data[1]);
+       return 'M ?,? C ?,? ?,? ?,? ?,? ?,? ?,? ?,? ?,? ?,? ?,? ?,? ?,? Z'.replace(/\?/g, () => data.shift())
+   }
+   function clip(path, body) {
+     id += 1;
+     return '<defs><clipPath id="id-'+id+'-path"><use href="#id-'+id+'"/></clipPath></defs>' +
+       '<g clip-path="url(#id-'+id+'-path)">'+body+'</g>' +
+       '<path id="id-'+id+'" d="'+path+'" style="stroke-width:1px; stroke:black; fill:none"/>';
+   }
+   function head(v, a, p, c) {
+     var h1= 19 * v;
+     var data = [
+       36, 36, // M
+       36+h1, 36-h1, // C
+       36+h1, -36+h1,
+       36, -36,
+       36-h1, -36-h1, // C
+       -(36-h1), -36-h1,
+       -36, -36,
+       -36-h1,-36+h1, // C
+       -36-h1,36-h1,
+       -36,36,
+       -(36-h1),36+h1, // C
+       36-h1,36+h1
+       ];
+     var scale = x => -(2*p-1)*(x/(36+h1) + (p-0.5)/2)/1.25
+     for (var i=0; i<12; i++) data[2*i] += Math.sign(data[2*i]) *(36-h1)*scale(data[2*i+1])
+     return '<path d="'+p13(data)+'" '+
+       'transform="matrix(1,?,0,1,0,0)" '.replace('?', -c/5) +
+       'style="fill:#00000030; stroke-width:1px; stroke:black"/>'
+   }
+
+   function eye(no) {
+     var a2= (no==0 ? a : a*(1-c/2)) * (1-ee)*(1+es/2);
+     var k= -(20 * v*(2-v));
+     var j= 20 * (1-v*v);
+     var h= a2*k + (1-a2)*(k+j)/2
+     var l= a2*j + (1-a2)*(k+j)/2
+     var o= 5 + a2*5;
+     var data = [
+       15, 0, // M
+       15, h*2/3, //C
+       o, h,
+       0, h,
+       -o, h, // C
+       -15, h*2/3,
+       -15,0,
+       -15, l*2/3,//C
+       -o, l,
+       0, l,
+       o, l, // C
+       15, l*2/3];
+     return clip(p13(data),
+       t('<circle r="50" fill="white"/><circle r="5"/>',
+           (20*no-10)*(p-0.5), Math.min(Math.max(0,.7*h),.7*l)));
+   }
+
+   function mouth() {
+     var a2=a*(1-es)*(1+ee/2);
+     var s= 1+v*v/3;
+     var k= -(20 * (1-v*v));
+     var j= s*20 * v*(2-v);
+     var h= a2*k + (1-a2)*(k+j)/2
+     var l= a2*j + (1-a2)*(k+j)/2
+     var o= 5 + a2*5;
+     var data = [
+       15, 0, // M
+       15, h*2/3 + 2*a2*c, //C
+       o,  h + 5*a2*c,
+       0, h - 2*c,
+       -o, h - (5 + 5*a2)*c, // C
+       -15, h*2/3 - 15*c,
+       -15, 0,
+       -15, l*2/3,//C
+       -o, l,
+       0, l,
+       o, l, // C
+       15, l*2/3,
+       15, 0
+     ];
+     for (var i=0; i<13; i++) {
+       data[2*i] *= (1+v*v/2)*(1-es/2);
+     }
+     var index=0;
+     return t(clip(p13(data),
+       '<rect x="-50" width="100" y="-50" height="100"/>' +
+       t('<rect x="-15" rx="5" width="30" height="22" fill="white"/>', 0, (h+l)/2 - a*8 - 22) +
+       t('<rect x="-15" rx="5" width="30" height="22" fill="white"/>', 0, (h+l)/2 - a*10*(1-v) + 13)
+     ), 0, (20*(1-p) - 10*v + 16) -10*v*v)
+   }
+
+ return '<svg height="100%" version="1.1" viewBox="-50 -50 100 100" width="100%" xmlns="http://www.w3.org/2000/svg">' +
+     '  <g id="head" transform="scale('+(a/2.1+0.5)+')">' +
+     head(v,a,p,c) +
+     t(
+       t(eye(0), 18 + 10*(v-0.5)*(p-0.5), 0, 30 - 60*p) +
+       t(eye(1), -18 - 10*(v-0.5)*(p-0.5), 0, -30 + 60*p), 0, 25*(1-p) -26) +
+     mouth() +
+     '</g></svg>';
 }
