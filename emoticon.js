@@ -69,39 +69,43 @@ function emoticon_svg(v, a, p, c, e) {
             (20*no-10)*(p-0.5), Math.min(Math.max(0,.7*h),.7*l)));
     }
 
-    function mouth() {
-      var a2=a*(1-es)*(1+ee/2);
-      var s= 1+v*v/3;
-      var k= -(20 * (1-v*v));
-      var j= s*20 * v*(2-v);
-      var h= a2*k + (1-a2)*(k+j)/2
-      var l= a2*j + (1-a2)*(k+j)/2
-      var o= 5 + a2*5;
-      var data = [
-        15, 0, // M
-        15, h*2/3 + 2*a2*c, //C
-        o,  h + 5*a2*c,
-        0, h - 2*c,
-        -o, h - (5 + 5*a2)*c, // C
-        -15, h*2/3 - 15*c,
-        -15, 0,
-        -15, l*2/3,//C
-        -o, l,
-        0, l,
-        o, l, // C
-        15, l*2/3,
-        15, 0
-      ];
-      for (var i=0; i<13; i++) {
-        data[2*i] *= (1+v*v/2)*(1-es/2);
-      }
-      var index=0;
-      return t(clip(p13(data),
-        '<rect x="-50" width="100" y="-50" height="100"/>' +
-        t('<rect x="-15" rx="5" width="30" height="22" fill="white"/>', 0, (h+l)/2 - a*8 - 22) +
-        t('<rect x="-15" rx="5" width="30" height="22" fill="white"/>', 0, (h+l)/2 - a*10*(1-v) + 13)
-      ), 0, (20*(1-p) - 10*v + 16) -10*v*v)
-    }
+   function teeth() {
+      return [0, 8, 16 , 24].map(x => '<rect x="'+x+'" rx="2" width="6" height="22" fill="white"/>')
+   }
+
+   function mouth() {
+     var a2=a*(1-es)*(1+ee/2);
+     var s= 1+v*v/3;
+     var k= -(20 * (1-v*v));
+     var j= s*20 * v*(2-v);
+     var h= a2*k + (1-a2)*(k+j)/2
+     var l= a2*j + (1-a2)*(k+j)/2
+     var o= 5 + a2*5;
+     var data = [
+       15, 0, // M
+       15, h*2/3 + 2*a2*c, //C
+       o,  h + 5*a2*c,
+       0, h - 2*c,
+       -o, h - (5 + 5*a2)*c, // C
+       -15, h*2/3 - 15*c,
+       -15, 0,
+       -15, l*2/3,//C
+       -o, l,
+       0, l,
+       o, l, // C
+       15, l*2/3,
+       15, 0
+     ];
+     for (var i=0; i<13; i++) {
+       data[2*i] *= (1+v*v/2)*(1-es/2);
+     }
+     var index=0;
+     return t(clip(p13(data),
+       '<rect x="-50" width="100" y="-50" height="100"/>' +
+       t(teeth(), -15, (h+l)/2 - a*8 - 22) +
+       t(teeth(), -15, (h+l)/2 - a*10*(1-v) + 13)
+     ), 0, (20*(1-p) - 10*v + 16) -10*v*v)
+   }
 
   return '<svg height="100%" version="1.1" viewBox="-50 -50 100 100" width="100%" xmlns="http://www.w3.org/2000/svg">' +
       '  <g id="head" transform="scale('+(a/2.1+0.5)+')">' +

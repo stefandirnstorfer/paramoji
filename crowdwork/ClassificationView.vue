@@ -1,37 +1,24 @@
 <template lang="pug">
     .root(v-if="campaignId && workerId")
-        .qualify.main(v-if="mode=='QUALIFY'")
-            h2.title Training
-            div.image(style="background-image:url(qualifyImage.png)")
-            div.text-center
-                p(v-if="!qualified") Match the emotional expression as good as possible. (Training)
-                h2(v-if="qualified") Matched
-            emoticon-display.display(:state="qualifyState")
-            div.controls
-                emotion-controls(v-model="qualifyState")
-            div
-            div.text-right.m-3
-                button.btn.btn-primary(@click="edit(0)" v-if="qualified") Start
-                button.btn.btn-secondary.disabled(v-if="!qualified") Start
         .at-work.main(v-if="mode=='EDIT'")
             h2.title Step {{currentIndex +1}}/{{work.items.length}}
             div.image(:style="image(currentTask)")
-            div.text-center
-                | Match the emotional expression as good as possible.
-            emoticon-display.display(:state="currentTask.state")
             div.controls
-                emotion-controls(v-model="currentTask.state" @change="touch(currentTask)")
+                div(v-for="(choice,index) in currentTask.choices"
+                    :class="{selected : currentTask.selected == index}"
+                    @click="select(index)")
+                    emoticon-display(:state="choice")
             div.text-left.m-3
                 button.btn.btn-outline-primary.mr-1(@click="back" v-if="currentIndex>0 && !complete") Back
             div.text-right.m-3
-                button.btn.btn-primary(@click="next" v-if="currentTask.touches > 2") Continue
-                button.btn.btn-secondary.disabled(v-if="currentTask.touches <=2") Continue
+                button.btn.btn-primary(@click="next" v-if="currentTask.selected >= 0") Continue
+                button.btn.btn-secondary.disabled(v-if="currentTask.selected < 0") Continue
         .final-check.main(v-if="mode=='CHECK'")
             h2.title Final check
             .big-view.work-list
                 .work-check(v-for="(task,i) in work.items" @click="edit(i)")
                     .image.btn(:style="image(task)")
-                    emoticon-display.btn(:state="task.state")
+                    emoticon-display.btn(:state="task.choices[task.selected]")
             div.text-left.m-3
                 label.ml-3
                     input.form-check-input(type="checkbox" v-model="finalCheck")
@@ -79,7 +66,7 @@ export default {
             workConfirmation: "Waiting for server",
             complete: false,
             finalCheck: false,
-            mode: "QUALIFY"
+            mode: "EDIT"
         }
     },
     async created() {
@@ -92,15 +79,8 @@ export default {
             const pick= Math.floor(Math.random()*data.length)
             this.work.items.push({
                 file: data[pick].file,
-                state: {
-                    valence: 50,
-                    arousal: 50,
-                    potency: 50,
-                    contempt: 0,
-                    expression: 50
-                },
-                touches: 0,
-                visits: 0,
+                choices: [0,1,2,3,4,5,6,7,8].map(()=>this.randomState()),
+                selected: -1,
                 startTime: 0
             });
             data.splice(pick, 1)
@@ -112,8 +92,18 @@ export default {
         image(entry) {
             return {'background-image': `url(${BASE_URL+"/emoticon-data/"+entry.file})`}
         },
-        touch(item) {
-            item.touches ++;
+        randomState() {
+            return {
+                valence: Math.random()*100,
+                arousal: Math.random()*100,
+                potency: Math.random()*100,
+                contempt: Math.max(2*Math.random()*100-100,0),
+                expression: Math.random()*100
+            }
+        },
+        select(index) {
+            if (this.currentTask.selected == index) this.next()
+            this.currentTask.selected = index
         },
         next() {
             sessionStorage.setItem(this.workId, JSON.stringify(this.work.items))
@@ -147,10 +137,9 @@ export default {
             }
             if (value < TASK_LEN) {
                 this.currentTask = this.work.items[this.currentIndex]
-                if (this.currentTask.touches == 0) {
+                if (this.currentTask.selected == -1) {
                     this.currentTask.startTime = Date.now()
                 }
-                this.currentTask.visits++
             } else {
                 this.mode="CHECK"
             }
@@ -180,7 +169,7 @@ export default {
   color: #2c3e50;
   height: 100vh;
   display: grid;
-  grid-template-rows: min-content 2fr min-content 3fr min-content;
+  grid-template-rows: min-content auto min-content;
   grid-template-columns: 1fr 1fr;
   overflow: hidden;
 }
@@ -193,12 +182,17 @@ export default {
 }
 
 .controls {
-    grid-row: 2 / 5;
-    grid-column: 2;
     overflow-y: auto;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.selected {
+  background-color: lightsteelblue;
 }
 
 .image {
+    margin: 10%;
     overflow: hidden;
     text-align: center;
     background-repeat: no-repeat;
@@ -207,7 +201,6 @@ export default {
 }
 
 .big-view {
-    grid-row: 2 / 5;
     grid-column: 1 / 3;
     display: grid;
     overflow-y: auto;

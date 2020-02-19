@@ -31,7 +31,7 @@ function refresh() {
     for (var key in state) {
         state[key]=parseFloat($('#slider-' + key).val());
     }
-    redrawEmoticon();
+    requestAnimationFrame(redrawEmoticon());
 }
 
 

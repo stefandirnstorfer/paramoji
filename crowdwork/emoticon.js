@@ -69,6 +69,10 @@ export function emoticon_svg(v, a, p, c, e) {
            (20*no-10)*(p-0.5), Math.min(Math.max(0,.7*h),.7*l)));
    }
 
+   function teeth() {
+      return [0, 8, 16 , 24].map(x => '<rect x="'+x+'" rx="2" width="6" height="22" fill="white"/>')
+   }
+
    function mouth() {
      var a2=a*(1-es)*(1+ee/2);
      var s= 1+v*v/3;
@@ -98,8 +102,8 @@ export function emoticon_svg(v, a, p, c, e) {
      var index=0;
      return t(clip(p13(data),
        '<rect x="-50" width="100" y="-50" height="100"/>' +
-       t('<rect x="-15" rx="5" width="30" height="22" fill="white"/>', 0, (h+l)/2 - a*8 - 22) +
-       t('<rect x="-15" rx="5" width="30" height="22" fill="white"/>', 0, (h+l)/2 - a*10*(1-v) + 13)
+       t(teeth(), -15, (h+l)/2 - a*8 - 22) +
+       t(teeth(), -15, (h+l)/2 - a*10*(1-v) + 13)
      ), 0, (20*(1-p) - 10*v + 16) -10*v*v)
    }
 

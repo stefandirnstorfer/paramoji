@@ -18,3 +18,7 @@
 * Code
 - parameterization
 - SVG Code
+
+https://www.flaticon.com/packs/smileys-6
+https://emojitwo.github.io/
+https://www.google.com/get/noto/help/emoji/
