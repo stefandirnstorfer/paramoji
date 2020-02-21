@@ -1,5 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 const crypto = require('crypto');
+const axios = require('axios');
 var express = require('express');
 var cors = require('cors')
 var app = express();
@@ -8,8 +9,12 @@ app.use(express.json());
 app.use(cors());
 
 var DB = null
-const url = 'mongodb://mongodb:27017';
+const url = process.env.MONGODB;
 const dbName = 'emoticons';
+const mvConnection = axios.create({
+    baseURL: 'https://api.microworkers.com',
+    headers: { MicroworkersApiKey: process.env.MW_SECRET }
+})
 
 MongoClient.connect(url, function(err, client) {
     console.log("Connected to server", err);
@@ -30,8 +35,11 @@ app.post('/api/', async function (req, res) {
             res.end("rejected");
             return
         }
+        const vcode = getVCode(campaignId, workerId, taskId);
+        const ip = req.headers['x-forwarded-for'];
         await res.json({
-            code: getVCode(campaignId, workerId, taskId)
+            code: vcode,
+            autosubmit : await putProof(campaignId,workerId, taskId, vcode, ip)
         });
         await DB.collection('microworker').insertOne(req.body);
     } catch(e) {
@@ -53,6 +61,24 @@ function getVCode(campaign, worker, task) {
     var shasum = crypto.createHash('sha256');
     shasum.update(campaign + worker + task + secret_key);
     return 'mw-' + shasum.digest('hex');
+}
+
+async function putProof(campaign, worker, task, vcode, ip) {
+    var status= "";
+    try {
+        const params = new URLSearchParams();
+        params.append('proof[]', 'autosubmit ' + vcode);
+        params.append('user_id', worker);
+        params.append('ip', ip);
+        params.append('random_key', task);
+        var result = await mvConnection.put('/campaign_hg/submit_proof/' + campaign, params);
+        if (result.data.status != "SUCCESS")
+            console.log(ip, result.data.error)
+        return result.data.status == "SUCCESS"
+    } catch (e) {
+        console.error(e);
+        return false;
+    }
 }
 
 process.on('SIGTERM', shutDown);

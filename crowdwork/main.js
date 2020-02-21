@@ -4,6 +4,10 @@ import ErrorDialog from "./ErrorDialog";
 
 Vue.config.productionTip = false;
 
+function hashCode(s) {
+    return s.split('').reduce((a,b) => (((a << 5) - a) + b.charCodeAt(0))|0, 0);
+}
+
 /* eslint-disable no-new */
 new Vue({
     el: "#app",
@@ -25,7 +29,7 @@ new Vue({
             this.campaignId = m[1];
             this.workerId = m[2];
             this.taskId = m[3];
-            if (this.taskId=="B") this.AB="B";
+            this.AB = hashCode(this.workerId) & 1 ? "A" : "B";
         }
     },
     methods: {

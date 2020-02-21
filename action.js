@@ -46,6 +46,7 @@ function setParam(v, a, p, c, e) {
 
 function setParamFromFace(index) {
     var row= realfaces[index];
+    //$("#selected-files").append("<p>"+row.file+"</p>");
     setParam(row.valence, row.arousal, row.potency, row.contempt)
 }
 

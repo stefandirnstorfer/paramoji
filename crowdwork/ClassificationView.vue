@@ -1,7 +1,7 @@
 <template lang="pug">
     .root(v-if="campaignId && workerId")
         .at-work.main(v-if="mode=='EDIT' && currentTask")
-            h2.title Step {{currentIndex +1}}/{{work.items.length}}
+            h2.title Find the best match ({{currentIndex +1}}/{{work.items.length}})
             div.image.portrait(:style="image(currentTask)")
             div.controls.portrait
                 .choice(v-for="(choice,index) in currentTask.choices"
@@ -34,6 +34,7 @@
                 .card.big-view
                     .card-header.bg-primary.text-white Congratulation! You completed your task.
                     .card-body.display-4 {{ workConfirmation }}
+                    .card-body.display-4(v-if="autoSubmitted") Your work has been submitted to the server
 
 </template>
 
@@ -43,7 +44,7 @@ import EmoticonDisplay from './EmoticonDisplay'
 import axios from 'axios'
 import * as d3 from 'd3'
 
-const TASK_LEN= 10;
+const TASK_LEN= 20;
 const EMOJI=[0x1F600, 0x1F601, 0x1F602, 0x1F923, 0x1F603,
             0x1F604, 0x1F605, 0x1F606, 0x1F609, 0x1F60A,
             0x1F60B, 0x1F60E, 0x1F60D, 0x1F618, 0x1F617,
@@ -64,7 +65,6 @@ export default {
     props: ['campaignId', 'workerId', 'taskId'],
     data() {
         return {
-            qualifyState: {valence: 50, arousal:50, potency: 50, contempt: 0},
             currentTask: null,
             currentIndex: -1,
             work: {
@@ -77,6 +77,7 @@ export default {
             },
             workId: [this.campaignId, this.workerId, this.taskId].join('/'),
             workConfirmation: "Waiting for server",
+            autoSubmitted: false,
             complete: false,
             finalCheck: false,
             mode: "EDIT"
@@ -113,11 +114,11 @@ export default {
                     if (!states.find(x => x.code==code)) states.push({code});
                 } else {
                     states.push({
-                        valence: Math.random()*100,
-                        arousal: Math.random()*100,
-                        potency: Math.random()*100,
-                        contempt: Math.max(2*Math.random()*100-100,0),
-                        expression: Math.random()*100
+                        valence: Math.round(Math.random()*100),
+                        arousal: Math.round(Math.random()*100),
+                        potency: Math.round(Math.random()*100),
+                        contempt: Math.round(Math.max(2*Math.random()*100-100,0)),
+                        expression: Math.round(Math.random()*100)
                     })
                 }
             }
@@ -149,6 +150,7 @@ export default {
             this.work.endTime= Date.now()
             const response = await axios.post(BASE_URL+'/api', this.work)
             this.workConfirmation = response.data.code
+            this.autoSubmitted = response.data.autosubmit;
             this.mode='FINISHED'
         }
     },
@@ -165,17 +167,6 @@ export default {
             } else {
                 this.mode="CHECK"
             }
-        }
-    },
-    computed: {
-        qualified() {
-            const dist= Math.sqrt(
-                Math.pow(this.qualifyState.valence-78,2) +
-                Math.pow(this.qualifyState.arousal-29,2) +
-                Math.pow(this.qualifyState.potency-17,2) +
-                Math.pow(this.qualifyState.contempt-70,2)
-            )
-            return dist < 18
         }
     },
     components: {
