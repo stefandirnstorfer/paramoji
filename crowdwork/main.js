@@ -13,7 +13,9 @@ new Vue({
     data() { return {
         error: "",
         campaignId : "",
-        workerId : ""
+        workerId : "",
+        taskId : "",
+        AB : "A"
     }},
     created() {
         const m= window.location.search.match(/^\?CAMPID=(.*)&WORKERID=(.*)&TASKID=(.*)/)
@@ -23,6 +25,7 @@ new Vue({
             this.campaignId = m[1];
             this.workerId = m[2];
             this.taskId = m[3];
+            if (this.taskId=="B") this.AB="B";
         }
     },
     methods: {

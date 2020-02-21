@@ -1,10 +1,10 @@
 <template lang="pug">
     .root(v-if="campaignId && workerId")
-        .at-work.main(v-if="mode=='EDIT'")
+        .at-work.main(v-if="mode=='EDIT' && currentTask")
             h2.title Step {{currentIndex +1}}/{{work.items.length}}
-            div.image(:style="image(currentTask)")
-            div.controls
-                div(v-for="(choice,index) in currentTask.choices"
+            div.image.portrait(:style="image(currentTask)")
+            div.controls.portrait
+                .choice(v-for="(choice,index) in currentTask.choices"
                     :class="{selected : currentTask.selected == index}"
                     @click="select(index)")
                     emoticon-display(:state="choice")
@@ -30,13 +30,11 @@
             h2.title Complete
             .big-view
                 div.text-center
-                    emoticon-display(style="height:20vh; overflow:hidden" :state="{valence: 90, arousal:30, potency: 60, contempt: 0}")
-                .card
+                    emoticon-display(style="height:20vh; overflow:hidden" :state="{valence: 90, arousal:30, potency: 60, contempt: 0, expression:80}")
+                .card.big-view
                     .card-header.bg-primary.text-white Congratulation! You completed your task.
                     .card-body.display-4 {{ workConfirmation }}
-                div.text-secondary.mt-3 Work result:
-                    br
-                    | {{ work }}
+
 </template>
 
 <script>
@@ -45,7 +43,22 @@ import EmoticonDisplay from './EmoticonDisplay'
 import axios from 'axios'
 import * as d3 from 'd3'
 
-const TASK_LEN= 15;
+const TASK_LEN= 10;
+const EMOJI=[0x1F600, 0x1F601, 0x1F602, 0x1F923, 0x1F603,
+            0x1F604, 0x1F605, 0x1F606, 0x1F609, 0x1F60A,
+            0x1F60B, 0x1F60E, 0x1F60D, 0x1F618, 0x1F617,
+            0x1F619, 0x1F61A, 0x263A,  0x1F642, 0x1F917,
+            0x1F929, 0x1F914, 0x1F928, 0x1F610, 0x1F611,
+            0x1F644, 0x1F60F, 0x1F623, 0x1F625,
+            0x1F62E, 0x1F910, 0x1F62F, 0x1F62A, 0x1F62B,
+            0x1F634, 0x1F60C, 0x1F61B, 0x1F61C, 0x1F61D,
+            0x1F924, 0x1F612, 0x1F613, 0x1F614, 0x1F615,
+            0x1F911, 0x1F632, 0x2639,  0x1F641,
+            0x1F616, 0x1F61E, 0x1F61F, 0x1F624, 0x1F622,
+            0x1F62D, 0x1F626, 0x1F627, 0x1F628, 0x1F629,
+            0x1F92F, 0x1F62C, 0x1F630, 0x1F631, 0x1F633,
+            0x1F92A, 0x1F635, 0x1F621, 0x1F620,
+            0x1F922, 0x1F92E];
 
 export default {
     props: ['campaignId', 'workerId', 'taskId'],
@@ -79,7 +92,7 @@ export default {
             const pick= Math.floor(Math.random()*data.length)
             this.work.items.push({
                 file: data[pick].file,
-                choices: [0,1,2,3,4,5,6,7,8].map(()=>this.randomState()),
+                choices: this.randomStates(),
                 selected: -1,
                 startTime: 0
             });
@@ -92,14 +105,23 @@ export default {
         image(entry) {
             return {'background-image': `url(${BASE_URL+"/emoticon-data/"+entry.file})`}
         },
-        randomState() {
-            return {
-                valence: Math.random()*100,
-                arousal: Math.random()*100,
-                potency: Math.random()*100,
-                contempt: Math.max(2*Math.random()*100-100,0),
-                expression: Math.random()*100
+        randomStates() {
+            const states = [];
+            while(states.length<9) {
+                if (this.$root.AB=="B") {
+                    var code = EMOJI[Math.floor(Math.random()*EMOJI.length)];
+                    if (!states.find(x => x.code==code)) states.push({code});
+                } else {
+                    states.push({
+                        valence: Math.random()*100,
+                        arousal: Math.random()*100,
+                        potency: Math.random()*100,
+                        contempt: Math.max(2*Math.random()*100-100,0),
+                        expression: Math.random()*100
+                    })
+                }
             }
+            return states;
         },
         select(index) {
             if (this.currentTask.selected == index) this.next()
@@ -169,7 +191,7 @@ export default {
   color: #2c3e50;
   height: 100vh;
   display: grid;
-  grid-template-rows: min-content auto min-content;
+  grid-template-rows: min-content 1fr 1fr min-content;
   grid-template-columns: 1fr 1fr;
   overflow: hidden;
 }
@@ -182,16 +204,21 @@ export default {
 }
 
 .controls {
-    overflow-y: auto;
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-template-columns: 1fr 1fr 1fr;
+    margin: 10px;
+    overflow-y: hidden;
+    display: grid;
+    grid-template-columns: auto auto auto;
 }
 .selected {
-  background-color: lightsteelblue;
+    background-color: lightsteelblue;
+}
+.choice {
+    height: 100%;
+    overflow: hidden;
 }
 
 .image {
+    max-width: 500px;
     margin: 10%;
     overflow: hidden;
     text-align: center;
@@ -202,6 +229,7 @@ export default {
 
 .big-view {
     grid-column: 1 / 3;
+    grid-row: 2 / 4;
     display: grid;
     overflow-y: auto;
     padding: 3ex;
@@ -224,4 +252,11 @@ export default {
 .work-check:hover {
     background-color: gainsboro;
 }
+@media (orientation: portrait) {
+    .portrait { grid-column: 1/3 }
+}
+@media (orientation: landscape) {
+    .portrait { grid-row: 2/4 }
+}
+
 </style>

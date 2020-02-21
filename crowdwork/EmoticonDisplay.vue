@@ -1,5 +1,5 @@
 <template lang="pug">
-    .emoticon(ref="container") Text
+    .emoticon(ref="container") X
 </template>
 
 <script>
@@ -25,14 +25,18 @@ export default {
             return svg.replace(this.idexp, id => id_prefix+"_"+id);
         },
         redraw() {
-            if (this.state)
-            this.$el.innerHTML= this.fixids(emo.emoticon_svg(
-                this.state.valence,
-                this.state.arousal,
-                this.state.potency,
-                this.state.contempt,
-                this.state.expression
-            ))
+            if (this.state) {
+                if (this.state.code)
+                    this.$el.innerHTML= '<img class="emoji" src="'+BASE_URL+'/emoticon-data/emoji/emoji_u' + this.state.code.toString(16) + '.png"/>';
+                else
+                    this.$el.innerHTML= this.fixids(emo.emoticon_svg(
+                        this.state.valence,
+                        this.state.arousal,
+                        this.state.potency,
+                        this.state.contempt,
+                        this.state.expression
+                    ))
+            }
         }
     },
     watch : {
@@ -43,8 +47,15 @@ export default {
     }
 };
 </script>
-<style scoped>
+<style>
     .emoticon {
-        overflow : hidden
+        height: 100%;
+        overflow : hidden;
+        text-align: center;
+    }
+    .emoji {
+        width: 80%;
+        height: 80%;
+        object-fit: contain;
     }
 </style>

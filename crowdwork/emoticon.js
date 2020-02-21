@@ -19,7 +19,7 @@ export function emoticon_svg(v, a, p, c, e) {
      id += 1;
      return '<defs><clipPath id="id-'+id+'-path"><use href="#id-'+id+'"/></clipPath></defs>' +
        '<g clip-path="url(#id-'+id+'-path)">'+body+'</g>' +
-       '<path id="id-'+id+'" d="'+path+'" style="stroke-width:1px; stroke:black; fill:none"/>';
+       '<path id="id-'+id+'" d="'+path+'" style="stroke-width:2px; stroke:black; fill:none"/>';
    }
    function head(v, a, p, c) {
      var h1= 19 * v;
@@ -39,9 +39,17 @@ export function emoticon_svg(v, a, p, c, e) {
        ];
      var scale = x => -(2*p-1)*(x/(36+h1) + (p-0.5)/2)/1.25
      for (var i=0; i<12; i++) data[2*i] += Math.sign(data[2*i]) *(36-h1)*scale(data[2*i+1])
-     return '<path d="'+p13(data)+'" '+
+     return '<linearGradient id="lineargrad" x1="0" x2="0" y1="-50" y2="50"\n' +
+       '  gradientUnits="userSpaceOnUse">\n' +
+       '    <stop stop-color="#FEE133" offset=".5" />\n' +
+       '    <stop stop-color="#FEDE32" offset=".6118" />\n' +
+       '    <stop stop-color="#FCD32F" offset=".7076" />\n' +
+       '    <stop stop-color="#FAC12B" offset=".7975" />\n' +
+       '    <stop stop-color="#F7A924" offset=".8834" />\n' +
+       '    <stop stop-color="#F6A323" offset=".9" />\n' +
+       '  </linearGradient>' + '<path d="'+p13(data)+'" '+
        'transform="matrix(1,?,0,1,0,0)" '.replace('?', -c/5) +
-       'style="fill:#00000030; stroke-width:1px; stroke:black"/>'
+       'style="fill:url(#lineargrad); stroke-width:2px; stroke:black"/>'
    }
 
    function eye(no) {
