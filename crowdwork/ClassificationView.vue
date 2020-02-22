@@ -34,7 +34,7 @@
                 .card.big-view
                     .card-header.bg-primary.text-white Congratulation! You completed your task.
                     .card-body.display-4 {{ workConfirmation }}
-                    .card-body.display-4(v-if="autoSubmitted") Your work has been submitted to the server
+                    .card-body(v-if="autoSubmitted") Your work has been submitted to the server
 
 </template>
 
