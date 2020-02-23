@@ -22,7 +22,12 @@ EMOJI = [0x1F600, 0x1F601, 0x1F602, 0x1F923, 0x1F603,
 
 base_url = 'http://h2615096.stratoserver.net'
 campaign_id = 'd02d863f2cd2'
-raw_data = json.loads(urllib.request.urlopen(base_url + '/api/work/' + campaign_id).read())
+raw_data = []
+check_double = set()
+for entry in json.loads(urllib.request.urlopen(base_url + '/api/work/' + campaign_id).read()):
+    if entry['workerId'] + entry['taskId'] not in check_double:
+        check_double.add(entry['workerId'] + entry['taskId'])
+        raw_data.append(entry)
 
 groupA = [row for row in raw_data if 'code' in row['items'][0]['choices'][0]]
 groupA = [dict(item, worker=row['workerId']) for row in groupA for item in row['items']]
@@ -38,7 +43,7 @@ for face in faces:
         for row in groupA if row['file'] == face
     ]
 
-    def likliness(x):
+    def loss(x):
         p = 0
         for item in DATA:
             selected = item['selected']
@@ -65,17 +70,25 @@ for face in faces:
 
 
     x0 = np.zeros((len(EMOJI)))
-    # opt = scipy.optimize.minimize(likliness, x0, method="CG", jac=jacobi)
+    # opt = scipy.optimize.minimize(loss, x0, method="CG", jac=jacobi)
 
     x_opt = x0
     for i in range(100):
         x_opt = x_opt + 0.1 * jacobi(x_opt)
+
+    x_opt = x_opt - np.max(x_opt)
+
+    missing_data = list(set(range(len(EMOJI))) - set([i for item in DATA for i in item['choices']]))
+    if len(missing_data) > 0:
+        print("Warning: unrated emoji for ", face, ':', ' '.join(["%0x" % EMOJI[d] for d in missing_data]))
+        x_opt[missing_data] = -100
+
     RESULT += [{
         "face": face,
         "x_opt": x_opt
     }]
 
-out = open("result.html", "w")
+out = open("resultA.html", "w")
 out.write('<table>\n')
 for entry in RESULT:
     face = entry['face']
@@ -84,7 +97,6 @@ for entry in RESULT:
     out.write('<td align="right"><img src="%s/emoticon-data/%s"/></td>' % (base_url, face))
     out.write('<td>')
     p = np.exp(x_opt) / np.sum(np.exp(x_opt))
-    print(p)
     for i in range(len(p)):
         if p[i] > 0.01:
             out.write('<img width="%f" src="%s/emoticon-data/emoji/emoji_u%0x.png"/>' %
