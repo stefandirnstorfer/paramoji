@@ -1,7 +1,7 @@
 import math
 import numpy as np
 from results.common import EMOJI, groupA
-# import scipy.optimize
+
 
 faces = sorted(set([row['file'] for row in groupA]))
 RESULT = {}
@@ -41,7 +41,6 @@ for face in faces:
 
 
     x0 = np.zeros((len(EMOJI)))
-    # opt = scipy.optimize.minimize(loss, x0, method="CG", jac=jacobi)
 
     x_opt = x0
     for i in range(100):
@@ -55,5 +54,5 @@ for face in faces:
         x_opt[missing_data] = -100
 
     RESULT[face] = {
-        "x_opt": x_opt
+        "x_opt": np.round(x_opt, 4).tolist()
     }

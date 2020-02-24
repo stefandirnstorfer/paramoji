@@ -1,4 +1,5 @@
 import numpy as np
+import json
 from results.common import base_url, EMOJI, groupA, groupB, raw_data
 from results.fitA import RESULT as resultA
 from results.fitB import RESULT as resultB
@@ -39,6 +40,11 @@ def render_choices(choices, selected):
         index += 1
     return result
 
+
+with open('gen/resultA.json', 'w') as out:
+    json.dump(resultA, out)
+with open('gen/resultB.json', 'w') as out:
+    json.dump(resultB, out)
 
 files = sorted(set(list(resultA.keys()) + list(resultB.keys())))
 for face in files:
