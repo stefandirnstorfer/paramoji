@@ -1,11 +1,6 @@
 import math
 import numpy as np
-from results.common import EMOJI, raw_data
-
-
-groupB = [row for row in raw_data if 'arousal' in row['items'][0]['choices'][0]]
-groupB = [dict(item, worker=row['workerId']) for row in groupB for item in row['items']]
-faces = sorted(list(set([row['file'] for row in groupB])))
+from results.common import groupB
 
 
 def get_vec(state):
@@ -19,7 +14,9 @@ def get_vec(state):
 
 
 RESULT = {}
+faces = sorted(list(set([row['file'] for row in groupB])))
 for face in faces:
+    print("face:", face)
     DATA = [
         {
             "choices": [get_vec(choice) for choice in row['choices']],

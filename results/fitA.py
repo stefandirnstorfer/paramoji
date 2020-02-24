@@ -1,12 +1,9 @@
 import math
 import numpy as np
-from results.common import EMOJI, raw_data
+from results.common import EMOJI, groupA
 # import scipy.optimize
 
-groupA = [row for row in raw_data if 'code' in row['items'][0]['choices'][0]]
-groupA = [dict(item, worker=row['workerId']) for row in groupA for item in row['items']]
-faces = sorted(list(set([row['file'] for row in groupA])))
-
+faces = sorted(set([row['file'] for row in groupA]))
 RESULT = {}
 for face in faces:
     DATA = [
