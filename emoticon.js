@@ -97,7 +97,7 @@ function emoticon_svg(v, a, p, c, e) {
        15, 0
      ];
      for (var i=0; i<13; i++) {
-       data[2*i] *= (1+v*v/2)*(1-es/2);
+       data[2*i] *= (1+v*v/2);
      }
      var index=0;
      return t(clip(p13(data),
