@@ -17,7 +17,7 @@ def get_vec(state):
 RESULT = {}
 faces = sorted(list(set([row['file'] for row in groupB])))
 for face in faces:
-    print("face:", face)
+    print("%d/%d: %s" % (faces.index(face)+1, len(faces), face))
     DATA = [
         {
             "choices": [get_vec(choice) for choice in row['choices']],
@@ -74,12 +74,11 @@ for face in faces:
     x_mean = np.mean(np.array([row['selected'] for row in DATA]), axis=0)
     x_opt_global = np.array([x_mean, [0.5]*5])
     v_opt_global = -1e10
-
-    x_opt = x_opt_global
     v_old = 0
-    v = np.zeros(5)
+    x_opt = x_opt_global
+    v = np.zeros(x_opt.shape)
     for train_iter in range(1000):
-        v = 0.95 * v + 0.001 * jaccobi(x_opt)
+        v = 0.95 * v + 0.002 * jaccobi(x_opt)
         x_opt = x_opt + v
         x_opt[0, :] = np.maximum(np.minimum(x_opt[0, :], 1), 0)
         v[0, x_opt[0, :] == 1] = 0
@@ -91,7 +90,7 @@ for face in faces:
 
         if train_iter % 100 == 0:
             print("Optimized", train_iter, ':', np.round(x_opt_global[0, :], 3), loss(x_opt_global))
-            if abs(v_opt_global - v_old) < 1e-5:
+            if abs(v_opt_global - v_old) < 1e-4:
                 break
             v_old = v_opt_global
 

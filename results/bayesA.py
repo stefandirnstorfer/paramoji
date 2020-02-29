@@ -11,17 +11,17 @@ PA = 1.0 / len(faces)
 N = len(EMOJI)
 PB_and_A = np.zeros((N, len(faces)))
 for Ai in range(len(faces)):
-    x_opt = np.array(data[faces[Ai]]['x_opt'])[0:N]
+    x_opt = np.array([data[faces[Ai]]['x_opt']["%0x" % i] for i in EMOJI])
     denom = np.sum(np.exp(x_opt))
     PB_and_A[:, Ai] = np.exp(x_opt)/denom * PA
 
-PA_inferred = np.zeros(len(faces))
+PA_inferred = {}
 for A in range(len(faces)):
-    PA_inferred[A] = 0
+    face = faces[A]
+    PA_inferred[face] = 0
     for B in range(N):
         pb = PB_and_A[B, A] / np.sum(PB_and_A[0:N, A])
         if A == np.argmax(PB_and_A[B, :]):
-            PA_inferred[A] += pb
-    print(faces[A], round(PA_inferred[A] * 100, 2))
-print("----")
-print(100 * np.mean(PA_inferred))
+            PA_inferred[face] += pb
+    PA_inferred[face] = round(PA_inferred[face] * 100, 2)
+    print(A+1, face, PA_inferred[face])

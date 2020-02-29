@@ -1,12 +1,13 @@
 import numpy as np
 import json
-from results.common import base_url, EMOJI, groupA, groupB, raw_data
+from results.common import base_url, groupA, groupB, raw_data
+from results.fitA import RESULT as resultA
+from results.fitB import RESULT as resultB
+from results.bayesA import PA_inferred as inferredA
+from results.bayesB import PA_inferred as inferredB
 
-# from results.fitA import RESULT as resultA
-# from results.fitB import RESULT as resultB
-
-resultA = json.load(open('gen/resultA.json', 'r'))
-resultB = json.load(open('gen/resultB.json', 'r'))
+# resultA = json.load(open('gen/resultA.json', 'r'))
+# resultB = json.load(open('gen/resultB.json', 'r'))
 
 def details_link(f: str, relative=False):
     return '%sface-%s.html' % ('' if relative else 'gen/', f.replace('/', '_'))
@@ -25,8 +26,14 @@ def emoji(scale, code):
 
 
 def iframe(size, state):
-    return ('<iframe width="%dpx" height="%dpx" frameborder="0"' % (size, size)) + \
-           'src="/emoticons/viewer.html?a&v=%d&a=%d&p=%d&c=%d&e=%d"></iframe>' % state
+    return ('<div style="width: %dpx; height: %dpx;"' % (size, size)) + \
+           ' data-eval="emoticon_svg(%d,%d,%d,%d,%d)"></div>' % state
+
+
+def footer():
+    return '<script src="/emoticons/emoticon.js"></script>' + \
+         '<script>document.querySelectorAll("[data-eval]").forEach(' + \
+         '(a,i) => a.innerHTML=eval(a.getAttribute("data-eval")).replace(/id-/g,"id-"+i+"-"))</script>'
 
 
 def render_choices(choices, selected):
@@ -65,6 +72,7 @@ for face in files:
         out.write(render_choices(row['choices'], row['selected']))
         out.write('</tr>')
     out.write('</table>')
+    out.write(footer())
     out.close()
 
 workers = sorted(set([row['workerId'] for row in raw_data]))
@@ -80,26 +88,37 @@ for worker in workers:
             out.write(render_choices(item['choices'], item['selected']))
             out.write('</tr>')
     out.write('</table>')
+    out.write(footer())
     out.close()
 
 out = open("gen/index.html", "w")
+out.write('<style>td { font-family: Arial; text-align: center }</style>')
 out.write('<table>\n')
 for face in files:
     out.write('<tr>')
+    out.write('<td>%d</td>' % (files.index(face)+1))
     out.write('<td align="right"><a href="%s">%s</a></td>' % (details_link(face, True), image(face)))
-    out.write('<td>')
+    out.write('<td valign="bottom">')
     if face in resultB:
         x_opt = resultB[face]['x_opt']
         out.write(iframe(200, tuple(x_opt)))
+        out.write('<br/> %.0f%%' % inferredB[face])
     out.write('</td>')
-    out.write('<td>')
+    out.write('<td valign="bottom">')
     if face in resultA:
         x_opt = resultA[face]['x_opt']
-        p = np.exp(x_opt) / np.sum(np.exp(x_opt))
-        for i in range(len(p)):
-            if p[i] > 0.01:
-                out.write(emoji(p[i], EMOJI[i]))
+        emojis = sorted(x_opt.keys())
+        denom = np.sum(np.exp(list(x_opt.values())))
+        for i in emojis:
+            p = np.exp(x_opt[i]) / denom
+            if p > 0.01:
+                out.write(emoji(p.item(), int(i, 16)))
+        out.write('<br/> %.0f%%' % inferredA[face])
     out.write('</td>')
     out.write('</tr>\n')
+out.write('<tr style="background-color:black; height:1px"><td colspan="4"/></tr><tr><td/><td/>')
+out.write('<td padding="2ex"> %.0f%%</td>' % np.mean(list(inferredB.values())))
+out.write('<td padding="2ex"> %.0f%%</td></tr>' % np.mean(list(inferredA.values())))
 out.write('</table>\n')
+out.write(footer())
 out.close()

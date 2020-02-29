@@ -58,7 +58,7 @@ for face in faces:
 
         if train_iter % 100 == 0:
             print("Optimized", train_iter, ':',  loss(x_opt_global))
-            if abs(v_opt_global - v_old) < 1e-5:
+            if abs(v_opt_global - v_old) < 1e-4:
                 break
             v_old = v_opt_global
     for i in range(500):
@@ -72,7 +72,7 @@ for face in faces:
         x_opt[missing_data] = -100
 
     RESULT[face] = {
-        "x_opt": np.round(x_opt_global, 4).tolist()
+        "x_opt": {"%0x" % EMOJI[i]: round(x_opt_global[i], 4) for i in range(len(EMOJI))}
     }
 
 with open('gen/resultA.json', 'w') as out:

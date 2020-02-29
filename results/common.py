@@ -1,4 +1,5 @@
 import json
+import datetime
 import urllib.request
 
 EMOJI = [0x1F600, 0x1F601, 0x1F602, 0x1F923, 0x1F603,
@@ -20,9 +21,15 @@ EMOJI = [0x1F600, 0x1F601, 0x1F602, 0x1F923, 0x1F603,
 base_url = 'http://h2615096.stratoserver.net'
 campaign_id = 'd02d863f2cd2'
 
+start_date = datetime.datetime.strptime("2020-01-01", "%Y-%m-%d")
+# start_date = datetime.datetime.strptime("2020-02-28", "%Y-%m-%d")
+
+
 raw_data = []
 check_double = set()
 for entry in json.loads(urllib.request.urlopen(base_url + '/api/work/' + campaign_id).read()):
+    if entry['startTime'] < start_date.timestamp()*1000:
+        continue
     if entry['workerId'] + entry['taskId'] not in check_double:
         check_double.add(entry['workerId'] + entry['taskId'])
         raw_data.append(entry)
