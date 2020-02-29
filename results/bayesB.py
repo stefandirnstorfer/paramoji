@@ -24,11 +24,13 @@ for A in range(len(faces)):
         num = np.exp(-np.sum((choices[B, :] - x_opt)**2 * np.exp(x_std)))
         PB_and_A[B, A] = num / denom * PA
 
+PA_inferred = np.zeros(len(faces))
 for A in range(len(faces)):
-    PA_inferred = 0
+    PA_inferred[A] = 0
     for B in range(N):
         pb = PB_and_A[B, A] / np.sum(PB_and_A[0:N, A])
         if A == np.argmax(PB_and_A[B, :]):
-            PA_inferred += pb
-    print(faces[A], round(PA_inferred * 100, 2))
-
+            PA_inferred[A] += pb
+    print(faces[A], round(PA_inferred[A] * 100, 2))
+print("----")
+print(100 * np.mean(PA_inferred))

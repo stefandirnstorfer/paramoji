@@ -1,4 +1,5 @@
 import math
+import json
 import numpy as np
 from results.common import EMOJI, groupA
 
@@ -6,6 +7,7 @@ from results.common import EMOJI, groupA
 faces = sorted(set([row['file'] for row in groupA]))
 RESULT = {}
 for face in faces:
+    print("processing: ", face)
     DATA = [
         {
             "choices": [EMOJI.index(choice['code']) for choice in row['choices']],
@@ -41,9 +43,25 @@ for face in faces:
 
 
     x0 = np.zeros((len(EMOJI)))
-
+    x_opt_global = x0
+    v_opt_global = -1e10
     x_opt = x0
-    for i in range(100):
+    v_old = 0
+    v = np.zeros(x_opt.shape)
+    for train_iter in range(1000):
+        v = 0.95 * v + 0.001 * jacobi(x_opt)
+        x_opt = x_opt + v
+
+        if loss(x_opt) > v_opt_global:
+            v_opt_global = loss(x_opt)
+            x_opt_global = x_opt
+
+        if train_iter % 100 == 0:
+            print("Optimized", train_iter, ':',  loss(x_opt_global))
+            if abs(v_opt_global - v_old) < 1e-5:
+                break
+            v_old = v_opt_global
+    for i in range(500):
         x_opt = x_opt + 0.1 * jacobi(x_opt)
 
     x_opt = x_opt - np.max(x_opt)
@@ -54,5 +72,8 @@ for face in faces:
         x_opt[missing_data] = -100
 
     RESULT[face] = {
-        "x_opt": np.round(x_opt, 4).tolist()
+        "x_opt": np.round(x_opt_global, 4).tolist()
     }
+
+with open('gen/resultA.json', 'w') as out:
+    json.dump(RESULT, out)

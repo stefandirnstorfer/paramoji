@@ -1,3 +1,4 @@
+import json
 import math
 import numpy as np
 from results.common import groupB
@@ -98,3 +99,6 @@ for face in faces:
         "x_opt": np.round(100 * x_opt_global[0, :]).astype(int).tolist(),
         "x_std": np.round(100 * np.exp(-x_opt_global[1, :]/2)).astype(int).tolist()
     }
+
+with open('gen/resultB.json', 'w') as out:
+    json.dump(RESULT, out)
