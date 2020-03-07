@@ -27,7 +27,7 @@ export default {
         redraw() {
             if (this.state) {
                 if (this.state.code)
-                    this.$el.innerHTML= '<img class="emoji" src="'+BASE_URL+'/emoticon-data/emoji/emoji_u' + this.state.code.toString(16) + '.png"/>';
+                    this.$el.innerHTML= '<img class="emoji" src="'+BASE_URL+'/emoticon-data/emoji/emoji_u' + this.state.code.toString(16) + '.svg"/>';
                 else
                     this.$el.innerHTML= this.fixids(emo.emoticon_svg(
                         this.state.valence,
