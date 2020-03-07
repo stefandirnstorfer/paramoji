@@ -1,6 +1,5 @@
 import json
 import numpy as np
-from results.common import EMOJI
 
 data_in = open('gen/resultB.json', 'r')
 data = json.load(data_in)
