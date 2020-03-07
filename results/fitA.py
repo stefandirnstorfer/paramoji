@@ -1,13 +1,14 @@
 import math
 import json
 import numpy as np
-from results.common import EMOJI, groupA
+from results.common import groupA
 
 
-faces = sorted(set([row['file'] for row in groupA]))
+faces = sorted({row['file'] for row in groupA})
+EMOJI = sorted({choice['code'] for row in groupA for choice in row['choices']})
 RESULT = {}
 for face in faces:
-    print("processing: ", face)
+    print(faces.index(face), face)
     DATA = [
         {
             "choices": [EMOJI.index(choice['code']) for choice in row['choices']],
