@@ -1,0 +1,129 @@
+<html>
+<style>
+    div[data-eval], img {
+        width: 100px;
+        height: 100px;
+        display: inline-block;
+    }
+</style>
+<img data-code="1f606"/>
+<img data-code="1f602"/>
+<img data-code="1f605"/>
+<img data-code="1f604"/>
+<img data-code="1f600"/>
+<img data-code="1f603"/>
+<br/>
+<div data-eval="emoticon_svg(100,80,80,0,100)"></div>
+<div data-eval="emoticon_svg(100,80,50,0,100)"></div>
+<div data-eval="emoticon_svg(100,50,30,0,80)"></div>
+<div data-eval="emoticon_svg(100,60,50,0,70)"></div>
+<div data-eval="emoticon_svg(100,80,50,0,60)"></div>
+<div data-eval="emoticon_svg(100,100,50,0,50)"></div>
+<hr/>
+
+<img data-code="2639"/>
+<img data-code="1f61f"/>
+<img data-code="1f641"/>
+<img data-code="1f610"/>
+<img data-code="1f642"/>
+<br/>
+<div data-eval="emoticon_svg(0,80,0,0,0)"></div>
+<div data-eval="emoticon_svg(10,80,20,0,20)"></div>
+<div data-eval="emoticon_svg(30,80,20,0,20)"></div>
+<div data-eval="emoticon_svg(50,60,50,0,10)"></div>
+<div data-eval="emoticon_svg(90,60,50,0,10)"></div>
+<hr/>
+
+<img data-code="1f634"/>
+<img data-code="1f611"/>
+<img data-code="1f610"/>
+<img data-code="1f632"/>
+<img data-code="1f62e"/>
+<img data-code="1f633"/>
+<br/>
+<div data-eval="emoticon_svg(40,20,50,0,100)"></div>
+<div data-eval="emoticon_svg(50,10,50,0,20)"></div>
+<div data-eval="emoticon_svg(50,50,50,0,20)"></div>
+<div data-eval="emoticon_svg(50,80,50,0,60)"></div>
+<div data-eval="emoticon_svg(50,100,50,0,30)"></div>
+<div data-eval="emoticon_svg(50,100,50,0,5)"></div>
+<hr/>
+
+<img data-code="1f621"/>
+<img data-code="1f623"/>
+<img data-code="1f635"/>
+<img data-code="1f62b"/>
+<img data-code="1f629"/>
+<img data-code="1f616"/>
+<br/>
+<div data-eval="emoticon_svg(0,50,100,0,30)"></div>
+<div data-eval="emoticon_svg(0,10,30,0,70)"></div>
+<div data-eval="emoticon_svg(0,50,80,0,80)"></div>
+<div data-eval="emoticon_svg(0,80,70,0,80)"></div>
+<div data-eval="emoticon_svg(0,80,30,0,80)"></div>
+<div data-eval="emoticon_svg(0,30,50,0,0)"></div>
+<hr/>
+
+<img data-code="1f61e"/>
+<img data-code="1f614"/>
+<img data-code="1f60c"/>
+<img data-code="263a"/>
+<img data-code="1f60a"/>
+<br/>
+<div data-eval="emoticon_svg(0,0,0,0,50)"></div>
+<div data-eval="emoticon_svg(40,0,50,0,50)"></div>
+<div data-eval="emoticon_svg(80,20,40,0,90)"></div>
+<div data-eval="emoticon_svg(100,20,40,0,80)"></div>
+<div data-eval="emoticon_svg(100,20,40,0,80)"></div>
+<hr/>
+
+<img data-code="1f612"/>
+<img data-code="1f615"/>
+<img data-code="1f644"/>
+<img data-code="1f928"/>
+<img data-code="1f60f"/>
+<img data-code="1f609"/>
+<br/>
+<div data-eval="emoticon_svg(30,20,0,100,50)"></div>
+<div data-eval="emoticon_svg(30,20,50,100,50)"></div>
+<div data-eval="emoticon_svg(30,100,40,100,30)"></div>
+<div data-eval="emoticon_svg(50,60,40,100,20)"></div>
+<div data-eval="emoticon_svg(100,20,40,100,40)"></div>
+<div data-eval="emoticon_svg(100,60,40,100,40)"></div>
+<hr/>
+
+<img data-code="1f62f"/>
+<img data-code="1f626"/>
+<img data-code="1f627"/>
+<img data-code="1f628"/>
+<img data-code="1f631"/>
+<br/>
+<div data-eval="emoticon_svg(50,100,50,0,40)"></div>
+<div data-eval="emoticon_svg(10,90,30,0,30)"></div>
+<div data-eval="emoticon_svg(10,90,30,0,30)"></div>
+<div data-eval="emoticon_svg(10,90,20,0,40)"></div>
+<div data-eval="emoticon_svg(30,100,0,0,50)"></div>
+<hr/>
+
+<img data-code="1f62d"/>
+<img data-code="1f613"/>
+<img data-code="1f625"/>
+<img data-code="1f630"/>
+<img data-code="1f622"/>
+<img data-code="1f922"/>
+<br/>
+<hr/>
+
+<img data-code="1f601"/>
+<img data-code="1f62c"/>
+<hr/>
+
+<script src="emoticon.js"></script>
+<script>
+    baseurl = "http://h2615096.stratoserver.net/emoticon-data/emoji/"
+    document.querySelectorAll("[data-eval]").forEach((a,i) =>
+        a.innerHTML=eval(a.getAttribute("data-eval")).replace(/id-/g,"id-"+i+"-"))
+    document.querySelectorAll("[data-code]").forEach((a,i) =>
+        a.setAttribute('src', baseurl+"emoji_u"+a.getAttribute('data-code')+'.svg'))
+</script>
+</html>
