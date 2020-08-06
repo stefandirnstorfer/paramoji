@@ -9,6 +9,8 @@ from results.bayesB import PA_inferred as inferredB
 # resultA = json.load(open('gen/resultA.json', 'r'))
 # resultB = json.load(open('gen/resultB.json', 'r'))
 
+imgscale= 0.6
+
 def details_link(f: str, relative=False):
     return '%sface-%s.html' % ('' if relative else 'gen/', f.replace('/', '_'))
 
@@ -18,15 +20,15 @@ def worker_link(w, relative=False):
 
 
 def image(face):
-    return '<img src="%s/emoticon-data/%s"/>' % (base_url, face)
+    return '<img src="%s/emoticon-data/%s" width="%f%%"/>' % (base_url, face, imgscale*100)
 
 
 def emoji(scale, code):
-    return '<img width="%f" src="%s/emoticon-data/emoji/emoji_u%0x.svg"/>' % (round(500 * scale), base_url, code)
+    return '<img width="%f" src="%s/emoticon-data/emoji/emoji_u%0x.svg"/>' % (round(imgscale * 500 * scale), base_url, code)
 
 
 def iframe(size, state):
-    return ('<div style="width: %dpx; height: %dpx;"' % (size, size)) + \
+    return ('<div style="width: %dpx; height: %dpx;"' % (imgscale * size, imgscale*size)) + \
            ' data-eval="emoticon_svg(%d,%d,%d,%d,%d)"></div>' % state
 
 
@@ -95,14 +97,14 @@ out = open("gen/index.html", "w")
 out.write('<style>td { font-family: Arial; text-align: center }</style>')
 out.write('<table>\n')
 for face in files:
-    out.write('<tr>')
+    out.write('<tr style="page-break-inside: avoid">')
     out.write('<td>%d</td>' % (files.index(face)+1))
     out.write('<td align="right"><a href="%s">%s</a></td>' % (details_link(face, True), image(face)))
     out.write('<td valign="bottom">')
     if face in resultB:
         x_opt = resultB[face]['x_opt']
         out.write(iframe(200, tuple(x_opt)))
-        out.write('<br/> %.0f%%' % inferredB[face])
+        out.write('<p/> %.0f%%' % inferredB[face])
     out.write('</td>')
     out.write('<td valign="bottom">')
     if face in resultA:
@@ -113,12 +115,13 @@ for face in files:
             p = np.exp(x_opt[i]) / denom
             if p > 0.01:
                 out.write(emoji(p.item(), int(i, 16)))
-        out.write('<br/> %.0f%%' % inferredA[face])
+        out.write('<p/> %.0f%%' % inferredA[face])
     out.write('</td>')
     out.write('</tr>\n')
-out.write('<tr style="background-color:black; height:1px"><td colspan="4"/></tr><tr><td/><td/>')
-out.write('<td padding="2ex"> %.0f%%</td>' % np.mean(list(inferredB.values())))
-out.write('<td padding="2ex"> %.0f%%</td></tr>' % np.mean(list(inferredA.values())))
+out.write('<tr style="background-color:black; height:1px"><td colspan="4"/></tr>')
+out.write('<tr><td/><td>Summary</td>')
+out.write('<td padding="5ex"> %.0f%%</td>' % np.mean(list(inferredB.values())))
+out.write('<td padding="5ex"> %.0f%%</td></tr>' % np.mean(list(inferredA.values())))
 out.write('</table>\n')
 out.write(footer())
 out.close()

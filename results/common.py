@@ -7,6 +7,7 @@ campaign_id = 'd02d863f2cd2'
 
 start_date = datetime.datetime.strptime("2020-01-01", "%Y-%m-%d")
 # start_date = datetime.datetime.strptime("2020-02-28", "%Y-%m-%d")
+# start_date = datetime.datetime.strptime("2020-03-02", "%Y-%m-%d")
 
 
 raw_data = []
