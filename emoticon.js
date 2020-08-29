@@ -45,7 +45,8 @@ function emoticon_svg(v, a, p, c, e) {
         for (let i = 0; i < 12; i++) data[2 * i] += Math.sign(data[2 * i]) * (36 - h1) * scale(data[2 * i + 1]);
         return '<path d="' + p13(data) + '" ' +
             'transform="matrix(1,?,0,1,0,0)" '.replace('?', -c / 5) +
-            'style="fill:url(#id-grad); stroke-width:2px; stroke:black"/>'
+            'style="fill:rgb(254, 225, 51); stroke-width:2px; stroke:black"/>'
+//           'style="fill:url(#id-grad); stroke-width:2px; stroke:black"/>'
     }
 
     function eye(no) {
@@ -133,7 +134,7 @@ function emoticon_svg(v, a, p, c, e) {
     }
 
     return '<svg height="100%" version="1.1" viewBox="-50 -50 100 100" width="100%" xmlns="http://www.w3.org/2000/svg">' +
-        gradient() +
+//        gradient() +
         '<g transform="scale(' + (a / 2.1 + 0.5) + ')">' +
         head(v, a, p, c) +
         t(
