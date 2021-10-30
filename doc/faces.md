@@ -13,10 +13,19 @@ The extreme range of available expressions make them difficult to interpret.
 Some emoji seem to be on a scale of increasing intensity, while others seem to be exact negations of each other. However, no clear consensus exists. Some emoji are even interpreted inconsistently accoss cultures
 
 
+Many computational systems use a limited set of emotions when mapping a facial expression to emotional dimensions.
+Ekman faces
+Limited in scope. Pain, embarrassment, relief are missing.
+Internal relationships are not faithfully reproduced.
+Arousal, excitement and contempt are perfectly combinable and thus should not be an either or decision.
+Other dimensions such as exceitement and anger are exclusive.
+Henc, the values produced by such a representation system are not ver valuable.
+
 
 Another system of facial expressions is the Wong-Baker FACES® Pain Rating Scale.
+It's medical value and track record are beyond doubt and applied with wide success in pain treatment.
 This system is absolutely clear in its interpretation.
-The faces have a clear order, can be compared with each other and turned into statistics.
+The faces are ordered along an axis and can be turned into statistics, to eg measure an average emotion or its fluctuaton.
 This feature make them a very powerful tool in pain therapy, as they satisfy the needs of experts and laymen alike.
 However, the scale is only one-dimensional and the range of emotional states is limited to a single aspect of the perceivable space.
 
@@ -26,9 +35,12 @@ These have a very clear numerical interpretation, as each movable part of a huma
 However, these faces lack an emotional interpretation. It would for example be difficult to define which faciescan be considered to perceive more pain. As such Chernoff faces could be shown to convey no additional information, when compared to other visualization techniques.
 
 
-This paper suggests a facial visualization that includes 5 measurable aspects of a human emotion.
-It contributes a simple parameterised depiction of a human face that spans a large range of human emotions.
-The author claims this technique to have no other purpose  
+This paper suggests a facial visualization that includes 5 quantitative aspects of a human emotion.
+The emotinal dimensions are derived from common psychological models.
+The graphics definition is mostly derived from linear combinations of input coordinates.
+The contribution of this representation is neither an improved model of emotional representation
+nor is it a better set of emoticons.
+What it does however contribute is compromise that might strike the right balance between psychological precision, emotional variety and graphical simplicity.
 
 
 
@@ -36,7 +48,7 @@ The author claims this technique to have no other purpose
 
 The circumflex model
 
-Potential
+Control
 
 Contempt
 
