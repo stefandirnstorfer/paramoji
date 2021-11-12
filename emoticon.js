@@ -7,29 +7,25 @@ const emoticon_data=[
     [127, -50, -80,  20],
     [0, 200, 0, -200],
     copyX(26, 2), // M
-    "#left-eye-outline:1a", [ -23,  -1, -68,   0], [  -3,  23, -25,  34],
-    "#left-eye-outline:1b", [ -22,  -1, -63,   0], [   2,  17,  27,  16],
-    "#left-eye-outline:2", [ -18,  -1, -24,   0], [   7,  18,  77,  12],
-    "#left-eye-outline:3a", [  -6,   7,  13,  16], [  10,-112, 107,  32],
-    "#left-eye-outline:3b", [  21,  34,  98,   5], [   7,-170,  79,   9],
-    "#left-eye-outline:4", [  27,   6,  51,   1], [   0, -67,   9, -11],
-    "#left-eye-outline:5a", [  21,  29, 104,   3], [  -6,-160, -55,   7],
-    "#left-eye-outline:5b", [  -3,   7,  48,  19], [ -11,-124,-105,  27],
-    "#left-eye-outline:6", [ -18,  -1, -17,   0], [  -7,   1, -65,  24],
+    "#right-eye-outline:1a", [ -23,  -1, -68,   0], [  -3,  23, -24,  34],
+    "#right-eye-outline:1b", [ -22,  -1, -63,   0], [   2,  17,  27,  16],
+    "#right-eye-outline:2", [ -18,  -1, -24,   0], [   7,  18,  77,  12],
+    "#right-eye-outline:3a", [  -6,   7,  13,  16], [  10,-112, 107,  32],
+    "#right-eye-outline:3b", [  21,  34,  98,   5], [   7,-170,  78,   9],
+    "#right-eye-outline:4", [  27,   6,  51,   1], [   0, -67,   8, -11],
+    "#right-eye-outline:5a", [  21,  29, 104,   3], [  -6,-160, -54,   7],
+    "#right-eye-outline:5b", [  -3,   7,  48,  19], [ -11,-124,-104,  27],
+    "#right-eye-outline:6", [ -18,  -1, -17,   0], [  -7,   1, -64,  24],
     // left-lens
     [  0,   0,   0, -20], [  0,   -30,   0,  0],// #left-lens
     [  4,   0,  30,   0], // #pupil[radius]
     [  2,   15,  5,   0], // #glare[radius]
-    // left-lid-shadow
-    /* 35 */              [ -15,-100,   0,   0],
-    "#left-lid-shadow:2", [  -3,  28, -25, -10], [ -11, -79, -63,  40],
-    /* -40 */             [   5, -50,   0,   0],
+    // right-lid-shadow
+    "#right-lid-shadow:2", [   7,  25, -34, 154], [  -9,-220,-163,  92],
     // right-eye
     [-70, 0, 0, 40],
-    // right-lid-shadow
-    /* 200 */             copyX(-6, 1),
-    "#right-lid-shadow:2", [  52, -35, -74, 106], [ -16, -86, -82,  86],
-    /* 125 */             copyX(-6,1 ),
+    // left-lid-shadow
+    "#left-lid-shadow:2", [ -71,  26, -55,-117, 50], [  -7,-208,-160,  51,   100],
     // left-eye-brow
     "#right-eye-brow:1", [ 146,  -2, -26,-115], [ 103,-128,-159, 211],
     "#right-eye-brow:2", [ 166, -21,   9, -82], [ 102,-158,-151,  87],
@@ -44,16 +40,16 @@ const emoticon_data=[
     [ 27,   50,  20,   0],
     [ -2,    20, -60,   0],
     // lips
-    "#lips:1", [ 160,  25,  94,  -3], [ 188,-116, -27, -42],
-    "#lips:2", [ 154,  26,  92, -59], [ 194, -10,  33, -28],
-    "#lips:3", [ 142,  15,  56, -42], [ 196,  20,  53, -27],
+    "#lips:1", [ 160,  25,  94,  -3], [ 187,-116, -26, -42],
+    "#lips:2", [ 154,  26,  92, -59], [ 193, -10,  34, -28],
+    "#lips:3", [ 142,  15,  56, -42], [ 195,  20,  54, -27],
     /* 125 */             copyX(-1,1),
-    "mirror:2#lips:2", [  96, -26, -92,  59], [ 194, -10,  33, -28],
-    "mirror:1#lips:1", [  90, -25, -94,   3], [ 188,-116, -27, -42],
-    "#lips:6", [  97, -26, -92,  59], [ 184, -26, -67, -25,-254],
-    "#lips:7", [ 108, -15, -56,  42], [ 182,  12, -78, -16, -74],
+    "mirror:2#lips:2", [  96, -26, -92,  59], [ 193, -10,  34, -28],
+    "mirror:1#lips:1", [  90, -25, -94,   3], [ 187,-116, -26, -42],
+    "#lips:6", [  97, -26, -92,  59], [ 183, -26, -66, -25,-254],
+    "#lips:7", [ 108, -15, -56,  42], [ 182,  12, -82, -16, -74],
     /* 125 */             [  182,  12, -78, -16, -35],
-    "mirror#lips:6", [ 153,  26,  92, -59], [ 184, -26, -67, -25],
+    "mirror#lips:6", [ 153,  26,  92, -59], [ 183, -26, -66, -25],
     copyX(-25, 2),
     // wrinkle-left-cheek
     "#wrinkle-left-cheek:1", [  72, -61, -52,  16,  -9], [ 187,-158, -18,   1,   6],
@@ -81,8 +77,12 @@ while (i< emoticon_data.length) {
     }
     i++;
 }
+
+/*
 console.log(JSON.stringify(emoticon_data.filter(x => typeof x != 'string'))
-    .replace(/(.{60}[^]]*\],)/g, '$1\n'))
+    .replace(/(,0)+\]/g,']')
+    .replace(/(.{75}[^,]*,)/g, '$1\n'))
+*/
 
 function emoticon_svg(v, a, p, c) {
   const X = C => [1, v/500-0.1, a/500-0.1, p/500-0.1, c/1000].reduce((a,b,i) => a + b*(C[i] || 0), 0);
@@ -91,36 +91,34 @@ function emoticon_svg(v, a, p, c) {
   return [
       '<svg height="100%" version="1.1" viewBox="0 0 250 250" width="100%" xmlns="http://www.w3.org/2000/svg">',
       '  <defs id="defs">',
-      '    <clipPath id="clipPath-left-eye">',
-      '      <use href="#left-eye-outline"/>',
-      '    </clipPath>',
       '    <clipPath id="clipPath-right-eye">',
-      '      <use id="right-eye-outline" transform="matrix(-1,0,0,?,-70,0)" href="#left-eye-outline"/>',
+      '      <use href="#right-eye-outline"/>',
+      '    </clipPath>',
+      '    <clipPath id="clipPath-left-eye">',
+      '      <use id="left-eye-outline" transform="matrix(-1,0,0,?,-70,0)" href="#right-eye-outline"/>',
       '    </clipPath>',
       '    <clipPath id="clipPath-mouth">',
       '      <use href="#lips"/>',
       '    </clipPath>',
       '  </defs>',
-      '  <g id="head">',
-      '    <path d="M 125,230 C 175,230 215,200 215,130 S 175,30 125,30 S 35,65 35,130 S 75,230 125,230 Z" fill="#e9c6afa0"/>',
-      '  </g>',
+      '  <path id="head" d="M 125,230 C 175,230 215,200 215,130 S 175,30 125,30 S 35,65 35,130 S 75,230 125,230 Z" fill="#e9c6afa0"/>',
       '  <g id="eyes" transform="translate(160,?)">',
-      '    <g id="left-eye">',
-      '      <path transform="rotate(?)" d="M ?,? C ?,? ?,? ?,? ?,? ?,? ?,? ?,? ?,? ?,? Z" id="left-eye-outline" fill="white" stroke="black"/>',
-      '      <g clip-path="url(#clipPath-left-eye)" id="left-eyeball">',
-      '        <g id="left-lens" transform="translate(?,?)">',
+      '    <g id="right-eye">',
+      '      <path transform="rotate(?)" d="M ?,? C ?,? ?,? ?,? ?,? ?,? ?,? ?,? ?,? ?,? Z" id="right-eye-outline" fill="white" stroke="black"/>',
+      '      <g clip-path="url(#clipPath-right-eye)" id="right-eyeball">',
+      '        <g id="right-lens" transform="translate(?,?)">',
       '          <circle r="9" fill="#9d4922" id="iris"/>',
       '          <circle r="?" fill="black" id="pupil"/>',
       '          <circle r="?" cx="-5" cy="-3" fill="white" id="glare"/>',
       '        </g>',
-      '        <path d="M -40,-30 H 35 V ? Q ?,? -40,? Z" id="left-lid-shadow" opacity="0.25" fill="black"/>',
+      '        <path d="M -35,-30 H 40 V-5 Q ?,? -35,0 Z" id="right-lid-shadow" opacity="0.25" fill="black"/>',
       '      </g>',
       '    </g>',
-      '    <g id="right-eye">',
-      '      <use id="right-eye-outline" href="#right-eye-outline"/>',
-      '      <g clip-path="url(#clipPath-right-eye)" id="right-eyeball">',
-      '        <use id="right-lens" x="?" href="#left-lens"/>',
-      '        <path d="M 35,-30 H 110 V? Q ?,? 35,? Z" id="right-lid-shadow" opacity="0.25" fill="black"/>',
+      '    <g id="left-eye">',
+      '      <use href="#left-eye-outline"/>',
+      '      <g clip-path="url(#clipPath-left-eye)" id="left-eyeball">',
+      '        <use id="right-lens" x="?" href="#right-lens"/>',
+      '        <path d="M -110,-30 H -40 V -5 Q ?,? -110,0 Z" id="left-lid-shadow" opacity="0.25" fill="black"/>',
       '      </g>',
       '    </g>',
       '  </g>',

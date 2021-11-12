@@ -41,16 +41,17 @@ while (i < emoticon_data.length) {
 function controls_svg(X) {
     var result='';
     if ($('#show-controls').is(':checked')) {
+        var filter = $('#controls-filter').val()
+        console.log(filter)
         for (key in controls) {
             var c = controls[key];
-            if (c.show) {
-                //!c[3].match(/shadow/) ? '' :
+            if (c.show && key.includes(filter)) {
                 result = result +
-                    '<circle r="3" cx="?" cy="?" transform="translate(?) rotate(?)" fill="gray" fill-opacity="0.3" stroke-width="0.1" stroke="gray" onmousedown="dragstart(evt, \'?\')"/>'
+                    '<circle r="3" cx="?" cy="?" transform="translate(?) rotate(?)" fill="skyblue" fill-opacity="0.5" stroke-width="0.5" stroke="black" onmousedown="dragstart(evt, \'?\')"/>'
                         .replace(/\?/, X(emoticon_data[c.index]))
                         .replace(/\?/, X(emoticon_data[c.index + 1]))
-                        .replace(/\?/, key.match(/left-eye-outline|lid-shadow/) ? "90," + X(emoticon_data[0]) : "0,0")
-                        .replace(/\?/, key.match(/left-eye-outline/) ? X(emoticon_data[1]) : 0)
+                        .replace(/\?/, key.match(/right-eye-outline|lid-shadow/) ? "160," + X(emoticon_data[1]) : "0,0")
+                        .replace(/\?/, key.match(/right-eye-outline/) ? X(emoticon_data[2]) : 0)
                         .replace(/\?/, key);
             }
         }

@@ -14,10 +14,10 @@ def align_y(data, group):
         data[group[i]]['y'][0:4] = Y[i, :].tolist()
 
 
-def normalize_eye_right_corner(data):
-    group= ['#left-eye-outline:' + pos for pos in ['6','1a', '1b','2']]
+def normalize_eye_left_corner(data):
+    group= ['#right-eye-outline:' + pos for pos in ['6','1a', '1b','2']]
     X= numpy.array([data[pos]['x'] for pos in group], dtype='f')
-    X[:,0]= 16 + numpy.round(X[:,2]/10)
+    X[:,0]= -16 + numpy.round(X[:,2]/10)
     Xmean = numpy.mean(X, axis=0)
     X[:,1]= Xmean[1]
     X[:,3]= Xmean[3]
@@ -41,9 +41,9 @@ def normalize_mouth(data, lips):
 
 
 def normalize(data):
-    normalize_eye_right_corner(data)
+    normalize_eye_left_corner(data)
     align_y(data, ['#lips:%d' % pos for pos in [1,2,3,6,7]])
-    align_y(data, ['#left-eye-outline:' + pos for pos in ['6','1a', '1b' ,'2','4','3a','3b','5a','5b']])
+    align_y(data, ['#right-eye-outline:' + pos for pos in ['6','1a', '1b' ,'2','4','3a','3b','5a','5b']])
     normalize_mouth(data, ['2', '6'])
     normalize_mouth(data, ['3', '7'])
     return data
