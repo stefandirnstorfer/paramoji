@@ -5,32 +5,34 @@ while (i < emoticon_data.length) {
     let key= emoticon_data[i];
     if (typeof key == 'string') {
         let m= key.match(/([^:]*)(:.*)?(#.*)/);
-        controls[key] = {
-            index: i,
-            x: emoticon_data[i + 1],
-            y: emoticon_data[i + 2],
-            show: m[1]=="",
-            dirty: false,
-            preview(x, y) {
-                this.dirty= true;
-                emoticon_data[this.index] = [x, 0, 0, 0];
-                emoticon_data[this.index+1] = [y, 0, 0, 0];
-                this.mirrors.forEach(mirror => mirror.preview(250-x, y))
-            },
-            persist(x, y) {
-                this.x = x;
-                this.y = y;
-                this.mirrors.forEach(mirror => mirror.persist([250-x[0], -x[1], -x[2], -x[3]], [y[0], y[1], y[2], y[3]]))
-            },
-            commit() {
-                emoticon_data[this.index] = this.x;
-                emoticon_data[this.index+1] = this.y;
-                this.mirrors.forEach(mirror => mirror.commit())
-            },
-            mirrors: []
-        };
-        if (m[1]=="mirror") {
-            controls[m[3]].mirrors.push(controls[key])
+        if (m) {
+            controls[key] = {
+                index: i,
+                x: emoticon_data[i + 1],
+                y: emoticon_data[i + 2],
+                show: m[1] == "",
+                dirty: false,
+                preview(x, y) {
+                    this.dirty = true;
+                    emoticon_data[this.index] = [x, 0, 0, 0];
+                    emoticon_data[this.index + 1] = [y, 0, 0, 0];
+                    this.mirrors.forEach(mirror => mirror.preview(250 - x, y))
+                },
+                persist(x, y) {
+                    this.x = x;
+                    this.y = y;
+                    this.mirrors.forEach(mirror => mirror.persist([250 - x[0], -x[1], -x[2], -x[3]], [y[0], y[1], y[2], y[3]]))
+                },
+                commit() {
+                    emoticon_data[this.index] = this.x;
+                    emoticon_data[this.index + 1] = this.y;
+                    this.mirrors.forEach(mirror => mirror.commit())
+                },
+                mirrors: []
+            };
+            if (m[1] == "mirror") {
+                controls[m[3]].mirrors.push(controls[key])
+            }
         }
         emoticon_data.splice(i, 1);
     } else {

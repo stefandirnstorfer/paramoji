@@ -58,13 +58,16 @@
                     </td>
                     <td><span id="label-contempt">0</span></td>
                 </tr>
+                <tr>
+                    <td>Expression</td>
+                    <td>
+                        <input style="width:90%;min:0;max:100;value:50" type="range" id="slider-expression"/>
+                    </td>
+                    <td><span id="label-expression">0</span></td>
+                </tr>
             </table>
         </div>
         <hr/>
-        <div id="version">
-            <label><input type="checkbox" id="show-controls"> Controls</label>
-            <input id="controls-filter" placeholder="filter">
-        </div>
         <div id="shortcuts">
             <h1>Shortcuts</h1>
             <p>
@@ -123,8 +126,11 @@
             <br/>
             <label><input type="checkbox" id="fix-contempt"> Fix contempt</label>
         </div>
-        <div>
+        <div id="version">
             <hr>
+            <label><input type="checkbox" id="show-controls"> Controls</label>
+            <input id="controls-filter" placeholder="filter">
+            <p/>
             <button onclick="save()">Save</button>
         </div>
         <div style="height:20px"></div>

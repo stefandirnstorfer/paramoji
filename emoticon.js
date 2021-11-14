@@ -36,7 +36,19 @@ const emoticon_data=[
     "#wrinkle-right-brow:2", [ 136,  17,   1, -82], [ 101,-104,-193, 182],
     "#wrinkle-right-brow:3", [ 137,  -1,   8, -52], [ 108,-117,-181, 197],
     [0, 0, 0, 0, 80],
+    // nose-path
+    "nose",
+    [0, 0, 0, 0, 3],
+    [165,  -50, -80,   0], // nose left
+    [ -4,  -20,  -5,   0],
+    [ -9,  -30, -10, -20],
+    [165,  -50, -80,   0], // nose right
+    [161,  -70, -80,  -0],
+    "#nose:6", [ 140,  10,   0,   0], [ 163, -60, -80,   0],
+    "#nose:5", [ 143,   1,  -3,  -3], [ 159, -58, -78,   9],
+    "#nose:8", [ 136,   9, -10,  -2], [ 141, -39, -67,  91],
     // teeth
+    "teeth",
     [ 27,   50,  20,   0],
     [ -2,    20, -60,   0],
     // lips
@@ -58,16 +70,6 @@ const emoticon_data=[
     "mirror:1#wrinkle-left-cheek:1", [ 178,  61,  52, -16], [ 187,-158, -18,   1],
     "mirror:2#wrinkle-left-cheek:2", [ 166,  17,  39, -25], [ 179, -47, -47,  22],
     "mirror:3#wrinkle-left-cheek:3", [ 153,  69,  20, -15], [ 164, -68, -49,  -1],
-    // nose-path
-    [0, 0, 0, 0, 3],
-    [165,  -50, -80,   0], // nose left
-    [ -4,  -20,  -5,   0],
-    [ -9,  -30, -10, -20],
-    [165,  -50, -80,   0], // nose right
-    [161,  -70, -80,  -0],
-    "#nose:6", [ 140,  10,   0,   0], [ 163, -60, -80,   0],
-    "#nose:5", [ 143,   1,  -3,  -3], [ 159, -58, -78,   9],
-    "#nose:8", [ 136,   9, -10,  -2], [ 141, -39, -67,  91],
 ];
 var i=0;
 while (i< emoticon_data.length) {
@@ -77,16 +79,35 @@ while (i< emoticon_data.length) {
     }
     i++;
 }
-
+const expressable=[]
+let current_expressability = -1
+for (entry of emoticon_data) {
+    if (typeof(entry)=="string") {
+        if (entry=="teeth") current_expressability = 0.5
+        if (entry=="#lips:1") current_expressability = 1
+        if (entry=="nose") current_expressability = 0.2
+    } else {
+        expressable.push(current_expressability)
+    }
+}
 /*
-console.log(JSON.stringify(emoticon_data.filter(x => typeof x != 'string'))
+console.log(("const data="+JSON.stringify(emoticon_data.filter(x => typeof x != 'string')))
     .replace(/(,0)+\]/g,']')
+    .replace(/(.{75}[^,]*,)/g, '$1\n'))
+console.log(("const expressable="+JSON.stringify(expressable))
     .replace(/(.{75}[^,]*,)/g, '$1\n'))
 */
 
-function emoticon_svg(v, a, p, c) {
-  const X = C => [1, v/500-0.1, a/500-0.1, p/500-0.1, c/1000].reduce((a,b,i) => a + b*(C[i] || 0), 0);
-  var data = emoticon_data.map(X)
+function emoticon_svg(v, a, p, c, e) {
+  const a2=a/500-0.1
+  const dotprod = (X,Y) => X.reduce((a, b, i) => a + b*(Y[i] || 0), 0)
+  const X = C => dotprod([1, v/500-0.1, a2, p/500-0.1, c/1000], C)//.reduce((a,b,i) => a + b*(C[i] || 0), 0)
+  const e2 = e/500-0.1
+  var data = emoticon_data
+      .map((C, i)=> {
+          V= [1, v/500-0.1, Math.min(0.15,Math.max(-0.1,a2 + expressable[i]*e2)), p/500-0.1, c/1000]
+          return dotprod(V, C)
+      })
   var index=0;
   return [
       '<svg height="100%" version="1.1" viewBox="0 0 250 250" width="100%" xmlns="http://www.w3.org/2000/svg">',
@@ -127,6 +148,9 @@ function emoticon_svg(v, a, p, c) {
       '    <path d="M ?,? Q ?,? ?,?" id="wrinkle-right-brow" fill="none" stroke="black" stroke-width="0.5"/>',
       '  </g>',
       '  <use id="left-eye-brow" transform="matrix(-1,0,0,1,250,?)" href="#right-eye-top"/>',
+      '  <g id="nose" transform="matrix(1,?,0,1,132,0) translate(-132,0)">',
+      '    <path d="M 123,? q -3,? ?,0 M 132,? Q 137,? ?,? T ?,? ?,?" id="nose-path" fill="none" stroke="black"/>',
+      '  </g>',
       '  <g id="mouth">',
       '    <g clip-path="url(#clipPath-mouth)" id="mouth-interior">',
       '      <rect height="90" fill="black" id="mouth-background" width="120" x="65" y="140"/>',
@@ -149,9 +173,6 @@ function emoticon_svg(v, a, p, c) {
       '    <path d="M ?,? C ?,? ?,? 125,? S ?,? ?,? C ?,? ?,? 125,? S ?,? ?,? Z" id="lips" fill="none" stroke="black"/>',
       '    <path d="M ?,? Q ?,? ?,?" id="wrinkle-left-cheek" fill="none" stroke="black" stroke-width="0.5"/>',
       '    <path d="M ?,? Q ?,? ?,?" id="wrinkle-right-cheek" fill="none" stroke="black" stroke-width="0.5"/>',
-      '  </g>',
-      '  <g id="nose" transform="matrix(1,?,0,1,132,0) translate(-132,0)">',
-      '    <path d="M 123,? q -3,? ?,0 M 132,? Q 137,? ?,? T ?,? ?,?" id="nose-path" fill="none" stroke="black"/>',
       '  </g>',
       controls_svg && controls_svg(X) || '',
       '</svg>'
