@@ -73,11 +73,12 @@ export default {
         if (storedWork) {
             this.work.items = JSON.parse(storedWork);
         }
+        const choices = randomStates(this.$root.AB)
         while (this.work.items.length < TASK_LEN) {
             const pick= Math.floor(Math.random()*data.length)
             this.work.items.push({
                 file: data[pick].file,
-                choices: randomStates(this.$root.AB),
+                choices,
                 selected: -1,
                 startTime: 0
             });
@@ -150,16 +151,18 @@ export default {
   grid-template-rows: min-content 1fr 1fr min-content;
   grid-template-columns: 1fr 1fr;
   overflow: hidden;
+  justify-items: center;
 }
 
 .title {
+    width: 100%;
     background-color: gainsboro;
-    padding: 1px;
     grid-column: 1 / 3;
     padding: 3px;
 }
 
 .controls {
+    width: 100%;
     margin: 10px;
     overflow-y: hidden;
     display: grid;
@@ -174,15 +177,23 @@ export default {
 }
 
 .image {
+    width:100%;
+    height:100%;
     max-width: 500px;
-    margin: 10%;
     overflow: hidden;
     text-align: center;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
 }
-
+.text-left {
+    padding-top: 1em;
+    justify-self: start;
+}
+.text-right {
+    padding-top: 1em;
+    justify-self: end;
+}
 .big-view {
     grid-column: 1 / 3;
     grid-row: 2 / 4;
@@ -192,6 +203,7 @@ export default {
 }
 
 .work-list {
+    width: 100%;
     grid-template-columns: repeat(auto-fill, 330px);
     justify-content: start;
 }
