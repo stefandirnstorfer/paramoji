@@ -4,10 +4,23 @@
     <meta name="viewport" content="width=device-width, user-scalable=no"/>
     <link rel="stylesheet" type="text/css" href="style.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="emoticon.js"></script>
+    <script src="controls.js"></script>
     <script src="action.js"></script>
     <title>Emoticons</title>
 </head>
+<script>
+    function oldemo(v,a,p) {
+        let svg = emoticon_svg_old(v, a, p);
+        let re = /id="([^"]+)"/g;
+        let ids = [];
+        let m;
+        while(m = re.exec(svg)) ids.push(m[1]);
+        svg=svg.replace(re.compile(ids.join('|'),"g"), id => "2_"+id)
+        return svg;
+    }
+</script>
 <body>
 <div id="frame">
     <div id="emoticon">
@@ -15,7 +28,7 @@
     </div>
     <div id="control">
         <div id="dimensions">
-            <h1 class="landscape-only">Controls</h1>
+            <h1>Controls</h1>
             <table id="sliders" width="100%">
                 <tr>
                     <td>Valence</td>
@@ -54,10 +67,73 @@
                 </tr>
             </table>
         </div>
+        <hr/>
         <div id="shortcuts">
-            <button onclick="setParam(50,50,50,0,50)">Normal</button>
-            <button onclick="setRandomParams()">Random</button>
+            <h1>Shortcuts</h1>
+            <p>
+            <table class="shortcuts">
+                <tr>
+                    <td>
+                        <button onclick="setParam(50,50,50)">Normal</button>
+                    </td>
+                </tr>
+                <tr height="10px"/>
+                <tr>
+                    <td><button onclick="setParam(100,50,50)">Happy</button></td>
+                    <td><button onclick="setParam(50,100,50)">Surprised</button></td>
+                    <td><button onclick="setParam(50,50,100)">Determined</button></td>
+                </tr>
+                <tr>
+                    <td><button onclick="setParam(0,50,50)">Unhappy</button></td>
+                    <td><button onclick="setParam(50,0,50)">Drowsy</button></td>
+                    <td><button onclick="setParam(50,50,0)">Doubtful</button></td>
+                </tr>
+                <tr height="10px"/>
+                <tr>
+                    <td><button onclick="setParam(100,100,50)">Excited</button></td>
+                    <td><button onclick="setParam(50,100,100)">Alerted</button></td>
+                    <td><button onclick="setParam(0,100,50)">Angry</button></td>
+                </tr>
+                <tr>
+                    <td><button onclick="setParam(100,50,100)">Anticipating</button></td>
+                    <td><button onclick="setParam(50,100,0)">Scared</button></td>
+                    <td><button onclick="setParam(0,50,100)">Vengeful</button></td>
+                </tr>
+                <tr>
+                    <td><button onclick="setParam(100,50,0)">Dreaming</button></td>
+                    <td><button onclick="setParam(50,0,100)">Lurking</button></td>
+                    <td><button onclick="setParam(0,50,0)">Sad</button></td>
+                </tr>
+                <tr>
+                    <td><button onclick="setParam(100,0,50)">Content</button></td>
+                    <td><button onclick="setParam(50,0,0)">Exhausted</button></td>
+                    <td><button onclick="setParam(0,0,50)">Grumpy</button></td>
+                </tr>
+            </table>
+            </p>
         </div>
+        <div id="animation">
+            <h1>Animation</h1>
+            <label><input type="checkbox" id="animate" onchange="runAnimation({})"> Animate</label>
+            <p/>
+            Speed: <input style="width:100%;min:1;max:100;value:50" type="range" id="slider-speed"/>
+            <p/>
+            <label><input type="checkbox" id="fix-valence"> Fix valence</label>
+            <br/>
+            <label><input type="checkbox" id="fix-arousal"> Fix arousal</label>
+            <br/>
+            <label><input type="checkbox" id="fix-potency"> Fix control</label>
+            <br/>
+            <label><input type="checkbox" id="fix-contempt"> Fix contempt</label>
+        </div>
+        <div id="version">
+            <hr>
+            <label><input type="checkbox" id="show-controls"> Controls</label>
+            <input id="controls-filter" placeholder="filter">
+            <p/>
+            <button onclick="save()">Save</button>
+        </div>
+        <div style="height:20px"></div>
     </div>
 </div>
 </body>
