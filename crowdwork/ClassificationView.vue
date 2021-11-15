@@ -84,7 +84,7 @@ export default {
             data.splice(pick, 1)
         }
         this.edit(0)
-        await axios.get(BASE_URL+'/api/ping').catch(() => { throw new Error("Server not available")})
+        //await axios.get(BASE_URL+'/api/ping').catch(() => { throw new Error("Server not available")})
     },
     methods: {
         image(entry) {
