@@ -1,16 +1,17 @@
 <template lang="pug">
     .root(v-if="campaignId && workerId")
         .at-work.main(v-if="mode=='EDIT' && currentTask")
-            h2.title Find the best match ({{currentIndex +1}}/{{work.items.length}})
+            h2.title How does the person feel? Find the best fit. ({{currentIndex +1}}/{{work.items.length}})
             div.image.portrait(:style="image(currentTask)")
             div.controls.portrait
                 .choice(v-for="(choice,index) in currentTask.choices"
                     :class="{selected : currentTask.selected == index}"
                     @click="select(index)")
                     emoticon-display(:state="choice")
+                button.btn.recycle(@click="resample()")  &#x267B;
             div.text-left.m-3
-                button.btn.btn-outline-primary.mr-1(@click="back" v-if="currentIndex>0 && !complete") Back
             div.text-right.m-3
+                button.btn.btn-outline-primary.mr-1(@click="back" v-if="currentIndex>0 && !complete") Back
                 button.btn.btn-primary(@click="next" v-if="currentTask.selected >= 0") Continue
                 button.btn.btn-secondary.disabled(v-if="currentTask.selected < 0") Continue
         .final-check.main(v-if="mode=='CHECK'")
@@ -51,6 +52,7 @@ export default {
     data() {
         return {
             currentTask: null,
+            currentChoices: [],
             currentIndex: -1,
             work: {
                 items: [],
@@ -73,27 +75,38 @@ export default {
         if (storedWork) {
             this.work.items = JSON.parse(storedWork);
         }
-        const choices = randomStates(this.$root.AB)
+        this.currentChoices = randomStates(this.$root.AB)
         while (this.work.items.length < TASK_LEN) {
             const pick= Math.floor(Math.random()*data.length)
             this.work.items.push({
                 file: data[pick].file,
-                choices,
+                choices: null,
+                sample: 1,
                 selected: -1,
                 startTime: 0
             });
             data.splice(pick, 1)
         }
         this.edit(0)
-        //await axios.get(BASE_URL+'/api/ping').catch(() => { throw new Error("Server not available")})
+        if (!BASE_URL)
+          await axios.get(BASE_URL+'/api/ping').catch(() => { throw new Error("Server not available")})
     },
     methods: {
         image(entry) {
             return {'background-image': `url(${BASE_URL+"/emoticon-data/"+entry.file})`}
         },
         select(index) {
-            if (this.currentTask.selected == index) this.next()
-            this.currentTask.selected = index
+            if (this.currentTask.selected == index) {
+                this.next()
+            } else {
+                this.currentTask.selected = index
+            }
+        },
+        resample() {
+            this.currentTask.selected = -1
+            this.currentTask.sample += 1
+            this.currentChoices = randomStates(this.$root.AB)
+            this.currentTask.choices = this.currentChoices
         },
         next() {
             sessionStorage.setItem(this.workId, JSON.stringify(this.work.items))
@@ -121,12 +134,15 @@ export default {
         }
     },
     watch: {
-        currentIndex(value) {
+        currentIndex(value, old) {
             if (this.currentTask) {
                 this.currentTask.endTime= Date.now()
             }
             if (value < TASK_LEN) {
                 this.currentTask = this.work.items[this.currentIndex]
+                if (!this.currentTask.choices) {
+                    this.currentTask.choices = this.currentChoices
+                }
                 if (this.currentTask.selected == -1) {
                     this.currentTask.startTime = Date.now()
                 }
@@ -166,7 +182,8 @@ export default {
     margin: 10px;
     overflow-y: hidden;
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
 }
 .selected {
     background-color: lightsteelblue;
@@ -174,6 +191,10 @@ export default {
 .choice {
     height: 100%;
     overflow: hidden;
+}
+.recycle.btn {
+  place-self: center;
+  font-size: 40px;
 }
 
 .image {

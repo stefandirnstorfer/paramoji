@@ -61,7 +61,7 @@ module.exports = function(env, argv) {
         plugins: [
             new VueLoaderPlugin(),
             new webpack.DefinePlugin({
-                BASE_URL: JSON.stringify(process.env.BASE_URL || "http://h2615096.stratoserver.net")
+                BASE_URL: JSON.stringify(process.env.BASE_URL || "")
             })
         ],
         devtool: '#eval-source-map',

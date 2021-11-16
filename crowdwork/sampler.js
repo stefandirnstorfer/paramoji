@@ -25,21 +25,22 @@ function shuffleArray(array) {
     }
 }
 
-export function randomStates(ab) {
+export function randomStates(ab, n=15) {
     const states = [];
     if (ab=="B") {
-        while(states.length<9) {
+        while(states.length<n) {
             var code = EMOJI[Math.floor(Math.random() * EMOJI.length)];
             if (!states.find(x => x.code == code)) states.push({code});
         }
     } else {
-        while(states.length<9) states.push({});
+        while(states.length<n) states.push({});
         for (let dim of dimensions) {
-            let plain= [1, 2, 3, 4, 5, 6, 7, 8, 9];
+            let plain= []
+            for (let i=0; i<n; ++i) plain.push(i);
             shuffleArray(plain)
             for (var i in states) {
-                if (dim == 'contempt') plain[i] = Math.max(0, plain[i]*2 - 8);
-                states[i][dim] = plain[i] * 10;
+                if (dim == 'contempt') plain[i] = Math.max(0, plain[i]*2 - (n-1));
+                states[i][dim] = Math.round(plain[i] * 100.0 / (n-1));
             }
         }
     }
