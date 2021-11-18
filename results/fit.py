@@ -1,13 +1,13 @@
 import numpy as np
 import json
 from results.common import base_url, groupA, groupB, raw_data
-from results.fitA import RESULT as resultA
-from results.fitB import RESULT as resultB
+#from results.fitA import RESULT as resultA
+#from results.fitB import RESULT as resultB
 from results.bayesA import PA_inferred as inferredA
 from results.bayesB import PA_inferred as inferredB
 
-# resultA = json.load(open('gen/resultA.json', 'r'))
-# resultB = json.load(open('gen/resultB.json', 'r'))
+resultA = json.load(open('gen/resultA.json', 'r'))
+resultB = json.load(open('gen/resultB.json', 'r'))
 
 imgscale= 0.6
 
@@ -33,9 +33,12 @@ def iframe(size, state):
 
 
 def footer():
-    return '<script src="/emoticons/emoticon.js"></script>' + \
+    return f'<script src="{base_url}/emoticons/emoticon.js"></script>' + \
          '<script>document.querySelectorAll("[data-eval]").forEach(' + \
-         '(a,i) => a.innerHTML=eval(a.getAttribute("data-eval")).replace(/id-/g,"id-"+i+"-"))</script>'
+         '(a,i) => a.innerHTML=eval(a.getAttribute("data-eval"))' + \
+         '.replace(/href="#/g,"href=\\"#id-"+i+"-")' + \
+         '.replace(/\\(#/g,"(#id-"+i+"-")' + \
+         '.replace(/id="/g,"id=\\"id-"+i+"-"))</script>'
 
 
 def render_choices(choices, selected):
@@ -110,9 +113,9 @@ for face in files:
     if face in resultA:
         x_opt = resultA[face]['x_opt']
         emojis = sorted(x_opt.keys())
-        denom = np.sum(np.exp(list(x_opt.values())))
+        denom = np.sum(np.sqrt(np.exp(list(x_opt.values()))))
         for i in emojis:
-            p = np.exp(x_opt[i]) / denom
+            p = np.sqrt(np.exp(x_opt[i])) / denom
             if p > 0.01:
                 out.write(emoji(p.item(), int(i, 16)))
         out.write('<p/> %.0f%%' % inferredA[face])

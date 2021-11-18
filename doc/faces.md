@@ -1,5 +1,5 @@
 
-* Introduction
+# Introduction
 
 The description of an emotional state is an important part of human communication. 
 Emotions are often difficult to capture in a well-defined and objective terminology or even on numeric scales.
@@ -43,28 +43,44 @@ nor is it a better set of emoticons.
 What it does however contribute is compromise that might strike the right balance between psychological precision, emotional variety and graphical simplicity.
 
 
+# The parametric emoticon
 
-* Model dimensions
+Only express emotional attributes
+No physiological properties: age, gender, race
+Inspired by established emotional dimensions
+Graphical simplicity with linear displacements
+Linearity is, of course, not a strict requirement, but in the absence of an objective scale a welcome guidance
 
-The circumflex model
+Base emoticon
 
-Control
+## The circumflex model
 
-Contempt
+Valence and arousal
+Linearly displaces all control points
+Additionally combinable with all subsequent dimensions
 
-Expression
+Matrix
 
-# The visualization
+## Control
+
+
+## Contempt
+
+## Expression
+
+Pseudo dimension
+
+## The visualization code
 
 The graphics of the presented facial expression is defined in SVG and Javascript computer language that can be understood by any modern web browser.
 
 The coordinates and angles all derive linearly from input parameters defined above.
 
-Hence, every coordinate of the face is defined by up to 6 numbers defining the default position and a displacement that is proportional to the input parameters.
+Hence, every coordinate of the face is defined by 6 numbers defining the default position and a displacement that is proportional to the input parameters.
 
 This simplicity allows for a rational interpretation of the face, as each emotional dimension has a clear and independent geometric effect. Yet, the emotional state conveyed by each of the faces creates surprising new qualities as those features are combined.
 
-Basis images
+# Encoding efficiency
 
 
 # Conclusion
