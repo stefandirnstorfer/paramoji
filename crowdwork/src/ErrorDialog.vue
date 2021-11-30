@@ -8,7 +8,7 @@
                 .modal-body
                     .alert.alert-danger {{ format(error) }}
                 .modal-footer
-                    button.btn.btn-danger(@click="close") Close
+                    button.btn.btn-danger(@click="close()") Close
         .modal-backdrop.show(style="z-index:-1" @click="close")
 </template>
 
