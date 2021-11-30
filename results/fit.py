@@ -1,13 +1,13 @@
 import numpy as np
 import json
 from results.common import base_url, groupA, groupB, raw_data
-#from results.fitA import RESULT as resultA
-#from results.fitB import RESULT as resultB
+from results.fitA import RESULT as resultA
+from results.fitB import RESULT as resultB
 from results.bayesA import PA_inferred as inferredA
 from results.bayesB import PA_inferred as inferredB
 
-resultA = json.load(open('gen/resultA.json', 'r'))
-resultB = json.load(open('gen/resultB.json', 'r'))
+#resultA = json.load(open('gen/resultA.json', 'r'))
+#AresultB = json.load(open('gen/resultB.json', 'r'))
 
 imgscale= 0.6
 

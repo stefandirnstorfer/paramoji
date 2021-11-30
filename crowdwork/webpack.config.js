@@ -16,7 +16,7 @@ module.exports = function(env, argv) {
                 {
                     test: /\.css$/,
                     use: [
-                        'vue-style-loader',
+                        'style-loader',
                         'css-loader'
                     ],
                 },
@@ -51,9 +51,7 @@ module.exports = function(env, argv) {
             extensions: ['*', '.js', '.vue', '.json']
         },
         devServer: {
-            historyApiFallback: true,
-            noInfo: true,
-            overlay: true
+            historyApiFallback: true
         },
         performance: {
             hints: false

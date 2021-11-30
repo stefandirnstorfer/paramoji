@@ -1,5 +1,6 @@
 import Vue from "vue"
 import ClassificationView from "./ClassificationView"
+import RecognitionView from "./RecognitionView"
 import ErrorDialog from "./ErrorDialog";
 
 Vue.config.productionTip = false;
@@ -12,9 +13,12 @@ function hashCode(s) {
 new Vue({
     el: "#app",
     template: '<div><error-dialog :error.sync="error"></error-dialog>'+
-        '<classification-view v-if="campaignId" :campaignId="campaignId" :workerId="workerId" :taskId="taskId"></classification-view>' +
+        '<classification-view v-if="doClassify" :campaignId="campaignId" :workerId="workerId" :taskId="taskId"></classification-view>' +
+        '<recognition-view v-if="doRecognize" :campaignId="campaignId" :workerId="workerId" :taskId="taskId"></recognition-view>' +
         '</div>',
     data() { return {
+        doClassify: false,
+        doRecognize: false,
         error: "",
         campaignId : "",
         workerId : "",
@@ -31,6 +35,7 @@ new Vue({
             this.taskId = m[3];
             this.AB = hashCode(this.workerId) & 1 ? "A" : "B";
         }
+        this.doRecognize= true
     },
     methods: {
         showError(error) {
