@@ -120,10 +120,14 @@
 
 <script src="emoticon.js"></script>
 <script>
-    baseurl = "http://h2615096.stratoserver.net/emoticon-data/emoji/"
-    document.querySelectorAll("[data-eval]").forEach((a,i) =>
-        a.innerHTML=eval(a.getAttribute("data-eval")).replace(/id-/g,"id-"+i+"-"))
+    let baseurl = "http://localhost/emoticon-data/emoji/"
+    let controls_svg
     document.querySelectorAll("[data-code]").forEach((a,i) =>
         a.setAttribute('src', baseurl+"emoji_u"+a.getAttribute('data-code')+'.svg'))
+    document.querySelectorAll("[data-eval]").forEach((a,i) =>
+        a.innerHTML=eval(a.getAttribute("data-eval"))
+            .replace(/href="#/g,"href=\"#id-"+i+"-")
+            .replace(/\(#/g,"(#id-"+i+"-")
+            .replace(/id="/g,"id=\"id-"+i+"-"))
 </script>
 </html>

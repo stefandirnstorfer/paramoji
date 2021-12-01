@@ -143,7 +143,7 @@ export default {
                 if (!this.currentTask.choices) {
                     this.currentTask.choices = this.currentChoices
                 }
-                if (this.currentTask.selected == -1) {
+                if (!this.currentTask.startTime) {
                     this.currentTask.startTime = Date.now()
                 }
             } else {

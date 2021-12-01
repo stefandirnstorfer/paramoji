@@ -1,8 +1,11 @@
 import json
 import math
 import numpy as np
-from results.common import groupB
+from results.common import raw_data
 
+
+groupB = [row for row in raw_data if 'arousal' in row['items'][0]['choices'][0]]
+groupB = [dict(item, worker=row['workerId']) for row in groupB for item in row['items']]
 
 def get_vec(state):
     return np.array([

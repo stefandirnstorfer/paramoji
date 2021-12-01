@@ -1,14 +1,14 @@
 <template lang="pug">
     .root(v-if="campaignId && workerId")
         .at-work.main(v-if="mode=='EDIT' && currentTask")
-            h2.title Which face matches the emoticon? Find the best fit. ({{currentIndex +1}}/{{work.items.length}})
+            h2.title Which face matches the emoticon? ({{currentIndex +1}}/{{work.items.length}})
+            div.image.portrait
+              emoticon-display(:state="currentTask.emotion")
             div.controls.portrait
-                .choice(v-for="(choice,index) in currentTask.choices"
+                .choice.image(v-for="(choice,index) in currentTask.choices"
                     :class="{selected : currentTask.selected == index}"
-                    @click="select(index)")
-                    emoticon-display(:state="choice")
-                button.btn.recycle(@click="resample()")  &#x267B;
-            div.image.portrait(:style="image(currentTask)")
+                    @click="select(index)"
+                    :style="image(choice)")
             div.text-left.m-3
             div.text-right.m-3
                 button.btn.btn-outline-primary.mr-1(@click="back" v-if="currentIndex>0 && !complete") Back
@@ -18,8 +18,8 @@
             h2.title Final check
             .big-view.work-list
                 .work-check(v-for="(task,i) in work.items" @click="edit(i)")
-                    .image.btn(:style="image(task)")
-                    emoticon-display.btn(:state="task.choices[task.selected]")
+                    .image.btn(:style="image(task.choices[task.selected])")
+                    emoticon-display.btn(:state="task.emotion")
             div.text-left.m-3
                 label.ml-3
                     input.form-check-input(type="checkbox" v-model="finalCheck")
@@ -35,7 +35,6 @@
                 .card.big-view
                     .card-header.bg-primary.text-white Thank you for completing your work.
                     .card-body.display-4 {{ workConfirmation }}
-
 </template>
 
 <script>
@@ -43,7 +42,7 @@ import axios from 'axios'
 import * as d3 from 'd3'
 import EmotionControls from './EmotionControls'
 import EmoticonDisplay from './EmoticonDisplay'
-import {randomStates} from './sampler.js'
+import {randomStates, choose} from './sampler.js'
 
 const TASK_LEN= 20;
 
@@ -60,7 +59,8 @@ export default {
                 endTime: 0,
                 campaignId: this.campaignId,
                 workerId: this.workerId,
-                taskId: this.taskId
+                taskId: this.taskId,
+                ab: this.$root.AB
             },
             workId: [this.campaignId, this.workerId, this.taskId].join('/'),
             workConfirmation: "Waiting for server",
@@ -70,18 +70,20 @@ export default {
         }
     },
     async created() {
-        const data = await d3.csv(BASE_URL+"/emoticon-data/selection.csv")
+        const data = await d3.json(BASE_URL+"/emoticon-data/recognition.json")
         const storedWork= sessionStorage.getItem(this.workId)
         if (storedWork) {
-            this.work.items = JSON.parse(storedWork);
+            //this.work.items = JSON.parse(storedWork);
         }
+        const files = data.map(entry => entry.file)
         this.currentChoices = randomStates(this.$root.AB)
         while (this.work.items.length < TASK_LEN) {
             const pick= Math.floor(Math.random()*data.length)
+            const file= data[pick].file
             this.work.items.push({
-                file: data[pick].file,
-                choices: null,
-                sample: 1,
+                file,
+                emotion: data[pick][this.$root.AB],
+                choices: choose(files, 6, [file]).map(x => ({file:x})),
                 selected: -1,
                 startTime: 0
             });
@@ -101,12 +103,6 @@ export default {
             } else {
                 this.currentTask.selected = index
             }
-        },
-        resample() {
-            this.currentTask.selected = -1
-            this.currentTask.sample += 1
-            this.currentChoices = randomStates(this.$root.AB)
-            this.currentTask.choices = this.currentChoices
         },
         next() {
             sessionStorage.setItem(this.workId, JSON.stringify(this.work.items))
@@ -128,7 +124,11 @@ export default {
         },
         async finish() {
             this.work.endTime= Date.now()
-            const response = await axios.post(BASE_URL+'/api', this.work)
+            this.work.result = 0
+            for (let entry of this.work.items) {
+                if (entry.file == entry.choices[entry.selected].file) this.work.result++;
+            }
+            const response = await axios.post(BASE_URL + '/api', this.work)
             this.workConfirmation = response.data.code;
             this.mode='FINISHED'
         }
@@ -140,9 +140,6 @@ export default {
             }
             if (value < TASK_LEN) {
                 this.currentTask = this.work.items[this.currentIndex]
-                if (!this.currentTask.choices) {
-                    this.currentTask.choices = this.currentChoices
-                }
                 if (this.currentTask.selected == -1) {
                     this.currentTask.startTime = Date.now()
                 }
@@ -179,14 +176,16 @@ export default {
 
 .controls {
     width: 100%;
-    margin: 10px;
+    padding: 10px;
     overflow-y: hidden;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-gap: 10px;
 }
 .selected {
     background-color: lightsteelblue;
+    border: 3px solid darkblue;
 }
 .choice {
     height: 100%;

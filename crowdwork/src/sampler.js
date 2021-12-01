@@ -17,9 +17,9 @@ const EMOJI=[0x1F600, 0x1F601, 0x1F602, 0x1F923, 0x1F603,
 const dimensions = ['valence', 'arousal', 'potency', 'contempt', 'expression'];
 
 function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        let temp = array[i];
         array[i] = array[j];
         array[j] = temp;
     }
@@ -27,9 +27,9 @@ function shuffleArray(array) {
 
 export function randomStates(ab, n=15) {
     const states = [];
-    if (ab=="B") {
+    if (ab == "A") {
         while(states.length<n) {
-            var code = EMOJI[Math.floor(Math.random() * EMOJI.length)];
+            let code = EMOJI[Math.floor(Math.random() * EMOJI.length)];
             if (!states.find(x => x.code == code)) states.push({code});
         }
     } else {
@@ -38,11 +38,21 @@ export function randomStates(ab, n=15) {
             let plain= []
             for (let i=0; i<n; ++i) plain.push(i);
             shuffleArray(plain)
-            for (var i in states) {
+            for (let i in states) {
                 if (dim == 'contempt') plain[i] = Math.max(0, plain[i]*2 - (n-1));
                 states[i][dim] = Math.round(plain[i] * 100.0 / (n-1));
             }
         }
     }
     return states;
+}
+
+export function choose(list, n, start=[]) {
+    const result = start;
+    while(result.length<n) {
+        let elt = list[Math.floor(Math.random() * list.length)];
+        if (!result.includes(elt)) result.push(elt);
+    }
+    shuffleArray(result)
+    return result
 }

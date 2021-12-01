@@ -6,16 +6,17 @@ function hashCode(s) {
 }
 
 import ClassificationView from "./ClassificationView"
+import RecognitionView from "./RecognitionView";
 
 const app = createApp({
     template: '<div>' +
         '<error-dialog v-model:error="error"></error-dialog>'+
-        '<classification-view :campaignId="campaignId" :workerId="workerId" :taskId="taskId"></classification-view>' +
-        //'<recognition-view v-if="doRecognize" :campaignId="campaignId" :workerId="workerId" :taskId="taskId"></recognition-view>' +
+        '<classification-view v-if="doClassify" :campaignId="campaignId" :workerId="workerId" :taskId="taskId"></classification-view>' +
+        '<recognition-view v-if="doRecognize" :campaignId="campaignId" :workerId="workerId" :taskId="taskId"></recognition-view>' +
         '</div>',
     data() { return {
         error: "",
-        doClassify: true ,
+        doClassify: false ,
         doRecognize: false,
         campaignId: "",
         workerId: "",
@@ -25,7 +26,7 @@ const app = createApp({
     created() {
         const m = window.location.search.match(/^\?CAMPID=(.*)&WORKERID=(.*)&TASKID=(.*)/)
         if (!m || m.length < 4) {
-            this.error = "Worker and campain id not found"
+            this.error = "Worker and campaign id not found"
         } else {
             this.campaignId = m[1];
             this.workerId = m[2];
@@ -42,6 +43,7 @@ const app = createApp({
     components: {
         'error-dialog' : ErrorDialog,
         'classification-view': ClassificationView,
+        'recognition-view': RecognitionView
     }
 });
 app.mount('#app')

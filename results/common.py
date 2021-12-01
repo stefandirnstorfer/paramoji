@@ -19,8 +19,3 @@ for entry in crowd_data:
         check_double.add(entry['workerId'] + entry['taskId'])
         raw_data.append(entry)
 
-groupA = [row for row in raw_data if 'code' in row['items'][0]['choices'][0]]
-groupA = [dict(item, worker=row['workerId']) for row in groupA for item in row['items']]
-
-groupB = [row for row in raw_data if 'arousal' in row['items'][0]['choices'][0]]
-groupB = [dict(item, worker=row['workerId']) for row in groupB for item in row['items']]

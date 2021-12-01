@@ -1,8 +1,10 @@
 import math
 import json
 import numpy as np
-from results.common import groupA
+from results.common import raw_data
 
+groupA = [row for row in raw_data if 'code' in row['items'][0]['choices'][0]]
+groupA = [dict(item, worker=row['workerId']) for row in groupA for item in row['items']]
 
 faces = sorted({row['file'] for row in groupA})
 EMOJI = sorted({choice['code'] for row in groupA for choice in row['choices']})
