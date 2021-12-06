@@ -1,8 +1,8 @@
 import numpy as np
 import json
-from results.common import base_url, groupA, groupB, raw_data
-from results.fitA import RESULT as resultA
-from results.fitB import RESULT as resultB
+from results.common import base_url, raw_data
+from results.fitA import RESULT as resultA, groupA
+from results.fitB import RESULT as resultB, groupB
 from results.bayesA import PA_inferred as inferredA
 from results.bayesB import PA_inferred as inferredB
 
