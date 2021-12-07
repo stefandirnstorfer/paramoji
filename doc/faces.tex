@@ -57,12 +57,15 @@ As a primary goal, the abstract should render the general significance and conce
 
 \section{Introduction}
 
-The description of an emotional state is an important part of human communication.
-Emotions are often difficult to capture in a well-defined and objective terminology or even on numeric scales.
+Many applications rely on the ability to represent a human emotion in computational form.
+
+Current methods are either limited in the range of representable emotions or lack a clear interpretation of respective states.
+
 The only widely established technique is to use facial expressions for human emotion
+
 These can be subjectively and intuitively understood by everyone.
 However, there is a lack of consensus on how to process such faces computationally.
-So far, any system of facial expressions, such as the emoji, has either limited objective interpretability or stayed very limited in its expressive range.
+
 
 Emoji are the most widely used system of facial expressions as they are now integrated in electronic devices and part of the unicode standard.
 The extreme range of available expressions make them difficult to interpret.
@@ -89,7 +92,7 @@ However, the scale is only one-dimensional and the range of emotional states is 
 Maybe the earliest system of facial visualizations are the Chernoff faces.
 These have a very clear numerical interpretation, as each movable part of a human face is controlled by a numeric value.
 However, these faces lack an emotional interpretation. It would for example be difficult to define which faciescan be considered to perceive more pain. As such Chernoff faces could be shown to convey no additional information, when compared to other visualization techniques.
-
+\cite{chernoff}
 
 This paper suggests a facial visualization that includes 5 quantitative aspects of a human emotion.
 The emotinal dimensions are derived from common psychological models.
@@ -107,22 +110,23 @@ Graphical simplicity with linear displacements
 Linearity is, of course, not a strict requirement, but in the absence of an objective scale a welcome guidance
 
 \subsection{Valence and arousal}
-Valence and arousal
+Valence and arousal \cite{circumplex}
+
 Linearly displaces all control points
 Additionally combinable with all subsequent dimensions
 
 \begin{figure}[ht!]
 \begin{center}
 \begin{tabular}{ccc}
-\emoticon{100,0,50,0,50} &
-\emoticon{100,50,50,0,50} &
+\emoticon{0,100,50,0,50} &
+\emoticon{50,100,50,0,50} &
 \emoticon{100,100,50,0,50} \\
-\emoticon{50,0,50,0,50} &
-\emoticon{50,50,50,0,50} &
-\emoticon{50,100,50,0,50} \\
-\emoticon{0,0,50,0,50} &
 \emoticon{0,50,50,0,50} &
-\emoticon{0,100,50,0,50}
+\emoticon{50,50,50,0,50} &
+\emoticon{100,50,50,0,50} \\
+\emoticon{0,0,50,0,50} &
+\emoticon{50,0,50,0,50} &
+\emoticon{100,0,50,0,50}
 \end{tabular}
 \end{center}
 \caption{Facial expressions created with 3 different values for valence and arousal.}
@@ -192,6 +196,7 @@ The facial expression has fewer dimensions than Chernoff faces which contain dim
 The dimensions of the presented face are inspired by scientific models, but do they do lack the depth and psychological justification of the eg. the Wong-Baker scale.
 However, it is a middle ground between alternative systems.
 Thus, it fills a gap that is left open by existing methods.
+\cite{chernoff}
 
 \section{References}
 
@@ -201,16 +206,6 @@ Thus, it fills a gap that is left open by existing methods.
 \subsection{DVPRS}
 
 \url{https://academic.oup.com/painmedicine/article/16/11/2152/2460410}
-
-\subsection{Chernoff}
-
-\url{https://de.wikipedia.org/wiki/Chernoff-Gesichter}
-
-\url{https://www.jstor.org/stable/2284077}
-
-\subsection{Circumplex}
-
-\url{https://content.apa.org/record/1981-25062-001}
 
 \subsection{Integrated review}
 
@@ -231,13 +226,7 @@ Thus, it fills a gap that is left open by existing methods.
 The datasets [GENERATED/ANALYZED] for this study can be found in the [NAME OF REPOSITORY] [LINK].
 % Please see the availability of data guidelines for more information, at https://www.frontiersin.org/about/author-guidelines#AvailabilityofData
 
-\bibliographystyle{frontiersinSCNS_ENG_HUMS} % for Science, Engineering and Humanities and Social Sciences articles, for Humanities and Social Sciences articles please include page numbers in the in-text citations
-%\bibliographystyle{frontiersinHLTH&FPHY} % for Health, Physics and Mathematics articles
-\bibliography{test}
-
-%%% Make sure to upload the bib file along with the tex file and PDF
-%%% Please see the test.bib file for some examples of references
-
-
-
+\bibliographystyle{frontiersinSCNS_ENG_HUMS}
+\bibliography{faces}
+ 
 \end{document}
