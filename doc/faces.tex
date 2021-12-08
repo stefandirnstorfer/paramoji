@@ -1,6 +1,7 @@
 \documentclass[utf8]{frontiersSCNS} % for Science, Engineering and Humanities and Social Sciences articles
 
 \usepackage{url,hyperref,lineno,microtype,subcaption}
+\usepackage{multirow}
 \usepackage[onehalfspacing]{setspace}
 
 \linenumbers
@@ -10,7 +11,7 @@
 
 
 \def\keyFont{\fontsize{8}{11}\helveticabold }
-\def\firstAuthorLast{Sample {et~al.}} %use et al only if is more than 1 author
+\def\firstAuthorLast{Dirnstorfer} %use et al only if is more than 1 author
 \def\Authors{Stefan Dirnstorfer}
 % Affiliations should be keyed to the author's name with superscript numbers and be listed as follows: Laboratory, Institute, Department, Organization, City, State abbreviation (USA, Canada, Australia), and Country (without detailed address information such as city zip codes or street names).
 % If one of the authors has a change of address, list the new address below the correspondence details using a superscript symbol and use the same symbol to indicate the author in the author list.
@@ -29,7 +30,7 @@
 \onecolumn
 \firstpage{1}
 
-\title[Running Title]{A parametric emoji for the representation of emotional states}
+\title[Parametric Emoji]{A parametric emoji for the representation of emotional states}
 
 \author{\Authors} %This field will be automatically populated
 \address{} %This field will be automatically populated
@@ -57,9 +58,13 @@ As a primary goal, the abstract should render the general significance and conce
 
 \section{Introduction}
 
+Affective computing
+
 Many applications rely on the ability to represent a human emotion in computational form.
 
 Current methods are either limited in the range of representable emotions or lack a clear interpretation of respective states.
+
+Dimensional vs categorical models
 
 The only widely established technique is to use facial expressions for human emotion
 
@@ -70,7 +75,6 @@ However, there is a lack of consensus on how to process such faces computational
 Emoji are the most widely used system of facial expressions as they are now integrated in electronic devices and part of the unicode standard.
 The extreme range of available expressions make them difficult to interpret.
 Some emoji seem to be on a scale of increasing intensity, while others seem to be exact negations of each other. However, no clear consensus exists. Some emoji are even interpreted inconsistently accoss cultures
-
 
 Many computational systems use a limited set of emotions when mapping a facial expression to emotional dimensions.
 Ekman faces
@@ -112,72 +116,171 @@ Linearity is, of course, not a strict requirement, but in the absence of an obje
 \subsection{Valence and arousal}
 Valence and arousal \cite{circumplex}
 
+Pleasantness - unpleasantness, arousal - sleep.
+
+arousal - sleepiness, pleasure - misery
+
+Contentment, excitement, distress, depression
+
 Linearly displaces all control points
 Additionally combinable with all subsequent dimensions
 
+
+surprise, joy, sadness.
+but not fear, anger, disgust.
+\cite{ekman72}
+
+
 \begin{figure}[ht!]
-\begin{center}
-\begin{tabular}{ccc}
-\emoticon{0,100,50,0,50} &
-\emoticon{50,100,50,0,50} &
-\emoticon{100,100,50,0,50} \\
-\emoticon{0,50,50,0,50} &
-\emoticon{50,50,50,0,50} &
-\emoticon{100,50,50,0,50} \\
-\emoticon{0,0,50,0,50} &
-\emoticon{50,0,50,0,50} &
-\emoticon{100,0,50,0,50}
-\end{tabular}
-\end{center}
-\caption{Facial expressions created with 3 different values for valence and arousal.}
+ \begin{center}
+  \begin{tabular}{cc|ccc}
+   && \multicolumn{3}{c}{valence} \\[0.2em]
+   && 0.0 & 0.5 & 1.0 \\ \hline
+   \multirow{5}{*}{\rotatebox{90}{\hspace{-1.9em} arousal}}
+   & \rotatebox{90}{\hspace{1.5em} 1.0} &
+   \emoticon{0,100,50,0,50} &
+   \emoticon{50,100,50,0,50} &
+   \emoticon{100,100,50,0,50} \\
+   & \rotatebox{90}{\hspace{1.5em} 0.5} &
+   \emoticon{0,50,50,0,50} &
+   \emoticon{50,50,50,0,50} &
+   \emoticon{100,50,50,0,50} \\
+   & \rotatebox{90}{\hspace{1.5em} 0.0} &
+   \emoticon{0,0,50,0,50} &
+   \emoticon{50,0,50,0,50} &
+   \emoticon{100,0,50,0,50}
+  \end{tabular}
+ \end{center}
+ \caption{Facial expressions created with 3 different values for valence and arousal.}
 \end{figure}
 
 
 \subsection{Potency}
 
-\begin{tabular}{cc|cc|cc}
-\multicolumn{2}{c}{potency = 0.0} &
-\multicolumn{2}{c}{potency = 0.5} &
-\multicolumn{2}{c}{potency = 1.0} \\
-\hline
-\emoticon{46,22,0,0,50} &
-\emoticon{39,50,0,0,50} &
-\emoticon{62,42,50,0,50} &
-\emoticon{39,30,50,0,50} &
-\emoticon{92,43,100,0,50} &
-\emoticon{90,2,100,0,50}
-\\
-\emoticon{3,84,0,0,50} &
-\emoticon{97,12,0,0,50} &
-\emoticon{18,100,50,0,50} &
-\emoticon{92,27,50,0,50} &
-\emoticon{8,10,100,0,50} &
-\emoticon{66,94,100,0,50}
-\end{tabular}
+evaluation-potency-activity, "potency=toughness" \cite{potency_osgood2}
+
+Evaluation, activity, potency:
+"strong, severe deep, real, distinct, near, tenacious" vs
+"soft, light, lenient, weak, yielding"
+\cite{potency_osgood}
+
+pleasure, arousal and dominance.
+"anger, power and boldness" vs "anxiety, infatuation, fear and loneliness"
+\cite{dominance_mehrabian}
+\cite{dominance_revisited}
+
+Long lasting debate about the exact interpretation.
+
+Graphical visualization uses anger vs fear and bold vs weak as main driver.
+Anger and Fear are on almost the same spot in the original circumplex model by Russel. Hence they must be separated
+by this third dimension.
+
+More faces from the Ekman space:
+Fear in the low potency group.
+Anger and disgust in high potency group.
+
+
+\begin{figure}[ht!]
+ \begin{center}
+  \begin{tabular}{cc|cc|cc}
+   \multicolumn{2}{c}{potency = 0.0} &
+   \multicolumn{2}{c}{potency = 0.5} &
+   \multicolumn{2}{c}{potency = 1.0} \\
+   \hline
+   \emoticon{46,22,0,0,50} &
+   \emoticon{39,50,0,0,50} &
+   \emoticon{62,42,50,0,50} &
+   \emoticon{39,30,50,0,50} &
+   \emoticon{92,43,100,0,50} &
+   \emoticon{90,2,100,0,50}
+   \\
+   \emoticon{3,84,0,0,50} &
+   \emoticon{97,12,0,0,50} &
+   \emoticon{18,100,50,0,50} &
+   \emoticon{92,80,50,0,50} &
+   \emoticon{8,10,100,0,50} &
+   \emoticon{5,94,100,0,50}
+  \end{tabular}
+ \end{center}
+ \caption{Random emotions with low, medium and strong potency.}
+\end{figure}
 
 \subsection{Contempt}
 
-\begin{tabular}{cc|cc|cc}
-\multicolumn{2}{c}{contempt = 0.0} &
-\multicolumn{2}{c}{contempt = 0.5} &
-\multicolumn{2}{c}{contempt = 1.0} \\
-\hline
-\emoticon{44,21,27,0,50} &
-\emoticon{14,55,67,0,50} &
-\emoticon{86,19,88,50,50} &
-\emoticon{91,38,25,50,50} &
-\emoticon{80,14,29,100,50} &
-\emoticon{11,92,41,100,50}
-\\
-\emoticon{95,43,98,0,50} &
-\emoticon{93,57,59,0,50} &
-\emoticon{27,42,38,50,50} &
-\emoticon{71,13,7,50,50} &
-\emoticon{10,10,90,100,50} &
-\emoticon{72,27,82,100,50}
-\end{tabular}
+Contempt is a separate emotion distinct from anger, disgust or fear.
+“I’m better than you and you are lesser than me.”
+Combined with high status contempt can be coincide with pleasure.
+From a lower position it can form "upward contempt" combined with anger, disgust or fear.
+"This feeling of power and superiority may be a pleasurable experience for some people,
+whereas for others it can feel embarrassing and/or shameful."
+\cite{contempt_ekman}
+
+Contempt can occur in combination to any of the previously discussed emotions.
+Hence, it is a dimension, not a state.
+
+Graphics:
+rotation of eyes.
+Widening of mouth.
+Making space for fear
+
+\begin{figure}[ht!]
+ \begin{center}
+  \begin{tabular}{cc|cc|cc}
+   \multicolumn{2}{c}{contempt = 0.0} &
+   \multicolumn{2}{c}{contempt = 0.5} &
+   \multicolumn{2}{c}{contempt = 1.0} \\
+   \hline
+   \emoticon{44,21,27,0,50} &
+   \emoticon{14,55,67,0,50} &
+   \emoticon{86,19,88,50,50} &
+   \emoticon{71,88,70,50,50} &
+   \emoticon{80,14,29,100,50} &
+   \emoticon{11,92,41,100,50}
+   \\
+   \emoticon{95,43,98,0,50} &
+   \emoticon{93,57,59,0,50} &
+   \emoticon{27,42,38,50,50} &
+   \emoticon{71,13,7,50,50} &
+   \emoticon{10,10,90,100,50} &
+   \emoticon{72,27,82,100,50}
+   \end{tabular}
+ \end{center}
+ \caption{Random emotions with low, medium and strong contempt.}
+\end{figure}
 
 \subsection{Expression}
+
+\begin{figure}[ht!]
+ \begin{center}
+  \begin{tabular}{cc|cc|cc}
+   \multicolumn{2}{c}{expression = 0.0} &
+   \multicolumn{2}{c}{expression = 0.5} &
+   \multicolumn{2}{c}{expression = 1.0} \\
+   \hline
+   \emoticon{9,20,52,0,0} &
+   \emoticon{99,7,12,92,0} &
+   \emoticon{94,10,24,84,50} &
+   \emoticon{67,86,36,56,50} &
+   \emoticon{52,0,52,0,100} &
+   \emoticon{92,54,53,93,100} \\
+   \emoticon{11,99,39,70,0} &
+   \emoticon{75,61,70,30,0} &
+   \emoticon{25,20,5,0,50} &
+   \emoticon{68,28,7,58,50} &
+   \emoticon{27,4,69,38,100} &
+   \emoticon{29,97,94,0,100}
+  \end{tabular}
+ \end{center}
+ \caption{Random emotions with suppressed, normal and expressed emotion.}
+\end{figure}
+
+Real faces are indistinguishable in extreme expressions.
+"The results demonstrate that facial expressions of both adults and children are often not diagnostic for the valence of the situation"
+
+Parametric emoji contain information that would otherwise have to be extract from context.
+
+Benefit of exaggerated representation.
+
 
 \section{Code}
 The graphics of the presented facial expression is defined in SVG and Javascript computer language that can be understood by any modern web browser.
@@ -200,10 +303,13 @@ Thus, it fills a gap that is left open by existing methods.
 
 \section{References}
 
+\subsection{Extremes}
+\url{https://doi.apa.org/doiLanding?doi=10.1037%2Femo0000185}
+
 \subsection{WongBaker}
 \url{https://en.wikipedia.org/wiki/Wong%E2%80%93Baker_Faces_Pain_Rating_Scale}
 
-\subsection{DVPRS}
+\subsection{Pain rating scale}
 
 \url{https://academic.oup.com/painmedicine/article/16/11/2152/2460410}
 
@@ -228,5 +334,5 @@ The datasets [GENERATED/ANALYZED] for this study can be found in the [NAME OF RE
 
 \bibliographystyle{frontiersinSCNS_ENG_HUMS}
 \bibliography{faces}
- 
+
 \end{document}
