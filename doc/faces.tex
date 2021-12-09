@@ -225,27 +225,16 @@ Making space for fear
 
 \begin{figure}[ht!]
  \begin{center}
-  \begin{tabular}{cc|cc|cc}
-   \multicolumn{2}{c}{contempt = 0.0} &
-   \multicolumn{2}{c}{contempt = 0.5} &
-   \multicolumn{2}{c}{contempt = 1.0} \\
-   \hline
-   \emoticon{44,21,27,0,50} &
-   \emoticon{14,55,67,0,50} &
-   \emoticon{86,19,88,50,50} &
-   \emoticon{71,88,70,50,50} &
+  \begin{tabular}{cccccc}
+   \emoticon{44,21,27,100,50} &
+   \emoticon{14,55,67,100,50} &
+   \emoticon{86,19,88,100,50} &
+   \emoticon{71,88,70,100,50} &
    \emoticon{80,14,29,100,50} &
    \emoticon{11,92,41,100,50}
-   \\
-   \emoticon{95,43,98,0,50} &
-   \emoticon{93,57,59,0,50} &
-   \emoticon{27,42,38,50,50} &
-   \emoticon{71,13,7,50,50} &
-   \emoticon{10,10,90,100,50} &
-   \emoticon{72,27,82,100,50}
    \end{tabular}
  \end{center}
- \caption{Random emotions with low, medium and strong contempt.}
+ \caption{Random emotions showing strong levels of contempt.}
 \end{figure}
 
 \subsection{Expression}
@@ -281,6 +270,18 @@ Parametric emoji contain information that would otherwise have to be extract fro
 
 Benefit of exaggerated representation.
 
+\section{Measuring coding efficiency}
+
+\begin{figure}[ht!]
+ \begin{center}
+  \includegraphics{gen/emojito.pdf}
+ \end{center}
+ \caption{The experiment design follows the generalized rules of the Emojito
+ board game. An encoder selects an emotional visualisation
+ that matches an observed emotion.
+ The decoder's task is to correctly pick the original from
+ a set of decoy depictions of emotions.}
+\end{figure}
 
 \section{Code}
 The graphics of the presented facial expression is defined in SVG and Javascript computer language that can be understood by any modern web browser.
@@ -299,7 +300,6 @@ The facial expression has fewer dimensions than Chernoff faces which contain dim
 The dimensions of the presented face are inspired by scientific models, but do they do lack the depth and psychological justification of the eg. the Wong-Baker scale.
 However, it is a middle ground between alternative systems.
 Thus, it fills a gap that is left open by existing methods.
-\cite{chernoff}
 
 \section{References}
 

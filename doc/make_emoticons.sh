@@ -17,3 +17,8 @@ console.log(emoji.emoticon_svg(${PARAM}))
 EOF
 fi
 done
+
+
+if [ ! -e gen/emojito.pdf]; then
+inkscape emojito.svg --export-filename=gen/emojito.pdf
+fi
