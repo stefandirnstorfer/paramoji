@@ -23,7 +23,8 @@
 \def\corrEmail{stefan@thetaris.com}
 
 
-\newcommand{\emoticon}[1]{\includegraphics[width=2cm]{gen/emoticon-#1}}
+\newcommand{\paramoji}[1]{\includegraphics[width=2cm]{gen/emoticon-#1}}
+\newcommand{\notomoji}[1]{\raisebox{-0.3cm}{\includegraphics[height=0.75cm]{gen/emoticon-u#1}}}
 
 
 \begin{document}
@@ -138,17 +139,17 @@ but not fear, anger, disgust.
    && 0.0 & 0.5 & 1.0 \\ \hline
    \multirow{5}{*}{\rotatebox{90}{\hspace{-1.9em} arousal}}
    & \rotatebox{90}{\hspace{1.5em} 1.0} &
-   \emoticon{0,100,50,0,50} &
-   \emoticon{50,100,50,0,50} &
-   \emoticon{100,100,50,0,50} \\
+   \paramoji{0,100,50,0,50} &
+   \paramoji{50,100,50,0,50} &
+   \paramoji{100,100,50,0,50} \\
    & \rotatebox{90}{\hspace{1.5em} 0.5} &
-   \emoticon{0,50,50,0,50} &
-   \emoticon{50,50,50,0,50} &
-   \emoticon{100,50,50,0,50} \\
+   \paramoji{0,50,50,0,50} &
+   \paramoji{50,50,50,0,50} &
+   \paramoji{100,50,50,0,50} \\
    & \rotatebox{90}{\hspace{1.5em} 0.0} &
-   \emoticon{0,0,50,0,50} &
-   \emoticon{50,0,50,0,50} &
-   \emoticon{100,0,50,0,50}
+   \paramoji{0,0,50,0,50} &
+   \paramoji{50,0,50,0,50} &
+   \paramoji{100,0,50,0,50}
   \end{tabular}
  \end{center}
  \caption{Facial expressions created with 3 different values for valence and arousal.}
@@ -187,19 +188,19 @@ Anger and disgust in high potency group.
    \multicolumn{2}{c}{potency = 0.5} &
    \multicolumn{2}{c}{potency = 1.0} \\
    \hline
-   \emoticon{46,22,0,0,50} &
-   \emoticon{39,50,0,0,50} &
-   \emoticon{62,42,50,0,50} &
-   \emoticon{39,30,50,0,50} &
-   \emoticon{92,43,100,0,50} &
-   \emoticon{90,2,100,0,50}
+   \paramoji{46,22,0,0,50} &
+   \paramoji{39,50,0,0,50} &
+   \paramoji{62,42,50,0,50} &
+   \paramoji{39,30,50,0,50} &
+   \paramoji{92,43,100,0,50} &
+   \paramoji{90,2,100,0,50}
    \\
-   \emoticon{3,84,0,0,50} &
-   \emoticon{97,12,0,0,50} &
-   \emoticon{18,100,50,0,50} &
-   \emoticon{92,80,50,0,50} &
-   \emoticon{8,10,100,0,50} &
-   \emoticon{5,94,100,0,50}
+   \paramoji{3,84,0,0,50} &
+   \paramoji{97,12,0,0,50} &
+   \paramoji{18,100,50,0,50} &
+   \paramoji{92,80,50,0,50} &
+   \paramoji{8,10,100,0,50} &
+   \paramoji{5,94,100,0,50}
   \end{tabular}
  \end{center}
  \caption{Random emotions with low, medium and strong potency.}
@@ -226,12 +227,12 @@ Making space for fear
 \begin{figure}[ht!]
  \begin{center}
   \begin{tabular}{cccccc}
-   \emoticon{44,21,27,100,50} &
-   \emoticon{14,55,67,100,50} &
-   \emoticon{86,19,88,100,50} &
-   \emoticon{71,88,70,100,50} &
-   \emoticon{80,14,29,100,50} &
-   \emoticon{11,92,41,100,50}
+   \paramoji{44,21,27,100,50} &
+   \paramoji{14,55,67,100,50} &
+   \paramoji{86,19,88,100,50} &
+   \paramoji{71,88,70,100,50} &
+   \paramoji{80,14,29,100,50} &
+   \paramoji{11,92,41,100,50}
    \end{tabular}
  \end{center}
  \caption{Random emotions showing strong levels of contempt.}
@@ -246,18 +247,18 @@ Making space for fear
    \multicolumn{2}{c}{expression = 0.5} &
    \multicolumn{2}{c}{expression = 1.0} \\
    \hline
-   \emoticon{9,20,52,0,0} &
-   \emoticon{99,7,12,92,0} &
-   \emoticon{94,10,24,84,50} &
-   \emoticon{67,86,36,56,50} &
-   \emoticon{52,0,52,0,100} &
-   \emoticon{92,54,53,93,100} \\
-   \emoticon{11,99,39,70,0} &
-   \emoticon{75,61,70,30,0} &
-   \emoticon{25,20,5,0,50} &
-   \emoticon{68,28,7,58,50} &
-   \emoticon{27,4,69,38,100} &
-   \emoticon{29,97,94,0,100}
+   \paramoji{9,20,52,0,0} &
+   \paramoji{99,7,12,92,0} &
+   \paramoji{94,10,24,84,50} &
+   \paramoji{67,86,36,56,50} &
+   \paramoji{52,0,52,0,100} &
+   \paramoji{92,54,53,93,100} \\
+   \paramoji{11,99,39,70,0} &
+   \paramoji{75,61,70,30,0} &
+   \paramoji{25,20,5,0,50} &
+   \paramoji{68,28,7,58,50} &
+   \paramoji{27,4,69,38,100} &
+   \paramoji{29,97,94,0,100}
   \end{tabular}
  \end{center}
  \caption{Random emotions with suppressed, normal and expressed emotion.}
@@ -272,6 +273,7 @@ Benefit of exaggerated representation.
 
 \section{Measuring coding efficiency}
 
+\subsection{Expreiment design}
 \begin{figure}[ht!]
  \begin{center}
   \includegraphics{gen/emojito.pdf}
@@ -282,6 +284,71 @@ Benefit of exaggerated representation.
  The decoder's task is to correctly pick the original from
  a set of decoy depictions of emotions.}
 \end{figure}
+
+\subsection{Encoding}
+
+\begin{equation}
+ \mathbb{E}_{unicode} =
+ \left\{
+ \notomoji{2639},
+ \notomoji{1f641},
+ \notomoji{1f610},
+ \cdots
+ \right\}
+\end{equation}
+$sel(n)$ is the selected emoji from a set $E_n$ shown to test participant $n$
+\begin{equation}
+ c^* =
+ \underset{c}{\mathrm{argmax}}
+\ \prod_n\frac
+ {
+  \exp\left(c_{sel(n)} \right)
+ }
+ {
+  \sum_{e\in E_n}\exp(c_e)
+ },
+ \quad sel(n) \in E_n \subset \mathbb{E}_{unicode}
+\end{equation}
+
+\begin{equation}
+ \mathbb{E}_{param} = [0,1]^6
+\end{equation}
+
+\begin{equation}
+ \mu^*, \sigma^* =
+ \underset{{\mu,\sigma}}{\mathrm{argmax}}
+ \prod_n\frac
+ {
+  \exp\left(\sum_d (sel(n)_d-\mu_d)^2/\sigma_d \right)
+ }
+ {
+  \sum_{e\in E_n}
+  \exp\left(\sum_d (e_d-\mu_d)^2/\sigma_d \right)
+ }
+ \quad sel(n) \in E_n \subset \mathbb{E}_{param}
+\end{equation}
+
+Unicode emoji selection accuracy saturates when the best representation is selected.
+
+Parametric emoji increase to refine arbitrarily until a unique parameters are found.
+Hence, the real challenge lies in the decoding part.
+The question is whether untrained laymen can intuitively make use of this additional precision.
+
+\subsection{Decoding}
+
+The decoding part is simple.
+Test participants are presented with an emotional expression and get to select
+on out of six photos, one of which shows the originally encoded emotion.
+
+\begin{equation}
+ p = \frac{1}{1+\frac{m}{L}}
+\end{equation}
+
+Hence, coding length $L$ is
+
+\begin{equation}
+ L = \frac{m}{\frac{1}{p} - 1}
+\end{equation}
 
 \section{Code}
 The graphics of the presented facial expression is defined in SVG and Javascript computer language that can be understood by any modern web browser.
@@ -333,6 +400,6 @@ The datasets [GENERATED/ANALYZED] for this study can be found in the [NAME OF RE
 % Please see the availability of data guidelines for more information, at https://www.frontiersin.org/about/author-guidelines#AvailabilityofData
 
 \bibliographystyle{frontiersinSCNS_ENG_HUMS}
-\bibliography{faces}
+\bibliography{paramoji}
 
 \end{document}
