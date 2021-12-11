@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="style.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="emoticon.js"></script>
+    <script src="paramoji.js"></script>
     <script src="controls.js"></script>
     <script src="action.js"></script>
     <title>Emoticons</title>
@@ -32,6 +32,7 @@
             <table id="sliders" width="100%">
                 <tr>
                     <td>Valence</td>
+                    <td><button id="clear-valence">&times;</button></td>
                     <td>
                         <input style="width:90%;min:0;max:100;value:50" type="range" id="slider-valence"/>
                     </td>
@@ -39,13 +40,15 @@
                 </tr>
                 <tr>
                     <td>Arousal</td>
+                    <td><button id="clear-arousal">&times;</button></td>
                     <td>
                         <input style="width:90%;min:0;max:100;value:50" type="range" id="slider-arousal"/>
                     </td>
                     <td><span id="label-arousal">0</span></td>
                 </tr>
                 <tr>
-                    <td>Control</td>
+                    <td>Potency</td>
+                    <td><button id="clear-potency">&times;</button></td>
                     <td>
                         <input style="width:90%;min:0;max:100;value:50" type="range" id="slider-potency"/>
                     </td>
@@ -53,6 +56,7 @@
                 </tr>
                 <tr>
                     <td>Contempt</td>
+                    <td><button id="clear-contempt">&times;</button></td>
                     <td>
                         <input style="width:90%;min:0;max:100;value:50" type="range" id="slider-contempt"/>
                     </td>
@@ -60,6 +64,7 @@
                 </tr>
                 <tr>
                     <td>Expression</td>
+                    <td><button id="clear-expression">&times;</button></td>
                     <td>
                         <input style="width:90%;min:0;max:100;value:50" type="range" id="slider-expression"/>
                     </td>

@@ -50,7 +50,7 @@ div#frame {
 @media (orientation:portrait) {
     div#frame {
         grid-template-columns: 1fr;
-        grid-template-rows: auto min-content;
+        grid-template-rows: 1fr 1fr;
     }
     .landscape-only { display: none }
 }

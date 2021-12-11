@@ -8,8 +8,14 @@ var state= {
 $(async function () {
     $('input').bind('input', refresh);
     $('input').bind('change', refresh);
+    for (let key in state) {
+        $('#clear-'+key).bind('click', function() {
+            state[key]= (key=="contempt" ? 0 : 50)
+            redrawEmoticon()
+        })
+    }
 
-    for (var key in state) {
+    for (let key in state) {
         var m= location.search.match(RegExp(key.substring(0,1) + "=([0-9]+)"));
         if (m) state[key]= parseInt(m[1]);
     }
