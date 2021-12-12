@@ -57,7 +57,7 @@ div#frame {
 
 @media (orientation:landscape) {
     div#frame {
-        grid-template-columns: 3fr max-content;
+        grid-template-columns: 2fr 1fr;
         grid-template-rows: 1fr;
     }
 }
@@ -67,11 +67,6 @@ div#emoticon {
 
 div#control {
     overflow-y: scroll;
-}
-
-#shortcuts {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
 }
 
 button {
