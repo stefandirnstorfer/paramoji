@@ -22,11 +22,11 @@ const emoticon_data=[
     [  1,  0,  8], // #pupil[radius]
     [  2,  1,  0], // #glare[radius]
     // right-lid-shadow
-    "#right-lid-shadow:2", [ 10,  2, -8, 16], [  7,-20,-38,  10],
+    "#right-lid-shadow:2", [ 10,  2, -8, 16], [  4,-20,-34,  10],
     // right-eye
     [-70,  0,  0,  4],
     // left-lid-shadow
-    "#left-lid-shadow:2", [-66,  2,-20,-12,  6], [  9,-20,-40,  4, 10],
+    "#left-lid-shadow:2", [-66,  2,-20,-12,  6], [  4,-18,-34,  4, 26],
     // left-eye-brow
     "#right-eye-brow:1", [151,  4, -6,-10], [117,-12,-36, 16],
     "#right-eye-brow:2", [167, -3,  0, -8], [117,-16,-36,  8],
