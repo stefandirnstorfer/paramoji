@@ -41,6 +41,7 @@ function emoticon_svg(v, a, p, c, e) {
     var index=0;
     return [
         '<svg height="100%" version="1.1" viewBox="0 0 250 250" width="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">',
+        '  <style>path { stroke-width: 2px }</style>',
         '  <defs id="defs">',
         '    <clipPath id="clipPath-right-eye">',
         '      <use xlink:href="#right-eye-outline"/>',
