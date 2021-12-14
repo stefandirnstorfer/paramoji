@@ -15,14 +15,10 @@ export default {
     methods: {
         fixids(svg) {
             id_prefix++
-            if (!this.idexp) {
-                let re = /id="([^"]+)"/g;
-                let ids = [];
-                let m;
-                while (m = re.exec(svg)) ids.push(m[1]);
-                this.idexp= re.compile(ids.join('|'),"g")
-            }
-            return svg.replace(this.idexp, id => id_prefix+"_"+id);
+            return svg
+                .replace(/href="#/g,"href=\"#id-"+id_prefix+"-")
+                .replace(/\(#/g,"(#id-"+id_prefix+"-")
+                .replace(/id="/g,"id=\"id-"+id_prefix+"-")
         },
         redraw() {
             if (this.state) {
@@ -34,7 +30,8 @@ export default {
                         this.state.arousal,
                         this.state.potency,
                         this.state.contempt,
-                        this.state.expression
+                        this.state.expression,
+                        this.state.lips
                     ))
             }
         }

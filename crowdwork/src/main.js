@@ -33,7 +33,8 @@ const app = createApp({
             this.taskId = m[3];
             this.AB = hashCode(this.workerId) & 1 ? "A" : "B";
         }
-        this.doRecognize = true
+        //this.doRecognize = true
+        this.doClassify = true
     },
     methods: {
         showError(error) {

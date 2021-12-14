@@ -39,7 +39,7 @@ app.post('/api/', async function (req, res) {
         const ip = req.headers['x-forwarded-for'];
         await res.json({
             code: vcode,
-            autosubmit : await putProof(campaignId,workerId, taskId, vcode, ip)
+            autosubmit : false// await putProof(campaignId,workerId, taskId, vcode, ip)
         });
         await DB.collection('microworker').insertOne(req.body);
     } catch(e) {

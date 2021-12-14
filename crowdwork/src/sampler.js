@@ -14,7 +14,7 @@ const EMOJI=[0x1F600, 0x1F601, 0x1F602, 0x1F923, 0x1F603,
     0x1F92A, 0x1F635, 0x1F621, 0x1F620,
     0x1F922, 0x1F92E];
 
-const dimensions = ['valence', 'arousal', 'potency', 'contempt', 'expression'];
+const dimensions = ['valence', 'arousal', 'potency', 'contempt', 'expression', 'lips'];
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -40,6 +40,7 @@ export function randomStates(ab, n=15) {
             shuffleArray(plain)
             for (let i in states) {
                 if (dim == 'contempt') plain[i] = Math.max(0, plain[i]*2 - (n-1));
+                if (dim == 'lips')  plain[i] = Math.max(0, plain[i]*4 - 3*(n-1));
                 states[i][dim] = Math.round(plain[i] * 100.0 / (n-1));
             }
         }

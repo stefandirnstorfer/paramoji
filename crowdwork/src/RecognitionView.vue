@@ -155,7 +155,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .main {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   color: #2c3e50;

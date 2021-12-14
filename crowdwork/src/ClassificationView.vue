@@ -158,7 +158,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .main {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   color: #2c3e50;
@@ -195,6 +195,8 @@ export default {
 .recycle.btn {
   place-self: center;
   font-size: 40px;
+  margin-top: -1ex;
+  margin-bottom: -1ex;
 }
 
 .image {

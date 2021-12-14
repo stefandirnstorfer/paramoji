@@ -16,12 +16,12 @@ while (i < emoticon_data.length) {
                     this.dirty = true;
                     emoticon_data[this.index] = [x, 0, 0, 0];
                     emoticon_data[this.index + 1] = [y, 0, 0, 0];
-                    this.mirrors.forEach(mirror => mirror.preview(250 - x, y))
+                    this.mirrors.forEach(mirror => mirror.preview(50 - x, y))
                 },
                 persist(x, y) {
                     this.x = x;
                     this.y = y;
-                    this.mirrors.forEach(mirror => mirror.persist([250 - x[0], -x[1], -x[2], -x[3]], [y[0], y[1], y[2], y[3]]))
+                    this.mirrors.forEach(mirror => mirror.persist([50 - x[0], -x[1], -x[2], -x[3]], [y[0], y[1], y[2], y[3]]))
                 },
                 commit() {
                     emoticon_data[this.index] = this.x;
@@ -49,7 +49,7 @@ function controls_svg(X) {
             var c = controls[key];
             if (c.show && key.includes(filter)) {
                 result = result +
-                    '<circle r="3" cx="?" cy="?" transform="translate(?) rotate(?)" fill="skyblue" fill-opacity="0.5" stroke-width="0.5" stroke="black" onmousedown="dragstart(evt, \'?\')"/>'
+                    '<circle r="1" cx="?" cy="?" transform="translate(?) rotate(?)" fill="skyblue" fill-opacity="0.5" stroke-width="0.25" stroke="black" onmousedown="dragstart(evt, \'?\')"/>'
                         .replace(/\?/, X(emoticon_data[c.index]))
                         .replace(/\?/, X(emoticon_data[c.index + 1]))
                         .replace(/\?/, key.match(/right-eye-outline|lid-shadow/) ? "160," + X(emoticon_data[1]) : "0,0")
