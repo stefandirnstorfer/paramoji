@@ -11,7 +11,7 @@ results = {file: {"A": [], "B": []} for file in files}
 full = {"A": [], "B": []}
 
 for item in data:
-    if item['file'] != 'img_align_celeba/000086.jpg':
+    #@if item['file'] != 'img_align_celeba/000086.jpg':
         group = item['group']
         answer = item['choices'][item['selected']]['file'] == item['file']
         full[group].append(answer)

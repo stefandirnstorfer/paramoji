@@ -79,51 +79,9 @@
                     <td><span id="label-lips">0</span></td>
                 </tr>
             </table>
+            <button onclick="setParam(50,50,50)">Reset all</button>
         </div>
         <hr/>
-        <div id="shortcuts">
-            <h1>Shortcuts</h1>
-            <table class="shortcuts">
-                <tr>
-                    <td>
-                        <button onclick="setParam(50,50,50)">Normal</button>
-                    </td>
-                </tr>
-                <tr height="10px"/>
-                <tr>
-                    <td><button onclick="setParam(100,50,50)">Happy</button></td>
-                    <td><button onclick="setParam(50,100,50)">Surprised</button></td>
-                    <td><button onclick="setParam(50,50,100)">Determined</button></td>
-                </tr>
-                <tr>
-                    <td><button onclick="setParam(0,50,50)">Unhappy</button></td>
-                    <td><button onclick="setParam(50,0,50)">Drowsy</button></td>
-                    <td><button onclick="setParam(50,50,0)">Doubtful</button></td>
-                </tr>
-                <tr height="10px"/>
-                <tr>
-                    <td><button onclick="setParam(100,100,50)">Excited</button></td>
-                    <td><button onclick="setParam(50,100,100)">Alerted</button></td>
-                    <td><button onclick="setParam(0,100,50)">Angry</button></td>
-                </tr>
-                <tr>
-                    <td><button onclick="setParam(100,50,100)">Anticipating</button></td>
-                    <td><button onclick="setParam(50,100,0)">Scared</button></td>
-                    <td><button onclick="setParam(0,50,100)">Vengeful</button></td>
-                </tr>
-                <tr>
-                    <td><button onclick="setParam(100,50,0)">Dreaming</button></td>
-                    <td><button onclick="setParam(50,0,100)">Lurking</button></td>
-                    <td><button onclick="setParam(0,50,0)">Sad</button></td>
-                </tr>
-                <tr>
-                    <td><button onclick="setParam(100,0,50)">Content</button></td>
-                    <td><button onclick="setParam(50,0,0)">Exhausted</button></td>
-                    <td><button onclick="setParam(0,0,50)">Grumpy</button></td>
-                </tr>
-            </table>
-            </p>
-        </div>
         <div id="animation">
             <h1>Animation</h1>
             <label><input type="checkbox" id="animate" onchange="runAnimation({})"> Animate</label>
@@ -145,7 +103,7 @@
             <label><input type="checkbox" id="show-controls"> Controls</label>
             <input id="controls-filter" placeholder="filter">
             <p/>
-            <button onclick="save()">Save</button>
+            <table id="moves" style="width:90%"/>
         </div>
         <div style="height:20px"></div>
     </div>
