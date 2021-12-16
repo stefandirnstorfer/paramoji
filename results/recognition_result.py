@@ -4,7 +4,7 @@ import numpy as np
 data = [dict(item, worker=row['workerId'], group=row['ab'])
         for row in raw_data
         for item in row['items']
-        if "ab" in row]
+        if row["task"] == "recognize"]
 
 files = sorted(set(item['file'] for item in data))
 results = {file: {"A": [], "B": []} for file in files}
@@ -17,9 +17,10 @@ for item in data:
         full[group].append(answer)
         results[item['file']][group].append(answer)
 
-for file in files:
+for i in range(len(files)):
+    file=files[i]
     v = results[file]
-    print(f"{file:20s}: {np.sum(v['A'])/len(v['A']):.2f} {np.sum(v['B'])/len(v['B']):.2f}")
+    print(f"{i+1}: {file:20s}: {np.sum(v['A'])/len(v['A']):.2f} {np.sum(v['B'])/len(v['B']):.2f}")
 
 for group in ["A", "B"]:
     num = np.sum(full[group])

@@ -2,13 +2,15 @@ import json
 import datetime
 import urllib.request
 
-base_url = 'http://localhost:8000'
+base_url = 'http://localhost'
 campaign_id = '0e33b20003d8'
 
 start_date = datetime.datetime.strptime("2020-01-01", "%Y-%m-%d")
 
 #crowd_data = json.loads(urllib.request.urlopen(base_url + '/api/work/' + campaign_id).read())
-crowd_data = json.load(open('../crowdwork/raw_data.json', 'r'))
+crowd_data = json.load(open('./raw_data.json', 'r'))
+
+emotion_params = ['valence', 'arousal', 'potency', 'contempt', 'expression', 'lips']
 
 raw_data = []
 check_double = set()

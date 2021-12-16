@@ -22,8 +22,8 @@ done
 # Create unicode emoji based on noto font
 NOTO_PATH=../../noto-emoji/svg
 PARAMS=$(cat *.tex | \
-   grep "notomoji{" | \
-   sed -e s"/.*notomoji{\([^}]*\)}.*/\1/" | \
+   egrep "notomoji(Large)?{" | \
+   sed -e s"/.*{\([^}]*\)}.*/\1/" | \
    sort -u)
 
 for PARAM in $PARAMS

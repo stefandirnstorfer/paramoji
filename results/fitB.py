@@ -1,20 +1,15 @@
 import json
 import math
 import numpy as np
-from results.common import raw_data
+from results.common import raw_data, emotion_params
 
 
 groupB = [row for row in raw_data if 'arousal' in row['items'][0]['choices'][0]]
 groupB = [dict(item, worker=row['workerId']) for row in groupB for item in row['items']]
 
+
 def get_vec(state):
-    return np.array([
-        state['valence'],
-        state['arousal'],
-        state['potency'],
-        state['contempt'],
-        state['expression']
-    ]) / 100.0
+    return np.array([state[dim] for dim in emotion_params]) / 100.0
 
 
 RESULT = {}
@@ -58,7 +53,7 @@ for face in faces:
         return dp
 
 
-    x0 = np.zeros((2, 5))
+    x0 = np.zeros((2, len(emotion_params)))
     x0[0, :] = DATA[0]['selected']
 
     # print("Analyic Jaccobi")
@@ -67,7 +62,7 @@ for face in faces:
     # print("Numeric Jaccobi")
     dnn = np.zeros(x0.shape)
     for i in range(2):
-        for j in range(5):
+        for j in range(len(emotion_params)):
             h = 0.001
             d = np.zeros(x0.shape)
             d[i, j] = h
@@ -75,7 +70,7 @@ for face in faces:
     # print(np.round(dnn, 3))
 
     x_mean = np.mean(np.array([row['selected'] for row in DATA]), axis=0)
-    x_opt_global = np.array([x_mean, [0.5]*5])
+    x_opt_global = np.array([x_mean, [0.5]*len(emotion_params)])
     v_opt_global = -1e10
     v_old = 0
     x_opt = x_opt_global

@@ -60,7 +60,8 @@ export default {
                 campaignId: this.campaignId,
                 workerId: this.workerId,
                 taskId: this.taskId,
-                ab: this.$root.AB
+                ab: this.$root.AB,
+                task: "recognize"
             },
             workId: [this.campaignId, this.workerId, this.taskId].join('/'),
             workConfirmation: "Waiting for server",

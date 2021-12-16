@@ -24,6 +24,9 @@ const app = createApp({
         AB: "A"
     }},
     created() {
+        this.doRecognize = true
+        //this.doClassify = true
+
         const m = window.location.search.match(/^\?CAMPID=(.*)&WORKERID=(.*)&TASKID=(.*)/)
         if (!m || m.length < 4) {
             this.error = "Worker and campaign id not found"
@@ -33,8 +36,6 @@ const app = createApp({
             this.taskId = m[3];
             this.AB = hashCode(this.workerId) & 1 ? "A" : "B";
         }
-        //this.doRecognize = true
-        this.doClassify = true
     },
     methods: {
         showError(error) {

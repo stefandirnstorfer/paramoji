@@ -1,5 +1,6 @@
 import json
 import numpy as np
+from results.common import emotion_params
 
 data_in = open('gen/resultB.json', 'r')
 data = json.load(data_in)
@@ -9,7 +10,8 @@ faces = sorted(data.keys())
 PA = 1.0 / len(faces)
 
 N = 10000
-choices = np.reshape(np.random.uniform(0, 1, 5*N), (N, 5))
+D = len(emotion_params)
+choices = np.reshape(np.random.uniform(0, 1, D*N), (N, D))
 choices[:, 3] = np.maximum(0, 2 * choices[:, 3]-1)
 
 PB_and_A = np.zeros((N, len(faces)))

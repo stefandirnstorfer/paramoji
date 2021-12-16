@@ -25,7 +25,8 @@
 
 \newcommand{\paramoji}[1]{\includegraphics[width=2cm]{gen/emoticon-#1}}
 \newcommand{\notomoji}[1]{\raisebox{-0.3cm}{\includegraphics[height=0.75cm]{gen/emoticon-u#1}}}
-
+\newcommand{\notomojiLarge}[1]{\includegraphics[height=2cm]{gen/emoticon-u#1}}
+\newcommand{\face}[1]{\includegraphics[height=2cm]{../../emoticon-data/#1.jpg}}
 
 \begin{document}
 \onecolumn
@@ -50,11 +51,22 @@
 \section{}
 For full guidelines regarding your manuscript please refer to \href{http://www.frontiersin.org/about/AuthorGuidelines}{Author Guidelines}.
 
-As a primary goal, the abstract should render the general significance and conceptual advance of the work clearly accessible to a broad readership. References should not be cited in the abstract. Leave the Abstract empty if your article does not require one, please see \href{http://www.frontiersin.org/about/AuthorGuidelines#SummaryTable}{Summary Table} for details according to article type. 
+As a primary goal, the abstract should render the general significance and conceptual advance of the work clearly accessible to a broad readership.
+References should not be cited in the abstract. Leave the Abstract empty if your article does not require one,
+please see \href{http://www.frontiersin.org/about/AuthorGuidelines#SummaryTable}{Summary Table} for details according to article type.
 
 
-Suggest an emoji that provides an interpretation of emotional dimensions.
-Gives playfull, but valid facial expression for every combination of parameters.
+Two approaches have emerged:
+Dimensional approach,
+Emoji.
+
+This paper seeks to unite these two approaches by providing an emoji
+with the usual exaggerated facial proportions that can be parameterized on a continuous domain to visualize
+the known emotional dimensions: valence, arousal, potency and contempt.
+
+Three more dimensions relate to more conscious or trained modulations: expression, lip protrusion and tongue.
+
+
 
 \tiny
  \keyFont{ \section{Keywords:} keyword, keyword, keyword, keyword, keyword, keyword, keyword, keyword} %All article types: you may provide up to 8 keywords; at least 5 are mandatory.
@@ -133,10 +145,6 @@ Linearly displaces all control points
 Additionally combinable with all subsequent dimensions
 
 
-surprise, joy, sadness.
-but not fear, anger, disgust.
-\cite{ekman72}
-
 
 \begin{figure}[ht!]
  \begin{center}
@@ -144,11 +152,11 @@ but not fear, anger, disgust.
    && \multicolumn{3}{c}{valence} \\[0.2em]
    && 0.0 & 0.5 & 1.0 \\ \hline
    &&&&\\[-0.8em]
-   \multirow{5}{*}{\rotatebox{90}{\hspace{-1.9em} arousal}}
    & \rotatebox{90}{\hspace{1.5em} 1.0} &
    \paramoji{0,100,50,0,50} &
    \paramoji{50,100,50,0,50} &
    \paramoji{100,100,50,0,50} \\
+   \rotatebox{90}{\hspace{0.8em} arousal}
    & \rotatebox{90}{\hspace{1.5em} 0.5} &
    \paramoji{0,50,50,0,50} &
    \paramoji{50,50,50,0,50} &
@@ -162,6 +170,17 @@ but not fear, anger, disgust.
  \caption{Facial expressions created with 3 different values for valence and arousal.}
 \end{figure}
 
+Sleep eyes curled upwards or downwards usually due to view angle.
+Corraborated by a happy or aroused face looking upwards and a sad or sleepy face looking downwards.
+
+We can see surprise, joy, sadness.
+but not fear, anger, disgust.
+\cite{ekman72}
+
+According to to original circumplex model we'd expect fear and anger in the top left.
+However, this is not possible.
+At least from a graphical perspective such widely different emotions cannot occur in close
+proximity without an additional dimension that separates them.
 
 \subsection{Potency}
 
@@ -278,6 +297,7 @@ Making space for fear
 
 Real faces are indistinguishable in extreme expressions.
 "The results demonstrate that facial expressions of both adults and children are often not diagnostic for the valence of the situation"
+\cite{painjoy}
 
 Parametric emoji contain information that would otherwise have to be extract from context.
 
@@ -285,7 +305,7 @@ Benefit of exaggerated representation.
 
 \section{Measuring coding efficiency}
 
-\subsection{Expreiment design}
+\subsection{Experiment design}
 \begin{figure}[ht!]
  \begin{center}
   \includegraphics{gen/emojito.pdf}
@@ -297,7 +317,22 @@ Benefit of exaggerated representation.
  a set of decoy depictions of emotions.}
 \end{figure}
 
+Interested in ability to represent a facial expression.
+Hence, we want to compare the decoding efficiency.
+
+Need to make sure that equal attention is paid to the encoding part.
+No bias should be added through quality of encoding.
+
+
+\subsection{Test data and participation}
+
+\cite{LFWTech}
+\cite{liu2015faceattributes}
+
+\cite{microworkers}
+
 \subsection{Encoding}
+
 
 \begin{equation}
  \mathbb{E}_{unicode} =
@@ -331,12 +366,12 @@ $sel(n)$ is the selected emoji from a set $E_n$ shown to test participant $n$
  \underset{{\mu,\sigma}}{\mathrm{argmax}}
  \prod_n\frac
  {
-  \exp\left(\sum_d (sel(n)_d-\mu_d)^2/\sigma_d \right)
+  \exp\left(\sum_d \frac{(sel(n)_d-\mu_d)^2}{\sigma_d} \right)
  }
  {
   \sum_{e\in E_n}
-  \exp\left(\sum_d (e_d-\mu_d)^2/\sigma_d \right)
- }
+  \exp\left(\sum_d \frac{(e_d-\mu_d)^2}{\sigma_d} \right)
+ },
  \quad sel(n) \in E_n \subset \mathbb{E}_{param}
 \end{equation}
 
@@ -346,6 +381,28 @@ Parametric emoji increase to refine arbitrarily until a unique parameters are fo
 Hence, the real challenge lies in the decoding part.
 The question is whether untrained laymen can intuitively make use of this additional precision.
 
+\begin{figure}
+ \begin{center}
+  \begin{tabular}{llllll}
+   \face{img_align_celeba/010870} &
+   \paramoji{0,0,100,100,0,0} &
+   \notomojiLarge{1f928}
+   &
+   \face{img_align_celeba/021607} &
+   \paramoji{42,72,0,66,50} &
+   \notomojiLarge{1f629}
+   \\
+   \face{img_align_celeba/002818} &
+   \paramoji{80,100,100,0,0,8} &
+   \notomojiLarge{1f620}
+   &
+   \face{img_align_celeba/000593} &
+   \paramoji{96,78,84,29,59,0} &
+   \notomojiLarge{1f601}
+  \end{tabular}
+ \end{center}
+\end{figure}
+
 \subsection{Decoding}
 
 The decoding part is simple.
@@ -353,13 +410,13 @@ Test participants are presented with an emotional expression and get to select
 on out of six photos, one of which shows the originally encoded emotion.
 
 \begin{equation}
- p = \frac{1}{1+\frac{m}{L}}
+ p = \frac{1}{1+\frac{y}{L}}
 \end{equation}
 
 Hence, coding length $L$ is
 
 \begin{equation}
- L = \frac{m}{\frac{1}{p} - 1}
+ L = \frac{y}{\frac{1}{p} - 1}
 \end{equation}
 
 \section{Code}
