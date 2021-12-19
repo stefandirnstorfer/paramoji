@@ -51,7 +51,7 @@ function emoticon_svg(v, a, p, c, e, l) {
         '      <use xlink:href="#inner-mouth"/>',
         '    </clipPath>',
         '  </defs>',
-        '  <ellipse cx="50" cy="54" rx="48" ry="52" fill="none" stroke="black"/>',
+//        '  <ellipse cx="50" cy="54" rx="48" ry="52" fill="none" stroke="black"/>',
         '  <g id="eyes" transform="translate(67.5,?)">',
         '    <g id="right-eye">',
         '      <path transform="rotate(?)" d="M ?,? C ?,? ?,? ?,? ?,? ?,? ?,? ?,? ?,? ?,? Z" id="right-eye-outline" fill="white" stroke="black"/>',

@@ -40,3 +40,17 @@ done
 if [ ! -e gen/emojito.pdf ]; then
 inkscape emojito.svg --export-filename=gen/emojito.pdf
 fi
+
+IMG_PATH=../../emoticon-data
+PARAMS=$(cat *.tex | \
+   egrep "face?{" | \
+   sed -e s"/.*{\([^}]*\)}.*/\1/")
+
+for PARAM in $PARAMS
+do
+#if [ ! -e $FILE ]; then
+  echo Processing face $PARAM
+  mkdir -p gen/$(dirname $PARAM)
+  convert $IMG_PATH/$PARAM.jpg gen/$PARAM.pdf
+#fi
+done

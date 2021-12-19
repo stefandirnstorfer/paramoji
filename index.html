@@ -6,7 +6,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="paramoji.js"></script>
-    <script src="controls.js"></script>
     <script src="action.js"></script>
     <title>Emoticons</title>
 </head>
@@ -71,12 +70,16 @@
                     <td><span id="label-expression">0</span></td>
                 </tr>
                 <tr>
-                    <td>Lips</td>
-                    <td><button id="clear-lips">&times;</button></td>
-                    <td>
-                        <input style="width:90%;min:0;max:100;value:50" type="range" id="slider-lips"/>
+                    <td>Color</td>
+                    <td colspan="2">
+                        <select id="color">
+                            <Option selected value="none">None</Option>
+                            <Option value="lightgray">Gray</Option>
+                            <Option value="gold">Gold</Option>
+                            <Option value="tan">Tan</Option>
+                            <Option value="Brown">brown</Option>
+                        </select>
                     </td>
-                    <td><span id="label-lips">0</span></td>
                 </tr>
             </table>
             <button onclick="setParam(50,50,50)">Reset all</button>

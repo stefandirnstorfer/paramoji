@@ -3,15 +3,14 @@ var state= {
     arousal: 50,
     potency: 50,
     contempt: 0,
-    expression: 50,
-    lips: 0
+    expression: 50
 };
 $(async function () {
     $('input').bind('input', refresh);
-    $('input').bind('change', refresh);
+    $('input, select').bind('change', refresh);
     for (let key in state) {
         $('#clear-'+key).bind('click', function() {
-            state[key]= (["contempt","lips"].includes(key) ? 0 : 50)
+            state[key]= (["contempt"].includes(key) ? 0 : 50)
             redrawEmoticon()
         })
     }
@@ -49,8 +48,9 @@ function redrawEmoticon() {
     }
     window.history.replaceState({}, "Emoticons", "?" + query.join("&"));
 
-    var v=state.valence, a=state.arousal, p=state.potency, c=state.contempt, e=state.expression, l=state.lips;
-    $('#emoticon-svg').html(emoticon_svg(v, a, p, c, e, l));
+    const v=state.valence, a=state.arousal, p=state.potency, c=state.contempt, e=state.expression;
+    const color = $('#color').val()
+    $('#emoticon-svg').html(emoticon_svg(v, a, p, c, e, color));
 }
 
 var oldtime = undefined;
@@ -75,7 +75,7 @@ function runAnimation(dstate) {
                 }
                 if (x < 0) {
                     x = 0;
-                    if (!["contempt","lips"].includes(key)) {
+                    if (!["contempt"].includes(key)) {
                         dx = 0;
                     }
                 }

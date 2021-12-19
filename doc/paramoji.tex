@@ -26,7 +26,7 @@
 \newcommand{\paramoji}[1]{\includegraphics[width=2cm]{gen/emoticon-#1}}
 \newcommand{\notomoji}[1]{\raisebox{-0.3cm}{\includegraphics[height=0.75cm]{gen/emoticon-u#1}}}
 \newcommand{\notomojiLarge}[1]{\includegraphics[height=2cm]{gen/emoticon-u#1}}
-\newcommand{\face}[1]{\includegraphics[height=2cm]{../../emoticon-data/#1.jpg}}
+\newcommand{\face}[1]{\includegraphics[height=2cm]{gen/#1}}
 
 \begin{document}
 \onecolumn
@@ -218,19 +218,19 @@ Anger and disgust in high potency group.
    \multicolumn{2}{c}{potency = 1.0} \\[0.2em]
    \hline
    &&&&&\\[-0.8em]
-   \paramoji{46,22,0,0,50} &
-   \paramoji{39,50,0,0,50} &
-   \paramoji{62,42,50,0,50} &
-   \paramoji{39,30,50,0,50} &
-   \paramoji{92,43,100,0,50} &
-   \paramoji{90,2,100,0,50}
+   \paramoji{25,75,0,0,50} &
+   \paramoji{75,75,0,0,50} &
+   \paramoji{25,75,50,0,50} &
+   \paramoji{75,75,50,0,50} &
+   \paramoji{25,75,100,0,50} &
+   \paramoji{75,75,100,0,50}
    \\
-   \paramoji{3,84,0,0,50} &
-   \paramoji{97,12,0,0,50} &
-   \paramoji{18,100,50,0,50} &
-   \paramoji{92,80,50,0,50} &
-   \paramoji{8,10,100,0,50} &
-   \paramoji{5,94,100,0,50}
+   \paramoji{25,25,0,0,50} &
+   \paramoji{75,25,0,0,50} &
+   \paramoji{25,25,50,0,50} &
+   \paramoji{75,25,50,0,50} &
+   \paramoji{25,25,100,0,50} &
+   \paramoji{75,25,100,0,50}
   \end{tabular}
  \end{center}
  \caption{Random emotions with low, medium and strong potency.}
@@ -257,9 +257,9 @@ Making space for fear
 \begin{figure}[ht!]
  \begin{center}
   \begin{tabular}{cccccc}
-   \paramoji{44,21,27,100,50} &
-   \paramoji{14,55,67,100,50} &
    \paramoji{86,19,88,100,50} &
+   \paramoji{14,55,67,100,50} &
+   \paramoji{44,36,27,100,50} &
    \paramoji{71,88,70,100,50} &
    \paramoji{80,14,29,100,50} &
    \paramoji{11,92,41,100,50}
@@ -385,7 +385,7 @@ The question is whether untrained laymen can intuitively make use of this additi
  \begin{center}
   \begin{tabular}{llllll}
    \face{img_align_celeba/010870} &
-   \paramoji{0,0,100,100,0,0} &
+   \paramoji{0,0,100,100,0} &
    \notomojiLarge{1f928}
    &
    \face{img_align_celeba/021607} &
@@ -393,11 +393,11 @@ The question is whether untrained laymen can intuitively make use of this additi
    \notomojiLarge{1f629}
    \\
    \face{img_align_celeba/002818} &
-   \paramoji{80,100,100,0,0,8} &
+   \paramoji{80,100,100,0,0} &
    \notomojiLarge{1f620}
    &
    \face{img_align_celeba/000593} &
-   \paramoji{96,78,84,29,59,0} &
+   \paramoji{96,78,84,29,59} &
    \notomojiLarge{1f601}
   \end{tabular}
  \end{center}
