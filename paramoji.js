@@ -3,7 +3,7 @@ const copyX = (di, len) => (data,i) => range(len).map(offset => data[i+di+offset
 //let controls_svg
 
 const emoticon_data=[
-    // eyes vertidal
+    // eyes vertical
     [ 51, -2,-10,  0],
     // right eye
     [  0, 25,  0,-25],
@@ -23,7 +23,7 @@ const emoticon_data=[
     // right-lid-shadow
     "#right-lid-shadow:2", [  5,  1, -4,  8], [  2,-10,-17,  5],
     // left-eye-outline
-    [  0, "10*c-25",  0, 25],
+    [  0, -25,  0, 25, "10*v"],
     copyX(26, 2), // M
     "#left-eye-outline:1a", [  8,  0,  "8-6*c"], [  0,  0,  "4*c-4"],
     "#left-eye-outline:1b", [  8,  0,  "8-6*c"], [  0,  0,  "2-2*c"],
@@ -47,7 +47,7 @@ const emoticon_data=[
     "#wrinkle-right-brow:1", [ 62, -1, -4, -3], [ 36, -5,-18,  7],
     "#wrinkle-right-brow:2", [ 56,  1,  0, -4], [ 42, -7,-24,  9],
     "#wrinkle-right-brow:3", [ 56,  0,  0, -2], [ 45, -8,-22, 10],
-    "left-brow", [  0,  0,  0,  0,  4],
+    "left-brow", [  0,  0,  0,  0,  "2+2*a1"],
     // nose-path
     "nose",
     [  0,  0,  0,  0,0.4],
@@ -56,27 +56,27 @@ const emoticon_data=[
     "#nose:5", /* 6 */           [ -3,  0, 1,  0],
     "#nose:8", [ 4,  0, -1,  0], [ -14, -2, 6,  2],
     // teeth
-    "lower-teeth", [  0,  3,  8, -1,  0,  1],
-    "upper-teeth", [-14,  3, -8,  0,  0, -2],
+    "lower-teeth", [  0,  4,  8, -1,  0],
+    "upper-teeth", [-14,  3, -8,  0,  0],
     // mouth
-    "#mouth:1",         [ 63,  0,  9, -1],     [  0,-11,  -2],
-    "#mouth:2",         [ 60,  0, 11, -3],     [  0,  0,  11],
-    "#mouth:3",         [ 56,  0,  6, -2],     [  0,  2,  12],
+    "#mouth:1",         [ 63,  0,  9, -2],     [  0,-11,  -2],
+    "#mouth:2",         [ 60,  0, 11, -4],     [  0,  0,  11],
+    "#mouth:3",         [ 56,  0,  6, -4],     [  0,  2,  12],
     /* 50 */                                   copyX(-1,1),
-    "mirror:2#mouth:2", [ 40,  0,-11,  3,  3], [  0,  0,  11],
-    "mirror:1#mouth:1", [ 37,  0, -9,  1],     [  0,-11,  -2],
-    "#mouth:6",         [ 40,  0,-11,  3, -3], [  0,  0, -11,  0,-22],
-    "#mouth:7",         [ 44,  0, -6,  2],     [  0,  2, -12,  0, -7],
+    "mirror:2#mouth:2", [ 40,  0,-11,  4,  3], [  0,  0,  11],
+    "mirror:1#mouth:1", [ 37,  0, -9,  2],     [  0,-11,  -2],
+    "#mouth:6",         [ 40,  0,-11,  4, -3], [  0,  0, -11,  0,-22],
+    "#mouth:7",         [ 44,  0, -6,  4],     [  0,  2, -12,  0, -7],
     /* 50 */                                   [  0,  2, -12,  0, -3],
-    "mirror#mouth:6",   [ 60,  0, 11, -3],     [  0,  0, -11,  0,  0],
+    "mirror#mouth:6",   [ 60,  0, 11, -4],     [  0,  0, -11,  0,  0],
     copyX(-25, 2),
     // wrinkle-cheek
-    "#wrinkle-left-cheek:1", [ 26, -3, -6,  0, -2], [ 78, -8, -1,  0,  0],
-    "#wrinkle-left-cheek:2", [ 32,  0, -6,  1, -8], [ 76, -2, -8,  1,-18],
-    "#wrinkle-left-cheek:3", [ 37, -3, -2,  0,  3],     [ 68, -3, -5,  0, -8],
-    "#wrinkle-right-cheek:1", [ 74,  3,  6,  0], [ 78, -8, -1,  0,  0],
-    "#wrinkle-right-cheek:2", [ 68,  0,  6, -1,  0, -7], [ 76, -2, -8,  1,  0],
-    "#wrinkle-right-cheek:3", [ 63,  3,  2,  0], [ 68, -3, -5,  0],
+    "#wrinkle-left-cheek:1", [ 26, -2, -6,  2, -2],      [ 78, -8, -1,  0,  0],
+    "#wrinkle-left-cheek:2", [ 32,  0, -6,  4, -8],      [ 76, -2, -8,  1,-18],
+    "#wrinkle-left-cheek:3", [ 37, -3, -2,  1,  3],      [ 68, -1, -5,  0, "-4-4*a1"],
+    "#wrinkle-right-cheek:1", [ 74,  3,  6, -2],         [ 78, -8, -1,  0,  0],
+    "#wrinkle-right-cheek:2", [ 68,  0,  6, -4,  0, -7], [ 76, -2, -8,  1,  0],
+    "#wrinkle-right-cheek:3", [ 63,  2,  2, -1],         [ 68, -1, -5,  0],
 ];
 var i=0;
 while (i< emoticon_data.length) {
@@ -124,16 +124,17 @@ function paramoji_svg(v, a1, a2, p, c, color="gold") {
 }
 
 function emoticon_svg(v, a, p, c, e, color="gold") {
+    a = a/100
     c = c/100
-    const a2=a/100
+    v = v/50-1
     const dotprod = (X,Y) => X.reduce((a, b, i) => a + b*(Y[i] || 0), 0)
-    const X = C => dotprod([1, v/50-0.1, a2, p/50-1, c/100], C)//.reduce((a,b,i) => a + b*(C[i] || 0), 0)
     const e2 = (e/50-1)/2
+    const a1 = Math.min(1,Math.max(0,a + -e2))
     var data = emoticon_data
         .filter(x => typeof(x) != 'string')
         .map((C, i)=> {
             C= C.map(x => typeof(x)=="string" ? eval(x) : x)
-            V= [1, v/50-1, Math.min(1,Math.max(0,a2 + expressable[i]*e2)), p/50-1, c]
+            V= [1, v, Math.min(1,Math.max(0,a + expressable[i]*e2)), p/50-1, c]
             return dotprod(V, C)
         })
     var index=0;

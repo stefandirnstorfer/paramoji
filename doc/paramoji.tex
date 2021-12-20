@@ -3,6 +3,7 @@
 \usepackage{url,hyperref,lineno,microtype,subcaption}
 \usepackage{multirow}
 \usepackage[onehalfspacing]{setspace}
+\usepackage{amsfonts}
 
 \linenumbers
 
@@ -49,12 +50,9 @@
 
 %%% Leave the Abstract empty if your article does not require one, please see the Summary Table for full details.
 \section{}
-For full guidelines regarding your manuscript please refer to \href{http://www.frontiersin.org/about/AuthorGuidelines}{Author Guidelines}.
 
-As a primary goal, the abstract should render the general significance and conceptual advance of the work clearly accessible to a broad readership.
-References should not be cited in the abstract. Leave the Abstract empty if your article does not require one,
-please see \href{http://www.frontiersin.org/about/AuthorGuidelines#SummaryTable}{Summary Table} for details according to article type.
-
+Affective computing
+ability to represent a human emotion in computational form.
 
 Two approaches have emerged:
 Dimensional approach,
@@ -63,10 +61,15 @@ Emoji.
 This paper seeks to unite these two approaches by providing an emoji
 with the usual exaggerated facial proportions that can be parameterized on a continuous domain to visualize
 the known emotional dimensions: valence, arousal, potency and contempt.
+Expression.
 
-Three more dimensions relate to more conscious or trained modulations: expression, lip protrusion and tongue.
+Method:
+Untrained users ability to transmit a seen emotional expression over a channel.
+Encoders, decoders.
 
-
+Result:
+Success is slightly lower for individual decoders.
+This could be due to greater familiarity.
 
 \tiny
  \keyFont{ \section{Keywords:} keyword, keyword, keyword, keyword, keyword, keyword, keyword, keyword} %All article types: you may provide up to 8 keywords; at least 5 are mandatory.
@@ -74,40 +77,25 @@ Three more dimensions relate to more conscious or trained modulations: expressio
 
 \section{Introduction}
 
-Affective computing
+Communication over a digital channel.
+Faces were used to communicate emotions most efficiently
+Early emoticons :( :)
+Eastern cultures: oO, ^^.
 
-Many applications rely on the ability to represent a human emotion in computational form.
-
-Current methods are either limited in the range of representable emotions or lack a clear interpretation of respective states.
-
-Dimensional vs categorical models
-
-The only widely established technique is to use facial expressions for human emotion
-
+Unicode standardization
 These can be subjectively and intuitively understood by everyone.
-However, there is a lack of consensus on how to process such faces computationally.
-
+Most comprehensive collection of facial emotional expression used in communication.
 
 Emoji are the most widely used system of facial expressions as they are now integrated in electronic devices and part of the unicode standard.
-The extreme range of available expressions make them difficult to interpret.
 Some emoji seem to be on a scale of increasing intensity, while others seem to be exact negations of each other. However, no clear consensus exists. Some emoji are even interpreted inconsistently accoss cultures
 
-Many computational systems use a limited set of emotions when mapping a facial expression to emotional dimensions.
-Ekman faces
-Limited in scope. Pain, embarrassment, relief are missing.
-Internal relationships are not faithfully reproduced.
-Arousal, excitement and contempt are perfectly combinable and thus should not be an either or decision.
-Other dimensions such as exceitement and anger are exclusive.
-Henc, the values produced by such a representation system are not ver valuable.
-
-
 Another system of facial expressions is the Wong-Baker FACES® Pain Rating Scale.
-It's medical value and track record are beyond doubt and applied with wide success in pain treatment.
+It's medical value and track record are well studied and successfully applied in pain treatment.
+In particular they allow consistent pain level assessment.
 This system is absolutely clear in its interpretation.
 The faces are ordered along an axis and can be turned into statistics, to eg measure an average emotion or its fluctuaton.
 This feature make them a very powerful tool in pain therapy, as they satisfy the needs of experts and laymen alike.
 However, the scale is only one-dimensional and the range of emotional states is limited to a single aspect of the perceivable space.
-
 
 Maybe the earliest system of facial visualizations are the Chernoff faces.
 These have a very clear numerical interpretation, as each movable part of a human face is controlled by a numeric value.
@@ -274,23 +262,23 @@ Making space for fear
 \begin{figure}[ht!]
  \begin{center}
   \begin{tabular}{cc|cc|cc}
-   \multicolumn{2}{c}{expression = 0.0} &
-   \multicolumn{2}{c}{expression = 0.5} &
-   \multicolumn{2}{c}{expression = 1.0} \\
+   \multicolumn{2}{c}{expression = -1.0} &
+   \multicolumn{2}{c}{expression =  0.0} &
+   \multicolumn{2}{c}{expression = +1.0} \\
    \hline
    &&&&&\\[-0.8em]
-   \paramoji{9,20,52,0,0} &
-   \paramoji{99,7,12,92,0} &
-   \paramoji{94,10,24,84,50} &
-   \paramoji{67,86,36,56,50} &
-   \paramoji{52,0,52,0,100} &
-   \paramoji{92,54,53,93,100} \\
-   \paramoji{11,99,39,70,0} &
-   \paramoji{75,61,70,30,0} &
-   \paramoji{25,20,5,0,50} &
-   \paramoji{68,28,7,58,50} &
-   \paramoji{27,4,69,38,100} &
-   \paramoji{29,97,94,0,100}
+   \paramoji{9,50,52,0,0} &
+   \paramoji{99,50,12,92,0} &
+   \paramoji{94,20,24,84,50} &
+   \paramoji{67,80,36,56,50} &
+   \paramoji{52,50,52,0,100} &
+   \paramoji{92,50,53,93,100} \\
+   \paramoji{11,50,39,70,0} &
+   \paramoji{75,50,70,30,0} &
+   \paramoji{25,100,5,0,50} &
+   \paramoji{68,50,7,58,50} &
+   \paramoji{27,50,69,38,100} &
+   \paramoji{29,50,94,0,100}
   \end{tabular}
  \end{center}
  \caption{Random emotions with suppressed, normal and expressed emotion.}
@@ -327,12 +315,44 @@ No bias should be added through quality of encoding.
 
 \subsection{Test data and participation}
 
+
+\subsubsection{Image sources}
 \cite{LFWTech}
 \cite{liu2015faceattributes}
 
+Usual bias towards Western cultures.
+Remaining confounder women sad, men angry.
+Satisfy social norms.
+
+\subsubsection{Data normalization}
+Biased towards normal and happy faces
+
+Azure Api.
+Ekman emotions.
+Strange placements of pain and embarrassment
+
+Many computational systems use a limited set of emotions when mapping a facial expression to emotional dimensions.
+Ekman faces
+Limited in scope. Pain, embarrassment, relief are missing.
+Internal relationships are not faithfully reproduced.
+Arousal, excitement and contempt are perfectly combinable and thus should not be an either or decision.
+Other dimensions such as exceitement and anger are exclusive.
+Henc, the values produced by such a representation system are not ver valuable.
+
+\subsubsection{Workers}
 \cite{microworkers}
 
 \subsection{Encoding}
+
+\subsubsection{Collecting data}
+
+\subsubsection{Extracting a discrete emoji probability}
+Unified approach to extract emojis from a finite and a parametric set.
+
+Users would click on early entries in the list
+Make the probability distributions appear more uniform than they actually are.
+
+Make results more comparable
 
 \begin{equation}
  \mathbb{E}_{unicode} =
@@ -357,12 +377,27 @@ $sel(n)$ is the selected emoji from a set $E_n$ shown to test participant $n$
  \quad sel(n) \in E_n \subset \mathbb{E}_{unicode}
 \end{equation}
 
+We use a vector $c$ to approximate selection probability for the hypothetical
+case that $E_n = \mathbb{E}_{unicode}$
+\begin{equation}
+ \exp(c^*_e) \approx P\left( sel(n) = e \right)
+\end{equation}
+
+
 The winning emoji is $e^*$ that maximizes the odds of being selected.
 In the limit this should be the emoji that is selected most often, ie $sel(n)=e^*$ for the most $n$.
 \begin{equation}
  e^* = \underset{e}{\mathrm{argmax}}\, c^*_e, \quad e^* \in \mathbb{E}_{unicode}
 \end{equation}
 
+This might seem like a complicated way to find the one top matching emoji.
+Just counting the emoji by number selected would yield the same result, but don't worry we need a correct proxy for
+the actual distribution later.
+
+\subsubsection{Extracting a parametric emoji distribution}
+The nice thing about the preivously discussed method is that it directly translates into the selection from
+an infinite space of emojis.
+The parametric emoji space is generated a vector of 5 dimensions in a unit cube.
 \begin{equation}
  \mathbb{E}_{param} = [0,1]^5
 \end{equation}
@@ -381,12 +416,12 @@ In the limit this should be the emoji that is selected most often, ie $sel(n)=e^
  \quad
  \begin{array}{rl}
   sel(n) \in E_n \subset & \mathbb{E}_{param} \\
-  \mu^* \in & \mathbb{E}_{param}
+  \mu, \mu^* \in & \mathbb{E}_{param}
  \end{array}
 \end{equation}
 
 It's important to distinguish $\mu$ from the average selected parameters.
-The statistical average is biased against the boundaries where all the interesting emotions are.
+The statistical average is heavily biased against the boundaries where all the interesting emotions are.
 
 Unicode emoji selection accuracy saturates when the best representation is selected.
 
@@ -417,21 +452,22 @@ The question is whether untrained laymen can intuitively make use of this additi
 \end{figure}
 
 \subsection{Decoding}
+\subsubsection{Collecting data}
 
+\subsubsection{Equivalent code size of perfect coders}
 We measure the success rate $p$.
 
-The decoding part is simple.
 Test participants are presented with an emotional expression and get to select
 on out of six photos, one of which shows the originally encoded emotion.
 
 Number of symbols in the code
 
 \begin{equation}
- p = \frac{1}{1+\frac{y}{L}}, \quad L = \frac{y}{\frac{1}{p} - 1}
+ p = \frac{1}{1+\frac{y}{M}}, \quad M = \frac{y}{\frac{1}{p} - 1}
 \end{equation}
 
 \section{Results}
-
+\subsection{Individual decoders}
 \begin{figure}[ht!]
  \begin{center}
   \begin{tabular}{cccc}
@@ -443,15 +479,16 @@ Number of symbols in the code
    \\
    Images & \multicolumn{2}{c}{20}
    \\
-   Success rate & 58\% $(\pm 4)$  & 53\% $(\pm 3)$
+   Success rate (p) & 58\% $(\pm 4)$  & 53\% $(\pm 3)$
    \\
-   Code length  &  6.8 & 5.7
+   Code size (M)  &  6.8 & 5.7
   \end{tabular}
  \end{center}
  \caption{Encoding/decoding success rate is the probability that the original
  image could be picked out from 5 randomly added decoy images.}
 \end{figure}
 
+\subsection{Team decoding}
 
 \section{Conclusion}
 There are many applications where emotional states need to be captured, processed or displayed.

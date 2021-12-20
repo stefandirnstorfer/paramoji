@@ -8,6 +8,7 @@ groupA = [dict(item, worker=row['workerId']) for row in groupA for item in row['
 
 faces = sorted({row['file'] for row in groupA})
 EMOJI = sorted({choice['code'] for row in groupA for choice in row['choices']})
+
 RESULT = {}
 for face in faces:
     print(faces.index(face), face)
@@ -80,4 +81,4 @@ for face in faces:
     }
 
 with open('gen/resultA.json', 'w') as out:
-    json.dump(RESULT, out)
+    json.dump(RESULT, out, indent=2)
