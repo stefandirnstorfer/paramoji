@@ -15,7 +15,7 @@ PB_and_A = np.zeros((N, len(faces)))
 for Ai in range(len(faces)):
     x_opt = np.array([data[faces[Ai]]['x_opt'][i] for i in EMOJI])
     denom = np.sum(np.exp(x_opt))
-    PB_and_A[:, Ai] = np.exp(x_opt)/denom * PA
+    PB_and_A[:, Ai] = [1 if i == np.argmax(x_opt) else 0 for i in range(x_opt.shape[0])]
 
 PA_inferred = {}
 for A in range(len(faces)):

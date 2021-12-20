@@ -17,12 +17,14 @@ choices[:, 3] = np.maximum(0, 2 * choices[:, 3]-1)
 PB_and_A = np.zeros((N, len(faces)))
 for A in range(len(faces)):
     x_opt = np.array(data[faces[A]]['x_opt']) / 100
-    x_std = -2 * np.log(np.array(data[faces[A]]['x_std']) / 100)
+    x_std = np.array(data[faces[A]]['x_std']) / 100
+    x_opt=x_opt[0:D]
+    x_std=x_std[0:D]
     denom = np.sum([np.exp(-np.sum(
-                    (choices[j, :] - x_opt)**2 * np.exp(x_std)))
+                    (choices[j, :] - x_opt)**2 /(x_std)**2))
                     for j in range(choices.shape[0])])
     for B in range(N):
-        num = np.exp(-np.sum((choices[B, :] - x_opt)**2 * np.exp(x_std)))
+        num = np.exp(-np.sum((choices[B, :] - x_opt)**2 /(x_std)**2))
         PB_and_A[B, A] = num / denom * PA
 
 PA_inferred = {}
@@ -35,3 +37,5 @@ for A in range(len(faces)):
             PA_inferred[face] += pb
     PA_inferred[face] = round(PA_inferred[face] * 100, 2)
     print(A+1, face, PA_inferred[face])
+
+print(f"mean = {np.mean(list(PA_inferred.values()))}")

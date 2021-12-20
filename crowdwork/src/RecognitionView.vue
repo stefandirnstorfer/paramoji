@@ -3,7 +3,7 @@
         .at-work.main(v-if="mode=='EDIT' && currentTask")
             h2.title Which face matches the emoticon? ({{currentIndex +1}}/{{work.items.length}})
             div.image.portrait
-              emoticon-display(:state="currentTask.emotion")
+              emoticon-display(:state="currentTask.emotion" :color="none")
             div.controls.portrait
                 .choice.image(v-for="(choice,index) in currentTask.choices"
                     :class="{selected : currentTask.selected == index}"
@@ -34,7 +34,7 @@
                     emoticon-display(style="height:20vh; overflow:hidden" :state="{valence: 90, arousal:30, potency: 60, contempt: 0, expression:80}")
                 .card.big-view
                     .card-header.bg-primary.text-white Thank you for completing your work.
-                    .card-body.display-4 {{ workConfirmation }}
+                    .card-body.display-4.mwcode {{ workConfirmation }}
 </template>
 
 <script>
@@ -247,5 +247,7 @@ export default {
 @media (orientation: landscape) {
     .portrait { grid-row: 2/4 }
 }
-
+.mwcode {
+  overflow-wrap: anywhere
+}
 </style>

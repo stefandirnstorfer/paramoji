@@ -13,8 +13,11 @@ if [ ! -e $FILE ]; then
 echo Processing parametric emoji with params=$PARAM
 mkdir -p gen
 node << EOF | inkscape --pipe --export-filename=$FILE
-const emoji = require('./emoticon.js')
-console.log(emoji.emoticon_svg(${PARAM}))
+  const emoji = require('./emoticon.js')
+  const gold="gold"
+  console.log(emoji.emoticon_svg(${PARAM})
+    .replace(/svg/, 'svg xmlns:xlink="http://www.w3.org/1999/xlink"')
+    .replace(/ href=/g, ' xlink:href='))
 EOF
 fi
 done

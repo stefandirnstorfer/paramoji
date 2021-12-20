@@ -112,6 +112,16 @@ console.log(("const data=["+
 console.log(("const expressable="+JSON.stringify(expressable))
     .replace(/(.{75}[^,]*,)/g, '$1\n'))
 
+function paramoji_svg(v, a1, a2, p, c, color="gold") {
+    v = v * 100
+    a1 = a1 * 100
+    a2 = a2 * 100
+    p = p * 100
+    c = c * 100
+    const a= (a1+a2)/2
+    const e = (a2-a1)/2 + 50
+    return emoticon_svg(v, a, p, c, e, color)
+}
 
 function emoticon_svg(v, a, p, c, e, color="gold") {
     c = c/100
@@ -134,7 +144,7 @@ function emoticon_svg(v, a, p, c, e, color="gold") {
         '    <clipPath id="clip-left-eye"><use href="#left-eye-outline"/></clipPath>',
         '    <clipPath id="clip-mouth"><use href="#lips"/></clipPath>',
         '  </defs>',
-        '  <ellipse cx="50" cy="50" rx="48" ry="50" fill="' + color + '"/>',
+        '  <ellipse cx="50" cy="50" rx="48" ry="50" fill="' + color.replace(/"/g,'') + '"/>',
         '  <g id="eyes" transform="translate(68,?)">',
         '    <g id="right-eye">',
         '      <path transform="rotate(?)" d="M ?,? C ?,? ?,? ?,? ?,? ?,? ?,? ?,? ?,? ?,? Z" id="right-eye-outline" fill="white" stroke="black"/>',

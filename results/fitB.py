@@ -1,21 +1,31 @@
 import json
 import math
 import numpy as np
-from results.common import raw_data, emotion_params
+import random
+from results.common import raw_data, selected_faces
 
-
-groupB = [row for row in raw_data if 'arousal' in row['items'][0]['choices'][0]]
+groupB = [row for row in raw_data if row.get('ab') == 'B' and row.get('task') == 'classify']
+groupB = groupB[:50]
 groupB = [dict(item, worker=row['workerId']) for row in groupB for item in row['items']]
 
 
 def get_vec(state):
-    return np.array([state[dim] for dim in emotion_params]) / 100.0
+    a = state['arousal']/100
+    e = (state['expression']/50-1)/2
+    a1 = min(1, max(0, a - e))
+    a2 = min(1, max(0, a + e))
+    return np.array([
+        state['valence'] / 100.0,
+        a1, a2,
+        state['potency'] / 100.0,
+        state['contempt'] / 100.0
+    ])
 
+D = 5
 
 RESULT = {}
-faces = sorted(list(set([row['file'] for row in groupB])))
-for face in faces:
-    print("%d/%d: %s" % (faces.index(face)+1, len(faces), face))
+for face in selected_faces:
+    print("%d/%d: %s" % (selected_faces.index(face)+1, len(selected_faces), face))
     DATA = [
         {
             "choices": [get_vec(choice) for choice in row['choices']],
@@ -53,7 +63,7 @@ for face in faces:
         return dp
 
 
-    x0 = np.zeros((2, len(emotion_params)))
+    x0 = np.zeros((2, D))
     x0[0, :] = DATA[0]['selected']
 
     # print("Analyic Jaccobi")
@@ -62,7 +72,7 @@ for face in faces:
     # print("Numeric Jaccobi")
     dnn = np.zeros(x0.shape)
     for i in range(2):
-        for j in range(len(emotion_params)):
+        for j in range(D):
             h = 0.001
             d = np.zeros(x0.shape)
             d[i, j] = h
@@ -70,7 +80,7 @@ for face in faces:
     # print(np.round(dnn, 3))
 
     x_mean = np.mean(np.array([row['selected'] for row in DATA]), axis=0)
-    x_opt_global = np.array([x_mean, [0.5]*len(emotion_params)])
+    x_opt_global = np.array([x_mean, [0.5]*D])
     v_opt_global = -1e10
     v_old = 0
     x_opt = x_opt_global
@@ -93,8 +103,9 @@ for face in faces:
             v_old = v_opt_global
 
     RESULT[face] = {
-        "x_opt": np.round(100 * x_opt_global[0, :]).astype(int).tolist(),
-        "x_std": np.round(100 * np.exp(-x_opt_global[1, :]/2)).astype(int).tolist()
+        "x_opt": x_opt_global[0, :].tolist(),
+        "x_std": np.exp(-x_opt_global[1, :]/2).tolist(),
+        "n": len(DATA)
     }
 
 with open('gen/resultB.json', 'w') as out:

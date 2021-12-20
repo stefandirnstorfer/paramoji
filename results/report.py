@@ -1,16 +1,11 @@
 import numpy as np
 import json
-from results.common import base_url, raw_data, emotion_params
-from results.fitA import RESULT as resultA
-from results.fitB import RESULT as resultB
+from results.common import base_url
 
-#resultA = json.load(open('gen/resultA.json', 'r'))
-#resultB = json.load(open('gen/resultB.json', 'r'))
+resultA = json.load(open('gen/resultA.json', 'r'))
+resultB = json.load(open('gen/resultB.json', 'r'))
 
 imgscale= 0.6
-
-def details_link(f: str, relative=False):
-    return '%sface-%s.html' % ('' if relative else 'gen/', f.replace('/', '_'))
 
 
 def worker_link(w, relative=False):
@@ -27,8 +22,7 @@ def emoji(scale, code):
 
 def iframe(size, state):
     return ('<div style="width: %dpx; height: %dpx;"' % (imgscale * size, imgscale*size)) + \
-           ' data-eval="emoticon_svg(%d,%d,%d,%d,%d,%d)"></div>' % state
-
+           ' data-eval="paramoji_svg(%f,%f,%f,%f,%f)"></div>' % state
 
 def footer():
     return f'<script src="../../paramoji.js"></script>' + \
@@ -39,19 +33,6 @@ def footer():
          '.replace(/id="/g,"id=\\"id-"+i+"-"))</script>'
 
 
-def render_choices(choices, selected):
-    index = 0
-    result = ''
-    for choice in choices:
-        css_class = "selected" if index == selected else ''
-        if 'code' in choice:
-            result += '<td class="%s">%s</td>' % (css_class, emoji(0.15, choice['code']))
-        else:
-            state = [choice[key] for key in emotion_params]
-            emo = iframe(75, tuple(state))
-            out.write('<td class="%s">%s</td>' % (css_class, emo))
-        index += 1
-    return result
 
 
 files = sorted(set(list(resultA.keys()) + list(resultB.keys())))
@@ -65,12 +46,7 @@ for face in files:
     out.write('</tr>')
     out.write('<tr style="page-break-inside: avoid">')
     out.write('<td>%d</td>' % (files.index(face)+1))
-    out.write('<td align="right"><a href="%s">%s</a></td>' % (details_link(face, True), image(face)))
-    out.write('<td valign="bottom">')
-    if face in resultB:
-        x_opt = resultB[face]['x_opt']
-        out.write(iframe(200, tuple(x_opt)))
-    out.write('</td>')
+    out.write('<td align="right">%s</td>' % image(face))
     out.write('<td valign="bottom">')
     if face in resultA:
         x_opt = resultA[face]['x_opt']
@@ -80,6 +56,13 @@ for face in files:
             p = np.sqrt(np.exp(x_opt[i])) / denom
             if p > 0.01:
                 out.write(emoji(p.item(), int(i, 16)))
+        out.write(f"n={resultA[face]['n']}")
+    out.write('</td>')
+    out.write('<td valign="bottom">')
+    if face in resultB:
+        x_opt = resultB[face]['x_opt']
+        out.write(iframe(200, tuple(x_opt)))
+        out.write(f"n={resultB[face]['n']}")
     out.write('</td>')
     out.write('</tr>\n')
 out.write('</table>\n')

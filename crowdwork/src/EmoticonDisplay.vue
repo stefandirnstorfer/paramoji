@@ -8,7 +8,7 @@ import * as emo from './emoticon'
 var id_prefix= 0
 
 export default {
-    props: [ 'state' ],
+    props: [ 'state', 'color' ],
     mounted() {
         this.redraw()
     },
@@ -30,8 +30,7 @@ export default {
                         this.state.arousal,
                         this.state.potency,
                         this.state.contempt,
-                        this.state.expression,
-                        this.state.lips
+                        this.state.expression, this.color || "gold"
                     ))
             }
         }

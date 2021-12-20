@@ -195,6 +195,7 @@ pleasure, arousal and dominance.
 "anger, power and boldness" vs "anxiety, infatuation, fear and loneliness"
 \cite{dominance_mehrabian}
 
+individual’s sense of power or control
 More linguistic analyisis of dimensionality
 \cite{potency_fontaine}
 
@@ -261,7 +262,7 @@ Making space for fear
    \paramoji{14,55,67,100,50} &
    \paramoji{44,36,27,100,50} &
    \paramoji{71,88,70,100,50} &
-   \paramoji{80,14,29,100,50} &
+   \paramoji{10,14,90,100,50} &
    \paramoji{11,92,41,100,50}
    \end{tabular}
  \end{center}
@@ -333,7 +334,6 @@ No bias should be added through quality of encoding.
 
 \subsection{Encoding}
 
-
 \begin{equation}
  \mathbb{E}_{unicode} =
  \left\{
@@ -357,8 +357,14 @@ $sel(n)$ is the selected emoji from a set $E_n$ shown to test participant $n$
  \quad sel(n) \in E_n \subset \mathbb{E}_{unicode}
 \end{equation}
 
+The winning emoji is $e^*$ that maximizes the odds of being selected.
+In the limit this should be the emoji that is selected most often, ie $sel(n)=e^*$ for the most $n$.
 \begin{equation}
- \mathbb{E}_{param} = [0,1]^6
+ e^* = \underset{e}{\mathrm{argmax}}\, c^*_e, \quad e^* \in \mathbb{E}_{unicode}
+\end{equation}
+
+\begin{equation}
+ \mathbb{E}_{param} = [0,1]^5
 \end{equation}
 
 \begin{equation}
@@ -366,14 +372,21 @@ $sel(n)$ is the selected emoji from a set $E_n$ shown to test participant $n$
  \underset{{\mu,\sigma}}{\mathrm{argmax}}
  \prod_n\frac
  {
-  \exp\left(\sum_d \frac{(sel(n)_d-\mu_d)^2}{\sigma_d} \right)
+  \exp\left(\sum_d \frac{(sel(n)_d-\mu_d)^2}{\sigma_d{}^2} \right)
  }
  {
   \sum_{e\in E_n}
-  \exp\left(\sum_d \frac{(e_d-\mu_d)^2}{\sigma_d} \right)
+  \exp\left(\sum_d \frac{(e_d-\mu_d)^2}{\sigma_d{}^2} \right)
  },
- \quad sel(n) \in E_n \subset \mathbb{E}_{param}
+ \quad
+ \begin{array}{rl}
+  sel(n) \in E_n \subset & \mathbb{E}_{param} \\
+  \mu^* \in & \mathbb{E}_{param}
+ \end{array}
 \end{equation}
+
+It's important to distinguish $\mu$ from the average selected parameters.
+The statistical average is biased against the boundaries where all the interesting emotions are.
 
 Unicode emoji selection accuracy saturates when the best representation is selected.
 
@@ -381,23 +394,23 @@ Parametric emoji increase to refine arbitrarily until a unique parameters are fo
 Hence, the real challenge lies in the decoding part.
 The question is whether untrained laymen can intuitively make use of this additional precision.
 
-\begin{figure}
+\begin{figure}[ht!]
  \begin{center}
   \begin{tabular}{llllll}
    \face{img_align_celeba/010870} &
-   \paramoji{0,0,100,100,0} &
+   \paramoji{10,10,100,80,0,gold} &
    \notomojiLarge{1f928}
    &
    \face{img_align_celeba/021607} &
-   \paramoji{42,72,0,66,50} &
+   \paramoji{42,72,0,66,50,gold} &
    \notomojiLarge{1f629}
    \\
    \face{img_align_celeba/002818} &
-   \paramoji{80,100,100,0,0} &
+   \paramoji{80,80,100,0,0,gold} &
    \notomojiLarge{1f620}
    &
    \face{img_align_celeba/000593} &
-   \paramoji{96,78,84,29,59} &
+   \paramoji{96,58,84,29,59,gold} &
    \notomojiLarge{1f601}
   \end{tabular}
  \end{center}
@@ -405,28 +418,40 @@ The question is whether untrained laymen can intuitively make use of this additi
 
 \subsection{Decoding}
 
+We measure the success rate $p$.
+
 The decoding part is simple.
 Test participants are presented with an emotional expression and get to select
 on out of six photos, one of which shows the originally encoded emotion.
 
-\begin{equation}
- p = \frac{1}{1+\frac{y}{L}}
-\end{equation}
-
-Hence, coding length $L$ is
+Number of symbols in the code
 
 \begin{equation}
- L = \frac{y}{\frac{1}{p} - 1}
+ p = \frac{1}{1+\frac{y}{L}}, \quad L = \frac{y}{\frac{1}{p} - 1}
 \end{equation}
 
-\section{Code}
-The graphics of the presented facial expression is defined in SVG and Javascript computer language that can be understood by any modern web browser.
+\section{Results}
 
-The coordinates and angles all derive linearly from input parameters defined above.
+\begin{figure}[ht!]
+ \begin{center}
+  \begin{tabular}{cccc}
+   Emoji set & Unicode & Parametric
+   \\ \hline
+   Encoders & 182 & 166
+   \\
+   Decoders & 78  & 68
+   \\
+   Images & \multicolumn{2}{c}{20}
+   \\
+   Success rate & 58\% $(\pm 4)$  & 53\% $(\pm 3)$
+   \\
+   Code length  &  6.8 & 5.7
+  \end{tabular}
+ \end{center}
+ \caption{Encoding/decoding success rate is the probability that the original
+ image could be picked out from 5 randomly added decoy images.}
+\end{figure}
 
-Hence, every coordinate of the face is defined by 6 numbers defining the default position and a displacement that is proportional to the input parameters.
-
-This simplicity allows for a rational interpretation of the face, as each emotional dimension has a clear and independent geometric effect. Yet, the emotional state conveyed by each of the faces creates surprising new qualities as those features are combined.
 
 \section{Conclusion}
 There are many applications where emotional states need to be captured, processed or displayed.

@@ -75,7 +75,8 @@ for face in faces:
         x_opt[missing_data] = -100
 
     RESULT[face] = {
-        "x_opt": {"%0x" % EMOJI[i]: round(x_opt_global[i], 4) for i in range(len(EMOJI))}
+        "x_opt": {"%0x" % EMOJI[i]: round(x_opt_global[i], 4) for i in range(len(EMOJI))},
+        "n": len(DATA)
     }
 
 with open('gen/resultA.json', 'w') as out:
