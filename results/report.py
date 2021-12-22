@@ -51,11 +51,10 @@ for face in files:
     if face in resultA:
         x_opt = resultA[face]['x_opt']
         emojis = sorted(x_opt.keys())
-        denom = np.sum(np.sqrt(np.exp(list(x_opt.values()))))
         for i in emojis:
-            p = np.sqrt(np.exp(x_opt[i])) / denom
+            p = x_opt[i]
             if p > 0.01:
-                out.write(emoji(p.item(), int(i, 16)))
+                out.write(emoji(p, int(i, 16)))
         out.write(f"n={resultA[face]['n']}")
     out.write('</td>')
     out.write('<td valign="bottom">')
