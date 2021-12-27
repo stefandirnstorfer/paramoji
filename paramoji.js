@@ -25,9 +25,9 @@ const emoticon_data=[
     "#left-eye-outline:1b", [  8,  0,  8,  0, 0, -6], [  0,  0,   2, 0, 0, -2],
     "#left-eye-outline:2",  [  8,  0,  3,  0, 0, -2], [  0,  0,   9, 0, 0, -9],
     "#left-eye-outline:3a", [  4,  0,  -1], [  0, -6, 13, 0, -3, -12, 6],
-    "#left-eye-outline:3b", [ -5,  0, -12], [  0, -9, 11, 0, -5, -7, 10],
+    "#left-eye-outline:3b", [ -5,  0, -12], [  0, -9, 11, 0, -5, -8, 10],
     "#left-eye-outline:4",  [-11,  0,  -8],
-    "#left-eye-outline:5a", [ -5,  0, -12], [  0, -9,-11, 0, -5, 8, 10],
+    "#left-eye-outline:5a", [ -5,  0, -12], [  0, -9,-11, 0, -5, 9, 10],
     "#left-eye-outline:5b", [  4,  0,  -5], [  0, -6, -13, 0,-3, 12, 6],
     "#left-eye-outline:6b", /*  8  */       [  0,  0, -11, 0, 0, 10],
     // right-eye
@@ -49,7 +49,7 @@ const emoticon_data=[
     [  0,  0,  0,  0, .5],
     [  70, -2, -10], // nose height
     "#nose:5", /* 6 */           [ -3,  0, 1,  0],
-    "#nose:8", [ 4,  0, 0,  0], [ -14, -2, 6,  2],
+    "#nose:8", /*  4 */          [ -14, -2, 6,  2],
     // teeth
     "lower-teeth", [  0,  4,  8, -1,  0],
     "upper-teeth", [-14,  3, -8,  0,  0,  0, -2],
@@ -160,7 +160,7 @@ function emoticon_svg(v, a, p, c, e, color="gold") {
         '  </g>',
         '  <use id="left-eye-brow" transform="matrix(-1,0,0,1,100,?)" href="#right-eye-top"/>',
         '  <g id="nose" transform="matrix(1,?,0,1,53,?)">',
-        '    <path d="M -4,0 q -2,-2 -4,0 M -1,0 Q 3,-2 4,-1 T 6,? ?,?" id="nose-path" fill="none" stroke="black"/>',
+        '    <path d="M -4,0 q -2,-2 -4,0 M -1,0 Q 3,-2 4,-1 T 6,? 4,?" id="nose-path" fill="none" stroke="black"/>',
         '  </g>',
         '  <g id="mouth" transform="translate(0,81)">',
         '    <g clip-path="url(#clip-mouth)" id="throat">',

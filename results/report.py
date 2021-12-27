@@ -3,7 +3,8 @@ import json
 from results.common import base_url
 
 resultA = json.load(open('gen/resultA.json', 'r'))
-resultB = json.load(open('gen/resultB.json', 'r'))
+resultB1 = json.load(open('gen/resultB1.json', 'r'))
+resultB2 = json.load(open('gen/resultB2.json', 'r'))
 
 imgscale= 0.6
 
@@ -35,7 +36,7 @@ def footer():
 
 
 
-files = sorted(set(list(resultA.keys()) + list(resultB.keys())))
+files = sorted(set(list(resultA.keys()) + list(resultB1.keys())))
 
 out = open("gen/index.html", "w")
 out.write('<style>td { font-family: Arial; text-align: center }</style>')
@@ -55,13 +56,16 @@ for face in files:
             p = x_opt[i]
             if p > 0.01:
                 out.write(emoji(p, int(i, 16)))
-        out.write(f"n={resultA[face]['n']}")
     out.write('</td>')
     out.write('<td valign="bottom">')
-    if face in resultB:
-        x_opt = resultB[face]['x_opt']
+    if face in resultB1:
+        x_opt = resultB1[face]['x_opt']
         out.write(iframe(200, tuple(x_opt)))
-        out.write(f"n={resultB[face]['n']}")
+    out.write('</td>')
+    out.write('<td valign="bottom">')
+    if face in resultB2:
+        x_opt = resultB2[face]['x_opt']
+        out.write(iframe(200, tuple(x_opt)))
     out.write('</td>')
     out.write('</tr>\n')
 out.write('</table>\n')
