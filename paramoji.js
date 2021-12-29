@@ -47,31 +47,32 @@ const emoticon_data=[
     // nose-path
     "nose",
     [  0,  0,  0,  0, .5],
-    [  70, -2, -10], // nose height
+    [  70, -2, -10, -1], // nose height
     "#nose:5", /* 6 */           [ -3,  0, 1,  0],
     "#nose:8", /*  4 */          [ -14, -2, 6,  2],
     // teeth
-    "lower-teeth", [  0,  4,  8, -1,  0],
-    "upper-teeth", [-14,  3, -8,  0,  0,  0, -2],
+    "mouth:y",     [ 80,  0,  0, -2,  2,  -2,  -2],
+    "lower-teeth", [  0,  4,  6, -4],
+    "upper-teeth", [-15,  1, -5,  1,  0, -4],
     // mouth
     "#mouth:1",         [ 63,  0,  9, -2],     [  0,-11,  -2],
-    "#mouth:2",         [ 60,  0, 11, -4],     [  0,  0,  11],
-    "#mouth:3",         [ 56,  0,  6, -4],     [  0,  2,  12],
+    "#mouth:2",         [ 60,  0, 11, -3],     [  0,  0,  11],
+    "#mouth:3",         [ 56,  0,  6, -3],     [  0,  2,  12],
     /* 50 */                                   [  0,  2,  12],
-    "mirror:2#mouth:2", [ 40,  0,-11,  4,  3], [  0,  0,  11],
+    "mirror:2#mouth:2", [ 40,  0,-11,  3,  3], [  0,  0,  11],
     "mirror:1#mouth:1", [ 37,  0, -9,  2],     [  0,-11,  -2],
-    "#mouth:6",         [ 40,  0,-11,  4, -3], [  0,  0, -11,  0,-22],
-    "#mouth:7",         [ 44,  0, -6,  4],     [  0,  2, -12,  0, -7, -1],
+    "#mouth:6",         [ 40,  0,-11,  3, -3], [  0,  0, -11,  0,-22],
+    "#mouth:7",         [ 44,  0, -6,  3],     [  0,  2, -12,  0, -7, -1],
     /* 50 */                                   [  0,  2, -12,  0, -3, 0],
-    "mirror#mouth:6",   [ 60,  0, 11, -4],     [  0,  0, -11,  0,  0],
+    "mirror#mouth:6",   [ 60,  0, 11, -3],     [  0,  0, -11,  0,  0],
     "#mouth:1copy",     [ 63,  0,  9, -2],     [  0,-11,  -2],
     // wrinkle-cheek
-    "#wrinkle-left-cheek:1",  [ 26, -2, -6,  2, -2], [ 78, -8, -1,  0,  0],
-    "#wrinkle-left-cheek:2",  [ 32,  0, -6,  4, -8], [ 76, -2, -8,  1,-18],
-    "#wrinkle-left-cheek:3",  [ 37, -3, -2,  1,  3], [ 68, -1, -5,  0, -4, -4],
-    "#wrinkle-right-cheek:1", [ 74,  3,  6, -2],     [ 78, -8, -1,  0,  0],
-    "#wrinkle-right-cheek:2", [ 68,  0,  6, -4],     [ 76, -2, -8,  1,  0],
-    "#wrinkle-right-cheek:3", [ 63,  2,  2, -1],     [ 68, -1, -5,  0],
+    "#wrinkle-left-cheek:1",  [ 26, -2, -6,  2, -2], [ -2, -9, -2,  0,  -1],
+    "#wrinkle-left-cheek:2",  [ 32,  0, -6,  4, -8], [ -4, -3, -9,  1,-16, -3, 3],
+    "#wrinkle-left-cheek:3",  [ 37, -3, -2,  1,  3], [-12, -3, -5,  0, -7, -4, 2],
+    "#wrinkle-right-cheek:1", [ 74,  3,  6, -2],     [ -2, -9, -2,  0,  0],
+    "#wrinkle-right-cheek:2", [ 68,  0,  6, -4],     [ -4, -3, -9,  1,  0],
+    "#wrinkle-right-cheek:3", [ 63,  2,  2, -1],     [-12, -3, -5,  0],
 ];
 var i=0;
 
@@ -162,7 +163,7 @@ function emoticon_svg(v, a, p, c, e, color="gold") {
         '  <g id="nose" transform="matrix(1,?,0,1,53,?)">',
         '    <path d="M -4,0 q -2,-2 -4,0 M -1,0 Q 3,-2 4,-1 T 6,? 4,?" id="nose-path" fill="none" stroke="black"/>',
         '  </g>',
-        '  <g id="mouth" transform="translate(0,81)">',
+        '  <g id="mouth" transform="translate(0,?)">',
         '    <g clip-path="url(#clip-mouth)" id="throat">',
         '      <rect height="45" fill="black" id="mouth-background" width="60" x="20" y="-25"/>',
         '      <ellipse cx="50" cy="10" rx="15" ry="10" id="tongue" fill="#800f08"/>/',
@@ -180,9 +181,9 @@ function emoticon_svg(v, a, p, c, e, color="gold") {
         '      </g>',
         '    </g>',
         '    <path d="M ?,? C ?,? ?,? 50,? S ?,? ?,? C ?,? ?,? 50,? S ?,? ?,? Z" id="lips" fill="none" stroke="black"/>',
+        '    <path d="M ?,? Q ?,? ?,?" id="wrinkle-left-cheek" fill="none" stroke="black"/>',
+        '    <path d="M ?,? Q ?,? ?,?" id="wrinkle-right-cheek" fill="none" stroke="black"/>',
         '  </g>',
-        '  <path d="M ?,? Q ?,? ?,?" id="wrinkle-left-cheek" fill="none" stroke="black"/>',
-        '  <path d="M ?,? Q ?,? ?,?" id="wrinkle-right-cheek" fill="none" stroke="black"/>',
         '</svg>'
     ]
     result = template.join("\n").replace(/\?/g, () => data[index++]);

@@ -24,8 +24,8 @@ const app = createApp({
         AB: "A"
     }},
     created() {
-        this.doRecognize = true
-        //this.doClassify = true
+        //this.doRecognize = true
+        this.doClassify = true
 
         const m = window.location.search.match(/^\?CAMPID=(.*)&WORKERID=(.*)&TASKID=(.*)/)
         if (!m || m.length < 4) {
@@ -34,7 +34,7 @@ const app = createApp({
             this.campaignId = m[1];
             this.workerId = m[2];
             this.taskId = m[3];
-            this.AB = hashCode(this.workerId) & 1 ? "A" : "B";
+            this.AB = "B"// hashCode(this.workerId) & 1 ? "A" : "B";
         }
     },
     methods: {

@@ -62,6 +62,7 @@ export default {
                 workerId: this.workerId,
                 taskId: this.taskId,
                 ab: this.$root.AB,
+                version: 2,
                 task: "classify"
             },
             workId: [this.campaignId, this.workerId, this.taskId].join('/'),
