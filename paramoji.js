@@ -134,7 +134,7 @@ function emoticon_svg(v, a, p, c, e, color="gold") {
         '    <clipPath id="clip-left-eye"><use href="#left-eye-outline"/></clipPath>',
         '    <clipPath id="clip-mouth"><use href="#lips"/></clipPath>',
         '  </defs>',
-        '  <ellipse cx="50" cy="50" rx="48" ry="50" fill="' + color.replace(/"/g,'') + '"/>',
+        '  <ellipse id="head" cx="50" cy="50" rx="48" ry="50" fill="' + color.replace(/"/g,'') + '"/>',
         '  <g id="eyes" transform="translate(68,?)">',
         '    <g id="right-eye">',
         '      <path transform="rotate(?)" d="M -8,? C ?,? ?,? ?,? ?,? ?,? ?,0 ?,? ?,? -8,? Z" id="right-eye-outline" fill="white" stroke="black"/>',
@@ -160,9 +160,7 @@ function emoticon_svg(v, a, p, c, e, color="gold") {
         '    <path d="M ?,? Q ?,? ?,?" id="wrinkle-right-brow" fill="none" stroke="black"/>',
         '  </g>',
         '  <use id="left-eye-brow" transform="matrix(-1,0,0,1,100,?)" href="#right-eye-top"/>',
-        '  <g id="nose" transform="matrix(1,?,0,1,53,?)">',
-        '    <path d="M -4,0 q -2,-2 -4,0 M -1,0 Q 3,-2 4,-1 T 6,? 4,?" id="nose-path" fill="none" stroke="black"/>',
-        '  </g>',
+        '  <path transform="matrix(1,?,0,1,53,?)" d="M -4,0 q -2,-2 -4,0 M -1,0 Q 3,-2 4,-1 T 6,? 4,?" id="nose" fill="none" stroke="black"/>',
         '  <g id="mouth" transform="translate(0,?)">',
         '    <g clip-path="url(#clip-mouth)" id="throat">',
         '      <rect height="45" fill="black" id="mouth-background" width="60" x="20" y="-25"/>',
@@ -186,6 +184,5 @@ function emoticon_svg(v, a, p, c, e, color="gold") {
         '  </g>',
         '</svg>'
     ]
-    result = template.join("\n").replace(/\?/g, () => data[index++]);
-    return result
+    return template.join("\n").replace(/\?/g, () => data[index++]);
 }

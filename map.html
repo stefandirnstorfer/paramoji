@@ -1,0 +1,92 @@
+<html>
+    <style>
+        body {
+            margin: 0;
+        }
+        button {
+            font-size: 20px;
+            margin: 1ex;
+        }
+        .face {
+            position: absolute;
+        }
+        .face:hover {
+            border: 1px solid black;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+    <script src="paramoji.js"></script>
+<script>
+var c30 = Math.cos(30/180*Math.PI);
+var s30 = Math.sin(30/180*Math.PI);
+var c15 = Math.cos(15/180*Math.PI);
+var s15 = Math.sin(15/180*Math.PI);
+
+var id_prefix= 0;
+function myemo(v,a,p, old) {
+    let svg = emoticon_svg(v, a, p, 0, 50, "gold");
+    svg = svg
+        .replace(/href="#/g,"href=\"#id-"+i+"-")
+        .replace(/\(#/g,"(#id-"+i+"-")
+        .replace(/id="/g,"id=\"id-"+i+"-")
+    return '<a href="index.html?v='+v+'&a='+a+'&p='+p+'">'+svg+'</a>';
+}
+var faces= [
+    [(param)=>myemo( 50, 50, 50, param), 0, 0],
+    [(param)=>myemo(100, 50, 50, param), 0, -1],
+    [(param)=>myemo(  0, 50, 50, param), 0, 1],
+    [(param)=>myemo( 50,100, 50, param), -c30, -s30],
+    [(param)=>myemo( 50,  0, 50, param), c30, s30],
+    [(param)=>myemo( 50, 50,100, param), c30, -s30],
+    [(param)=>myemo( 50, 50,  0, param), -c30, s30],
+
+    [(param)=>myemo(100,100, 50, param), -c30, -1-s30],
+    [(param)=>myemo(100, 50,100, param), c30, -1-s30],
+    [(param)=>myemo( 50,  0,100, param), 2*c30, 0],
+    [(param)=>myemo(  0,  0, 50, param), c30, s30+1],
+    [(param)=>myemo(  0, 50,  0, param), -c30, 1+s30],
+    [(param)=>myemo( 50,100,  0, param), -2*c30, 0],
+
+    [(param)=>myemo(100,  0, 50, param), s15*2, -2*(1+s15)],
+    [(param)=>myemo(100,100,100, param), -s15*2, -2*(1+s15)],
+    [(param)=>myemo(  0,100, 50, param), s15*2, 2*(1+s15)],
+    [(param)=>myemo(  0,  0,  0, param), -s15*2, 2*(1+s15)],
+
+    [(param)=>myemo(100,100,  0, param), -2*(1+s15)*c30 - s30*(2*s15), -2*(1+s15)*s30 + c30*(2*s15)],
+    [(param)=>myemo(100,  0,  0, param), -2*(1+s15)*c30 + s30*(2*s15), -2*(1+s15)*s30 - c30*(2*s15)],
+    [(param)=>myemo(100,  0,100, param), 2*(1+s15)*c30 + s30*(2*s15), 2*(1+s15)*s30 - c30*(2*s15)],
+    [(param)=>myemo( 50,  0,  0, param), 2*(1+s15)*c30 - s30*(2*s15), 2*(1+s15)*s30 + c30*(2*s15)],
+
+    [(param)=>myemo(  0, 50,100, param), 2*(1+s15)*c30 + s30*(2*s15), -2*(1+s15)*s30 + c30*(2*s15)],
+    [(param)=>myemo( 50,100,100, param), 2*(1+s15)*c30 - s30*(2*s15), -2*(1+s15)*s30 - c30*(2*s15)],
+    [(param)=>myemo(100, 50,  0, param), -2*(1+s15)*c30 - s30*(2*s15), 2*(1+s15)*s30 - c30*(2*s15)],
+    [(param)=>myemo(  0,100,  0, param), -2*(1+s15)*c30 + s30*(2*s15), 2*(1+s15)*s30 + c30*(2*s15)],
+
+    [(param)=>myemo(  0,100,100, param), -3.2, 0],
+    [(param)=>myemo(  0,  0,100, param), 3.2, 0]
+];
+
+function redraw(old) {
+    for (i in faces) {
+        $('#face_'+i).html(faces[i][0](old));
+    }
+}
+
+$(function() {
+    for (i in faces) {
+      var x = faces[i][1];
+      var y = faces[i][2];
+      var scale = Math.pow(x*x + y*y, -0.2)*2;
+      if (!isFinite(scale)) scale=2;
+      x = (x-0.5) * scale * 100 + 600;
+      y = (y-0.5) * scale * 105 + 500;
+      size = 100 * scale;
+      $('#faces').append('<div id="face_' + i + '" class="face" style="top:'+y+'px; left:'+x+'px; width:'+size+'px; height:'+size+'px;"/>');
+    }
+    redraw(false)
+});
+</script>
+<body>
+    <div id="faces" style="height:100vh"></div>
+</body>
+</html>

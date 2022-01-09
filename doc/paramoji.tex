@@ -81,8 +81,6 @@ The parametric emoji is superior in situations where multiple emoji measurements
 
 Communication over a digital channel.
 Faces were used to communicate emotions most efficiently
-Early emoticons \texttt{:(} and \texttt{:)}.
-Eastern cultures: \texttt{oO} and  \texttt{^^}.
 
 Unicode standardization
 These can be subjectively and intuitively understood by everyone.
@@ -461,7 +459,7 @@ The question is whether untrained laymen can intuitively make use of this additi
    \notomojiLarge{1f928}
    &
    \face{img_align_celeba/021607} &
-   \paramoji{42,72,0,66,50,gold} &
+   \paramoji{42,72,0,30,50,gold} &
    \notomojiLarge{1f629}
    \\
    \face{img_align_celeba/002818} &
@@ -469,8 +467,16 @@ The question is whether untrained laymen can intuitively make use of this additi
    \notomojiLarge{1f620}
    &
    \face{img_align_celeba/000593} &
-   \paramoji{96,58,84,29,59,gold} &
+   \paramoji{84,41,78,0,52,gold} &
    \notomojiLarge{1f601}
+   \\
+   \face{img_align_celeba/117396} &
+   \paramoji{46,67,5,0,32,gold} &
+   \notomojiLarge{1f632}
+   &
+   \face{lfw/Ruano_Pascual/Ruano_Pascual_0001} &
+   \paramoji{42,45,80,47,42,gold} &
+   \notomojiLarge{1f62c}
   \end{tabular}
  \end{center}
 \end{figure}
@@ -489,18 +495,12 @@ Interpret in relation to what perfectly trained pair of encoder and decoders cou
 if they were allowed to use an alphabet of $M$ distinct emoji symbols.
 
 Probability of a random facial expression to coincide with the encoded image is $1/M$.
-With $y$ decoy images and one correct image the encode has to choose from $1+y/M$ images and pick the correct one by chance.
-Solved by $M$, the number of symbols in the code, we get the minimal code size that is required to perform on the same level.
-
-\begin{equation}
- p = \frac{1}{1+\frac{y}{M}}, \quad M = \frac{y}{\frac{1}{p} - 1}
-\end{equation}
 
 \section{Results}
 \subsection{Individual decoders}
 \begin{figure}[ht!]
  \begin{center}
-  \begin{tabular}{cccc}
+  \begin{tabular}{lccc}
    Emoji set & Unicode & Parametric
    \\ \hline
    Number of Encoders ($N$) & 182 & 166
