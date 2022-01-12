@@ -83,6 +83,8 @@ def f(max_n):
 
     data1 = [row for row in data if selected[row['worker']]]
     data2 = [row for row in data if not selected[row['worker']]]
+    data1 = np.random.permutation(data1)
+    data2 = np.random.permutation(data2)
     Result1 = fit_model(data1, max_n)
     Result2 = fit_model(data2, max_n)
 
@@ -97,7 +99,7 @@ def f(max_n):
             if Result1[i][e_star] < np.max(Result2[decoys, e_star]):
                 success = 0
             else:
-                coll = Result1[i][e_star] == Result2[decoys, e_star]
+                coll = Result2[i][e_star] == Result2[decoys, e_star]
                 success = 1/(1+np.sum(coll))
             si += success
             ti += 1
@@ -113,7 +115,7 @@ def f(max_n):
 if __name__ == '__main__':
     pool = mp.Pool(processes = 8)
     mp.freeze_support()
-    for max_n0 in range(10, 81, 20):
+    for max_n0 in range(10, 81, 10):
         for p in pool.map(f, [max_n0] * 25):
             results.append({
                 'max_n': max_n0,

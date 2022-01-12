@@ -1,0 +1,47 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="utf-8"/>
+    <title>Emoticon results</title>
+    <style>
+        * { font-family: Arial }
+        #app {
+            display: grid;
+            grid-template-columns: min-content min-content 200px max-content;
+            grid-gap: 2px;
+        }
+        .title {
+            grid-column: 1/5;
+            background-color: wheat;
+            text-align: center;
+        }
+        .resultA {
+            display:grid;
+            grid-auto-flow: column;
+            align-content: end;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <template v-for="face in faces">
+            <div class="title">{{face}}</div>
+            <img height="200" :src="IMG_BASE+face"/>
+            <div class="resultA">
+                <img v-for="(value,code) in resultA[face].x_opt"
+                     v-show="value > 0.01"
+                     :width="400 * value"
+                     :src="IMG_BASE+'emoji/emoji_u'+code+'.svg'"/>
+            </div>
+            <div class="resultB"
+                v-html="getSVG(resultB[face].x_opt)">
+            </div>
+            <pre>{{ getEmojiCode(face) }}</pre>
+
+            </div>
+        </template>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="../paramoji.js"></script>
+    <script src="results.js"></script>
+</body>

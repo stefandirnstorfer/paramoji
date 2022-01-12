@@ -4,8 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "build": "webpack --mode production",
-    "start": "webpack-dev-server --mode development "
+    "build": "vite build --base=/emoticons/",
+    "start": "vite --port 8081"
   },
   "keywords": [],
   "author": "",
@@ -13,24 +13,12 @@
   "dependencies": {
     "axios": "^0.24.0",
     "core-js": "^3.19.2",
-    "d3": "^7.1.1",
-    "vue": "^3.1.0"
+    "vue": "3.2.26"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.0",
-    "@babel/preset-env": "^7.16.4",
-    "@vue/compat": "^3.2.23",
-    "@vue/compiler-sfc": "^3.1.0",
-    "babel-loader": "^8.2.3",
-    "css-loader": "^6.5.1",
-    "file-loader": "^6.2.0",
-    "html-webpack-plugin": "^5.5.0",
-    "pug-plain-loader": "^1.1.0",
-    "style-loader": "^3.3.1",
-    "vue-indent-pug-loader": "^0.1.1",
-    "vue-loader": "^16.0.0",
-    "webpack": "^5.64.4",
-    "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.6.0"
+    "@vitejs/plugin-vue": "^2.0.1",
+    "pug": "latest",
+    "dotenv": "latest",
+    "vite": "^2.7.6"
   }
 }

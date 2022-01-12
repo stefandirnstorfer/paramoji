@@ -1,3 +1,4 @@
+let current_expressability = -1
 const emoticon_data=[
     // eyes vertical
     [ 51, -2,-10,  0],
@@ -35,9 +36,9 @@ const emoticon_data=[
     // left-lid-shadow
     "#left-lid-shadow:2", [2,  1,-10, -6,  3], [  2, -9,-17,  2, 20],
     // left-eye-brow
-    "#right-eye-brow:1", [ 61,  2,  0, -5], [ 40, -7,-18,  12],
-    "#right-eye-brow:2", [ 72,  0,  0, -4], [ 40, -9,-18,  4],
-    "#right-eye-brow:3", [ 80,  0,  4, -3], [ 40, -3,-18, -4],
+    "#right-eye-brow:1", [ 61,  2,  -1, -4], [ 40, -9,-18,  11],
+    "#right-eye-brow:2", [ 72,  0,  , -4], [ 40, -12,-18,  3],
+    "#right-eye-brow:3", [ 80,  0,  6, -2], [ 40, -5,-18, -3],
     [  2, -.5,  1,  .5], // stroke-width
     // wrinkle-left-brow
     "#wrinkle-right-brow:1", [ 62, -1, -4, -3], [ 36, -5,-18,  7],
@@ -73,32 +74,25 @@ const emoticon_data=[
     "#wrinkle-right-cheek:1", [ 74,  3,  6, -2],     [ -2, -9, -2,  0,  0],
     "#wrinkle-right-cheek:2", [ 68,  0,  6, -4],     [ -4, -3, -9,  1,  0],
     "#wrinkle-right-cheek:3", [ 63,  2,  2, -1],     [-12, -3, -5,  0],
-];
-var i=0;
-
-const expressable=[]
-let current_expressability = -1
-for (entry of emoticon_data) {
+].filter(entry => {
     if (typeof(entry)=="string") {
         if (entry=="#lips:1") current_expressability = 1
         if (entry=="lower-teeth") current_expressability = 1
         if (entry=="#mouth:1") current_expressability = 1
         if (entry=="nose") current_expressability = 0.5
+        return false
     } else {
-        expressable.push(current_expressability)
+        const a = entry[2]
+        entry[2] = (1 - current_expressability)/2 * a
+        entry.splice(3, 0, (1 + current_expressability)/2 * a)
+        return true
     }
-}
+})
 
-console.log(("const data=["+
-        emoticon_data.filter(x => typeof x != 'string')
-            .map(x => '[' +x.join(',') + ']')
-            .join(',')
-    +"]")
+console.log(("const data=["+emoticon_data.map(x => '[' +x.join(',') + ']').join(',') +"]")
     .replace(/\[0/g, '[' )
     .replace(/,0/g, ',' )
     .replace(/(,)+\]/g,']')
-    .replace(/(.{75}[^,]*,)/g, '$1\n'))
-console.log(("const expressable="+JSON.stringify(expressable))
     .replace(/(.{75}[^,]*,)/g, '$1\n'))
 
 function paramoji_svg(v, a1, a2, p, c, color="gold") {
@@ -118,15 +112,15 @@ function emoticon_svg(v, a, p, c, e, color="gold") {
     v = v/50-1
     const dotprod = (X,Y) => X.reduce((a, b, i) => a + b*(Y[i] || 0), 0)
     const e2 = (e/50-1)/2
-    const a1 = Math.min(1,Math.max(0,a + -e2))
+    const a1 = Math.min(1,Math.max(0,a - e2))
+    const a2 = Math.min(1,Math.max(0,a + e2))
     const v1 = v/2+.5
-    var data = emoticon_data
+    let data = emoticon_data
         .filter(x => typeof(x) != 'string')
         .map((C, i)=> {
-            V= [1, v, Math.min(1,Math.max(0,a + expressable[i]*e2)), p/50-1, c, c*a1, c*v1]
+            V= [1, v, a1, a2, p/50-1, c, c*a1, c*v1]
             return dotprod(V, C)
         })
-    var index=0;
     const template= [
         '<svg height="100%" viewBox="0 0 100 100" width="100%" xmlns="http://www.w3.org/2000/svg">',
         '  <defs id="defs">',
@@ -184,5 +178,6 @@ function emoticon_svg(v, a, p, c, e, color="gold") {
         '  </g>',
         '</svg>'
     ]
+    let index=0;
     return template.join("\n").replace(/\?/g, () => data[index++]);
 }

@@ -1,54 +1,52 @@
 <template lang="pug">
-    .root(v-if="campaignId && workerId")
-        .at-work.main(v-if="mode=='EDIT' && currentTask")
-            h2.title How does the person feel? Find the best fit. ({{currentIndex +1}}/{{work.items.length}})
-            div.image.portrait(:style="image(currentTask)")
-            div.controls.portrait
-                .choice(v-for="(choice,index) in currentTask.choices"
-                    :class="{selected : currentTask.selected == index}"
-                    @click="select(index)")
-                    emoticon-display(:state="choice")
-                button.btn.recycle(@click="resample()")  &#x267B;
-            div.text-left.m-3
-            div.text-right.m-3
-                button.btn.btn-outline-primary.mr-1(@click="back" v-if="currentIndex>0 && !complete") Back
-                button.btn.btn-primary(@click="next" v-if="currentTask.selected >= 0") Continue
-                button.btn.btn-secondary.disabled(v-if="currentTask.selected < 0") Continue
-        .final-check.main(v-if="mode=='CHECK'")
-            h2.title Final check
-            .big-view.work-list
-                .work-check(v-for="(task,i) in work.items" @click="edit(i)")
-                    .image.btn(:style="image(task)")
-                    emoticon-display.btn(:state="task.choices[task.selected]")
-            div.text-left.m-3
-                label.ml-3
-                    input.form-check-input(type="checkbox" v-model="finalCheck")
-                    | I've checked all emotions
-            div.text-right.m-3
-                button.btn.btn-primary(@click="finish" v-if="finalCheck") Finish
-                button.btn.btn-secondary.disabled(v-if="!finalCheck") Finish
-        .finished(v-if="mode=='FINISHED'")
-            h2.title Complete
-            .big-view
-                div.text-center
-                    emoticon-display(style="height:20vh; overflow:hidden" :state="{valence: 90, arousal:30, potency: 60, contempt: 0, expression:80}")
-                .card.big-view
-                    .card-header.bg-primary.text-white Thank you for completing your work.
-                    .card-body.display-4.mwcode {{ workConfirmation }}
+.root()
+    .at-work.main(v-if="mode=='EDIT' && currentTask")
+        h2.title Find a matching emoji ({{currentIndex +1}}/{{work.items.length}})
+        div.image.portrait(:style="image(currentTask)")
+        div.controls.portrait
+            .choice(v-for="(choice,index) in currentTask.choices"
+                :class="{selected : currentTask.selected == index}"
+                @click="select(index)")
+                emoticon-display(:state="choice")
+            button.btn.recycle(@click="resample()")  &#x267B;
+        div.text-left.m-3
+        div.text-right.m-3
+            button.btn.btn-outline-primary.mr-1(@click="back" v-if="currentIndex>0 && !complete") Back
+            button.btn.btn-primary(@click="next" v-if="currentTask.selected >= 0") Continue
+            button.btn.btn-secondary.disabled(v-if="currentTask.selected < 0") Continue
+    .final-check.main(v-if="mode=='CHECK'")
+        h2.title Final check
+        .big-view.work-list
+            .work-check(v-for="(task,i) in work.items" @click="edit(i)")
+                .image.btn(:style="image(task)")
+                emoticon-display.btn(:state="task.choices[task.selected]")
+        div.text-left.m-3
+            label.ml-3
+                input.form-check-input(type="checkbox" v-model="finalCheck")
+                | I've checked all emotions
+        div.text-right.m-3
+            button.btn.btn-primary(@click="finish" v-if="finalCheck") Finish
+            button.btn.btn-secondary.disabled(v-if="!finalCheck") Finish
+    .finished(v-if="mode=='FINISHED'")
+        h2.title Complete
+        .big-view
+            div.text-center
+                emoticon-display(style="height:20vh; overflow:hidden" :state="{valence: 90, arousal:30, potency: 60, contempt: 0, expression:80}" color="none")
+            .card.big-view
+                .card-header.bg-primary.text-white Thank you for completing your work.
+                .card-body.display-4.mwcode {{ workConfirmation }}
 
 </template>
 
 <script>
 import axios from 'axios'
-import * as d3 from 'd3'
-import EmotionControls from './EmotionControls'
-import EmoticonDisplay from './EmoticonDisplay'
+import EmoticonDisplay from './EmoticonDisplay.vue'
 import {randomStates} from './sampler.js'
 
 const TASK_LEN= 20;
 
 export default {
-    props: ['campaignId', 'workerId', 'taskId'],
+    props: ['task', 'ab'],
     data() {
         return {
             currentTask: null,
@@ -56,16 +54,8 @@ export default {
             currentIndex: -1,
             work: {
                 items: [],
-                startTime: Date.now(),
-                endTime: 0,
-                campaignId: this.campaignId,
-                workerId: this.workerId,
-                taskId: this.taskId,
-                ab: this.$root.AB,
                 version: 2,
-                task: "classify"
             },
-            workId: [this.campaignId, this.workerId, this.taskId].join('/'),
             workConfirmation: "Waiting for server",
             complete: false,
             finalCheck: false,
@@ -73,8 +63,8 @@ export default {
         }
     },
     async created() {
-        const data = await d3.csv(BASE_URL+"/emoticon-data/selection.csv")
-        const storedWork= sessionStorage.getItem(this.workId)
+        const data = this.task.data
+        const storedWork= sessionStorage.getItem(this.task.id)
         if (storedWork) {
             this.work.items = JSON.parse(storedWork);
         }
@@ -112,7 +102,7 @@ export default {
             this.currentTask.choices = this.currentChoices
         },
         next() {
-            sessionStorage.setItem(this.workId, JSON.stringify(this.work.items))
+            sessionStorage.setItem(this.task.id, JSON.stringify(this.work.items))
             if (this.complete) {
                 this.currentIndex= this.work.items.length
             } else {
@@ -130,9 +120,8 @@ export default {
             this.mode='EDIT'
         },
         async finish() {
-            this.work.endTime= Date.now()
-            const response = await axios.post(BASE_URL+'/api', this.work)
-            this.workConfirmation = response.data.code;
+            this.workConfirmation = await this.$root.saveWork(this.work)
+            sessionStorage.removeItem(this.task.id)
             this.mode='FINISHED'
         }
     },
@@ -155,7 +144,6 @@ export default {
         }
     },
     components: {
-        'emotion-controls' : EmotionControls,
         'emoticon-display' : EmoticonDisplay
     }
 };

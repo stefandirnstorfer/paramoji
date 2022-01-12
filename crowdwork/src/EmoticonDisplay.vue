@@ -1,5 +1,5 @@
 <template lang="pug">
-    .emoticon(ref="container") X
+.emoticon(ref="container") X
 </template>
 
 <script>

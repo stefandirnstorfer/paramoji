@@ -9,7 +9,7 @@ all_data = json.load(open('./raw_data.json', 'r'))
 data = []
 check_double = set()
 for entry in all_data:
-    if entry['task'] == 'classify' and entry['ab'] == 'B':# and entry.get('version') != 2:
+    if entry['task'] == 'classify' and entry['ab'] == 'B':
         unique_key = entry['workerId'] + entry['taskId']
         if unique_key in check_double:
             continue
@@ -59,7 +59,6 @@ def get_mats(DATA):
 
 def loss(numer, denom, mu, sigma):
     s = tf.exp(sigma)
-    #mu = 1/(1+tf.exp(-mu))
     loss1 = tf.math.exp(- tf.reduce_sum((mu - numer)**2 * s, axis= 0))
     loss2 = tf.reduce_sum(
         tf.math.exp(- tf.reduce_sum((mu - denom)**2 * s, axis=0)), axis=0)
@@ -100,8 +99,6 @@ def f(max_n):
 
     data1 = [row for row in data if selected[row['worker']]]
     data2 = [row for row in data if not selected[row['worker']]]
-    data1 = np.random.permutation(data1)
-    data2 = np.random.permutation(data2)
     Result1 = fit_model(data1, max_n)
     Result2 = fit_model(data2, max_n)
 

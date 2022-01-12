@@ -1,53 +1,51 @@
 <template lang="pug">
-    .root(v-if="campaignId && workerId")
-        .at-work.main(v-if="mode=='EDIT' && currentTask")
-            h2.title Which face matches the emoticon? ({{currentIndex +1}}/{{work.items.length}})
-            div.image.portrait
-              emoticon-display(:state="currentTask.emotion" :color="none")
-            div.controls.portrait
-                .choice.image(v-for="(choice,index) in currentTask.choices"
-                    :class="{selected : currentTask.selected == index}"
-                    @click="select(index)"
-                    :style="image(choice)")
-            div.text-left.m-3
-            div.text-right.m-3
-                button.btn.btn-outline-primary.mr-1(@click="back" v-if="currentIndex>0 && !complete") Back
-                button.btn.btn-primary(@click="next" v-if="currentTask.selected >= 0") Continue
-                button.btn.btn-secondary.disabled(v-if="currentTask.selected < 0") Continue
-        .final-check.main(v-if="mode=='CHECK'")
-            h2.title Final check
-            .big-view.work-list
-                .work-check(v-for="(task,i) in work.items" @click="edit(i)")
-                    .image.btn(:style="image(task.choices[task.selected])")
-                    emoticon-display.btn(:state="task.emotion")
-            div.text-left.m-3
-                label.ml-3
-                    input.form-check-input(type="checkbox" v-model="finalCheck")
-                    | I've checked all emotions
-            div.text-right.m-3
-                button.btn.btn-primary(@click="finish" v-if="finalCheck") Finish
-                button.btn.btn-secondary.disabled(v-if="!finalCheck") Finish
-        .finished(v-if="mode=='FINISHED'")
-            h2.title Complete
-            .big-view
-                div.text-center
-                    emoticon-display(style="height:20vh; overflow:hidden" :state="{valence: 90, arousal:30, potency: 60, contempt: 0, expression:80}")
-                .card.big-view
-                    .card-header.bg-primary.text-white Thank you for completing your work.
-                    .card-body.display-4.mwcode {{ workConfirmation }}
+.root()
+    .at-work.main(v-if="mode=='EDIT' && currentTask")
+        h2.title Which face matches the emoticon? ({{currentIndex +1}}/{{work.items.length}})
+        div.image.portrait
+          emoticon-display(:state="currentTask.emotion" color="none")
+        div.controls.portrait
+            .choice.image(v-for="(choice,index) in currentTask.choices"
+                :class="{selected : currentTask.selected == index}"
+                @click="select(index)"
+                :style="image(choice)")
+        div.text-left.m-3
+        div.text-right.m-3
+            button.btn.btn-outline-primary.mr-1(@click="back" v-if="currentIndex>0 && !complete") Back
+            button.btn.btn-primary(@click="next" v-if="currentTask.selected >= 0") Continue
+            button.btn.btn-secondary.disabled(v-if="currentTask.selected < 0") Continue
+    .final-check.main(v-if="mode=='CHECK'")
+        h2.title Final check
+        .big-view.work-list
+            .work-check(v-for="(task,i) in work.items" @click="edit(i)")
+                .image.btn(:style="image(task.choices[task.selected])")
+                emoticon-display.btn(:state="task.emotion")
+        div.text-left.m-3
+            label.ml-3
+                input.form-check-input(type="checkbox" v-model="finalCheck")
+                | I've checked all emotions
+        div.text-right.m-3
+            button.btn.btn-primary(@click="finish" v-if="finalCheck") Finish
+            button.btn.btn-secondary.disabled(v-if="!finalCheck") Finish
+    .finished(v-if="mode=='FINISHED'")
+        h2.title Complete
+        .big-view
+            div.text-center
+                emoticon-display(style="height:20vh; overflow:hidden" :state="{valence: 90, arousal:30, potency: 60, contempt: 0, expression:80}" color="none")
+            .card.big-view
+                .card-header.bg-primary.text-white Thank you for completing your work.
+                .card-body.display-4.mwcode {{ workConfirmation }}
 </template>
 
 <script>
 import axios from 'axios'
-import * as d3 from 'd3'
-import EmotionControls from './EmotionControls'
-import EmoticonDisplay from './EmoticonDisplay'
+import EmoticonDisplay from './EmoticonDisplay.vue'
 import {randomStates, choose} from './sampler.js'
 
 const TASK_LEN= 20;
 
 export default {
-    props: ['campaignId', 'workerId', 'taskId'],
+    props: ['task', 'ab'],
     data() {
         return {
             currentTask: null,
@@ -55,15 +53,7 @@ export default {
             currentIndex: -1,
             work: {
                 items: [],
-                startTime: Date.now(),
-                endTime: 0,
-                campaignId: this.campaignId,
-                workerId: this.workerId,
-                taskId: this.taskId,
-                ab: this.$root.AB,
-                task: "recognize"
             },
-            workId: [this.campaignId, this.workerId, this.taskId].join('/'),
             workConfirmation: "Waiting for server",
             complete: false,
             finalCheck: false,
@@ -71,24 +61,26 @@ export default {
         }
     },
     async created() {
-        const data = await d3.json(BASE_URL+"/emoticon-data/recognition.json")
-        const storedWork= sessionStorage.getItem(this.workId)
+        const storedWork= sessionStorage.getItem(this.task.id)
         if (storedWork) {
-            //this.work.items = JSON.parse(storedWork);
+            this.work.items = JSON.parse(storedWork);
         }
-        const files = data.map(entry => entry.file)
+        const files = this.task.data.map(entry => entry.file)
         this.currentChoices = randomStates(this.$root.AB)
         while (this.work.items.length < TASK_LEN) {
-            const pick= Math.floor(Math.random()*data.length)
-            const file= data[pick].file
+            const pick= Math.floor(Math.random()*this.task.data.length)
+            const entry= this.task.data[pick]
+            console.log(entry)
+            const batch= Math.floor(Math.random() * entry.decoy_sets.length)
             this.work.items.push({
-                file,
-                emotion: data[pick][this.$root.AB],
-                choices: choose(files, 6, [file]).map(x => ({file:x})),
+                file: entry.file,
+                batch,
+                emotion: entry[this.ab],
+                choices: entry.decoy_sets[batch],
                 selected: -1,
                 startTime: 0
             });
-            data.splice(pick, 1)
+            this.task.data.splice(pick, 1)
         }
         this.edit(0)
         if (!BASE_URL)
@@ -106,7 +98,7 @@ export default {
             }
         },
         next() {
-            sessionStorage.setItem(this.workId, JSON.stringify(this.work.items))
+            sessionStorage.setItem(this.task.id, JSON.stringify(this.work.items))
             if (this.complete) {
                 this.currentIndex= this.work.items.length
             } else {
@@ -124,13 +116,8 @@ export default {
             this.mode='EDIT'
         },
         async finish() {
-            this.work.endTime= Date.now()
-            this.work.result = 0
-            for (let entry of this.work.items) {
-                if (entry.file == entry.choices[entry.selected].file) this.work.result++;
-            }
-            const response = await axios.post(BASE_URL + '/api', this.work)
-            this.workConfirmation = response.data.code;
+            this.workConfirmation = await this.$root.saveWork(this.work)
+            sessionStorage.removeItem(this.task.id)
             this.mode='FINISHED'
         }
     },
@@ -150,7 +137,6 @@ export default {
         }
     },
     components: {
-        'emotion-controls' : EmotionControls,
         'emoticon-display' : EmoticonDisplay
     }
 };
