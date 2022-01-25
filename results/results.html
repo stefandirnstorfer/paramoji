@@ -24,8 +24,8 @@
 </head>
 <body>
     <div id="app">
-        <template v-for="face in faces">
-            <div class="title">{{face}}</div>
+        <template v-for="(face, index) in faces">
+            <div class="title">{{index}}: {{face}}</div>
             <img height="200" :src="IMG_BASE+face"/>
             <div class="resultA">
                 <img v-for="(value,code) in resultA[face].x_opt"

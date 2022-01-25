@@ -1,10 +1,10 @@
 <template lang="pug">
 .root()
     .at-work.main(v-if="mode=='EDIT' && currentTask")
-        h2.title Find a matching emoji ({{currentIndex +1}}/{{work.items.length}})
+        h2.title Find the matching emoji ({{currentIndex +1}}/{{work.items.length}})
         div.image.portrait(:style="image(currentTask)")
         div.controls.portrait
-            .choice(v-for="(choice,index) in currentTask.choices"
+            .choice.p-1(v-for="(choice,index) in currentTask.choices"
                 :class="{selected : currentTask.selected == index}"
                 @click="select(index)")
                 emoticon-display(:state="choice")
@@ -24,7 +24,7 @@
             label.ml-3
                 input.form-check-input(type="checkbox" v-model="finalCheck")
                 | I've checked all emotions
-        div.text-right.m-3
+        div.text-right.m-1
             button.btn.btn-primary(@click="finish" v-if="finalCheck") Finish
             button.btn.btn-secondary.disabled(v-if="!finalCheck") Finish
     .finished(v-if="mode=='FINISHED'")
@@ -41,7 +41,7 @@
 <script>
 import axios from 'axios'
 import EmoticonDisplay from './EmoticonDisplay.vue'
-import {randomStates} from './sampler.js'
+import {randomStates, shuffleArray} from './sampler.js'
 
 const TASK_LEN= 20;
 
@@ -69,16 +69,16 @@ export default {
             this.work.items = JSON.parse(storedWork);
         }
         this.currentChoices = randomStates(this.$root.AB)
+        shuffleArray(data)
         while (this.work.items.length < TASK_LEN) {
-            const pick= Math.floor(Math.random()*data.length)
+            const entry = data.pop()
             this.work.items.push({
-                file: data[pick].file,
+                file: entry.file,
                 choices: null,
                 sample: 1,
                 selected: -1,
                 startTime: 0
             });
-            data.splice(pick, 1)
         }
         this.edit(0)
         if (!BASE_URL)
@@ -205,7 +205,6 @@ export default {
     justify-self: start;
 }
 .text-right {
-    padding-top: 1em;
     justify-self: end;
 }
 .big-view {

@@ -10,7 +10,7 @@
                 @click="select(index)"
                 :style="image(choice)")
         div.text-left.m-3
-        div.text-right.m-3
+        div.text-right.m-2
             button.btn.btn-outline-primary.mr-1(@click="back" v-if="currentIndex>0 && !complete") Back
             button.btn.btn-primary(@click="next" v-if="currentTask.selected >= 0") Continue
             button.btn.btn-secondary.disabled(v-if="currentTask.selected < 0") Continue
@@ -19,7 +19,7 @@
         .big-view.work-list
             .work-check(v-for="(task,i) in work.items" @click="edit(i)")
                 .image.btn(:style="image(task.choices[task.selected])")
-                emoticon-display.btn(:state="task.emotion")
+                emoticon-display.btn(:state="task.emotion" :size="'small'")
         div.text-left.m-3
             label.ml-3
                 input.form-check-input(type="checkbox" v-model="finalCheck")
@@ -30,17 +30,18 @@
     .finished(v-if="mode=='FINISHED'")
         h2.title Complete
         .big-view
-            div.text-center
-                emoticon-display(style="height:20vh; overflow:hidden" :state="{valence: 90, arousal:30, potency: 60, contempt: 0, expression:80}" color="none")
+            div.final-smile
+                emoticon-display(style="height:20vh; overflow:hidden" :state="{valence: 90, arousal:20, potency: 60, contempt: 0, expression:30}" color="none")
+                emoticon-display.mt-3(style="height:20vh; overflow:hidden" :state="{code:'1f642'}" color="none")
             .card.big-view
-                .card-header.bg-primary.text-white Thank you for completing your work.
+                .card-header.bg-success.text-white Thank you for completing your work.
                 .card-body.display-4.mwcode {{ workConfirmation }}
 </template>
 
 <script>
 import axios from 'axios'
 import EmoticonDisplay from './EmoticonDisplay.vue'
-import {randomStates, choose} from './sampler.js'
+import {randomStates, shuffleArray} from './sampler.js'
 
 const TASK_LEN= 20;
 
@@ -65,13 +66,12 @@ export default {
         if (storedWork) {
             this.work.items = JSON.parse(storedWork);
         }
-        const files = this.task.data.map(entry => entry.file)
         this.currentChoices = randomStates(this.$root.AB)
+        shuffleArray(this.work.items)
         while (this.work.items.length < TASK_LEN) {
-            const pick= Math.floor(Math.random()*this.task.data.length)
-            const entry= this.task.data[pick]
-            console.log(entry)
-            const batch= Math.floor(Math.random() * entry.decoy_sets.length)
+            const entry= this.task.data.pop()
+            const batch= 0//Math.floor(Math.random() * entry.decoy_sets.length)
+            shuffleArray(entry.decoy_sets[batch])
             this.work.items.push({
                 file: entry.file,
                 batch,
@@ -80,7 +80,6 @@ export default {
                 selected: -1,
                 startTime: 0
             });
-            this.task.data.splice(pick, 1)
         }
         this.edit(0)
         if (!BASE_URL)
@@ -163,7 +162,7 @@ export default {
 
 .controls {
     width: 100%;
-    padding: 10px;
+    padding: 0 10px 0 0;
     overflow-y: hidden;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -198,7 +197,6 @@ export default {
     justify-self: start;
 }
 .text-right {
-    padding-top: 1em;
     justify-self: end;
 }
 .big-view {
@@ -235,5 +233,13 @@ export default {
 }
 .mwcode {
   overflow-wrap: anywhere
+}
+.final-smile {
+    display:grid;
+    grid-auto-flow: column;
+    width:100%;
+    align-content: end;
+    justify-content: space-between;
+    grid-column: 1/3;
 }
 </style>

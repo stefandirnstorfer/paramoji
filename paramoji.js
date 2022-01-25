@@ -44,7 +44,7 @@ const emoticon_data=[
     "#wrinkle-right-brow:1", [ 62, -1, -4, -3], [ 36, -5,-18,  7],
     "#wrinkle-right-brow:2", [ 56,  1,  0, -4], [ 42, -7,-24,  9],
     "#wrinkle-right-brow:3", [ 56,  0,  0, -2], [ 45, -8,-22, 10],
-    "left-brow", [  0,  0,  0,  0,  2, 2],
+    "left-brow", [  0,  0,  0,  0,  1, 2, 2],
     // nose-path
     "nose",
     [  0,  0,  0,  0, .5],
@@ -69,13 +69,15 @@ const emoticon_data=[
     "#mouth:1copy",     [ 63,  0,  9, -2],     [  0,-11,  -2],
     // wrinkle-cheek
     "#wrinkle-left-cheek:1",  [ 26, -2, -6,  2, -2], [ -2, -9, -2,  0,  -1],
-    "#wrinkle-left-cheek:2",  [ 32,  0, -6,  4, -8], [ -4, -3, -9,  1,-16, -3, 3],
-    "#wrinkle-left-cheek:3",  [ 37, -3, -2,  1,  3], [-12, -3, -5,  0, -7, -4, 2],
+    "#wrinkle-left-cheek:2",  [ 32,  1, -5,  4, -8], [ -4, -4, -8,  1,-17, -3, 3],
+    "#wrinkle-left-cheek:3",  [ 37, -3, -2,  1,  3], [-11, -3, -9,  0, -6, -2, 2],
     "#wrinkle-right-cheek:1", [ 74,  3,  6, -2],     [ -2, -9, -2,  0,  0],
-    "#wrinkle-right-cheek:2", [ 68,  0,  6, -4],     [ -4, -3, -9,  1,  0],
-    "#wrinkle-right-cheek:3", [ 63,  2,  2, -1],     [-12, -3, -5,  0],
+    "#wrinkle-right-cheek:2", [ 68,  -1,  5, -4],     [ -4, -4, -8,  1,  0],
+    "#wrinkle-right-cheek:3", [ 63,  2,  2, -1],     [-11, -3, -9,  0],
 ].filter(entry => {
     if (typeof(entry)=="string") {
+        if (entry.match(/#wrinkle-(left|right)-cheek:3/)) current_expressability = 0.5
+        if (entry.match(/#wrinkle-(left|right)-cheek:1/)) current_expressability = 1
         if (entry=="#lips:1") current_expressability = 1
         if (entry=="lower-teeth") current_expressability = 1
         if (entry=="#mouth:1") current_expressability = 1
@@ -128,7 +130,7 @@ function emoticon_svg(v, a, p, c, e, color="gold") {
         '    <clipPath id="clip-left-eye"><use href="#left-eye-outline"/></clipPath>',
         '    <clipPath id="clip-mouth"><use href="#lips"/></clipPath>',
         '  </defs>',
-        '  <ellipse id="head" cx="50" cy="50" rx="48" ry="50" fill="' + color.replace(/"/g,'') + '"/>',
+        '  <ellipse id="head" cx="50" cy="50" rx="46" ry="50" fill="' + color.replace(/"/g,'') + '"/>',
         '  <g id="eyes" transform="translate(68,?)">',
         '    <g id="right-eye">',
         '      <path transform="rotate(?)" d="M -8,? C ?,? ?,? ?,? ?,? ?,? ?,0 ?,? ?,? -8,? Z" id="right-eye-outline" fill="white" stroke="black"/>',

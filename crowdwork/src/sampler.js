@@ -16,13 +16,14 @@ const EMOJI=[0x1F600, 0x1F601, 0x1F602, 0x1F923, 0x1F603,
 
 const dimensions = ['valence', 'arousal', 'potency', 'contempt', 'expression'];
 
-function shuffleArray(array) {
+export function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
         let temp = array[i];
         array[i] = array[j];
         array[j] = temp;
     }
+    return array
 }
 
 export function randomStates(ab, n=15) {

@@ -55,10 +55,10 @@ Affective computing
 ability to represent a human emotion in computational form.
 
 Two approaches have emerged:
-Dimensional approach,
-Emoji.
+Dimensional approach: no convergence on exact interpretation
+Emoji: universally understood by humans, but difficult to classify on semantic scales.
 
-This paper seeks to unite these two approaches by providing an emoji
+This paper seeks to bridge between these two approaches by providing an emoji
 with the usual exaggerated facial proportions that can be parameterized on a continuous domain to visualize
 the known emotional dimensions: valence, arousal, potency and contempt.
 Expression.
@@ -81,7 +81,10 @@ The parametric emoji is superior in situations where multiple emoji measurements
 
 Communication over a digital channel.
 Faces were used to communicate emotions most efficiently
+\cite{sentiment_score}
+\cite{emoji_vector_space}
 
+\cite{emoji_facs}
 Unicode standardization
 These can be subjectively and intuitively understood by everyone.
 Most comprehensive collection of facial emotional expression used in communication.
@@ -100,6 +103,7 @@ However, the scale is only one-dimensional and the range of emotional states is 
 Maybe the earliest system of facial visualizations are the Chernoff faces.
 These have a very clear numerical interpretation, as each movable part of a human face is controlled by a numeric value.
 However, these faces lack an emotional interpretation. It would for example be difficult to define which faciescan be considered to perceive more pain. As such Chernoff faces could be shown to convey no additional information, when compared to other visualization techniques.
+
 \cite{chernoff}
 
 This paper suggests a facial visualization that includes 5 quantitative aspects of a human emotion.
@@ -207,19 +211,19 @@ Anger and disgust in high potency group.
    \multicolumn{2}{c}{potency = 1.0} \\[0.2em]
    \hline
    &&&&&\\[-0.8em]
-   \paramoji{25,75,0,0,50} &
-   \paramoji{75,75,0,0,50} &
-   \paramoji{25,75,50,0,50} &
-   \paramoji{75,75,50,0,50} &
-   \paramoji{25,75,100,0,50} &
-   \paramoji{75,75,100,0,50}
+   \paramoji{50,50,0,0,50} &
+   \paramoji{100,50,0,0,50} &
+   \paramoji{50,50,50,0,50} &
+   \paramoji{100,50,50,0,50} &
+   \paramoji{50,50,100,0,50} &
+   \paramoji{100,50,100,0,50}
    \\
-   \paramoji{25,25,0,0,50} &
-   \paramoji{75,25,0,0,50} &
-   \paramoji{25,25,50,0,50} &
-   \paramoji{75,25,50,0,50} &
-   \paramoji{25,25,100,0,50} &
-   \paramoji{75,25,100,0,50}
+   \paramoji{0,0,0,0,50} &
+   \paramoji{0,100,0,0,50} &
+   \paramoji{0,0,50,0,50} &
+   \paramoji{0,100,50,0,50} &
+   \paramoji{0,0,100,0,50} &
+   \paramoji{0,100,100,0,50}
   \end{tabular}
  \end{center}
  \caption{Random emotions with low, medium and strong potency.}
@@ -269,16 +273,16 @@ Making space for fear
    &&&&&\\[-0.8em]
    \paramoji{9,50,52,0,0} &
    \paramoji{99,50,12,92,0} &
-   \paramoji{94,20,24,84,50} &
+   \paramoji{74,20,24,4,50} &
    \paramoji{67,80,36,56,50} &
    \paramoji{52,50,52,0,100} &
    \paramoji{92,50,53,93,100} \\
-   \paramoji{11,50,39,70,0} &
-   \paramoji{75,50,70,30,0} &
+   \paramoji{11,50,80,70,0} &
+   \paramoji{75,50,70,0,0} &
    \paramoji{25,100,5,0,50} &
    \paramoji{68,50,80,58,50} &
    \paramoji{27,50,69,38,100} &
-   \paramoji{29,50,94,0,100}
+   \paramoji{34,50,0,0,100}
   \end{tabular}
  \end{center}
  \caption{Random emotions with suppressed, normal and expressed emotion.}
@@ -300,10 +304,9 @@ Benefit of exaggerated representation.
   \includegraphics{gen/emojito.pdf}
  \end{center}
  \caption{The experiment design follows the generalized rules of the Emojito
- board game. An encoder selects an emotional visualisation
- that matches an observed emotion.
- The decoder's task is to correctly pick the original from
- a set of decoy depictions of emotions.}
+ board game. An encoder shows an emoji that matches a secretly observed emotion.
+ The decoder's challenge is to correctly pick the original emotion from
+ a set of decoys.}
 \end{figure}
 
 Interested in ability to represent a facial expression.
@@ -341,6 +344,7 @@ Henc, the values produced by such a representation system are not ver valuable.
 
 \subsubsection{Workers}
 \cite{microworkers}
+\cite{emoji_interpretation}
 
 20 cents for 20 facial expressions.
 1 Cent for encoding or decoding one image
@@ -355,6 +359,15 @@ Workers spent time
 No correlation between time spent and performance.
 
 \subsection{Encoding}
+
+\subsection{Experiment design}
+\begin{figure}[ht!]
+ \begin{center}
+  \includegraphics[width=15cm]{gen/encode.pdf}
+ \end{center}
+ \caption{Enocders screen}
+\end{figure}
+
 
 \subsubsection{Collecting data}
 
@@ -451,6 +464,34 @@ Parametric emoji increase to refine arbitrarily until a unique parameters are fo
 Hence, the real challenge lies in the decoding part.
 The question is whether untrained laymen can intuitively make use of this additional precision.
 
+
+\subsection{Decoding}
+
+\subsection{Experiment design}
+\begin{figure}[ht!]
+ \begin{center}
+  \includegraphics[width=15cm]{gen/decode.pdf}
+ \end{center}
+ \caption{Deocders screen}
+\end{figure}
+
+\subsubsection{Collecting data}
+
+Test participants are presented with an emotional expression and get to select
+on out of six photos, one of which shows the originally encoded emotion.
+
+\subsubsection{Equivalent code size of perfect coders}
+We measure the success rate $p$.
+
+Not meaningful because it depends on $y$.
+Interpret in relation to what perfectly trained pair of encoder and decoders could transmit
+if they were allowed to use an alphabet of $M$ distinct emoji symbols.
+
+Probability of a random facial expression to coincide with the encoded image is $1/M$.
+
+\section{Results}
+
+\subsection{Examples}
 \begin{figure}[ht!]
  \begin{center}
   \begin{tabular}{llllll}
@@ -481,22 +522,24 @@ The question is whether untrained laymen can intuitively make use of this additi
  \end{center}
 \end{figure}
 
-\subsection{Decoding}
-\subsubsection{Collecting data}
+\subsection{Parameter distribution}
+\begin{figure}[ht!]
+ \begin{center}
+  \begin{tabular}{lcccc}
+   Dimension    & mean $\mu^*$ & min $\sigma^*$ & mean $\sigma^*$ & max $\sigma^*$ \\
+   Valence              & 0.60 & 0.36 & 0.64 & 1.43 \\
+   Arousal in eyes      & 0.63 & 0.50 & 0.68 & 0.98 \\
+   Arousal in mouth     & 0.47 & 0.37 & 0.53 & 1.17 \\
+   Potency              & 0.45 & 0.57 & 1.26 & 6.25 \\
+   Contempt             & 0.31 & 0.44 & 0.78 & 1.98 \\
+  \end{tabular}
+ \end{center}
+ \caption{Dimensions as classified by users. The statistics are generated over 20 faces.
+ In the best case users agree on a the value for a parameter with low deviation (0.36).
+ In the worst case there is no agreement and no clustering on a specific value can be
+ detected (6.25).}
+\end{figure}
 
-Test participants are presented with an emotional expression and get to select
-on out of six photos, one of which shows the originally encoded emotion.
-
-\subsubsection{Equivalent code size of perfect coders}
-We measure the success rate $p$.
-
-Not meaningful because it depends on $y$.
-Interpret in relation to what perfectly trained pair of encoder and decoders could transmit
-if they were allowed to use an alphabet of $M$ distinct emoji symbols.
-
-Probability of a random facial expression to coincide with the encoded image is $1/M$.
-
-\section{Results}
 \subsection{Individual decoders}
 \begin{figure}[ht!]
  \begin{center}
@@ -533,6 +576,10 @@ Experiment protruded tongue.
 Abused as a marker for race and makeup.
 
 \section{Conclusion}
+Many attempts have been made to define meaning of emojis on a semantic scale.
+This approach goes the other direction. It provides an emoji to a semantic scale.
+
+
 There are many applications where emotional states need to be captured, processed or displayed.
 
 Smaller emotional scope than emoji, as there exist some emojis for very particular emotions that do not fit in a dimensional model.

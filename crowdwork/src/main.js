@@ -34,8 +34,8 @@ const app = createApp({
             this.campaignId = m[1];
             this.workerId = m[2];
             this.taskId = m[3];
-            this.AB = hashCode(this.workerId) & 1 ? "A" : "B";
             this.task = await (fetch(BASE_URL + "/emoticon-data/work.json").then(x => x.json()))
+            this.AB = this.task.groups[hashCode(this.workerId) % this.task.groups.length]
             this.doRecognize = this.task.type == "recognize"
             this.doClassify = this.task.type == "classify"
         }

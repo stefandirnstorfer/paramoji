@@ -6,6 +6,7 @@ PARAMS=$(cat *.tex | \
    sed -e s"/.*paramoji{\([^}]*\)}.*/\1/" | \
    sort -u)
 
+# Parametric emoji
 for PARAM in $PARAMS
 do
 FILE=gen/emoticon-$PARAM.pdf
@@ -40,10 +41,19 @@ fi
 done
 
 
+# Screens
 if [ ! -e gen/emojito.pdf ]; then
-inkscape emojito.svg --export-filename=gen/emojito.pdf
+  inkscape img/emojito.svg --export-filename=gen/emojito.pdf
+fi
+if [ ! -e gen/encode.pdf ]; then
+  inkscape img/encode.png --export-filename=gen/encode.pdf
+fi
+if [ ! -e gen/decode.pdf ]; then
+  inkscape img/decode.png --export-filename=gen/decode.pdf
 fi
 
+
+# Faces
 IMG_PATH=../../emoticon-data
 PARAMS=$(cat *.tex | \
    egrep "face?{" | \
