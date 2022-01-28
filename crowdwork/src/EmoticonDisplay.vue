@@ -24,13 +24,16 @@ export default {
                     + this.state.label + '</div>'
               if (this.state.code)
                 return '<img class="emoji" src="' + BASE_URL + '/emoticon-data/emoji/emoji_u' + this.state.code.toString(16) + '.svg"/>';
-              return this.fixids(emo.emoticon_svg(
-                  this.state.valence,
-                  this.state.arousal,
-                  this.state.potency,
-                  this.state.contempt,
-                  this.state.expression, this.color || "gold"
-                ))
+              if (Array.isArray(this.state)) {
+                return this.fixids(emo.paramoji_svg(this.state[0], this.state[1], this.state[2], this.state[3], this.state[4], this.color))
+              } else
+                return this.fixids(emo.emoticon_svg(
+                    this.state.valence,
+                    this.state.arousal,
+                    this.state.potency,
+                    this.state.contempt,
+                    this.state.expression, this.color || "gold"
+                  ))
             }
         }
     }

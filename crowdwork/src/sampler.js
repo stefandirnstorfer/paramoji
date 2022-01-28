@@ -14,8 +14,6 @@ const EMOJI=[0x1F600, 0x1F601, 0x1F602, 0x1F923, 0x1F603,
     0x1F92A, 0x1F635, 0x1F621, 0x1F620,
     0x1F922, 0x1F92E];
 
-const dimensions = ['valence', 'arousal', 'potency', 'contempt', 'expression'];
-
 export function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
@@ -26,24 +24,16 @@ export function shuffleArray(array) {
     return array
 }
 
-export function randomStates(ab, n=15) {
+export function randomStates(n=15) {
     const states = [];
-    if (ab == "A") {
-        while(states.length<n) {
-            let code = EMOJI[Math.floor(Math.random() * EMOJI.length)];
-            if (!states.find(x => x.code == code)) states.push({code});
-        }
-    } else {
-        while(states.length<n) states.push({});
-        for (let dim of dimensions) {
-            let plain= []
-            for (let i=0; i<n; ++i) plain.push(i);
-            shuffleArray(plain)
-            for (let i in states) {
-                if (dim == 'contempt') plain[i] = Math.max(0, plain[i]*2 - (n-1));
-                if (dim == 'lips')  plain[i] = Math.max(0, plain[i]*4 - 3*(n-1));
-                states[i][dim] = Math.round(plain[i] * 100.0 / (n-1));
-            }
+    while(states.length<n) states.push([]);
+    for (let dim=0; dim<5; ++dim) {
+        let plain= []
+        for (let i=0; i<n; ++i) plain.push((i + Math.random()) / n);
+        shuffleArray(plain)
+        for (let i in states) {
+            if (dim == 4) plain[i] = plain[i] * 2 - 1;
+            states[i].push(plain[i]);
         }
     }
     return states;
@@ -57,4 +47,30 @@ export function choose(list, n, start=[]) {
     }
     shuffleArray(result)
     return result
+}
+
+export function converge(list, target) {
+    const mean=[]
+    for (var i=0; i<list[0].length; ++i) {
+        mean.push(0)
+        for (let j = 0; j < list.length; ++j) {
+            mean[i] += list[j][i]
+        }
+        mean[i] /= list.length
+    }
+    const newList = []
+    for (let j=0; j<list.length; ++j) {
+        if (j == target) {
+            newList.push(list[j])
+        } else {
+            const newItem = []
+            for (let i=0; i<5; ++i) {
+                let d = Math.min(1.0, Math.max(0.0, list[target][i]))
+                if (i != 4) d = d - mean[i]
+                newItem.push(list[j][i] + d)
+            }
+            newList.push(newItem)
+        }
+    }
+    return newList
 }

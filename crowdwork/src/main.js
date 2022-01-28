@@ -1,7 +1,6 @@
 import { createApp } from "vue"
 import ErrorDialog from "./ErrorDialog.vue";
 import ClassificationView from "./ClassificationView.vue"
-import RecognitionView from "./RecognitionView.vue";
 import axios from "axios";
 
 function hashCode(s) {
@@ -12,18 +11,14 @@ function hashCode(s) {
 const app = createApp({
     template: '<div>' +
         '<error-dialog v-model:error="error"></error-dialog>'+
-        '<classification-view v-if="doClassify" :task="task" :ab="AB"></classification-view>' +
-        '<recognition-view v-if="doRecognize" :task="task" :ab="AB"></recognition-view>' +
+        '<classification-view v-if="task.id" :task="task"></classification-view>' +
         '</div>',
     data() { return {
         error: "",
-        doClassify: false,
-        doRecognize: false,
         campaignId: "",
         workerId: "",
         taskId: "",
         task: {},
-        AB: "A",
         startTime: Date.now()
     }},
     async created() {
@@ -35,9 +30,6 @@ const app = createApp({
             this.workerId = m[2];
             this.taskId = m[3];
             this.task = await (fetch(BASE_URL + "/emoticon-data/work.json").then(x => x.json()))
-            this.AB = this.task.groups[hashCode(this.workerId) % this.task.groups.length]
-            this.doRecognize = this.task.type == "recognize"
-            this.doClassify = this.task.type == "classify"
         }
     },
     methods: {
@@ -49,9 +41,7 @@ const app = createApp({
                 campaignId: this.campaignId,
                 workerId: this.workerId,
                 taskId: this.taskId,
-                work_id: this.task.id,
-                ab: this.AB,
-                task: this.task.type,
+                workName: this.task.id,
                 startTime: this.startTime,
                 endTime: Date.now()
             })
@@ -62,11 +52,11 @@ const app = createApp({
     components: {
         'error-dialog' : ErrorDialog,
         'classification-view': ClassificationView,
-        'recognition-view': RecognitionView
     }
 });
 app.mount('#app')
 
 app.config.errorHandler = function (err, vm, info) {
+    console.error(err)
     vm.$root.showError(err);
 };

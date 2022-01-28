@@ -25,8 +25,6 @@
 
 
 \newcommand{\paramoji}[1]{\includegraphics[width=2cm]{gen/emoticon-#1}}
-\newcommand{\notomoji}[1]{\raisebox{-0.3cm}{\includegraphics[height=0.75cm]{gen/emoticon-u#1}}}
-\newcommand{\notomojiLarge}[1]{\includegraphics[height=2cm]{gen/emoticon-u#1}}
 \newcommand{\face}[1]{\includegraphics[height=2cm]{gen/#1}}
 
 \begin{document}
@@ -120,6 +118,9 @@ No physiological properties: age, gender, race
 Inspired by established emotional dimensions
 Graphical simplicity with linear displacements
 Linearity is, of course, not a strict requirement, but in the absence of an objective scale a welcome guidance
+
+Implicit dimensions
+\cite{embedding}
 
 \subsection{Valence and arousal}
 Valence and arousal \cite{circumplex}
@@ -263,6 +264,16 @@ Making space for fear
 
 \subsection{Expression}
 
+Follows the idea of emotion modulation.
+
+\begin{equation}
+ \begin{array}{rcl}
+  a_1 &=& a - e/2 \\
+  a_2 &=& a + e/2 \\
+  e &=& a_2 - a_1
+ \end{array}
+\end{equation}
+
 \begin{figure}[ht!]
  \begin{center}
   \begin{tabular}{cc|cc|cc}
@@ -276,12 +287,12 @@ Making space for fear
    \paramoji{74,20,24,4,50} &
    \paramoji{67,80,36,56,50} &
    \paramoji{52,50,52,0,100} &
-   \paramoji{92,50,53,93,100} \\
+   \paramoji{92,50,53,0,100} \\
    \paramoji{11,50,80,70,0} &
    \paramoji{75,50,70,0,0} &
-   \paramoji{25,100,5,0,50} &
+   \paramoji{14,67,5,0,50} &
    \paramoji{68,50,80,58,50} &
-   \paramoji{27,50,69,38,100} &
+   \paramoji{27,50,69,78,100} &
    \paramoji{34,50,0,0,100}
   \end{tabular}
  \end{center}
@@ -296,51 +307,12 @@ Parametric emoji contain information that would otherwise have to be extract fro
 
 Benefit of exaggerated representation.
 
-\section{Measuring coding efficiency}
-
-\subsection{Experiment design}
-\begin{figure}[ht!]
- \begin{center}
-  \includegraphics{gen/emojito.pdf}
- \end{center}
- \caption{The experiment design follows the generalized rules of the Emojito
- board game. An encoder shows an emoji that matches a secretly observed emotion.
- The decoder's challenge is to correctly pick the original emotion from
- a set of decoys.}
-\end{figure}
-
-Interested in ability to represent a facial expression.
-Hence, we want to compare the decoding efficiency.
-
-Need to make sure that equal attention is paid to the encoding part.
-No bias should be added through quality of encoding.
 
 
 \subsection{Test data and participation}
 
 
 \subsubsection{Image sources}
-\cite{LFWTech}
-\cite{liu2015faceattributes}
-
-Usual bias towards Western cultures.
-Remaining confounder women sad, men angry.
-Satisfy social norms.
-
-\subsubsection{Data normalization}
-Biased towards normal and happy faces
-
-Azure Api.
-Ekman emotions.
-Strange placements of pain and embarrassment
-
-Many computational systems use a limited set of emotions when mapping a facial expression to emotional dimensions.
-Ekman faces
-Limited in scope. Pain, embarrassment, relief are missing.
-Internal relationships are not faithfully reproduced.
-Arousal, excitement and contempt are perfectly combinable and thus should not be an either or decision.
-Other dimensions such as exceitement and anger are exclusive.
-Henc, the values produced by such a representation system are not ver valuable.
 
 \subsubsection{Workers}
 \cite{microworkers}
@@ -363,217 +335,54 @@ No correlation between time spent and performance.
 \subsection{Experiment design}
 \begin{figure}[ht!]
  \begin{center}
-  \includegraphics[width=15cm]{gen/encode.pdf}
+  \includegraphics[width=16cm]{gen/encode.pdf}
  \end{center}
- \caption{Enocders screen}
+ \caption{Encoders screen}
 \end{figure}
 
-
-\subsubsection{Collecting data}
-
-Bias towards uniformity.
-Equivalent effort spent in both groups.
-
-Users would click on early entries in the list
-
-\subsubsection{Extracting a discrete emoji probability}
-Unified approach to extract emojis from a finite and a parametric set.
-
-Make the probability distributions appear more uniform than they actually are.
-
-Make results more comparable
-
-\begin{equation}
- \mathbb{E}_{unicode} =
- \left\{
- \notomoji{2639},
- \notomoji{1f641},
- \notomoji{1f610},
- \cdots
- \right\}
-\end{equation}
-$sel(n)$ is the selected emoji from a set $E_n$ shown to test participant $n$
-\begin{equation}
- c^* =
- \underset{c}{\mathrm{argmax}}
-\ \prod_n\frac
- {
-  \exp\left(c_{sel(n)} \right)
- }
- {
-  \sum_{e\in E_n}\exp(c_e)
- },
- \quad sel(n) \in E_n \subset \mathbb{E}_{unicode}
-\end{equation}
-
-We use a vector $c$ to approximate selection probability for the hypothetical
-case that $E_n = \mathbb{E}_{unicode}$
-\begin{equation}
- \exp(c^*_e) \approx P\left( sel(n) = e \right)
-\end{equation}
-
-Entire probability distribution over all emoji would be the best encoding for a facial expression.
-However, the rules are that we only transfer one emoji over the channel.
-Everything else would not be interpretable by a human.
-
-The winning emoji is $e^*$ that maximizes the odds of being selected.
-In the limit this should be the emoji that is selected most often, ie $sel(n)=e^*$ for the most $n$.
-\begin{equation}
- e^* = \underset{e}{\mathrm{argmax}}\, c^*_e, \quad e^* \in \mathbb{E}_{unicode}
-\end{equation}
-
-This might seem like a complicated way to find the one top matching emoji.
-Just counting the emoji by number selected would yield the same result, but don't worry we need a correct proxy for
-the actual distribution later.
-
-\subsubsection{Extracting a parametric emoji distribution}
-The nice thing about the preivously discussed method is that it directly translates into the selection from
-an infinite space of emojis.
-The parametric emoji space is generated by a vector of 5 dimensions in a unit cube.
-\begin{equation}
- \mathbb{E}_{param} = [0,1]^5
-\end{equation}
-
-\begin{equation}
- \mu^*, \sigma^* =
- \underset{{\mu,\sigma}}{\mathrm{argmax}}
- \prod_n\frac
- {
-  \exp\left(-\sum_d \frac{(sel(n)_d-\mu_d)^2}{\sigma_d{}^2} \right)
- }
- {
-  \sum_{e\in E_n}
-  \exp\left(-\sum_d \frac{(e_d-\mu_d)^2}{\sigma_d{}^2} \right)
- },
- \quad
- \begin{array}{rl}
-  sel(n) \in E_n \subset & \mathbb{E}_{param} \\
-  \mu, \mu^* \in & \mathbb{E}_{param}
- \end{array}
-\end{equation}
-
-It's important to distinguish $\mu$ from the average selected parameters.
-The statistical average is heavily biased against the boundaries where all the interesting emotions are.
-
-Not easy to solve with many local minima.
-Adam solver from the tensorflow machine learning package converges very quickly.
-
-Unicode emoji selection accuracy saturates when the best representation is selected.
-
-Parametric emoji increase to refine arbitrarily until a unique parameters are found.
-Hence, the real challenge lies in the decoding part.
-The question is whether untrained laymen can intuitively make use of this additional precision.
-
-
-\subsection{Decoding}
-
-\subsection{Experiment design}
-\begin{figure}[ht!]
- \begin{center}
-  \includegraphics[width=15cm]{gen/decode.pdf}
- \end{center}
- \caption{Deocders screen}
-\end{figure}
 
 \subsubsection{Collecting data}
 
 Test participants are presented with an emotional expression and get to select
 on out of six photos, one of which shows the originally encoded emotion.
 
-\subsubsection{Equivalent code size of perfect coders}
-We measure the success rate $p$.
-
-Not meaningful because it depends on $y$.
-Interpret in relation to what perfectly trained pair of encoder and decoders could transmit
-if they were allowed to use an alphabet of $M$ distinct emoji symbols.
-
-Probability of a random facial expression to coincide with the encoded image is $1/M$.
-
 \section{Results}
 
-\subsection{Examples}
+\subsection{Emotic Data}
+
+\cite{emotic_2019}
+% jump in water img_arr_11542 and sleeping img_arr_12297
+
 \begin{figure}[ht!]
  \begin{center}
-  \begin{tabular}{llllll}
-   \face{img_align_celeba/010870} &
-   \paramoji{10,10,100,80,0,gold} &
-   \notomojiLarge{1f928}
-   &
-   \face{img_align_celeba/021607} &
-   \paramoji{42,72,0,30,50,gold} &
-   \notomojiLarge{1f629}
-   \\
-   \face{img_align_celeba/002818} &
-   \paramoji{80,80,100,0,0,gold} &
-   \notomojiLarge{1f620}
-   &
-   \face{img_align_celeba/000593} &
-   \paramoji{84,41,78,0,52,gold} &
-   \notomojiLarge{1f601}
-   \\
-   \face{img_align_celeba/117396} &
-   \paramoji{46,67,5,0,32,gold} &
-   \notomojiLarge{1f632}
-   &
-   \face{lfw/Ruano_Pascual/Ruano_Pascual_0001} &
-   \paramoji{42,45,80,47,42,gold} &
-   \notomojiLarge{1f62c}
+  \begin{tabular}{lll}
+   \face{emotic_3} &
+   \paramoji{66,64,30,0,54} &
+   66,60,67,30,0 \\
+   \face{emotic_2} &
+   \paramoji{35,37,50,1,34} &
+   35,54,21,50,1 \\
+   \face{emotic_1} &
+   \paramoji{62,45,44,0,35} &
+   62,60,29,44,0 \\
   \end{tabular}
+ \caption{A comparison of the attributes given in three example images. The major difference is that
+ the proposed interpretation comes with a graphical representation while the original does not.}
  \end{center}
 \end{figure}
 
-\subsection{Parameter distribution}
 \begin{figure}[ht!]
  \begin{center}
-  \begin{tabular}{lcccc}
-   Dimension    & mean $\mu^*$ & min $\sigma^*$ & mean $\sigma^*$ & max $\sigma^*$ \\
-   Valence              & 0.60 & 0.36 & 0.64 & 1.43 \\
-   Arousal in eyes      & 0.63 & 0.50 & 0.68 & 0.98 \\
-   Arousal in mouth     & 0.47 & 0.37 & 0.53 & 1.17 \\
-   Potency              & 0.45 & 0.57 & 1.26 & 6.25 \\
-   Contempt             & 0.31 & 0.44 & 0.78 & 1.98 \\
+  \begin{tabular}{lrrrrr}
+   {} &  paramoji\_v &  paramoji\_a1 &  paramoji\_a2 &  paramoji\_p &  paramoji\_c \\
+   \midrule
+   Valence   &        0.57 &        -0.01 &         0.36 &        0.19 &       -0.08 \\
+   Arousal   &       -0.15 &         0.10 &         0.12 &        0.15 &        0.07 \\
+   Dominance &        0.07 &         0.17 &         0.14 &        0.16 &        0.09 \\
   \end{tabular}
+  \caption{Correlations between the original EMOTIC dimensions and the parametric emoji dimensions.}
  \end{center}
- \caption{Dimensions as classified by users. The statistics are generated over 20 faces.
- In the best case users agree on a the value for a parameter with low deviation (0.36).
- In the worst case there is no agreement and no clustering on a specific value can be
- detected (6.25).}
 \end{figure}
-
-\subsection{Individual decoders}
-\begin{figure}[ht!]
- \begin{center}
-  \begin{tabular}{lccc}
-   Emoji set & Unicode & Parametric
-   \\ \hline
-   Number of Encoders ($N$) & 182 & 166
-   \\
-   Number of Emoji show at encoding time ($|E_n|$) & \multicolumn{2}{c}{15}
-   \\
-   Number Decoders & 78  & 68
-   \\
-   Number Decoy images ($y$) & \multicolumn{2}{c}{5}
-   \\
-   Number of faces per encoder/decoder & \multicolumn{2}{c}{20}
-   \\
-   Success rate ($p$) & 58\% $(\pm 4)$  & 53\% $(\pm 3)$
-   \\ \hline
-   Equivalent code size ($M$)  &  6.8 & 5.7
-  \end{tabular}
- \end{center}
- \caption{Encoding/decoding success rate is the probability that the original
- image could be picked out from 5 randomly added decoy images.}
-\end{figure}
-
-The results could have been made to look slightly more favorable if faces with questionable emotional content were excluded.
-such protruded tongue and lips.
-However, as author I decided to accept defeat and continue to find another benefit of my parametric emojis.
-
-\subsection{Collaborative decoding}
-
-Does it really encode an emotional expression that people could make.
-Experiment protruded tongue.
-Abused as a marker for race and makeup.
 
 \section{Conclusion}
 Many attempts have been made to define meaning of emojis on a semantic scale.
@@ -602,10 +411,6 @@ Thus, it fills a gap that is left open by existing methods.
 \url{https://www.frontiersin.org/articles/10.3389/fpsyg.2016.02061/full}
 
 \url{https://www.frontiersin.org/articles/10.3389/fpsyg.2019.02221/full}
-
-\subsection{Noto emoji}
-
-\url{https://www.google.com/get/noto/help/emoji/}
 
 \url{https://www.researchgate.net/publication/266508208_What_the_Face_Reveals_Basic_and_Applied_Studies_of_Spontaneous_Expression_Using_the_Facial_Action_Coding_System_FACS}
 

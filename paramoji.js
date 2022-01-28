@@ -37,14 +37,14 @@ const emoticon_data=[
     "#left-lid-shadow:2", [2,  1,-10, -6,  3], [  2, -9,-17,  2, 20],
     // left-eye-brow
     "#right-eye-brow:1", [ 61,  2,  -1, -4], [ 40, -9,-18,  11],
-    "#right-eye-brow:2", [ 72,  0,  , -4], [ 40, -12,-18,  3],
+    "#right-eye-brow:2", [ 72,  0,  0, -4], [ 40, -12,-18,  3],
     "#right-eye-brow:3", [ 80,  0,  6, -2], [ 40, -5,-18, -3],
     [  2, -.5,  1,  .5], // stroke-width
     // wrinkle-left-brow
     "#wrinkle-right-brow:1", [ 62, -1, -4, -3], [ 36, -5,-18,  7],
     "#wrinkle-right-brow:2", [ 56,  1,  0, -4], [ 42, -7,-24,  9],
     "#wrinkle-right-brow:3", [ 56,  0,  0, -2], [ 45, -8,-22, 10],
-    "left-brow", [  0,  0,  0,  0,  1, 2, 2],
+    "left-brow", [  0,  0,  0,  0,  0, 3, 2],
     // nose-path
     "nose",
     [  0,  0,  0,  0, .5],
@@ -68,15 +68,15 @@ const emoticon_data=[
     "mirror#mouth:6",   [ 60,  0, 11, -3],     [  0,  0, -11,  0,  0],
     "#mouth:1copy",     [ 63,  0,  9, -2],     [  0,-11,  -2],
     // wrinkle-cheek
-    "#wrinkle-left-cheek:1",  [ 26, -2, -6,  2, -2], [ -2, -9, -2,  0,  -1],
-    "#wrinkle-left-cheek:2",  [ 32,  1, -5,  4, -8], [ -4, -4, -8,  1,-17, -3, 3],
+    "#wrinkle-left-cheek:1",  [ 26, -2, -6,  3, -2], [ -2, -9, -2,  0,  -1],
+    "#wrinkle-left-cheek:2",  [ 31,  1, -5,  1, -8], [ -4, -4, -8,  1,-19, -3, 5],
     "#wrinkle-left-cheek:3",  [ 37, -3, -2,  1,  3], [-11, -3, -9,  0, -6, -2, 2],
-    "#wrinkle-right-cheek:1", [ 74,  3,  6, -2],     [ -2, -9, -2,  0,  0],
-    "#wrinkle-right-cheek:2", [ 68,  -1,  5, -4],     [ -4, -4, -8,  1,  0],
+    "#wrinkle-right-cheek:1", [ 74,  3,  6, -3],     [ -2, -9, -2,  0,  0],
+    "#wrinkle-right-cheek:2", [ 69,  -1,  5, -1],    [ -4, -4, -8,  1,  0],
     "#wrinkle-right-cheek:3", [ 63,  2,  2, -1],     [-11, -3, -9,  0],
 ].filter(entry => {
     if (typeof(entry)=="string") {
-        if (entry.match(/#wrinkle-(left|right)-cheek:3/)) current_expressability = 0.5
+        if (entry.match(/#wrinkle-(left|right)-cheek:3/)) current_expressability = 0.6
         if (entry.match(/#wrinkle-(left|right)-cheek:1/)) current_expressability = 1
         if (entry=="#lips:1") current_expressability = 1
         if (entry=="lower-teeth") current_expressability = 1

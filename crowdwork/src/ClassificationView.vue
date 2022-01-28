@@ -1,25 +1,20 @@
 <template lang="pug">
 .root()
     .at-work.main(v-if="mode=='EDIT' && currentTask")
-        h2.title Find the matching emoji ({{currentIndex +1}}/{{work.items.length}})
-        div.image.portrait(:style="image(currentTask)")
-        div.controls.portrait
-            .choice.p-1(v-for="(choice,index) in currentTask.choices"
-                :class="{selected : currentTask.selected == index}"
-                @click="select(index)")
-                emoticon-display(:state="choice")
-            button.btn.recycle(@click="resample()")  &#x267B;
+        h3.title Find the matching emoji ({{currentIndex +1}}/{{work.items.length}})
+        emotic-image.image.portrait(:item="currentTask")
+        paramoji-selector.control.portrait(v-model="currentTask.paramoji" @complete="next")
         div.text-left.m-3
         div.text-right.m-3
             button.btn.btn-outline-primary.mr-1(@click="back" v-if="currentIndex>0 && !complete") Back
-            button.btn.btn-primary(@click="next" v-if="currentTask.selected >= 0") Continue
-            button.btn.btn-secondary.disabled(v-if="currentTask.selected < 0") Continue
+            button.btn.btn-primary(@click="next" v-if="stepComplete") Continue
+            button.btn.btn-secondary.disabled(v-if="!stepComplete") Continue
     .final-check.main(v-if="mode=='CHECK'")
         h2.title Final check
         .big-view.work-list
             .work-check(v-for="(task,i) in work.items" @click="edit(i)")
-                .image.btn(:style="image(task)")
-                emoticon-display.btn(:state="task.choices[task.selected]")
+                emotic-image.image.btn(:item="task")
+                emoticon-display.btn(:state="task.paramoji.value")
         div.text-left.m-3
             label.ml-3
                 input.form-check-input(type="checkbox" v-model="finalCheck")
@@ -31,7 +26,7 @@
         h2.title Complete
         .big-view
             div.text-center
-                emoticon-display(style="height:20vh; overflow:hidden" :state="{valence: 90, arousal:30, potency: 60, contempt: 0, expression:80}" color="none")
+                emoticon-display(style="height:20vh; overflow:hidden" :state="[.9,.3,1.0,.6,0]")
             .card.big-view
                 .card-header.bg-primary.text-white Thank you for completing your work.
                 .card-body.display-4.mwcode {{ workConfirmation }}
@@ -41,9 +36,11 @@
 <script>
 import axios from 'axios'
 import EmoticonDisplay from './EmoticonDisplay.vue'
+import ParamojiSelector from "./ParamojiSelector.vue";
+import EmoticImage from "./EmoticImage.vue";
 import {randomStates, shuffleArray} from './sampler.js'
 
-const TASK_LEN= 20;
+const TASK_LEN= 15;
 
 export default {
     props: ['task', 'ab'],
@@ -63,31 +60,26 @@ export default {
         }
     },
     async created() {
-        const data = this.task.data
+        const data = this.task.data.slice().filter(x => !x.published)
         const storedWork= sessionStorage.getItem(this.task.id)
         if (storedWork) {
             this.work.items = JSON.parse(storedWork);
         }
-        this.currentChoices = randomStates(this.$root.AB)
         shuffleArray(data)
         while (this.work.items.length < TASK_LEN) {
             const entry = data.pop()
             this.work.items.push({
-                file: entry.file,
-                choices: null,
-                sample: 1,
-                selected: -1,
+                ...entry,
+                paramoji: {},
                 startTime: 0
             });
         }
+        shuffleArray(this.work.items)
         this.edit(0)
         if (!BASE_URL)
           await axios.get(BASE_URL+'/api/ping').catch(() => { throw new Error("Server not available")})
     },
     methods: {
-        image(entry) {
-            return {'background-image': `url(${BASE_URL+"/emoticon-data/"+entry.file})`}
-        },
         select(index) {
             if (this.currentTask.selected == index) {
                 this.next()
@@ -125,6 +117,9 @@ export default {
             this.mode='FINISHED'
         }
     },
+    computed: {
+        stepComplete() { return this.currentTask.paramoji.iteration }
+    },
     watch: {
         currentIndex(value, old) {
             if (this.currentTask) {
@@ -132,9 +127,6 @@ export default {
             }
             if (value < TASK_LEN) {
                 this.currentTask = this.work.items[this.currentIndex]
-                if (!this.currentTask.choices) {
-                    this.currentTask.choices = this.currentChoices
-                }
                 if (!this.currentTask.startTime) {
                     this.currentTask.startTime = Date.now()
                 }
@@ -144,7 +136,9 @@ export default {
         }
     },
     components: {
-        'emoticon-display' : EmoticonDisplay
+        'emoticon-display' : EmoticonDisplay,
+        'paramoji-selector' : ParamojiSelector,
+        'emotic-image' : EmoticImage
     }
 };
 </script>
@@ -155,7 +149,7 @@ export default {
   color: #2c3e50;
   height: 100vh;
   display: grid;
-  grid-template-rows: min-content 1fr 1fr min-content;
+  grid-template-rows: min-content 1fr 1.1fr min-content;
   grid-template-columns: 1fr 1fr;
   overflow: hidden;
   justify-items: center;
@@ -172,28 +166,14 @@ export default {
     width: 100%;
     margin: 10px;
     overflow-y: hidden;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
 }
 .selected {
     background-color: lightsteelblue;
-}
-.choice {
-    height: 100%;
-    overflow: hidden;
-}
-.recycle.btn {
-  place-self: center;
-  font-size: 40px;
-  margin-top: -1ex;
-  margin-bottom: -1ex;
 }
 
 .image {
     width:100%;
     height:100%;
-    max-width: 500px;
     overflow: hidden;
     text-align: center;
     background-repeat: no-repeat;
@@ -234,7 +214,10 @@ export default {
     background-color: gainsboro;
 }
 @media (orientation: portrait) {
-    .portrait { grid-column: 1/3 }
+    .portrait {
+      grid-column: 1/3;
+      min-height: 15%
+    }
 }
 @media (orientation: landscape) {
     .portrait { grid-row: 2/4 }

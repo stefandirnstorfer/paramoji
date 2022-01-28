@@ -23,34 +23,15 @@ EOF
 fi
 done
 
-# Create unicode emoji based on noto font
-NOTO_PATH=../../noto-emoji/svg
-PARAMS=$(cat *.tex | \
-   egrep "notomoji(Large)?{" | \
-   sed -e s"/.*{\([^}]*\)}.*/\1/" | \
-   sort -u)
-
-for PARAM in $PARAMS
-do
-FILE=gen/emoticon-u$PARAM.pdf
-if [ ! -e $FILE ]; then
-  echo Processing noto emoji with params=$PARAM
-  mkdir -p gen
-  inkscape $NOTO_PATH/emoji_u$PARAM.svg --export-filename=$FILE
+# Screens
+for IMG in img/*; do
+OUT=${IMG/img/gen}
+OUT=${OUT/.*/.pdf}
+echo $IMG $OUT
+if [ ! -e $OUT ]; then
+  inkscape $IMG --export-type=pdf --export-filename=$OUT
 fi
 done
-
-
-# Screens
-if [ ! -e gen/emojito.pdf ]; then
-  inkscape img/emojito.svg --export-filename=gen/emojito.pdf
-fi
-if [ ! -e gen/encode.pdf ]; then
-  inkscape img/encode.png --export-filename=gen/encode.pdf
-fi
-if [ ! -e gen/decode.pdf ]; then
-  inkscape img/decode.png --export-filename=gen/decode.pdf
-fi
 
 
 # Faces
@@ -61,9 +42,9 @@ PARAMS=$(cat *.tex | \
 
 for PARAM in $PARAMS
 do
-#if [ ! -e $FILE ]; then
+if [ ! -e gen/$PARAM.pdf ]; then
   echo Processing face $PARAM
   mkdir -p gen/$(dirname $PARAM)
   convert $IMG_PATH/$PARAM.jpg gen/$PARAM.pdf
-#fi
+fi
 done

@@ -1,13 +1,15 @@
 export function emoticon_svg(v, a, p, c, e, color="none") {
-
-    v = v / 50 -1;
+    v = v / 100;
     a = a / 100;
-    p = p / 50 -1;
+    p = p / 100;
     c = c / 100;
     e = (e / 50 -1)/2;
-    const v1 = (v+1)/2
     const a1 = Math.min(1,Math.max(0,a - e))
     const a2 = Math.min(1,Math.max(0,a + e))
+    return paramoji_svg(v, a1, a2, p, c, e, color)
+}
+
+export function paramoji_svg(v, a1, a2, p, c, color="none") {
 
     const emoticon_data=[[51,-2,-10],[,25,,,-25],[,,-11],[-8,,-8],[,,-4],[-8,,-8],[,,2],[-8,
         ,-3],[,,9],[-4,,1],[,-6,13],[5,,12],[,-9,11],[11,,8],[5,,12],[,-9,-11],[-4,,
@@ -31,7 +33,7 @@ export function emoticon_svg(v, a, p, c, e, color="none") {
     const dotprod = (X,Y) => X.reduce((a, b, i) => a + b*(Y[i] || 0), 0)
     var data = emoticon_data
         .map((C, i)=> {
-            const V= [1, v, a1, a2, p, c, c*a1, c*v1]
+            const V= [1, v*2-1, a1, a2, p*2-1, c, c*a1, c*v]
             return dotprod(V, C)
         })
     var index=0;
