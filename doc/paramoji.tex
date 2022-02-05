@@ -26,6 +26,8 @@
 
 \newcommand{\paramoji}[1]{\includegraphics[width=2cm]{gen/emoticon-#1}}
 \newcommand{\face}[1]{\includegraphics[height=2cm]{gen/#1}}
+\newcommand{\faces}[1]{\includegraphics[height=1.6cm]{gen/#1}}
+
 
 \begin{document}
 \onecolumn
@@ -243,6 +245,9 @@ whereas for others it can feel embarrassing and/or shameful."
 Contempt can occur in combination to any of the previously discussed emotions.
 Hence, it is a dimension, not a state.
 
+Smug, excessive pride
+simper, false smile
+
 Graphics:
 rotation of eyes.
 Widening of mouth.
@@ -355,7 +360,7 @@ on out of six photos, one of which shows the originally encoded emotion.
 
 \begin{figure}[ht!]
  \begin{center}
-  \begin{tabular}{lll}
+  \begin{tabular}{cll}
    \face{emotic_3} &
    \paramoji{66,64,30,0,54} &
    66,60,67,30,0 \\
@@ -367,7 +372,7 @@ on out of six photos, one of which shows the originally encoded emotion.
    62,60,29,44,0 \\
   \end{tabular}
  \caption{A comparison of the attributes given in three example images. The major difference is that
- the proposed interpretation comes with a graphical representation while the original does not.}
+ the proposed model comes with a graphical representation while the original does not.}
  \end{center}
 \end{figure}
 
@@ -376,13 +381,44 @@ on out of six photos, one of which shows the originally encoded emotion.
   \begin{tabular}{lrrrrr}
    {} &  paramoji\_v &  paramoji\_a1 &  paramoji\_a2 &  paramoji\_p &  paramoji\_c \\
    \midrule
-   Valence   &        0.57 &        -0.01 &         0.36 &        0.19 &       -0.08 \\
+   Valence   &       \bf{0.57} &        -0.01 &         0.36 &        0.19 &       -0.08 \\
    Arousal   &       -0.15 &         0.10 &         0.12 &        0.15 &        0.07 \\
    Dominance &        0.07 &         0.17 &         0.14 &        0.16 &        0.09 \\
   \end{tabular}
   \caption{Correlations between the original EMOTIC dimensions and the parametric emoji dimensions.}
  \end{center}
 \end{figure}
+
+\subsection{FEC data set}
+
+\begin{figure}[ht!]
+ \begin{center}
+  \begin{tabular}{ccccccccc}
+   \face{triplet_a_1} &
+   \face{triplet_a_2} &
+   \face{triplet_a_3} &
+   \face{triplet_b_1} &
+   \face{triplet_b_2} &
+   \face{triplet_b_3} \\[-1ex]
+   \paramoji{85,50,60,0,55} &
+   \paramoji{80,50,60,0,43} &
+   \paramoji{90,60,60,0,90} &
+   \paramoji{17,70,90,11,59} &
+   \paramoji{94,98,33,0,48} &
+   \paramoji{49,42,29,0,35}
+  \end{tabular}
+  \begin{tabular}{ccc}
+   \face{triplet_c_1} &
+   \face{triplet_c_2} &
+   \face{triplet_c_3} \\[-1ex]
+   \paramoji{84,58,52,0,92} &
+   \paramoji{13,85,80,0,66} &
+   \paramoji{77,25,41,50,29}
+ \end{tabular}
+  \caption{Triplets}
+ \end{center}
+\end{figure}
+
 
 \section{Conclusion}
 Many attempts have been made to define meaning of emojis on a semantic scale.

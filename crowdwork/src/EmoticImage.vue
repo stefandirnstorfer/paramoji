@@ -4,12 +4,12 @@ svg(width="100%" height="100%" viewBox="-2 -2 404 404")
     rect(:x="item.X_min" :y="item.Y_min"
          :width="(item.X_max - item.X_min)"
          :height="(item.Y_max - item.Y_min)"
-         fill="none" stroke="red" :stroke-width="item.Height/150")
+         fill="none" stroke="red" :stroke-width="strokewidth()")
 </template>
 
 <script>
 export default {
-  props: ['item'],
+  props: ['item', 'rect'],
   data() {
     return {
     }
@@ -19,11 +19,26 @@ export default {
   },
   methods: {
     update() {
-      this.$el.setAttribute('viewBox', '-2 -2 '+(this.item.Width + 2)+' '+(this.item.Height + 2))
+      let vb=''
+      if (!this.rect) {
+        vb = (this.item.X_min - 5) + ' ' + (this.item.Y_min - 5 ) + ' ' +
+            (this.item.X_max - this.item.X_min + 10) + ' ' +
+            (this.item.Y_max - this.item.Y_min + 10)
+      } else {
+        vb = '-2 -2 '+(this.item.Width + 2)+' '+(this.item.Height + 2)
+      }
+      this.$el.setAttribute('viewBox', vb)
     },
     url() {
-      return BASE_URL + "/emoticon-data/" + this.item.file
+      return this.item.url ||
+          (BASE_URL + "/emoticon-data/" + this.item.file)
     },
+    strokewidth() {
+      if (this.rect)
+        return this.item.Height/150
+      else
+        return (this.item.Y_max - this.item.Y_min)/100
+    }
   },
   watch: {
     item() { this.update() }

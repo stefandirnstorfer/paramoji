@@ -26,26 +26,20 @@
 <body>
     <div id="app">
         <template v-for="(item, index) in work.data">
-            <div class="title">{{index}}: {{item.Crop_name}}</div>
+            <div class="title">{{index}}: {{item.url}}</div>
             <div class="target" :set="scale=400*Math.min(1/item.Width, 1/item.Height)">
                 <svg width="100%" height="100%" viewBox="-2 -2 404 404">
                     <g :transform="'translate('+(201-item.Width/2*scale)+','+(201-item.Height/2*scale)+')'">
                         <image :width="item.Width * scale" :height="item.Height*scale"
                                preserveAspectRatio="none"
-                               :href="IMG_BASE + item.file"/>
+                               :href="item.url"/>
                         <rect :x="scale*item.X_min" :y="scale*item.Y_min"
                               :width="scale*(item.X_max-item.X_min)" :height="scale*(item.Y_max-item.Y_min)"
                               fill="none" stroke="red" stroke-width="2"/>
                     </g>
                 </svg>
             </div>
-            <div style="max-height:300px" v-html="getSVG(getParamoji(item.Crop_name))"></div>
-            <div>
-                Valence = {{item.Valence}} <br>
-                Arousal = {{item.Arousal}} <br>
-                Dominance = {{item.Dominance}} <br>
-                Attributes = {{ getDims(item) }}
-            </div>
+            <div style="max-height:300px" v-html="getSVG(getParamoji(item))"></div>
         </template>
     </div>
     <script src="https://unpkg.com/vue@next"></script>

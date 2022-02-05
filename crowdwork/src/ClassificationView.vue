@@ -40,7 +40,7 @@ import ParamojiSelector from "./ParamojiSelector.vue";
 import EmoticImage from "./EmoticImage.vue";
 import {randomStates, shuffleArray} from './sampler.js'
 
-const TASK_LEN= 15;
+const TASK_LEN= 20;
 
 export default {
     props: ['task', 'ab'],
@@ -60,12 +60,13 @@ export default {
         }
     },
     async created() {
-        const data = this.task.data.slice().filter(x => !x.published)
+        const data = this.task.data.slice()
         const storedWork= sessionStorage.getItem(this.task.id)
         if (storedWork) {
             this.work.items = JSON.parse(storedWork);
         }
         shuffleArray(data)
+        data.sort((b,a) => (a.published?0:1) - (b.published?0:1))
         while (this.work.items.length < TASK_LEN) {
             const entry = data.pop()
             this.work.items.push({
