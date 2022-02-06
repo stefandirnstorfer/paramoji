@@ -48,30 +48,24 @@
 
 \begin{abstract}
 
+ The field of affective computing inherently relies on the ability to represent a human emotion in computational form.
+ Two main approaches have emerged to accomplish this task. The traditional approach describes an emotion along
+ a set of independent dimensions, such as valence, arousal, and potency. This is mathematically elegant, but suffers from
+ lacking consensus on how to interpret the values emotionally. More recent approaches use facial expressions as indicators
+ for specific emotional states. Most popular are the standardized emojis that can be instantly recognized and interpreted.
+ However, due to their categorical nature they lack support for the computation of mid points, averages and other
+ statistical measures.
+
+ This paper seeks to bridge the gap between these two approaches by suggesting an emoji style visualization of a five
+ dimensional emotional parameter space.
+ Just like their wide spread counterparts the parametric emojis are playful, exaggerated and somewhat silly.
+ To assess their effectiveness I hired untrained crowd workers to relabel a large set of photos
+ with emotional content. The photos were selected from three different datasets used by the affective machine learning
+ community. The label quality was then benchmarked against the qualities reported in the original publications.
+ Since the suggested approach is essentially a visualization technique the final test for its usefulness should
+ be based on clarity of presentation rather than nominal performance.
+
 %%% Leave the Abstract empty if your article does not require one, please see the Summary Table for full details.
-\section{}
-
-Affective computing
-ability to represent a human emotion in computational form.
-
-Two approaches have emerged:
-Dimensional approach: no convergence on exact interpretation
-Emoji: universally understood by humans, but difficult to classify on semantic scales.
-
-This paper seeks to bridge between these two approaches by providing an emoji
-with the usual exaggerated facial proportions that can be parameterized on a continuous domain to visualize
-the known emotional dimensions: valence, arousal, potency and contempt.
-Expression.
-
-Method:
-Untrained users ability to transmit a seen emotional expression over a channel.
-Encoders, decoders.
-
-Result:
-Success is slightly lower for individual decoders.
-This could be due to greater familiarity.
-
-The parametric emoji is superior in situations where multiple emoji measurements have to be aggregated into a single one.
 
 \tiny
  \keyFont{ \section{Keywords:} keyword, keyword, keyword, keyword, keyword, keyword, keyword, keyword} %All article types: you may provide up to 8 keywords; at least 5 are mandatory.
@@ -121,8 +115,6 @@ Inspired by established emotional dimensions
 Graphical simplicity with linear displacements
 Linearity is, of course, not a strict requirement, but in the absence of an objective scale a welcome guidance
 
-Implicit dimensions
-\cite{embedding}
 
 \subsection{Valence and arousal}
 Valence and arousal \cite{circumplex}
@@ -391,6 +383,9 @@ on out of six photos, one of which shows the originally encoded emotion.
 
 \subsection{FEC data set}
 
+Implicit dimensions
+\cite{embedding}
+
 \begin{figure}[ht!]
  \begin{center}
   \begin{tabular}{ccccccccc}
@@ -401,7 +396,7 @@ on out of six photos, one of which shows the originally encoded emotion.
    \face{triplet_b_2} &
    \face{triplet_b_3} \\[-1ex]
    \paramoji{85,50,60,0,55} &
-   \paramoji{80,50,60,0,43} &
+   \paramoji{80,50,67,0,48} &
    \paramoji{90,60,60,0,90} &
    \paramoji{17,70,90,11,59} &
    \paramoji{94,98,33,0,48} &
