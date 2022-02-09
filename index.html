@@ -31,43 +31,43 @@
             <table id="sliders" width="100%">
                 <tr>
                     <td>Valence</td>
-                    <td><button id="clear-valence">&times;</button></td>
+                    <td><button id="clear-v">&times;</button></td>
                     <td>
-                        <input style="width:90%;min:0;max:100;value:50" type="range" id="slider-valence"/>
+                        <input style="width:90%;min:0;max:100;value:50" type="range" id="slider-v"/>
                     </td>
-                    <td width="30em"><span id="label-valence">0</span></td>
+                    <td width="30em"><span id="label-v1">0</span></td>
                 </tr>
                 <tr>
-                    <td>Arousal</td>
-                    <td><button id="clear-arousal">&times;</button></td>
+                    <td>Arousal 1</td>
+                    <td><button id="clear-a1">&times;</button></td>
                     <td>
-                        <input style="width:90%;min:0;max:100;value:50" type="range" id="slider-arousal"/>
+                        <input style="width:90%;min:0;max:100;value:50" type="range" id="slider-a1"/>
                     </td>
-                    <td><span id="label-arousal">0</span></td>
+                    <td><span id="label-a1">0</span></td>
+                </tr>
+                <tr>
+                    <td>Arousal 2</td>
+                    <td><button id="clear-a2">&times;</button></td>
+                    <td>
+                        <input style="width:90%;min:0;max:100;value:50" type="range" id="slider-a2"/>
+                    </td>
+                    <td><span id="label-a2">0</span></td>
                 </tr>
                 <tr>
                     <td>Potency</td>
-                    <td><button id="clear-potency">&times;</button></td>
+                    <td><button id="clear-p">&times;</button></td>
                     <td>
-                        <input style="width:90%;min:0;max:100;value:50" type="range" id="slider-potency"/>
+                        <input style="width:90%;min:0;max:100;value:50" type="range" id="slider-p"/>
                     </td>
-                    <td><span id="label-potency">0</span></td>
+                    <td><span id="label-p">0</span></td>
                 </tr>
                 <tr>
                     <td>Contempt</td>
-                    <td><button id="clear-contempt">&times;</button></td>
+                    <td><button id="clear-c">&times;</button></td>
                     <td>
-                        <input style="width:90%;min:0;max:100;value:50" type="range" id="slider-contempt"/>
+                        <input style="width:90%;min:0;max:100;value:50" type="range" id="slider-c"/>
                     </td>
-                    <td><span id="label-contempt">0</span></td>
-                </tr>
-                <tr>
-                    <td>Expression</td>
-                    <td><button id="clear-expression">&times;</button></td>
-                    <td>
-                        <input style="width:90%;min:0;max:100;value:50" type="range" id="slider-expression"/>
-                    </td>
-                    <td><span id="label-expression">0</span></td>
+                    <td><span id="label-c">0</span></td>
                 </tr>
                 <tr>
                     <td>Color</td>
@@ -82,7 +82,7 @@
                     </td>
                 </tr>
             </table>
-            <button onclick="setParam(50,50,50)">Reset all</button>
+            <button onclick="setParam(50,40,0,50,0)">Reset all</button>
         </div>
         <hr/>
         <div id="animation">
@@ -93,20 +93,15 @@
                 Speed: <input style="width:90 %;min:1;max:100;value:50" type="range" id="slider-speed"/>
             </label>
             <p/>
-            <label><input type="checkbox" id="fix-valence"> Fix valence</label>
+            <label><input type="checkbox" id="fix-v"> Fix valence</label>
             <br/>
-            <label><input type="checkbox" id="fix-arousal"> Fix arousal</label>
+            <label><input type="checkbox" id="fix-a1"> Fix arousal</label>
             <br/>
-            <label><input type="checkbox" id="fix-potency"> Fix control</label>
+            <label><input type="checkbox" id="fix-a2"> Fix control</label>
             <br/>
-            <label><input type="checkbox" id="fix-contempt"> Fix contempt</label>
-        </div>
-        <div id="version">
-            <hr>
-            <label><input type="checkbox" id="show-controls"> Controls</label>
-            <input id="controls-filter" placeholder="filter">
-            <p/>
-            <table id="moves" style="width:90%"/>
+            <label><input type="checkbox" id="fix-c"> Fix contempt</label>
+            <br/>
+            <label><input type="checkbox" id="fix-p"> Fix contempt</label>
         </div>
         <div style="height:20px"></div>
     </div>

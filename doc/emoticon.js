@@ -1,13 +1,11 @@
-function emoticon_svg(v, a, p, c, e, color="none") {
+function emoticon_svg(v, a1, a2, p, c, color="none") {
 
     v = v / 50 -1;
-    a = a / 100;
+    a1 = a1 / 100;
+    a2 = a2 / 100;
     p = p / 50 -1;
     c = c / 100;
-    e = (e / 50 -1)/2;
     const v1 = (v+1)/2
-    const a1 = Math.min(1,Math.max(0,a - e))
-    const a2 = Math.min(1,Math.max(0,a + e))
 
     const emoticon_data=[[51,-2,-10],[,25,,,-25],[,,-11],[-8,,-8],[,,-4],[-8,,-8],[,,2],[-8,
         ,-3],[,,9],[-4,,1],[,-6,13],[5,,12],[,-9,11],[11,,8],[5,,12],[,-9,-11],[-4,,

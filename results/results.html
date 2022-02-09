@@ -25,9 +25,9 @@
 </head>
 <body>
     <div id="app">
-        <template v-for="(item, index) in work.data">
-            <div class="title">{{index}}: {{item.url}}</div>
-            <div class="target" :set="scale=400*Math.min(1/item.Width, 1/item.Height)">
+        <template v-for="(item, index) in work">
+            <div class="title">{{item.class}}: {{item.name}}</div>
+            <!--<div class="target" :set="scale=400*Math.min(1/item.Width, 1/item.Height)">
                 <svg width="100%" height="100%" viewBox="-2 -2 404 404">
                     <g :transform="'translate('+(201-item.Width/2*scale)+','+(201-item.Height/2*scale)+')'">
                         <image :width="item.Width * scale" :height="item.Height*scale"
@@ -38,8 +38,8 @@
                               fill="none" stroke="red" stroke-width="2"/>
                     </g>
                 </svg>
-            </div>
-            <div style="max-height:300px" v-html="getSVG(getParamoji(item))"></div>
+            </div>-->
+            <div style="max-height:300px" v-html="getSVG(getParamojiVec(item))"></div>
         </template>
     </div>
     <script src="https://unpkg.com/vue@next"></script>

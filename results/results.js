@@ -8,23 +8,22 @@ const app = Vue.createApp({
     },
     async mounted() {
         this.id_prefix = 0
-        this.work = await (await fetch('gen/work.json')).json()
-        this.work.data.sort((b,a) => (b.published?0:1) - (a.published?0:1))
-        results_list = await (await fetch('gen/fec/results.json')).json()
-        for (let item of results_list) {
-            this.results[item.key] = item
-        }
+        this.work = await (await fetch('gen/affnet/results.json')).json()
+        console.log(this.work)
     },
     methods: {
         getParamoji(item) {
             const key = item.url +'_' + item.X_min.toFixed(0) +'_'+ item.Y_min.toFixed(0)
             if (!(key in this.results)) return []
-            return  [
-                this.results[key].paramoji_v,
-                this.results[key].paramoji_a1,
-                this.results[key].paramoji_a2,
-                this.results[key].paramoji_p,
-                this.results[key].paramoji_c,
+            return  this.getParamojiVec(this.results[key])
+        },
+        getParamojiVec(vec) {
+            return [
+                vec.paramoji_v,
+                vec.paramoji_a1,
+                vec.paramoji_a2,
+                vec.paramoji_p,
+                vec.paramoji_c,
             ]
         },
         getSVG(x) {

@@ -18,7 +18,7 @@ const emoticon_data=[
     [  0,  0,  0, -1], [  0, -2,  0, -1],// #left-lens
     [0.5,  0,  4], // #pupil[radius]
     // right-lid-shadow
-    "#right-lid-shadow:2", [  5,  1, -4,  8], [  2,-10,-17,  5],
+    "#right-lid-shadow:2", [  5,  1, -4,  8], [  2,-9,-17,  5],
     // left-eye-outline
     [  0, -25,  0, 25, -10, 0, 20],
     "#left-eye-outline:6a", /*  8  */       [  0,  0, -11, 0, 0, 10],
@@ -34,7 +34,7 @@ const emoticon_data=[
     // right-eye
     [0,  0,  0,  2],
     // left-lid-shadow
-    "#left-lid-shadow:2", [2,  1,-10, -6,  3], [  2, -9,-17,  2, 20],
+    "#left-lid-shadow:2", [2,  1,-10, -6,  3], [  2, -9,-17,  4, 20],
     // left-eye-brow
     "#right-eye-brow:1", [ 61,  2,  -1, -4], [ 40, -9,-18,  11],
     "#right-eye-brow:2", [ 72,  0,  0, -4], [ 40, -12,-18,  3],
@@ -137,17 +137,17 @@ function emoticon_svg(v, a, p, c, e, color="gold") {
         '      <g clip-path="url(#clip-right-eye)" id="right-eyeball">',
         '        <g id="right-lens" transform="translate(?,?)">',
         '          <circle r="5" fill="#9d4922" id="iris"/>',
-        '          <circle r="?" fill="black" id="pupil"/>',
+        '          <circle r="?" id="pupil"/>',
         '          <circle r="1" cx="-2.5" cy="-1.5" fill="white" id="glare"/>',
         '        </g>',
-        '        <path d="M -15,-20 H 20 V0 Q ?,? -15,0 Z" id="right-lid-shadow" opacity="0.25" fill="black"/>',
+        '        <path d="M -15,-20 H 20 V0 Q ?,? -15,-2 Z" id="right-lid-shadow" opacity="0.25" fill="black"/>',
         '      </g>',
         '    </g>',
         '    <g id="left-eye" transform="translate(-36,0)">',
         '      <path transform="rotate(?)" d="M 8,? C ?,? ?,? ?,? ?,? ?,? ?,0 ?,? ?,? 8,? Z" id="left-eye-outline" fill="white" stroke="black"/>',
         '      <g clip-path="url(#clip-left-eye)" id="left-eyeball">',
         '        <use id="right-lens" x="?" href="#right-lens"/>',
-        '        <path d="M -15,-20 H 15 V -2 Q ?,? -20,0 Z" id="left-lid-shadow" opacity="0.25" fill="black"/>',
+        '        <path d="M -15,-20 H 15 V-2 Q ?,? -20,0 Z" id="left-lid-shadow" opacity="0.25" fill="black"/>',
         '      </g>',
         '    </g>',
         '  </g>',
@@ -164,7 +164,7 @@ function emoticon_svg(v, a, p, c, e, color="gold") {
         '      <g id="lower-teeth" transform="translate(0,?)">',
         '        <use x="-14" href="#tooth"/>',
         '        <use x="-7" href="#tooth"/>',
-        '        <use x="0" href="#tooth"/>',
+        '        <use href="#tooth"/>',
         '        <use x="7" href="#tooth"/>',
         '      </g>',
         '      <g id="upper-teeth" transform="translate(0,?)">',
