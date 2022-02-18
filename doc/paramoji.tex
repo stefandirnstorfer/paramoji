@@ -24,8 +24,8 @@
 \def\corrEmail{stefan@thetaris.com}
 
 
-\newcommand{\paramoji}[1]{\includegraphics[width=2cm]{gen/emoticon-#1}}
-\newcommand{\paramojiinline}[1]{\raisebox{-0.6ex}{\includegraphics[height=2.8ex]{gen/emoticon-#1}}}
+\newcommand{\paramoji}[1]{\includegraphics[width=2cm]{gen/paramoji-#1}}
+\newcommand{\paramojib}[1]{\raisebox{-0.6ex}{\includegraphics[height=2.8ex]{gen/paramojib-#1}}}
 \newcommand{\face}[1]{\includegraphics[height=2cm]{gen/#1}}
 \newcommand{\faces}[1]{\includegraphics[height=1.6cm]{gen/#1}}
 
@@ -104,9 +104,9 @@ Two effective emoji scales were designed to capture levels of perceived pain wit
 It was found that visual emoji scales produced more stable and consistent results in self-reported pain and greatly improved pain treatment.
 A wider range of emotional experiences can be expressed if additional dimensions are allowed.
 The circumplex model is a widely used 2-dimensional model \cite{circumplex} that can be visualized as facial expressions.
-An emoji grid was designed and found useful for reporting food taste \cite{emojigrid}.
+An emoji grid was designed and found useful for reporting food elicited emotions \cite{emojigrid}.
 Despite the additional depth of two dimensions the grid still lacks space for many basic emotions, such as disgust, fear and contempt.
-Additionally, the grid was only defined on the boundary of the domain without an obvious way to interpolate their appearance.
+Additionally, the grid was only defined for emojis on the boundary of the domain without an obvious way to interpolate their visual appearance.
 In short, these custom emoji sets are nuanced on very limited domains. They fall greatly behind in terms of expressable range.
 
 For a greater range of facial expressions there is a visualization technique that can directly generate comic style
@@ -141,10 +141,9 @@ Because of the compromises that had to be made the result should be viewed as a 
 
 \subsection{Valence and arousal}
 
-The circumplex model defines an emotional state through two emotinal states: "valence" and "arousal" \cite{circumplex}.
+The circumplex model of affect describes emotional states with two parameters: "valence" and "arousal" \cite{circumplex}.
 The claim that all emotions fall into a plane of only two dimensions might appear as quite a stretch.
-However, its mathematical simplicity makes the model quite attractive.
-It became the basis of almost every emotional model.
+However, this simplicity makes the model quite attractive and it became the basis of almost every emotional model.
 Recent neurological evidence provides further assurance that these dimensions actually exist and correlate to
 measurable brain activities \cite{circumplex2}.
 
@@ -186,65 +185,43 @@ On the other end of the spectrum there is no physical limit on how wide a comic 
 Therefore, arousal values can only be compared against each other without an objective center.
 For valence the natural center is a flat mouth and flat eyes.
 Eyes and mouth bend upwards for pleasure.
-This is consistent with a respective muscle movement and was already part of early emoticons as \texttt{\^\_\^} and \texttt{:)}.
+This is consistent with a respective muscle movements and was already part of early emoticons as \texttt{\^\_\^} and \texttt{:)}.
 Eyes bend downwards for misery. This is derived from the foreshortened view when the head is lowered.
-A combination of pleasure with a lowered head, ie downwards bent eyes, is prevented by the linearity constraint.
+A combination of pleasure with a lowered head, ie a smile with eyes bent downwards, is prevented by the linearity constraint.
 \footnote{A Unicode emoji for such an expression exists with code 1f60c.}
 
 Looking at facial expressions one can find the predicted emotions on the edges of the domain:
-alarmed \paramojiinline{50,100,100,50,0}, sleepy \paramojiinline{50,0,0,50,0},
-happy \paramojiinline{100,50,50,50,0} and miserable \paramojiinline{0,50,50,50,0}.
+alarmed \paramojib{50,100,100,50,0},
+sleepy \paramojib{50,0,0,50,0},
+happy \paramojib{100,50,50,50,0} and
+miserable \paramojib{0,50,50,50,0}.
 The quadrants also comply with the circumplex model, showing
-contentment \paramojiinline{100,0,0,50,0},
-excitement \paramojiinline{100,100,100,50,0},
-distress \paramojiinline{0,100,100,50,0}
-and depression\paramojiinline{0,0,0,50,0}.
-However, the original publication lists many more emotions that sit tightly packed on a planar space,
-such as fear, anger, sadness, tension and more.
+contentment \paramojib{100,0,0,50,0},
+excitement \paramojib{100,100,100,50,0},
+distress \paramojib{0,100,100,50,0}
+and depression\paramojib{0,0,0,50,0}.
+The original publication postulates many more emotions that are supposed to sit tightly packed on a planar space.
+Fear vs anger vs tension, bordom vs sadness: these are fundamentally different emotions that can hardly be seen in close proximity to each other.
+More dimensions are needed to separate them.
 
+\subsection{The third dimension: Potency}
 
+The good candidate for a working three-dimensional model is the evaluation-potency-activity model \cite{potency_osgood}.
+It was developed to find the main axes of meaning in nouns and adjectives through a rigorous data driven approach.
+The description of the first and third dimension match the definition of valence and arousal.
+The second dimension "potency" is described by the scales of strong vs weak, hard vs soft, brave vs cowardly,
+tenacious vs yielding, severe vs lenient.
+An alternative three dimensional model is pleasure-arousal-dominance \cite{dominance_mehrabian}.
+In its definition the adjectives anger, power and boldness are dominant over anxiety, infatuation, fear and loneliness.
+A comparison of these two models finds the concepts in close alignment, but there is "a long lasting debate about the exact interpretation."
+\cite{dominance_revisited}.
 
-Linearly displaces all control points
-Additionally combinable with all subsequent dimensions
-
-
-
-
-We can see surprise, joy, sadness.
-but not fear, anger, disgust.
-\cite{ekman72}
-With some goodwill we might spot signs of fear, anger and disgust.
-The intensity of the depicted facial activations would hardly gain the approval of Ekman and Friesen.
-To make them happy additional dimensions must be introduced.
-
-\subsection{Potency}
-
-evaluation-potency-activity, "potency=toughness" \cite{potency_osgood2}
-
-Evaluation, activity, potency:
-"strong, severe deep, real, distinct, near, tenacious" vs
-"soft, light, lenient, weak, yielding"
-\cite{potency_osgood}
-
-pleasure, arousal and dominance.
-"anger, power and boldness" vs "anxiety, infatuation, fear and loneliness"
-\cite{dominance_mehrabian}
-
-individual’s sense of power or control
-More linguistic analyisis of dimensionality
-\cite{potency_fontaine}
-
-Long lasting debate about the exact interpretation.
-\cite{dominance_revisited}
-
-Graphical visualization uses anger vs fear and bold vs weak as main driver.
-Anger and Fear are on almost the same spot in the original circumplex model by Russel. Hence they must be separated
-by this third dimension.
-
-More faces from the Ekman space:
-Fear in the low potency group.
-Anger and disgust in high potency group.
-
+Irrespective of name and precise definition, the third dimension shows strength and power against fear and weakness.
+The visual effects are lowered inner eyebrows, inwards rotated eyes, more prominent display of teeth and a sharper mouth contour.
+For low potency the visual effects are exactly mirrored, because all displacements are, again, linearly added.
+Figure \ref{fig:potency} shows four of the previous paramoji, which were assumed to have a neutral potency of 0.5 in the center.
+Left and right the paramojis show lowest (0.0) and highest (1.0) values of potency.
+Obviously, the scale is continuous and all intermediate values could be interpolated.
 
 \begin{figure}[ht!]
  \begin{center}
@@ -269,9 +246,25 @@ Anger and disgust in high potency group.
    \paramoji{0,100,100,100,0}
   \end{tabular}
  \end{center}
- \caption{Random emotions with low, medium and strong potency.}
+ \caption{A block of four paramojis plotted with low (0.0), medium (0.5) and strong (1.0) potency.}
  \label{fig:potency}
 \end{figure}
+
+Basic emotions \cite{ekman72}
+
+Fear \paramojib{50,50,50,0,0}
+
+Surprise \paramojib{100,100,100,50,0}
+and \paramojib{0,100,100,0,0}
+
+Joy \paramojib{100,50,50,50,0}
+
+Disgust \paramojib{0,0,0,100,0}
+
+Anger \paramojib{0,100,100,100,0}
+
+Sadness \paramojib{0,0,0,0,0}
+
 
 \subsection{Contempt}
 

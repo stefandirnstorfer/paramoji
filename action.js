@@ -42,7 +42,6 @@ function setParam(v, a1, a2, p, c) {
 function redrawEmoticon(storeUrl) {
     var query= [];
     for (var key in state) {
-        console.log(state, key)
         $('#label-' + key).text(state[key].toFixed());
         $('#slider-' + key).val(state[key]);
         query.push(key+"="+state[key].toFixed());
@@ -51,8 +50,7 @@ function redrawEmoticon(storeUrl) {
         window.history.replaceState({}, "Emoticons", "?" + query.join("&"));
 
     const v=state.v/100, a1=state.a1/100, a2= state.a2/100, p=state.p/100, c=state.c/100;
-    const color = $('#color').val()
-    $('#emoticon-svg').html(paramoji_svg(v, a1, a2, p, c, color));
+    $('#emoticon-svg').html(paramoji_svg(v, a1, a2, p, c));
 }
 
 var oldtime = undefined;

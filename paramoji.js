@@ -3,7 +3,7 @@ const emoticon_data=[
     // eyes vertical
     [ 51, -2,-10,  0],
     // right eye
-    [  0, 25,  0,-25],
+    [  0, 22,  0,-26],
     "#right-eye-outline:6a", /* -8 */       [  0,  0,-11],
     "#right-eye-outline:1a", [ -8,  0, -8], [  0,  0, -4],
     "#right-eye-outline:1b", [ -8,  0, -8], [  0,  0,  2],
@@ -20,7 +20,7 @@ const emoticon_data=[
     // right-lid-shadow
     "#right-lid-shadow:2", [  5,  1, -4,  8], [  2,-9,-17,  5],
     // left-eye-outline
-    [  0, -25,  0, 25, -10, 0, 20],
+    [  0, -22,  0, 26, -10, 0, 20],
     "#left-eye-outline:6a", /*  8  */       [  0,  0, -11, 0, 0, 10],
     "#left-eye-outline:1a", [  8,  0,  8,  0, 0, -6], [  0,  0,  -4, 0, 0, 4],
     "#left-eye-outline:1b", [  8,  0,  8,  0, 0, -6], [  0,  0,   2, 0, 0, -2],
@@ -39,7 +39,7 @@ const emoticon_data=[
     "#right-eye-brow:1", [ 61,  2,  -1, -4], [ 40, -9,-18,  11],
     "#right-eye-brow:2", [ 72,  0,  0, -4], [ 40, -12,-18,  3],
     "#right-eye-brow:3", [ 80,  0,  6, -2], [ 40, -5,-18, -3],
-    [  2, -.5,  1,  .5], // stroke-width
+    "weight", [  2, -.5,  1,  .5], // stroke-width
     // wrinkle-left-brow
     "#wrinkle-right-brow:1", [ 62, -1, -4, -3], [ 36, -5,-18,  7],
     "#wrinkle-right-brow:2", [ 56,  1,  0, -4], [ 42, -7,-24,  9],
@@ -56,24 +56,24 @@ const emoticon_data=[
     "lower-teeth", [  0,  4,  6, -4],
     "upper-teeth", [-15,  1, -5,  1,  0, -4],
     // mouth
-    "#mouth:1",         [ 63,  0,  9, -2],     [  0,-11,  -2],
-    "#mouth:2",         [ 60,  0, 11, -3],     [  0,  0,  11],
+    "#mouth:1",         [ 64,  0,  9, -2],     [  0,-12,  -2],
+    "#mouth:2",         [ 60,  0, 11, -4],     [  0,  0,  11],
     "#mouth:3",         [ 56,  0,  6, -3],     [  0,  2,  12],
     /* 50 */                                   [  0,  2,  12],
-    "mirror:2#mouth:2", [ 40,  0,-11,  3,  3], [  0,  0,  11],
-    "mirror:1#mouth:1", [ 37,  0, -9,  2],     [  0,-11,  -2],
-    "#mouth:6",         [ 40,  0,-11,  3, -3], [  0,  0, -11,  0,-22],
+    "mirror:2#mouth:2", [ 40,  0,-11,  4,  3], [  0,  0,  11],
+    "mirror:1#mouth:1", [ 36,  0, -9,  2],     [  0,-12,  -2],
+    "#mouth:6",         [ 40,  0,-11,  4, -3], [  0,  0, -11,  0,-22],
     "#mouth:7",         [ 44,  0, -6,  3],     [  0,  2, -12,  0, -7, -1],
     /* 50 */                                   [  0,  2, -12,  0, -3, 0],
-    "mirror#mouth:6",   [ 60,  0, 11, -3],     [  0,  0, -11,  0,  0],
-    "#mouth:1copy",     [ 63,  0,  9, -2],     [  0,-11,  -2],
+    "mirror#mouth:6",   [ 60,  0, 11, -4],     [  0,  0, -11,  0,  0],
+    "#mouth:1copy",     [ 64,  0,  9, -2],     [  0,-12,  -2],
     // wrinkle-cheek
-    "#wrinkle-left-cheek:1",  [ 26, -2, -6,  3, -2], [ -2, -9, -2,  0,  -1],
-    "#wrinkle-left-cheek:2",  [ 31,  1, -5,  1, -8], [ -4, -4, -8,  1,-19, -3, 5],
-    "#wrinkle-left-cheek:3",  [ 37, -3, -2,  1,  3], [-11, -3, -9,  0, -6, -2, 2],
-    "#wrinkle-right-cheek:1", [ 74,  3,  6, -3],     [ -2, -9, -2,  0,  0],
-    "#wrinkle-right-cheek:2", [ 69,  -1,  5, -1],    [ -4, -4, -8,  1,  0],
-    "#wrinkle-right-cheek:3", [ 63,  2,  2, -1],     [-11, -3, -9,  0],
+    "#wrinkle-left-cheek:1",  [ 25, -2, -6,  4, -2], [ -2, -9, -2,  2,  -1],
+    "#wrinkle-left-cheek:2",  [ 30,  1, -5,  3, -8], [ -4, -4, -8,  1,-19, -3, 5],
+    "#wrinkle-left-cheek:3",  [ 36, -3, -2,  2,  3], [-11, -3, -9,  0, -6, -2, 2],
+    "#wrinkle-right-cheek:1", [ 75,  3,  6, -4],     [ -2, -9, -2,  2,  0],
+    "#wrinkle-right-cheek:2", [ 70,  -1,  5, -3],    [ -4, -4, -8,  1,  0],
+    "#wrinkle-right-cheek:3", [ 64,  2,  2, -2],     [-11, -3, -9,  0],
 ].filter(entry => {
     if (typeof(entry)=="string") {
         if (entry.match(/#wrinkle-(left|right)-cheek:3/)) current_expressability = 0.6
@@ -96,8 +96,13 @@ console.log(("const data=["+emoticon_data.map(x => '[' +x.join(',') + ']').join(
     .replace(/,0/g, ',' )
     .replace(/(,)+\]/g,']')
     .replace(/(.{75}[^,]*,)/g, '$1\n'))
+emoticon_data.forEach((row, index) => {
+    if (row[1]==-0.5) {
+        console.log('data['+index+']=data['+index+'].map(x => x*Math.sqrt(w))')
+    }
+})
 
-function paramoji_svg(v, a1, a2, p, c, color="gold") {
+function paramoji_svg(v, a1, a2, p, c, w) {
     v = v * 100
     a1 = a1 * 100
     a2 = a2 * 100
@@ -105,10 +110,12 @@ function paramoji_svg(v, a1, a2, p, c, color="gold") {
     c = c * 100
     const a= (a1+a2)/2
     const e = (a2-a1)/2 + 50
-    return emoticon_svg(v, a, p, c, e, color)
+    return emoticon_svg(v, a, p, c, e, w)
 }
 
-function emoticon_svg(v, a, p, c, e, color="gold") {
+function emoticon_svg(v, a, p, c, e, w) {
+    const w2 = Math.sqrt(w)
+
     a = a/100
     c = c/100
     v = v/50-1
@@ -123,6 +130,7 @@ function emoticon_svg(v, a, p, c, e, color="gold") {
             V= [1, v, a1, a2, p/50-1, c, c*a1, c*v1]
             return dotprod(V, C)
         })
+    data[51]=data[51]*Math.sqrt(w)
     const template= [
         '<svg height="100%" viewBox="0 0 100 100" width="100%" xmlns="http://www.w3.org/2000/svg">',
         '  <defs id="defs">',
@@ -130,7 +138,6 @@ function emoticon_svg(v, a, p, c, e, color="gold") {
         '    <clipPath id="clip-left-eye"><use href="#left-eye-outline"/></clipPath>',
         '    <clipPath id="clip-mouth"><use href="#lips"/></clipPath>',
         '  </defs>',
-        '  <ellipse id="head" cx="50" cy="50" rx="46" ry="50" fill="' + color.replace(/"/g,'') + '"/>',
         '  <g id="eyes" transform="translate(68,?)">',
         '    <g id="right-eye">',
         '      <path transform="rotate(?)" d="M -8,? C ?,? ?,? ?,? ?,? ?,? ?,0 ?,? ?,? -8,? Z" id="right-eye-outline" fill="white" stroke="black"/>',
