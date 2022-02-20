@@ -59,12 +59,12 @@ const emoticon_data=[
     "#mouth:1",         [ 64,  0,  9, -2],     [  0,-12,  -2],
     "#mouth:2",         [ 60,  0, 11, -4],     [  0,  0,  11],
     "#mouth:3",         [ 56,  0,  6, -3],     [  0,  2,  12],
-    /* 50 */                                   [  0,  2,  12],
+    "mouth:center-dwn", [50],                  [  0,  2,  12],
     "mirror:2#mouth:2", [ 40,  0,-11,  4,  3], [  0,  0,  11],
     "mirror:1#mouth:1", [ 36,  0, -9,  2],     [  0,-12,  -2],
     "#mouth:6",         [ 40,  0,-11,  4, -3], [  0,  0, -11,  0,-22],
     "#mouth:7",         [ 44,  0, -6,  3],     [  0,  2, -12,  0, -7, -1],
-    /* 50 */                                   [  0,  2, -12,  0, -3, 0],
+    "mouth:center-up",  [50],                  [  0,  2, -12,  0, -3, 0],
     "mirror#mouth:6",   [ 60,  0, 11, -4],     [  0,  0, -11,  0,  0],
     "#mouth:1copy",     [ 64,  0,  9, -2],     [  0,-12,  -2],
     // wrinkle-cheek
@@ -102,37 +102,23 @@ emoticon_data.forEach((row, index) => {
     }
 })
 
-function paramoji_svg(v, a1, a2, p, c, w) {
-    v = v * 100
-    a1 = a1 * 100
-    a2 = a2 * 100
-    p = p * 100
-    c = c * 100
-    const a= (a1+a2)/2
-    const e = (a2-a1)/2 + 50
-    return emoticon_svg(v, a, p, c, e, w)
+function emoticon_svg(v, a, p, c, e) {
+    return paramoji_svg(v / 100,
+        Math.min(1.0, Math.max(0.0, (a - 2 * e + 100) / 100)),
+        Math.min(1.0, Math.max(0.0, (a + 2 * e - 100) / 100)),
+        p / 100, c / 100)
 }
 
-function emoticon_svg(v, a, p, c, e, w) {
-    const w2 = Math.sqrt(w)
-
-    a = a/100
-    c = c/100
-    v = v/50-1
+function paramoji_svg(v, a1, a2, p, c) {
     const dotprod = (X,Y) => X.reduce((a, b, i) => a + b*(Y[i] || 0), 0)
-    const e2 = (e/50-1)/2
-    const a1 = Math.min(1,Math.max(0,a - e2))
-    const a2 = Math.min(1,Math.max(0,a + e2))
-    const v1 = v/2+.5
     let data = emoticon_data
         .filter(x => typeof(x) != 'string')
         .map((C, i)=> {
-            V= [1, v, a1, a2, p/50-1, c, c*a1, c*v1]
+            V= [1, 2*v-1, a1, a2, 2*p-1, c, c*a1, c*v]
             return dotprod(V, C)
         })
-    data[51]=data[51]*Math.sqrt(w)
     const template= [
-        '<svg height="100%" viewBox="0 0 100 100" width="100%" xmlns="http://www.w3.org/2000/svg">',
+        '<svg height="100%" viewBox="0 0 100 100" width="100%">',
         '  <defs id="defs">',
         '    <clipPath id="clip-right-eye"><use href="#right-eye-outline"/></clipPath>',
         '    <clipPath id="clip-left-eye"><use href="#left-eye-outline"/></clipPath>',
@@ -153,13 +139,13 @@ function emoticon_svg(v, a, p, c, e, w) {
         '    <g id="left-eye" transform="translate(-36,0)">',
         '      <path transform="rotate(?)" d="M 8,? C ?,? ?,? ?,? ?,? ?,? ?,0 ?,? ?,? 8,? Z" id="left-eye-outline" fill="white" stroke="black"/>',
         '      <g clip-path="url(#clip-left-eye)" id="left-eyeball">',
-        '        <use id="right-lens" x="?" href="#right-lens"/>',
+        '        <use id="left-lens" x="?" href="#right-lens"/>',
         '        <path d="M -15,-20 H 15 V-2 Q ?,? -20,0 Z" id="left-lid-shadow" opacity="0.25" fill="black"/>',
         '      </g>',
         '    </g>',
         '  </g>',
         '  <g id="right-eye-top">',
-        '    <path d="M ?,? Q ?,? ?,?" id="right-eye-brow" stroke-width="?" stroke="black" fill="none"/>' +
+        '    <path d="M ?,? Q ?,? ?,?" id="right-eye-brow" stroke-width="?" stroke="black" fill="none"/>',
         '    <path d="M ?,? Q ?,? ?,?" id="wrinkle-right-brow" fill="none" stroke="black"/>',
         '  </g>',
         '  <use id="left-eye-brow" transform="matrix(-1,0,0,1,100,?)" href="#right-eye-top"/>',
@@ -177,11 +163,11 @@ function emoticon_svg(v, a, p, c, e, w) {
         '      <g id="upper-teeth" transform="translate(0,?)">',
         '        <use transform="matrix(1,0.14,0,1,-14,-8)" href="#tooth"/>',
         '        <use x="-7" href="#tooth"/>',
-        '        <rect height="15" id="tooth" rx="2" ry="1" fill="white" stroke="black" width="6" x="50"/>',
+        '        <rect x="50" height="15" id="tooth" rx="2" ry="1" fill="white" width="6" stroke="black" stroke-width=".5"/>',
         '        <use transform="matrix(1,-0.14,0,1,7,7)" href="#tooth"/>',
         '      </g>',
         '    </g>',
-        '    <path d="M ?,? C ?,? ?,? 50,? S ?,? ?,? C ?,? ?,? 50,? S ?,? ?,? Z" id="lips" fill="none" stroke="black"/>',
+        '    <path d="M ?,? C ?,? ?,? ?,? S ?,? ?,? C ?,? ?,? ?,? S ?,? ?,? Z" id="lips" fill="none" stroke="black"/>',
         '    <path d="M ?,? Q ?,? ?,?" id="wrinkle-left-cheek" fill="none" stroke="black"/>',
         '    <path d="M ?,? Q ?,? ?,?" id="wrinkle-right-cheek" fill="none" stroke="black"/>',
         '  </g>',

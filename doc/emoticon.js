@@ -23,7 +23,7 @@ function emoticon_svg(v, a1, a2, p, c, w) {
             -2],[-2,-9,,-2,2,-1],[30,1,,-5,3,-8],[-4,-4,,-8,1,-19,-3,5],[36,-3,-0.4,-1.6,
             2,3],[-11,-3,-1.8,-7.2,,-6,-2,2],[75,3,,6,-4],[-2,-9,,-2,2],[70,-1,,5,-3],[-4,
             -4,,-8,1],[64,2,.4,1.6,-2],[-11,-3,-1.8,-7.2]]
-    emoticon_data[51]=emoticon_data[51].map(x => x*Math.sqrt(w))
+    emoticon_data[51][0]= w+1
 
     const dotprod = (X,Y) => X.reduce((a, b, i) => a + b*(Y[i] || 0), 0)
     var data = emoticon_data
@@ -33,7 +33,7 @@ function emoticon_svg(v, a1, a2, p, c, w) {
         })
     var index=0;
     const template= [
-        '<svg height="100%" viewBox="0 0 100 100" width="100%" xmlns="http://www.w3.org/2000/svg">',
+        '<svg height="100%" viewBox="0 0 100 100" width="100%">',
         '  <defs id="defs">',
         '    <clipPath id="clip-right-eye"><use href="#right-eye-outline"/></clipPath>',
         '    <clipPath id="clip-left-eye"><use href="#left-eye-outline"/></clipPath>',
@@ -60,7 +60,7 @@ function emoticon_svg(v, a1, a2, p, c, w) {
         '    </g>',
         '  </g>',
         '  <g id="right-eye-top">',
-        '    <path d="M ?,? Q ?,? ?,?" id="right-eye-brow" stroke-width="?" stroke="black" fill="none"/>' +
+        '    <path d="M ?,? Q ?,? ?,?" id="right-eye-brow" stroke-width="?" stroke="black" fill="none"/>',
         '    <path d="M ?,? Q ?,? ?,?" id="wrinkle-right-brow" fill="none" stroke="black"/>',
         '  </g>',
         '  <use id="left-eye-brow" transform="matrix(-1,0,0,1,100,?)" href="#right-eye-top"/>',
@@ -78,7 +78,7 @@ function emoticon_svg(v, a1, a2, p, c, w) {
         '      <g id="upper-teeth" transform="translate(0,?)">',
         '        <use transform="matrix(1,0.14,0,1,-14,-8)" href="#tooth"/>',
         '        <use x="-7" href="#tooth"/>',
-        '        <rect height="15" id="tooth" rx="2" ry="1" fill="white" stroke="black" width="6" x="50"/>',
+        '        <rect height="15" id="tooth" rx="2" ry="1" fill="white" stroke="black" stroke-width=".5" width="6" x="50"/>',
         '        <use transform="matrix(1,-0.14,0,1,7,7)" href="#tooth"/>',
         '      </g>',
         '    </g>',
@@ -88,13 +88,13 @@ function emoticon_svg(v, a1, a2, p, c, w) {
         '  </g>',
         '</svg>'
     ].map(x =>
-        x.includes("<path") && !x.includes("eye-brow")
+        x.includes("<path") && !x.includes("stroke-width")
             ? x.replace("<path", "<path stroke-width='"+w+"'")
             : x
     )
     return template.join("\n")
         .replace(/\?/g, () => data[index++])
-        .replace(/svg/, 'svg xmlns:xlink="http://www.w3.org/1999/xlink"')
+        .replace(/svg/, 'svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"')
         .replace(/ href=/g, ' xlink:href=')
 }
 

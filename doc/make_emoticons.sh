@@ -35,7 +35,7 @@ echo Processing bold paramoji with params=$PARAM
 mkdir -p gen
 node << EOF | inkscape --pipe --export-filename=$FILE
   const emoji = require('./emoticon.js')
-  console.log(emoji.emoticon_svg(${PARAM},2))
+  console.log(emoji.emoticon_svg(${PARAM},2.5))
 EOF
 fi
 done
