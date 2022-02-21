@@ -24,7 +24,7 @@ var s15 = Math.sin(15/180*Math.PI);
 
 var id_prefix= 0;
 function myemo(v,a,p, old) {
-    let svg = paramoji_svg(v/100, a/100, a/100, p/100, 1, "gold");
+    let svg = paramoji_svg(v/100, a/100, a/100, p/100, 0);
     svg = svg
         .replace(/href="#/g,"href=\"#id-"+i+"-")
         .replace(/\(#/g,"(#id-"+i+"-")
