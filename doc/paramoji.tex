@@ -50,7 +50,7 @@
 
  The field of affective computing inherently relies on the ability to represent a human emotion in computational form.
  Two main approaches have emerged to accomplish this task. The traditional approach describes an emotion along
- a set of independent dimensions, such as valence, arousal, and potency. This is mathematically elegant, but suffers from
+ a set of independent dimensions, such as valence, arousal, and dominance. This is mathematically elegant, but suffers from
  lacking consensus on how to represent more advanced emotions. More recent approaches use facial expressions as indicators
  for specific emotional states. Most popular are the standardized emojis that can be instantly recognized and interpreted.
  However, due to their categorical nature they lack support for the computation of mid points, averages and other
@@ -60,13 +60,12 @@
  dimensional parameter space with emotional meaning.
  These parametric emojis (paramojis) turn common emotional dimensions into facial expressions.
  Just like their wide spread counterparts paramojis are playful, exaggerated and sometimes silly.
- They can parameterize most face emojis, as well as the seven universal emotions defined by Ekman.
- To assess their effectiveness I hired untrained crowd workers to relabel a large set of photos
+ They can parameterize most face emojis, as well as the seven universal emotions defined by Paul Ekman.
+ I hired untrained crowd workers to relabel a large set of photos
  with emotional content. The photos were selected from three different datasets used by the affective machine learning
  community. The quality of the obtained parametric labels are then compared with the qualities reported in the original publications.
- The paramojis perform lower on general mimics, but no evidence for missing emotional
- expressivity could be found.
-
+ Since the suggested approach is essentially a visualization technique the final test for its usefulness should
+ be based on clarity of presentation rather than nominal performance.
 %%% Leave the Abstract empty if your article does not require one, please see the Summary Table for full details.
 
 \tiny
@@ -126,7 +125,7 @@ In the following sections I will do my best to make that change.
 The idea of expressing a human emotion along measurable dimensions is said to date back to Wilhelm Wundt who first published it in 1896 \cite{wundt}.
 In a more accessible summary of his work his three dimensions of feeling were translated as pleasantness, excitement and tension \cite{tridimensional}.
 The first two of these dimensions have become the universal backbone of emotion classification, now known as "valence" and "arousal".
-A much more intense debate formed around the third dimension. This paper follows the nomenclature of "potency" \cite{potency_osgood} but mixes ideas from various sources.
+A much more intense debate formed around the third dimension. This paper follows the nomenclature of "dominance" by \cite{dominance_revisited}.
 The fourth dimension is "contempt", derived from a discovery that this feeling of superiority is not a distinct emotion, but combines differently with positive and negative feelings \cite{contempt_ekman}.
 As a final dimension I will use "control", which follows a simplified model for conscious modulation.
 Hence, the interpretation of the last dimensions may partly be subject to cultural norms.
@@ -208,31 +207,30 @@ The original publication postulates many more emotions that are supposed to sit 
 Fear vs anger vs tension, bordom vs sadness: these are fundamentally different emotions that can hardly be seen in close proximity to each other.
 More dimensions are needed to separate them.
 
-\subsection{The third dimension: Potency}
+\subsection{The third dimension: Dominance}
 
-The good candidate for a working three-dimensional model is the evaluation-potency-activity model \cite{potency_osgood}.
+A first candidate for a working three-dimensional model was the evaluation-potency-activity model \cite{potency_osgood}.
 It was developed to find the main axes of meaning in nouns by mapping them to adjectives through a rigorous data driven approach.
-The description of the first and third dimension match the definition of valence and arousal.
-The potency dimension is described by the adjective scales of strong vs weak, hard vs soft, brave vs cowardly, tenacious vs yielding.
-An alternative three dimensional model is pleasure-arousal-dominance \cite{dominance_mehrabian}.
-In its definition the adjectives anger, power and boldness are dominant over anxiety, infatuation, fear and loneliness.
-A comparison of these two models finds the concepts in alignment, but there is "a long-lasting debate" about the exact interpretation.
-\cite{dominance_revisited}.
+Factor analysis revealed that the third most important dimension of meaning is described by the adjective scales of strong vs weak, hard vs soft, brave vs cowardly, tenacious vs yielding.
+Unfortunately, the author did not find a good name for it.
+The pleasure-arousal-dominance model by \cite{dominance_mehrabian} fixed that problem. Its dimensions are
+introduced as "analogues", because the results of the factor analysis reproduced the third dimension of
+anger, power and boldness over anxiety, infatuation, fear and loneliness with just slightly changed names.
 
-Irrespective of name and definition details, the third dimension shows anger and strength \paramojib{50,50,50,100,0}
-against fear and weakness \paramojib{50,50,50,0,0}
+Irrespective of naming and definition details, the third dimension - dominance - shows anger and strength \paramojib{50,50,50,100,0}
+on one end of the scale against fear and weakness \paramojib{50,50,50,0,0} on the other end.
 The visual effects are lowered inner eyebrows, inwards rotated eyes, more prominent display of teeth and a sharper mouth contour.
-For low potency the visual effects are exactly mirrored, because all displacements are, again, linearly added.
-Figure \ref{fig:potency} shows four of the previous paramojis, which were assumed to have a neutral potency of 0.5 in the center.
-Left and right the paramojis show lowest (0.0) and highest (1.0) values of potency.
+For low dominance the visual effects are exactly mirrored, because all displacements are, again, linearly added.
+Figure \ref{fig:dominance} shows four of the previous paramojis, which were assumed to have a neutral dominance of 0.5 in the center.
+Left and right the paramojis show lowest (0.0) and highest (1.0) values of dominance.
 Obviously, the scale is continuous and all intermediate values could be interpolated.
 
 \begin{figure}[ht!]
  \begin{center}
   \begin{tabular}{cc|cc|cc}
-   \multicolumn{2}{c}{potency = 0.0} &
-   \multicolumn{2}{c}{potency = 0.5} &
-   \multicolumn{2}{c}{potency = 1.0} \\[0.2em]
+   \multicolumn{2}{c}{dominance = 0.0} &
+   \multicolumn{2}{c}{dominance = 0.5} &
+   \multicolumn{2}{c}{dominance = 1.0} \\[0.2em]
    \hline
    &&&&&\\[-0.8em]
    \paramoji{50,50,50,0,0} &
@@ -250,12 +248,12 @@ Obviously, the scale is continuous and all intermediate values could be interpol
    \paramoji{0,100,100,100,0}
   \end{tabular}
  \end{center}
- \caption{A block of four paramojis plotted with low (0.0), medium (0.5) and strong (1.0) potency.
+ \caption{A block of four paramojis plotted with low (0.0), medium (0.5) and strong (1.0) dominance.
  All expressions can be smoothly interpolated in the interior of the domain where more natural looks are found.}
- \label{fig:potency}
+ \label{fig:dominance}
 \end{figure}
 
-The three parameters, valence, arousal and potency, range from 0 to 1 and span the unit cube domain.
+The three parameters, valence, arousal and dominance, range from 0 to 1 and span the unit cube domain.
 Four corners on the low valence side correspond to misery and disapproval. They already resemble some
 preliminary versions of the basic emotions:
 fear \paramojib{0,100,100,0,0},
@@ -366,22 +364,53 @@ They can also encode emotional information that go beyond what real faces show.
  \end{center}
  \caption{Random emotions with low, medium and large values of control. Generally speaking, the mouths is under stronger
   conscious control than the eyes. In a possible overuse of mathematical accuracy,
-  control is defined as the difference of these intensities.}
+  control is defined as the difference between respective intensities.}
  \label{fig:control}
 \end{figure}
 
 
-\subsection{Test data and participation}
+\section{Data collection}
 
-Arbitrary choices made
+Up until now the paramoji design decisions were largely based on personal choices.
+Many of them could be criticized, improved and changed.
+
+Does it work?
+
+
+How does it perform in real life?
+
+Intuitively understandable.
+
 Untrained participants can confirm this.
 
-Alignment of dimensions
-Expressibility of emotion categories, does it match
-Overall expressibility
 
 
-\subsubsection{Workers}
+\subsection{Parameter capturing}
+
+Figure \ref{fig:encoder}
+
+
+
+\subsection{Experiment design}
+\begin{figure}[ht!]
+ \begin{center}
+  \includegraphics[width=12cm]{gen/encode.pdf}
+ \end{center}
+ \caption{Encoders screen}
+ \label{fig:encoder}
+\end{figure}
+
+Sliders was tried, but lead to a strong bias towards the center position with spikes at both ends of the scale.
+The bias persists even when initial positions were randomized.
+
+All emojis were pressed with equal probability with no concentration on top rows.
+
+This method does lead to uniform distibution of values.
+
+No bias to click any particular position was detected.
+
+
+\subsection{Workers}
 \cite{microworkers}
 
 20 cents for 20 facial expressions.
@@ -406,30 +435,7 @@ More likely to originate from permanent brain damage rather than transient exper
 That said the official emojis include similar faces.
 There seems to be a wide spread desire to diagnose such a condition in parts of society.
 
-\subsection{Encoding}
 
-\subsection{Experiment design}
-\begin{figure}[ht!]
- \begin{center}
-  \includegraphics[width=12cm]{gen/encode.pdf}
- \end{center}
- \caption{Encoders screen}
-\end{figure}
-
-Sliders was tried, but lead to a strong bias towards the center position with spikes at both ends of the scale.
-The bias persists even when initial positions were randomized.
-
-All emojis were pressed with equal probability with no concentration on top rows.
-
-This method does lead to uniform distibution of values.
-
-No bias to click any particular position was detected.
-
-
-\subsubsection{Collecting data}
-
-Test participants are presented with an emotional expression and get to select
-on out of six photos, one of which shows the originally encoded emotion.
 
 \section{Results}
 
@@ -459,7 +465,7 @@ on out of six photos, one of which shows the originally encoded emotion.
 \begin{figure}[ht!]
  \begin{center}
   \begin{tabular}{lrrrrr}
-   {} &  valence ($v$) &  arousal 1 ($a_1$) &  arousal 2 ($a_2$) &  potency ($p$) &  contempt ($c$) \\
+   {} &  valence ($v$) &  arousal 1 ($a_1$) &  arousal 2 ($a_2$) &  dominance ($d$) &  contempt ($c$) \\
    \midrule
    Valence   &       \bf{0.57} &    -0.01 &         0.36 &        0.19 &       -0.08 \\
    Arousal   &       -0.15 &         0.10 &         0.12 &        0.15 &        0.07 \\
