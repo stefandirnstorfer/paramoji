@@ -3,7 +3,7 @@
   .choice.p-1(v-for="(choice,index) in choices")
     emoticon-display.clickable(
       :state="clamp(choice)"
-      :color="index == selection ? 'lightsteelblue' : 'none'"
+      :color="index == selection ? 'lightsteelblue' : 'transparent'"
       @click="select(choice,index)")
   button.btn.recycle(@click="resample()")  &#x267B;
 
@@ -26,7 +26,7 @@ export default {
   methods: {
     resample(nopropagate) {
       this.backupChoices = randomStates(15)
-      this.backupChoices.sort((a,b) =>  - a[1] + b[1])
+      //this.backupChoices.sort((a,b) =>  - a[1] + b[1])
       if (this.selection)
         this.backupChoices[this.selection] = this.modelValue.value
       if (!nopropagate) {

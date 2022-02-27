@@ -61,7 +61,7 @@
  These parametric emojis (paramojis) turn common emotional dimensions into facial expressions.
  Just like their wide spread counterparts paramojis are playful, exaggerated and sometimes silly.
  They can parameterize most face emojis, as well as the seven universal emotions defined by Paul Ekman.
- I hired untrained crowd workers to relabel a large set of photos
+ To test their effectiveness I hired untrained crowd workers to relabel a large set of photos
  with emotional content. The photos were selected from three different datasets used by the affective machine learning
  community. The quality of the obtained parametric labels are then compared with the qualities reported in the original publications.
  Since the suggested approach is essentially a visualization technique the final test for its usefulness should
@@ -415,8 +415,19 @@ classifications per image should be considered.
 
 \subsection{User interface}
 
-find unbiased best match of a photo to a paramoji.
+Designing a good user interface is a very delicate issue.
+Most user interfaces are designed to nudge its users into to most likely path of continuation, but with less
+salient options to explore additional features. The user interface for the selection of a paramoji
+is more like a questionnaire. It must not create any bias presented by order, scale, positioning or preselection.
+Everything must be randomized, such that only the facial expression counts.
 
+A natural user interface would use sliders to select values for the individual dimensions.
+However, the values obtained from sliders have a significant bias towards the center position, with some spikes
+at the extreme values. I also suspect - without evidence - that users are more likely to seek certain pattern that
+are formed by multiple slider positions stacked on the screen. Sliders are extremely powerful for fine tuning a result,
+but unexperienced users are prone to abuse its regularity for mental short cuts.
+
+Prior uniform distribution
 Standard approach sliders
 Biased towards the center with spikes at the boundary of the domain, even if initial positions are randomized.
 I also suspect - without proof - that the pattern that a stack of sliders creates will influence a user's choice.
@@ -429,7 +440,11 @@ Figure \ref{fig:encoder}
  \begin{center}
   \includegraphics[width=12cm]{gen/encode.pdf}
  \end{center}
- \caption{Low bias, low accuracy user interface to select a matching paramoji.}
+ \caption{
+  Low bias, low accuracy user interface.
+  Initially, users see 15 random paramoji sampled from a prior distribution.
+  Upon first observation (ie. user clicks) the prior is updated.
+ }
  \label{fig:encoder}
 \end{figure}
 
@@ -482,7 +497,42 @@ Figure \ref{fig:encoder}
 
 Normal, Happy, Sad, Surprise, Fear, Disgust, Anger, Contempt
 
-Basic emotions \cite{ekman75}
+Basic emotions \cite{Ekman75}
+
+\begin{figure}[ht!]
+ \begin{center}
+  \begin{tabular}{lcccc}
+   \raisebox{5ex}{$4x-3\overline{x}$}
+   & \paramoji{53,58,0,48,0}
+   & \paramoji{100,56,75,65,0}
+   & \paramoji{12,45,0,0,0}
+   & \paramoji{80,98,55,42,0}
+   \\
+   class & Normal & Happy & Sad & Surprise \\[1ex]
+   $v$ & 0.54 & 0.76 & 0.44 & 0.61 \\
+   $a_1$ & 0.58 & 0.58 & 0.55 & 0.68 \\
+   $a_2$ & 0.17 & 0.42 & 0.19 & 0.36 \\
+   $d$ & 0.46 & 0.51 & 0.33 & 0.45 \\
+   $c$ & 0.00 & 0.00 & 0.00 & 0.00 \\
+   \raisebox{5ex}{$4x-3\overline{x}$}
+   & \paramoji{21,97,80,0,0}
+   & \paramoji{0,21,65,84,76}
+   & \paramoji{16,62,1,79,0}
+   & \paramoji{100,33,5,58,27}
+   \\
+   class & Fear & Disgust & Anger & Contempt \\[1ex]
+   $v$ & 0.46 & 0.40 & 0.45 & 0.72 \\
+   $a_1$ & 0.68 & 0.49 & 0.59 & 0.52 \\
+   $a_2$ & 0.43 & 0.39 & 0.23 & 0.24 \\
+   $d$ & 0.34 & 0.55 & 0.54 & 0.49 \\
+   $c$ & 0.00 & 0.22 & 0.00 & 0.10 \\
+  \end{tabular}
+  \caption{Median parameter attribution provided by crowd workers grouped by AffectNet classes.
+  For the paramoji visualizations the coordinates $x=(v,a_1,a_2,d,c)$
+   are scaled four times against their overall mean $\overline{x}$.}
+ \end{center}
+ \label{tab:affnet_classes}
+\end{figure}
 
 \subsubsection{Sadness}
 Sadness is shown in the face by the following clues:

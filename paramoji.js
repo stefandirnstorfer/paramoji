@@ -37,13 +37,13 @@ let emoticon_data=[
     // nose-path
     "nose",
     [  0,  0,  0,  0, .4],
-    [  70, -2, -10, -1, 0, 0, 0, 0, -1], // nose height
+    [  70, -2, -10, -1, 0, 0, 0, 1], // nose height
     "#nose:5", /* 6 */           [ -3,  0, 1,  0],
     "#nose:8", /*  4 */          [ -14, -2, 6,  2],
     // wrinkle-cheek
-    "#wrinkle-left-cheek:1",  [ 25, -2, -6,  4, -5], [ 78, -9, -2,  0,  -1],
-    "#wrinkle-left-cheek:2",  [ 30,  1, -5,  3, -8], [ 76, -4, -8,  -1,-16, -3, 5],
-    "#wrinkle-left-cheek:3",  [ 36, -3, -2,  2,  3], [ 69, -3, -9,  -2, -5,  -2, 2, 0, 1],
+    "#wrinkle-left-cheek:1",  [ 25, -2, -6,  4, -5, 0, 0, -4], [ 78, -9, -2,  0,  -1],
+    "#wrinkle-left-cheek:2",  [ 30,  1, -5,  3, -8, 0, 0, -4], [ 76, -4, -8,  -1,-16,  -3, 3, -2 ],
+    "#wrinkle-left-cheek:3",  [ 36, -3, -2,  2,  3],           [ 69, -3, -9,  -2, -5,  -2, 2, 0, 2],
     "#wrinkle-right-cheek:1", [ 75,  3,  6, -4],     [ 78, -9, -2,  0,  0],
     "#wrinkle-right-cheek:2", [ 70,  -1,  5, -3],    [ 76, -4, -8,  -1,  0],
     "#wrinkle-right-cheek:3", [ 64,  2,  2, -2],     [ 69, -3, -9,  -2],
@@ -62,18 +62,18 @@ let emoticon_data=[
     "mouth:center-up",  /*50*/          [0,  2,-12,  0,  0,   0, 0, -2],
     "mirror#mouth:6",   [10,0, 11,-3],  [0, -2,-11,  0,  0,   0, 0, -3],
     "#mouth:1copy",     [14,0,  9,-2],  [0,-12, -2,  0, -3,   0, 6, -3],
-    "lips-sheer", [0, 0, 0, 0, 0.2, 0, 0.1, -0.1],
-    "lips-pos", [50,0,  0, 0,-9,0,0,3], [ 80,  0,  0, -2,  -3, 0, 0, 2],
+    "lips-sheer", [0, 0, 0, 0, 0.3, 0, 0.1, -0.1],
+    "lips-pos", [50,0,  0, 0,-9,0,0], [ 80,  0,  0, -2,  -3, 0, 0, 2],
     // left-eye-brow
-    "#right-eye-brow:1", [ 61,  2,  -1, -4], [ 40, -9,-19,  12],
-    "#right-eye-brow:2", [ 72,  0,  0, -4], [ 40, -13,-20,  3],
-    "#right-eye-brow:3", [ 80,  0,  6, -2], [ 40, -5,-18, -3],
+    "#right-eye-brow:1", [ 60,  1,  1, -7], [ 42, -8,-21, 12],
+    "#right-eye-brow:2", [ 72,  1,  3, -6], [ 42,-11,-23,  3],
+    "#right-eye-brow:3", [ 80,  0,  6, -5], [ 42, -3,-20, -3],
     "weight", [  2, -.5,  1,  .5], // stroke-width
     // wrinkle-left-brow
-    "#wrinkle-right-brow:1", [ 62, -1, -4, -3], [ 36, -5,-18,  7],
-    "#wrinkle-right-brow:2", [ 56,  1,  0, -4], [ 42, -7,-24,  9],
-    "#wrinkle-right-brow:3", [ 56,  0,  0, -2], [ 45, -8,-22, 10],
-    "left-brow", [  0,  0,  0,  0,  1,  3, 2, -1],
+    "#wrinkle-right-brow:1", [ 62, -1, -4, -3], [ 35, -5,-18,  7],
+    "#wrinkle-right-brow:2", [ 56,  1,  0, -4], [ 41, -7,-24,  9],
+    "#wrinkle-right-brow:3", [ 56,  0,  0, -2], [ 43, -8,-22, 10],
+    "left-brow", [  0,  0,  0,  0,  1,  3, 2],
 ]
 
 let current_expressability = -1
@@ -89,8 +89,8 @@ emoticon_data = emoticon_data.filter(entry => {
         return false
     } else {
         const a = entry[2]
-        entry[2] = (1 - current_expressability)/2 * a
-        entry.splice(3, 0, (1 + current_expressability)/2 * a)
+        entry[2] = (1 - current_expressability) / 2 * a
+        entry.splice(3, 0, (1 + current_expressability) / 2 * a)
         return true
     }
 })
@@ -132,6 +132,7 @@ function paramoji_svg(v, a1, a2, p, c) {
         '    <clipPath id="clip-left-eye"><use href="#left-eye-outline"/></clipPath>',
         '    <clipPath id="clip-mouth"><use href="#lips"/></clipPath>',
         '  </defs>',
+        '  <rect width="100" height="100" fill="seashell"/>',
         '  <g id="eyes" transform="translate(68,?)">',
         '    <g id="right-eye">',
         '      <path transform="rotate(?)" d="M -8,? C ?,? ?,? ?,? ?,? ?,? ?,0 ?,? ?,? -8,? Z" id="right-eye-outline" fill="white" stroke="black"/>',

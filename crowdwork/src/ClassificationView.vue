@@ -61,6 +61,7 @@ export default {
     },
     async created() {
         const data = this.task.data.slice()
+          .filter(x => x.file.includes("class006") || x.file.includes("class008"))
         const storedWork= sessionStorage.getItem(this.task.id)
         if (storedWork) {
             this.work.items = JSON.parse(storedWork);

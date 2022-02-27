@@ -1,5 +1,5 @@
 <template lang="pug">
-.emoticon(ref="container" v-html="body()")
+.emoticon.groundzero(ref="container" v-html="body()")
 </template>
 
 <script>
@@ -12,10 +12,14 @@ export default {
     methods: {
         fixids(svg) {
             id_prefix++
-            return svg
+            svg = svg
                 .replace(/href="#/g,"href=\"#id-"+id_prefix+"-")
                 .replace(/\(#/g,"(#id-"+id_prefix+"-")
                 .replace(/id="/g,"id=\"id-"+id_prefix+"-")
+            if (this.color) {
+                svg = svg.replace(/>/, '><circle cx="50" cy="50", r="50" fill="'+this.color+'"/>')
+            }
+            return svg
         },
         body() {
             if (this.state) {
@@ -25,14 +29,13 @@ export default {
               if (this.state.code)
                 return '<img class="emoji" src="' + BASE_URL + '/emoticon-data/emoji/emoji_u' + this.state.code.toString(16) + '.svg"/>';
               if (Array.isArray(this.state)) {
-                return this.fixids(emo.paramoji_svg(this.state[0], this.state[1], this.state[2], this.state[3], this.state[4], this.color))
+                return this.fixids(emo.paramoji_svg(this.state[0], this.state[1], this.state[2], this.state[3], this.state[4]))
               } else
                 return this.fixids(emo.emoticon_svg(
                     this.state.valence,
                     this.state.arousal,
                     this.state.potency,
-                    this.state.contempt,
-                    this.state.expression, this.color || "gold"
+                    this.state.contempt
                   ))
             }
         }
@@ -61,5 +64,9 @@ export default {
     }
     .label.small {
         font-size: 1rem;
+    }
+    .groundzero {
+        grid-column: 1;
+        grid-row: 1;
     }
 </style>

@@ -22,7 +22,7 @@ const app = Vue.createApp({
                 vec.paramoji_v,
                 vec.paramoji_a1,
                 vec.paramoji_a2,
-                vec.paramoji_p,
+                vec.paramoji_d,
                 vec.paramoji_c,
             ]
         },
