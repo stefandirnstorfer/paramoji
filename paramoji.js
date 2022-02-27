@@ -36,34 +36,34 @@ let emoticon_data=[
     "#left-lid-shadow:2", [2,  1,-10, -6,  3], [  2, -9,-17,  4, 20],
     // nose-path
     "nose",
-    [  0,  0,  0,  0, .5],
+    [  0,  0,  0,  0, .4],
     [  70, -2, -10, -1, 0, 0, 0, 0, -1], // nose height
     "#nose:5", /* 6 */           [ -3,  0, 1,  0],
     "#nose:8", /*  4 */          [ -14, -2, 6,  2],
     // wrinkle-cheek
     "#wrinkle-left-cheek:1",  [ 25, -2, -6,  4, -5], [ 78, -9, -2,  0,  -1],
-    "#wrinkle-left-cheek:2",  [ 30,  1, -5,  3, -8], [ 76, -4, -8,  -1,-19, -3, 5],
-    "#wrinkle-left-cheek:3",  [ 36, -3, -2,  2,  3], [ 69, -3, -9,  -2, -6, -3, 2, 0, 1],
+    "#wrinkle-left-cheek:2",  [ 30,  1, -5,  3, -8], [ 76, -4, -8,  -1,-16, -3, 5],
+    "#wrinkle-left-cheek:3",  [ 36, -3, -2,  2,  3], [ 69, -3, -9,  -2, -5,  -2, 2, 0, 1],
     "#wrinkle-right-cheek:1", [ 75,  3,  6, -4],     [ 78, -9, -2,  0,  0],
     "#wrinkle-right-cheek:2", [ 70,  -1,  5, -3],    [ 76, -4, -8,  -1,  0],
     "#wrinkle-right-cheek:3", [ 64,  2,  2, -2],     [ 69, -3, -9,  -2],
     // teeth
     "lower-teeth", [ 80,  4,  6, -6,  0, 0, 0, -2],
-    "upper-teeth", [ 65,  1, -5, -1,  0, 0, 0, -4],
+    "upper-teeth", [ 65,  1, -5, -1,  0, 0, 0, -2],
     // mouth
-    "#mouth:1",         [14,0,  9,-2], [0,-12, -2,0,  -3,   0, 6, -3],
-    "#mouth:2",         [10,0, 11,-3], [0,  -2, 11,0,  0,   0, 0, -3],
-    "#mouth:3",         [6,0,  6,-3], [0,  2, 12,0,   0,   0, 0, -1],
-    "mouth:center-dwn", /*50*/,        [0,  2, 12,0,  0,   0, 0, 1],
-    "mirror:2#mouth:2", [-10,0,-11, 3], [0,  -2, 11,0, 0,   0, 0, 2],
-    "mirror:1#mouth:1", [-14,0, -9, 2], [0,-12, -2,0, -3,   0, 6, 3],
-    "#mouth:6",         [-10,0,-11, 3], [0,  -2,-11,0, 0,   0, 0,-7],
-    "#mouth:7",         [-6,0, -6, 3], [0,  2,-12,0,  0,   0, 0,-3],
-    "mouth:center-up",  /*50*/         [0,  2,-12,0,  0,   0, 0,-2],
-    "mirror#mouth:6",   [10,0, 11,-3], [0,  -2,-11,0,  0,   0, 0, -3],
-    "#mouth:1copy",     [14,0,  9,-2], [0,-12, -2,0,  -3,   0, 6, -3],
-    "lips-sheer", [0, 0, 0, 0, 0.3],
-    "lips-pos", [50,0,  0, 0,-8,0,0,5], [ 80,  0,  0, -2,  -2,  -1,  -1],
+    "#mouth:1",         [14,0,  9,-2],  [0,-12, -2,  0, -3,   0, 6, -3],
+    "#mouth:2",         [10,0, 11,-3],  [0, -2, 11,  0,  0,   0, 0, -3],
+    "#mouth:3",         [6,0,  6,-3],   [0,  2, 12,  0,  0,   0, 0, -1],
+    "mouth:center-dwn", /*50*/,         [0,  2, 12,  0,  0,   0, 0,  1],
+    "mirror:2#mouth:2", [-10,0,-11, 3], [0, -2, 11,  0,  0,   0, 0,  2],
+    "mirror:1#mouth:1", [-14,0, -9, 2], [0,-12, -2,  0, -3,   0, 6,  3],
+    "#mouth:6",         [-10,0,-11, 3], [0, -2,-11,  0,  0,   0, 0, -7],
+    "#mouth:7",         [-6,0, -6, 3],  [0,  2,-12,  0,  0,   0, 0, -3],
+    "mouth:center-up",  /*50*/          [0,  2,-12,  0,  0,   0, 0, -2],
+    "mirror#mouth:6",   [10,0, 11,-3],  [0, -2,-11,  0,  0,   0, 0, -3],
+    "#mouth:1copy",     [14,0,  9,-2],  [0,-12, -2,  0, -3,   0, 6, -3],
+    "lips-sheer", [0, 0, 0, 0, 0.2, 0, 0.1, -0.1],
+    "lips-pos", [50,0,  0, 0,-9,0,0,3], [ 80,  0,  0, -2,  -3, 0, 0, 2],
     // left-eye-brow
     "#right-eye-brow:1", [ 61,  2,  -1, -4], [ 40, -9,-19,  12],
     "#right-eye-brow:2", [ 72,  0,  0, -4], [ 40, -13,-20,  3],
@@ -73,7 +73,7 @@ let emoticon_data=[
     "#wrinkle-right-brow:1", [ 62, -1, -4, -3], [ 36, -5,-18,  7],
     "#wrinkle-right-brow:2", [ 56,  1,  0, -4], [ 42, -7,-24,  9],
     "#wrinkle-right-brow:3", [ 56,  0,  0, -2], [ 45, -8,-22, 10],
-    "left-brow", [  0,  0,  0,  0,  1, 3, 2, -1, -1],
+    "left-brow", [  0,  0,  0,  0,  1,  3, 2, -1],
 ]
 
 let current_expressability = -1
@@ -95,17 +95,20 @@ emoticon_data = emoticon_data.filter(entry => {
     }
 })
 
-console.log(("const data=["+emoticon_data.map(x => '[' +x.join(',') + ']').join(',') +"]")
+function formatRow(row) {
+    if (row[1] == -0.5) {
+        return "1+w," + row.slice(1).join(',')
+    } else {
+        return row.join(',')
+    }
+}
+console.log(("const data=["+emoticon_data.map(x => '[' +formatRow(x) + ']').join(',') +"]")
     .replace(/\[0/g, '[' )
     .replace(/,0/g, ',' )
     .replace(/(,)+\]/g,']')
     .replace(/NaN/g, '')
     .replace(/(.{75}[^,]*,)/g, '$1\n'))
-emoticon_data.forEach((row, index) => {
-    if (row[1]==-0.5) {
-        console.log('data['+index+'][0]=1+w')
-    }
-})
+
 
 function emoticon_svg(v, a, p, c, e) {
     return paramoji_svg(v / 100,
@@ -119,7 +122,7 @@ function paramoji_svg(v, a1, a2, p, c) {
     let data = emoticon_data
         .filter(x => typeof(x) != 'string')
         .map((C, i)=> {
-            V= [1, 2*v-1, a1, a2, 2*p-1, c, c*a1, c*v, c*a2, c*p, v*v]
+            V= [1, 2*v-1, a1, a2, 2*p-1, c, c*a1, c*v, c*a2, c*p]
             return dotprod(V, C)
         })
     const template= [

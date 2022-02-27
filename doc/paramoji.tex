@@ -65,7 +65,7 @@
  with emotional content. The photos were selected from three different datasets used by the affective machine learning
  community. The quality of the obtained parametric labels are then compared with the qualities reported in the original publications.
  Since the suggested approach is essentially a visualization technique the final test for its usefulness should
- be based on clarity of presentation rather than nominal performance.
+ be based on clarity of presentation. No evidence for missing emotional expressivity could be found.
 %%% Leave the Abstract empty if your article does not require one, please see the Summary Table for full details.
 
 \tiny
@@ -211,11 +211,12 @@ More dimensions are needed to separate them.
 
 A first candidate for a working three-dimensional model was the evaluation-potency-activity model \cite{potency_osgood}.
 It was developed to find the main axes of meaning in nouns by mapping them to adjectives through a rigorous data driven approach.
-Factor analysis revealed that the third most important dimension of meaning is described by the adjective scales of strong vs weak, hard vs soft, brave vs cowardly, tenacious vs yielding.
+Factor analysis revealed that the third most important dimension of meaning is described by the adjective scales of strong vs weak,
+hard vs soft, brave vs cowardly, tenacious vs yielding.
 Unfortunately, the author did not find a good name for it.
 The pleasure-arousal-dominance model by \cite{dominance_mehrabian} fixed that problem. Its dimensions are
-introduced as "analogues", because the results of the factor analysis reproduced the third dimension of
-anger, power and boldness over anxiety, infatuation, fear and loneliness with just slightly changed names.
+introduced as "analogues", because the results of the factor analysis replicated the dimensions with slightly changed names.
+In this model anger, power and boldness dominate over anxiety, infatuation, fear and loneliness.
 
 Irrespective of naming and definition details, the third dimension - dominance - shows anger and strength \paramojib{50,50,50,100,0}
 on one end of the scale against fear and weakness \paramojib{50,50,50,0,0} on the other end.
@@ -272,7 +273,8 @@ and a forced smile \paramojib{100,0,0,100,0}.
 
 \subsection{Contempt}
 
-The final missing universal emotion is contempt. It is described by the adjectives
+The final missing universal emotion is contempt \paramojib{50,50,0,50,100}.
+It is described by the adjectives
 scornful, haughty, smug, vain, or disdainful \cite{contempt_ekman}.
 Comtempt is a feeling of moral superiority that varies in expression based on the amount of social support
 one gets. Contempt against inferiors, the feeling of power can be a pleasurable experience.
@@ -290,9 +292,9 @@ parameters produce exaggerated, but valid facial expressions.
  \begin{center}
   \begin{tabular}{ccc}
    \paramoji{86,19,19,68,100} &
-   \paramoji{14,55,55,67,100} &
+   \paramoji{35,48,48,67,100} &
    \paramoji{44,36,36,27,100} \\
-   \paramoji{81,78,78,40,100} &
+   \paramoji{81,68,68,40,100} &
    \paramoji{10,14,14,90,100} &
    \paramoji{11,72,72,41,100}
    \end{tabular}
@@ -371,69 +373,66 @@ They can also encode emotional information that go beyond what real faces show.
 
 \section{Data collection}
 
-Up until now the paramoji design decisions were largely based on personal choices.
-Many of them could be criticized, improved and changed.
+In the previous section I described my subjective choices for the paramoji's visual appearance.
+In this section I will lay out my process to obtain objective values of its parameters.
+In particular I wanted to know how random participants would label some photos of facial expressions,
+such that these labels could be checked for consistency with existing data sets.
 
-Does it work?
+How to get labels from faces
+Human questionairs
+Label quality is a big problem.
+The big difficulty is bias. Unlike random errors, bias does not disappear when the experiment is repeated.
+The sources of bias are addressed in this experiment
+- worker selection
+- worker training, instruction
+- questionaire design
+- Data aggregation
 
 
-How does it perform in real life?
+\subsection{Workers}
 
-Intuitively understandable.
+The question at hand is, if the paramoji can be intuitively understood, without any training or instructions.
+To test the hypothesis test participants were hired from MicroWorkers.com, a global market place for crowdsourced work.
+A deep analysis of the workers' anatomy has been made and found to be still valid \cite{microworkers}.
+The overall work force has a global bias towards India, Bangladesh and the Philippines with some participation
+from the Western countries.
+No relevent effect could be linked to country or language.
 
-Untrained participants can confirm this.
+Crowd workers were offered 20 Cents for the classification of a batch of 20 facial expressions.
+Hence, the cost for one low quality classification was 1 Cent. On the fastest path this takes two clicks to complete.
+The median time was 10 seconds per image; the mean was 20 seconds. A very small amount of workers
+took minutes to complete and frequently revised their selection before submitting it. No correlation
+was found between speed an any
+conceivable metrics for quality.
+
+It is very likely that many workers have seen multiple versions of the paramoji questionnaire during a period of 10 years
+in which the design was subsequently improved as an occasional hobby project.
+However, never did they get any instructions or feedback on the quality of their classifications. All workers
+were paid without additional quality control. No submissions were excluded from the final analysis.
+Only a truly neglegible number of workers submitted destructive results by e.g. always clicking on the same position.
+Overall work participation was very good and consistent, albeit noisy. Depending on accuracy requirements 10 to 100
+classifications per image should be considered.
+
+\subsection{User interface}
+
+find unbiased best match of a photo to a paramoji.
+
+Standard approach sliders
+Biased towards the center with spikes at the boundary of the domain, even if initial positions are randomized.
+I also suspect - without proof - that the pattern that a stack of sliders creates will influence a user's choice.
 
 
-
-\subsection{Parameter capturing}
 
 Figure \ref{fig:encoder}
 
-
-
-\subsection{Experiment design}
 \begin{figure}[ht!]
  \begin{center}
   \includegraphics[width=12cm]{gen/encode.pdf}
  \end{center}
- \caption{Encoders screen}
+ \caption{Low bias, low accuracy user interface to select a matching paramoji.}
  \label{fig:encoder}
 \end{figure}
 
-Sliders was tried, but lead to a strong bias towards the center position with spikes at both ends of the scale.
-The bias persists even when initial positions were randomized.
-
-All emojis were pressed with equal probability with no concentration on top rows.
-
-This method does lead to uniform distibution of values.
-
-No bias to click any particular position was detected.
-
-
-\subsection{Workers}
-\cite{microworkers}
-
-20 cents for 20 facial expressions.
-1 Cent for encoding or decoding one image
-
-For stable results 100 workers were aggregated for a cost of 1 USD plus plattform fees.
-
-Median 10 seconds, mean 20 seconds
-Some workers spending extensive time, but no correlation could be found between
-time spent and any conceivable measure of annotation quality.
-
-Workers were exposed to earlier versions of the parametric emoji.
-6 years running as a hobby project
-Never got any feedback on their performance as encoders or decoders.
-
-Workers spent time
-No correlation between time spent and performance.
-
-Some facial expressions are quite weird.
-More likely to originate from permanent brain damage rather than transient experience.
-\paramojib{100,100,100,0,100}
-That said the official emojis include similar faces.
-There seems to be a wide spread desire to diagnose such a condition in parts of society.
 
 
 
@@ -483,7 +482,7 @@ There seems to be a wide spread desire to diagnose such a condition in parts of 
 
 Normal, Happy, Sad, Surprise, Fear, Disgust, Anger, Contempt
 
-Basic emotions \cite{ekman72}
+Basic emotions \cite{ekman75}
 
 \subsubsection{Sadness}
 Sadness is shown in the face by the following clues:
@@ -507,8 +506,8 @@ Implicit dimensions
    \face{triplet_a_1} &
    \face{triplet_a_2} &
    \face{triplet_a_3} \\[-1ex]
-   \paramoji{85,40,60,60,0} &
-   \paramoji{80,54,46,67,0} &
+   \paramoji{85,40,55,60,0} &
+   \paramoji{80,52,49,67,0} &
    \paramoji{90,5,100,60,0} \\
    \face{triplet_b_1} &
    \face{triplet_b_2} &
@@ -521,7 +520,7 @@ Implicit dimensions
    \face{triplet_c_3} \\[-1ex]
    \paramoji{84,8,100,52,0} &
    \paramoji{13,53,100,80,0} &
-   \paramoji{61,33,3,43,53}
+   \paramoji{71,33,3,43,73}
  \end{tabular}
   \caption{Triplets}
  \end{center}
@@ -529,7 +528,7 @@ Implicit dimensions
 
 \begin{tabular}{lrrrr}
                & human                         & AI           & AI          & human \\
-  Triplet type & paramoji (no. triplets)  & AFFNet-Cl-P &  FECNet-16d &  Median rater \\
+  Triplet type & paramoji (n)  & AFFNet-Cl-P &  FECNet-16d &  Median rater \\
   \midrule
     ONE CLASS   & 53.3 (94)                    &         49.2 &        77.1 &          85.3 \\
     TWO CLASSES & 56.2 (87)                    &         59.8 &        85.1 &          89.3 \\
