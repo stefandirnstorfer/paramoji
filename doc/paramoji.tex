@@ -283,7 +283,8 @@ itself, rather than a specific spot in parameters space.
 
 The only universally confirmed expression of contempt is the "unilateral lip-tightening expression". However,
 raising the upper lip is understood in many cultures. Tension in the cheek can also press the eyes into
-squeezing. Figure \ref{fig:contempt} shows random emotions with maximized contempt levels. At least graphically,
+squeezing. A squinting eye is not a signal for contempt, but it emphasizes its asymmetric nature and often occurs in coincidence.
+Figure \ref{fig:contempt} shows random emotions with maximized contempt levels. At least graphically,
 contempt mixes perfectly with the previous dimensions. The left eye and the left side of the mouth have a bilinear
 graphical effect. They also depend on pairwise products of contempt with other dimensions. All combinations of
 parameters produce exaggerated, but valid facial expressions.
@@ -292,7 +293,7 @@ parameters produce exaggerated, but valid facial expressions.
  \begin{center}
   \begin{tabular}{ccc}
    \paramoji{86,19,19,68,100} &
-   \paramoji{35,48,48,67,100} &
+   \paramoji{25,48,48,67,100} &
    \paramoji{44,36,36,27,100} \\
    \paramoji{81,68,68,40,100} &
    \paramoji{10,14,14,90,100} &
@@ -309,10 +310,10 @@ parameters produce exaggerated, but valid facial expressions.
 The final dimension of this model describes the modulation of a facial expression that is partly put under conscious control.
 It ranges from controlled, suppressed \paramojib{50,100,0,50,0}
 to uncontrolled, expressed \paramojib{50,0,100,50,0}.
-The visualization follows an hypothesis raised by Ekman. His studies suggested that "when a person is
+The visualization follows an hypothesis raised by \cite{Ekman75}. Their studies suggested that "when a person is
 controlling what is shown on his face, more effort is focused on managing what occurs in and around his mouth and
-lips than in the area of the eyes/lids or brows/forehead." \cite{Ekman75}. Although there might be exceptions to that rule,
-it is certainly good enough as a first approximation of the subject matter.
+lips than in the area of the eyes/lids or brows/forehead."  Although there might be exceptions to that rule,
+it is certainly good enough as a first approximation to the subject matter.
 
 The major and easiest to control aspect of an emotion is its intensity. In visual terms, this is arousal ($a$). All
 the graphical impact caused by $a$ can be separated into arousal shown in the eye region ($a_1$) and arousal
@@ -337,7 +338,7 @@ Figure \ref{fig:control} shows the visual effect of the control dimension on som
 It is interesting that even in the extremely uncontrolled versions one can still differentiate between
 positive \paramojib{100,0,100,50,0}
 and negative \paramojib{0,0,100,50,0} valence.
-This is in contrast to real faces, where extreme pain and extreme joy cannot be distinguished by
+This is in contrast to real faces, where extreme pain and extreme joy cannot be distinguished from
 the facial expression without context information or body language \cite{painjoy}.
 Emoji style visualization are not just exaggerated versions of existing facial expressions.
 They can also encode emotional information that go beyond what real faces show.
@@ -378,17 +379,6 @@ In this section I will lay out my process to obtain objective values of its para
 In particular I wanted to know how random participants would label some photos of facial expressions,
 such that these labels could be checked for consistency with existing data sets.
 
-How to get labels from faces
-Human questionairs
-Label quality is a big problem.
-The big difficulty is bias. Unlike random errors, bias does not disappear when the experiment is repeated.
-The sources of bias are addressed in this experiment
-- worker selection
-- worker training, instruction
-- questionaire design
-- Data aggregation
-
-
 \subsection{Workers}
 
 The question at hand is, if the paramoji can be intuitively understood, without any training or instructions.
@@ -405,7 +395,8 @@ took minutes to complete and frequently revised their selection before submittin
 was found between speed an any
 conceivable metrics for quality.
 
-It is very likely that many workers have seen multiple versions of the paramoji questionnaire during a period of 10 years
+It is very likely that many workers have seen multiple versions of the paramoji questionnaire during a period of
+about 8 years
 in which the design was subsequently improved as an occasional hobby project.
 However, never did they get any instructions or feedback on the quality of their classifications. All workers
 were paid without additional quality control. No submissions were excluded from the final analysis.
@@ -423,22 +414,38 @@ Everything must be randomized, such that only the facial expression counts.
 
 A natural user interface would use sliders to select values for the individual dimensions.
 However, the values obtained from sliders have a significant bias towards the center position, with some spikes
-at the extreme values. I also suspect - without evidence - that users are more likely to seek certain pattern that
-are formed by multiple slider positions stacked on the screen. Sliders are extremely powerful for fine tuning a result,
-but unexperienced users are prone to abuse its regularity for mental short cuts.
+at the extreme values. I also suspect - without evidence - that users are attracted to certain pattern that
+are formed by multiple slider positions stacked upon each other. Sliders are extremely powerful for fine tuning a result,
+but unexperienced users are prone to abuse their regularity for mental short cuts.
 
-Prior uniform distribution
-Standard approach sliders
-Biased towards the center with spikes at the boundary of the domain, even if initial positions are randomized.
-I also suspect - without proof - that the pattern that a stack of sliders creates will influence a user's choice.
+The best we can do is to control the bias in the form of a known prior distribution. Figure \ref{fig:encoder}
+shows a low bias user interface for  paramoji selection. Initially it shows a random sample of 15 paramojis that are sampled from
+a prior distribution given by equation (\ref{eqn:prior}):
 
+\begin{equation}
+ \label{eqn:prior}
+ \begin{array}{rcl}
+  P(v),P(a_1),P(a_1),P(d) & \sim & [0,1] \\
+  P(c) & \sim &
+  \left\{
+  \begin{array}{ll}
+   [0,1] & \mbox{with 50\% probability} \\
+   0 & \mbox{otherwise}
+  \end{array}
+  \right.
+ \end{array}
+\end{equation}
 
-
-Figure \ref{fig:encoder}
+Once a user clicks on an paramoji the prior can be updated to focus in the area of selection. Another option
+is to restart the process from the beginning. 80\% of users sticked with the first selection. 20\% refined their
+selection at least once when more choices were presented. The marginal distribution over all samples corresponds
+largely to the prior distribution. Any randomness created by low motivation or missing understanding would not
+create any bias other than a posterior distribution that is closer to the prior.
 
 \begin{figure}[ht!]
  \begin{center}
   \includegraphics[width=12cm]{gen/encode.pdf}
+  \vspace*{-3ex}
  \end{center}
  \caption{
   Low bias, low accuracy user interface.
@@ -448,10 +455,21 @@ Figure \ref{fig:encoder}
  \label{fig:encoder}
 \end{figure}
 
+\subsection{Data selection}
 
-
+In this fianal section on data collection and bias control I want to address the issue of selective inferrence.
+None of the numerical results are on a level that would be worth faking, but - that said - they could be worse.
+Most of the analyses that preceeded the results below have been done on an unlabeled data sets and benchmarked against
+standard emojis for inter-annotator agreement. The published results are almost a first shot in benchmarking
+against labeled data. Unfortunately, the first run was done with an older version of paramoji, where
+contempt raised an upper lip proportional to $c$, leading to a contemptuous face to always show traces of disgust.
+Hence, paramojis were not able to reproduce the rather friendly contempt faces from the AffectNet data set.
+After fixing the problem, all analyses were rerun with the only relevant changes in the parameters for the
+contempt class of AffectNet data and a correlation flip between EMOTIC valence and contempt $c$ from -0.08 to xx.
 
 \section{Results}
+
+
 
 \subsection{EMOTIC data set}
 
@@ -502,30 +520,32 @@ Basic emotions \cite{Ekman75}
 \begin{figure}[ht!]
  \begin{center}
   \begin{tabular}{lcccc}
-   \raisebox{5ex}{$4x-3\overline{x}$}
-   & \paramoji{53,58,0,48,0}
-   & \paramoji{100,56,75,65,0}
-   & \paramoji{12,45,0,0,0}
-   & \paramoji{80,98,55,42,0}
+   \raisebox{6ex}{$4x-3\overline{x}$}
+   & \paramoji{65,47,0,45,0}
+   & \paramoji{100,31,50,55,6}
+   & \paramoji{3,37,0,13,0}
+   & \paramoji{84,90,94,8,0}
    \\
    class & Normal & Happy & Sad & Surprise \\[1ex]
-   $v$ & 0.54 & 0.76 & 0.44 & 0.61 \\
-   $a_1$ & 0.58 & 0.58 & 0.55 & 0.68 \\
-   $a_2$ & 0.17 & 0.42 & 0.19 & 0.36 \\
-   $d$ & 0.46 & 0.51 & 0.33 & 0.45 \\
-   $c$ & 0.00 & 0.00 & 0.00 & 0.00 \\
-   \raisebox{5ex}{$4x-3\overline{x}$}
-   & \paramoji{21,97,80,0,0}
-   & \paramoji{0,21,65,84,76}
-   & \paramoji{16,62,1,79,0}
-   & \paramoji{100,33,5,58,27}
+   $v$ & 0.58 & 0.78 & 0.42 & 0.63 \\
+   $a_1$ & 0.54 & 0.50 & 0.51 & 0.65 \\
+   $a_2$ & 0.16 & 0.36 & 0.16 & 0.47 \\
+   $d$ & 0.46 & 0.49 & 0.38 & 0.37 \\
+   $c$ & 0.00 & 0.05 & 0.00 & 0.00 \\[1ex]
+   $n$ &  890 &  671 & 1049 &  852 \\
+   \raisebox{6ex}{$4x-3\overline{x}$}
+   & \paramoji{10,100,100,21,0}
+   & \paramoji{0,34,64,94,70}
+   & \paramoji{27,58,3,67,0}
+   & \paramoji{100,51,0,69,29}
    \\
    class & Fear & Disgust & Anger & Contempt \\[1ex]
-   $v$ & 0.46 & 0.40 & 0.45 & 0.72 \\
-   $a_1$ & 0.68 & 0.49 & 0.59 & 0.52 \\
-   $a_2$ & 0.43 & 0.39 & 0.23 & 0.24 \\
-   $d$ & 0.34 & 0.55 & 0.54 & 0.49 \\
-   $c$ & 0.00 & 0.22 & 0.00 & 0.10 \\
+   $v$ & 0.44 & 0.41 & 0.48 & 0.70 \\
+   $a_1$ & 0.68 & 0.51 & 0.57 & 0.55 \\
+   $a_2$ & 0.50 & 0.39 & 0.24 & 0.20 \\
+   $d$ & 0.40 & 0.58 & 0.52 & 0.52 \\
+   $c$ & 0.00 & 0.21 & 0.00 & 0.11 \\[1ex]
+   $n$ &  978 &  919 &  740 &  841
   \end{tabular}
   \caption{Median parameter attribution provided by crowd workers grouped by AffectNet classes.
   For the paramoji visualizations the coordinates $x=(v,a_1,a_2,d,c)$

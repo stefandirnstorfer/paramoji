@@ -67,7 +67,7 @@ export function converge(list, target) {
             for (let i=0; i<5; ++i) {
                 let d = Math.min(1.0, Math.max(0.0, list[target][i]))
                 if (i != 4) d = d - mean[i]
-                newItem.push(list[j][i] + d)
+                newItem.push(list[j][i] + d/2)
             }
             newList.push(newItem)
         }
