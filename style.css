@@ -62,8 +62,11 @@ div#frame {
     }
 }
 
-div#emoticon {
+#emoticon {
     padding: 5%;
+}
+#emoticon-svg {
+    background-color: seashell;
 }
 
 div#control {

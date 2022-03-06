@@ -65,8 +65,8 @@ function runAnimation(dstate) {
             var decay = 0.1;
             for (var key in state) {
                 if ($('#fix-' + key).is(':checked')) continue;
-                x = state[key];
-                dx = dstate[key] || 0;
+                let x = state[key];
+                let dx = dstate[key] || 0;
                 dx = decay * (Math.random() - .5) * Math.sqrt(dt) + (1 - decay) * dx;
                 x = x + dx * dt;
                 if (x > 100) {

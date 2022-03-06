@@ -1,6 +1,7 @@
 <template lang="pug">
 svg(width="100%" height="100%" viewBox="-2 -2 404 404")
-    image(:width="width" :height="height" :href="url()" :preserveAspectRatio="aspectRatio")
+    text(y=20) url ={{ url }}
+    image(:width="width" :height="height" :href="url" :preserveAspectRatio="aspectRatio")
     rect(v-if="item.X_min" :x="item.X_min" :y="item.Y_min"
          :width="(item.X_max - item.X_min)"
          :height="(item.Y_max - item.Y_min)"
@@ -9,16 +10,20 @@ svg(width="100%" height="100%" viewBox="-2 -2 404 404")
 
 <script>
 export default {
-  props: ['item', 'rect'],
+  props: ['item'],
   data() {
     return {
+      rect: true,
+      url: ""
     }
   },
   mounted() {
     this.update()
   },
   methods: {
-    update() {
+    async update() {
+      this.url =""
+      await this.$nextTick()
       let vb = ''
       if (!this.item.Width && !this.item.X_min) {
         vb = "0 0 100 100"
@@ -30,10 +35,7 @@ export default {
         vb = '-2 -2 ' + (this.item.Width + 2) + ' ' + (this.item.Height + 2)
       }
       this.$el.setAttribute('viewBox', vb)
-    },
-    url() {
-      return this.item.url ||
-          (BASE_URL + "/emoticon-data/" + this.item.file)
+      this.url = this.item.url || (BASE_URL + "/emoticon-data/" + this.item.file)
     },
   },
   computed: {
@@ -48,7 +50,7 @@ export default {
     aspectRatio() { return this.width && this.height ? "none" : "xMidYMid" }
   },
   watch: {
-    item() { this.update() }
+    async item() { await this.update() }
   }
 };
 </script>

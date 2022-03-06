@@ -29,7 +29,7 @@ const app = createApp({
             this.campaignId = m[1];
             this.workerId = m[2];
             this.taskId = m[3];
-            this.task = await (fetch(BASE_URL + "/emoticon-data/work-affnet.json").then(x => x.json()))
+            this.task = await (fetch(BASE_URL + "/emoticon-data/work-emotic.json").then(x => x.json()))
         }
     },
     methods: {
