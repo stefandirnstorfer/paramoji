@@ -384,7 +384,7 @@ They can also encode emotional information that go beyond what real faces show.
 \section{Data collection}
 
 In the previous section I described my subjective choices for the paramoji's visual appearance.
-In this section I will lay out my process to obtain objective values of its parameters.
+In this section I will lay out my process to obtain objective values for its parameters.
 In particular I wanted to know how random participants would label some photos of facial expressions,
 such that these labels could be checked for consistency with existing annotations.
 
@@ -407,7 +407,7 @@ conceivable metrics for quality.
 It is very likely that many workers have seen multiple versions of the paramoji questionnaire during a period of
 about 8 years
 in which the design was subsequently improved as an occasional hobby project.
-However, never did they get any instructions or feedback on the quality of their classifications. All workers
+Never did they get any instructions or feedback on the quality of their classifications. All workers
 were paid without additional quality control. No submissions were excluded from the final analysis.
 Workers were only allowed to participate once per experiment, ie. contribute 20 labelings, to avoid confounding
 influence from preexisting qualifications.
@@ -811,7 +811,7 @@ of those parameters yielded facial expressions that showed most, but not all of 
 in a strongly exaggerated manner. The resulting graphical representations are clear and impactful.
 
 It was also shown that the emotional model behind paramojis might be a good training target for
-machine learning algorithms. This would have a number of benefits. First, a unified frame work
+machine learning algorithms. This would have a number of benefits. First, a unified framework
 for continuous and categorical dimensions would avoid labelling incongruencies. Second, the
 exaggerated visualization makes it much easier for untrained participants to consistently and
 reproducibly label large amounts of images at low cost. Third, additional information about
@@ -894,9 +894,8 @@ function paramoji(v, a1, a2, d, c) {
   'e" stroke="black"/></g><use href="#brow-r" transform="matrix(-1,0,0,1,1'+
   '00,?)"/></svg>'
  const dotprod = (X,Y) => X.reduce((a, b, i) => a + b*(Y[i] || 0), 0)
- let index = 0
- return template.replace(/\?/g, () => dotprod(
-  [1, 2*v-1, a1, a2, 2*d-1, c, c*a1, c*v, c*a2, c*d], data[index++]))
+ let index = 0, V = [1, 2*v-1, a1, a2, 2*d-1, c, c*a1, c*v, c*a2, c*d]
+ return template.replace(/\?/g, () => dotprod(V, data[index++]))
 }
 \end{verbatim}
 }
