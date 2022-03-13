@@ -1,0 +1,132 @@
+<html>
+<body>
+<style>
+    div[data-eval], img {
+        width: 150px;
+        height: 150px;
+        display: inline-block;
+    }
+</style>
+<div>
+    <div data-eval="paramoji_svg(.65,.47,0,.45,0)"></div>
+    <div data-eval="paramoji_svg(1,.31,.50,.55,.06)"></div>
+    <div data-eval="paramoji_svg(.03,.37,0,.13,0)"></div>
+    <div data-eval="paramoji_svg(.84,.90,.94,.08,0)"></div>
+    <div data-eval="paramoji_svg(.10,1,1,.21,0)"></div>
+    <div data-eval="paramoji_svg(0,.34,.64,.94,.70)"></div>
+    <div data-eval="paramoji_svg(.27,.58,.03,.67,0)"></div>
+    <div data-eval="paramoji_svg(1,.51,0,.69,.29)"></div>
+</div>
+<hr/>
+<div>
+    <div data-eval="paramoji_svg(0,1,1,.5,0)"></div>
+    <div data-eval="paramoji_svg(.5,1,1,.5,0)"></div>
+    <div data-eval="paramoji_svg(1,1,1,.5,0)"></div>
+</div>
+<div>
+    <div data-eval="paramoji_svg(0,.5,.5,.5,0)"></div>
+    <div data-eval="paramoji_svg(.5,.5,.5,.5,0)"></div>
+    <div data-eval="paramoji_svg(1,.5,.5,.5,0)"></div>
+</div>
+<div>
+    <div data-eval="paramoji_svg(0,0,0,.5,0)"></div>
+    <div data-eval="paramoji_svg(.5,0,0,.5,0)"></div>
+    <div data-eval="paramoji_svg(1,0,0,.5,0)"></div>
+</div>
+<hr/>
+<div>
+    <div data-eval="reorder(0,0,0,0,0)"></div>
+    <div data-eval="reorder(1,0,0,0,0)"></div>
+    <div data-eval="reorder(0,1,0,0,0)"></div>
+    <div data-eval="reorder(1,1,0,0,0)"></div>
+    <div data-eval="reorder(0,0,1,0,0)"></div>
+    <div data-eval="reorder(1,0,1,0,0)"></div>
+    <div data-eval="reorder(0,1,1,0,0)"></div>
+    <div data-eval="reorder(1,1,1,0,0)"></div>
+    <br/>
+    <div data-eval="reorder(0,0,0,1,0)"></div>
+    <div data-eval="reorder(1,0,0,1,0)"></div>
+    <div data-eval="reorder(0,1,0,1,0)"></div>
+    <div data-eval="reorder(1,1,0,1,0)"></div>
+    <div data-eval="reorder(0,0,1,1,0)"></div>
+    <div data-eval="reorder(1,0,1,1,0)"></div>
+    <div data-eval="reorder(0,1,1,1,0)"></div>
+    <div data-eval="reorder(1,1,1,1,0)"></div>
+    <br/>
+    <div data-eval="reorder(0,0,0,0,1)"></div>
+    <div data-eval="reorder(1,0,0,0,1)"></div>
+    <div data-eval="reorder(0,1,0,0,1)"></div>
+    <div data-eval="reorder(1,1,0,0,1)"></div>
+    <div data-eval="reorder(0,0,1,0,1)"></div>
+    <div data-eval="reorder(1,0,1,0,1)"></div>
+    <div data-eval="reorder(0,1,1,0,1)"></div>
+    <div data-eval="reorder(1,1,1,0,1)"></div>
+    <br/>
+    <div data-eval="reorder(0,0,0,1,1)"></div>
+    <div data-eval="reorder(1,0,0,1,1)"></div>
+    <div data-eval="reorder(0,1,0,1,1)"></div>
+    <div data-eval="reorder(1,1,0,1,1)"></div>
+    <div data-eval="reorder(0,0,1,1,1)"></div>
+    <div data-eval="reorder(1,0,1,1,1)"></div>
+    <div data-eval="reorder(0,1,1,1,1)"></div>
+    <div data-eval="reorder(1,1,1,1,1)"></div>
+</div>
+<div>
+    <input type="radio" name="v" value="1"/>
+    <input type="radio" name="v" value="2"/>
+    <input type="radio" name="v" value="3"/>
+    <input type="radio" name="v" value="4"/>
+    <input type="radio" name="v" value="5"/>
+    <br/>
+    <input type="radio" name="a1" value="1"/>
+    <input type="radio" name="a1" value="2"/>
+    <input type="radio" name="a1" value="3"/>
+    <input type="radio" name="a1" value="4"/>
+    <input type="radio" name="a1" value="5"/>
+    <br/>
+    <input type="radio" name="a2" value="1"/>
+    <input type="radio" name="a2" value="2"/>
+    <input type="radio" name="a2" value="3"/>
+    <input type="radio" name="a2" value="4"/>
+    <input type="radio" name="a2" value="5"/>
+    <br/>
+    <input type="radio" name="p" value="1"/>
+    <input type="radio" name="p" value="2"/>
+    <input type="radio" name="p" value="3"/>
+    <input type="radio" name="p" value="4"/>
+    <input type="radio" name="p" value="5"/>
+    <br/>
+    <input type="radio" name="c" value="1"/>
+    <input type="radio" name="c" value="2"/>
+    <input type="radio" name="c" value="3"/>
+    <input type="radio" name="c" value="4"/>
+    <input type="radio" name="c" value="5"/>
+</div>
+<script src="paramoji.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    function reorder(x1,x2,x3,x4,x5) {
+        const x=[0,x1,x2,x3,x4,x5]
+        const y1=x[parseInt($("input[name='v']:checked").val()) || 1]
+        const y2=x[parseInt($("input[name='a1']:checked").val()) || 2]
+        const y3=x[parseInt($("input[name='a2']:checked").val()) || 3]
+        const y4=x[parseInt($("input[name='p']:checked").val()) || 4]
+        const y5=x[parseInt($("input[name='c']:checked").val()) || 5]
+        return paramoji_svg(y1,y2,y3,y4,y5)
+    }
+    function redrawParamoji() {
+        document.querySelectorAll("[data-eval]").forEach((a, i) =>
+            a.innerHTML = eval(a.getAttribute("data-eval"))
+                .replace(/href="#/g, "href=\"#id-" + i + "-")
+                .replace(/\(#/g, "(#id-" + i + "-")
+                .replace(/id="/g, "id=\"id-" + i + "-"))
+    }
+
+    let baseurl = "http://localhost/emoticon-data/emoji/"
+    document.querySelectorAll("[data-code]").forEach((a,i) =>
+        a.setAttribute('src', baseurl+"emoji_u"+a.getAttribute('data-code')+'.svg'))
+    redrawParamoji()
+    $('input').bind('click', redrawParamoji)
+</script>
+</body>
+</html>
