@@ -183,7 +183,7 @@ In this (still incomplete) model arousal controls eye and mouth sizes and valenc
    \paramoji{100,0,0,50,0}
   \end{tabular}
  \end{center}
- \caption{Facial expressions created with three different values for valence and arousal.
+ \caption{Facial expressions created with three different values for valence ($v$) and arousal ($a$).
  All displacements of graphical control points depend linearly on these two dimensions. }
  \label{fig:circumplex}
 \end{figure}
@@ -234,28 +234,32 @@ Obviously, the scale is continuous and all intermediate values could be interpol
 
 \begin{figure}[ht!]
  \begin{center}
-  \begin{tabular}{cc|cc|cc}
+  \begin{tabular}{lcc|cc}
+   &
    \multicolumn{2}{c}{dominance = 0.0} &
-   \multicolumn{2}{c}{dominance = 0.5} &
    \multicolumn{2}{c}{dominance = 1.0} \\[0.2em]
    \hline
-   &&&&&\\[-0.8em]
+   &&&&\\[-0.8em]
+   &
    \paramoji{50,50,50,0,0} &
    \paramoji{100,50,50,0,0} &
-   \paramoji{50,50,50,50,0} &
-   \paramoji{100,50,50,50,0} &
    \paramoji{50,50,50,100,0} &
    \paramoji{100,50,50,100,0}
    \\
+   $v$ & 0.5 & 1 & 0.5 & 1 \\
+   $a$ & 0.5 & 0.5 & 0.5 & 0.5 \\
+   &
    \paramoji{0,0,0,0,0} &
    \paramoji{0,100,100,0,0} &
-   \paramoji{0,0,0,50,0} &
-   \paramoji{0,100,100,50,0} &
    \paramoji{0,0,0,100,0} &
    \paramoji{0,100,100,100,0}
+   \\
+   $v$ & 0 & 0 & 0 & 0 \\
+   $a$ & 0 & 1 & 0 & 1 \\
   \end{tabular}
  \end{center}
- \caption{A block of four paramojis plotted with low (0.0), medium (0.5) and strong (1.0) dominance.
+ \caption{A block of four paramojis plotted with low (0.0) and strong (1.0) dominance.
+ Previous paramojis above are medium dominance (0.5).
  All expressions can be smoothly interpolated in the interior of the domain where more natural looks are found.}
  \label{fig:dominance}
 \end{figure}
@@ -299,16 +303,24 @@ All combinations of parameters produce comical, but valid facial expressions.
 
 \begin{figure}[ht!]
  \begin{center}
-  \begin{tabular}{ccc}
+  \begin{tabular}{lccc}
+   &
    \paramoji{86,19,19,68,100} &
    \paramoji{25,48,48,67,100} &
    \paramoji{44,36,36,27,100} \\
+   $v$ & 0.86 & 0.25 & 0.44 \\
+   $a$ & 0.19 & 0.48 & 0.36 \\
+   $d$ & 0.68 & 0.67 & 0.27 \\
+   &
    \paramoji{81,68,68,40,100} &
    \paramoji{10,14,14,90,100} &
-   \paramoji{11,72,72,41,100}
+   \paramoji{11,72,72,41,100} \\
+   $v$ & 0.81 & 0.10 & 0.11 \\
+   $a$ & 0.68 & 0.14 & 0.72 \\
+   $d$ & 0.40 & 0.90 & 0.41 \\
    \end{tabular}
  \end{center}
- \caption{Random paramojis with maximum levels of contempt. Graphically, contempt
+ \caption{Random paramojis with maximum levels of contempt ($c=1$). Graphically, contempt
  combines well with all previous emotions.}
  \label{fig:contempt}
 \end{figure}
@@ -354,27 +366,35 @@ They can also encode emotional information that go beyond what real faces show.
 
 \begin{figure}[ht!]
  \begin{center}
-  \begin{tabular}{cc|cc|cc}
+  \begin{tabular}{lcc|cc}
+   &
    \multicolumn{2}{c}{control = -1.0} &
-   \multicolumn{2}{c}{control = 0.0} &
    \multicolumn{2}{c}{control = +1.0} \\
    \hline
-   &&&&&\\[-0.8em]
+   &&&&\\[-0.8em]
+   &
    \paramoji{52,0,100,52,0} &
    \paramoji{92,0,100,53,0} &
-   \paramoji{74,20,20,24,4} &
-   \paramoji{67,80,80,36,56} &
    \paramoji{9,100,0,52,0} &
    \paramoji{99,100,0,12,92} \\
+%   $v$ & 0.52 & 0.92 & 0.09 & 0.99 \\
+%   $a_1$ & 0 & 0 & 1 & 1 \\
+%   $a_2$ & 1 & 1 & 0 & 0 \\
+%   $d$ & 0.52 & 0.53 & 0.52 & 0.12 \\
+%   $c$ & 0 & 0 & 0 & 0.92 \\
+   &
    \paramoji{27,0,100,69,78} &
    \paramoji{34,0,100,0,0} &
-   \paramoji{14,67,67,5,0} &
-   \paramoji{68,50,50,80,58} &
    \paramoji{11,100,0,80,70} &
-   \paramoji{75,100,0,70,0}
+   \paramoji{75,100,0,70,0} \\
+%   $v$ & 0.27 & 0.34 & 0.11 & 0.75 \\
+%   $a_1$ & 0 & 0 & 1 & 1 \\
+%   $a_2$ & 1 & 1 & 0 & 0 \\
+%   $d$ & 0.69 & 0 & 0.80 & 0.79 \\
+%   $c$ & 0.78 & 0 & 0.70 & 0 \\
   \end{tabular}
  \end{center}
- \caption{Random emotions with low, medium and large values of control. Generally speaking, the mouths is under stronger
+ \caption{Random emotions with minimal and maximal values of control. Generally speaking, the mouths is under stronger
   conscious control than the eyes. In a possible overuse of mathematical accuracy,
   control is defined as the difference between respective intensities.}
  \label{fig:control}
@@ -497,7 +517,7 @@ Since the resulting values differ you are free to agree with either approach. I 
 that it is easier to have an opinion about mine. The emotional impact created by the available
 visualization is hard to escape.
 
-\begin{table}[ht!]
+\begin{table}[ht!]F
  \begin{center}
   \begin{tabular}[t]{cllll}
     & \multicolumn{2}{l}{Paramoji} & \multicolumn{2}{l}{EMOTIC} \\
