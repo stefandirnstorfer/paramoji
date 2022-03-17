@@ -15,8 +15,8 @@ let emoticon_data=[
     "#right-eye-outline:5b", [ -4,  0,  5], [  0, -6,-13],
     "#right-eye-outline:6",  /* -8 */       [  0,  0,-11],
     // left-lens
-    [  0,  0,  0, -1], [  0, -2,  0, -1],// #left-lens
-    [0.5,  0,  4], // #pupil[radius]
+    [  0,  0,  0, -1], [  0, -2.5,  0, -1.5],// #left-lens
+    [0.5,  0,  5], // #pupil[radius]
     // right-lid-shadow
     "#right-lid-shadow:2", [  5,  1, -4,  8], [  2,-9,-17,  5],
     // left-eye-outline
