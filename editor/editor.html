@@ -1,0 +1,118 @@
+<html>
+<head>
+    <meta content="text/html" charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="paramoji.js"></script>
+    <script src="action.js"></script>
+    <title>Paramoji Editor</title>
+</head>
+<body class="no-margin">
+<div id="app">
+    <div id="emoticon">
+        <div class="space" v-html="paramoji()"></div>
+    </div>
+    <div id="control">
+        <div id="dimensions">
+            <h1>Controls</h1>
+            <table id="sliders" width="100%">
+                <tr>
+                    <td>Model</td>
+                    <td></td>
+                    <td>
+                        <label>
+                            <input type="radio" name="model" value="a1a2" v-model="model"/>
+                            a<sub>1</sub>a<sub>2</sub>
+                        </label>
+                        <label>
+                            <input type="radio" name="model" value="ao" v-model="model"/>
+                            ao
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Valence</td>
+                    <td><button @click="state.v=50">&times;</button></td>
+                    <td>
+                        <input class="slider" type="range" v-model="state.v"/>
+                    </td>
+                    <td width="30em"><span id="label-v">{{V}}</span></td>
+                </tr>
+                <tr v-show="model=='a1a2'">
+                    <td>Arousal 1</td>
+                    <td><button @click="state.a1=50">&times;</button></td>
+                    <td>
+                        <input class="slider" type="range" v-model="state.a1"/>
+                    </td>
+                    <td><span id="label-a1">{{A1}}</span></td>
+                </tr>
+                <tr v-show="model=='a1a2'">
+                    <td>Arousal 2</td>
+                    <td><button @click="state.a2=50">&times;</button></td>
+                    <td>
+                        <input class="slider" type="range" v-model="state.a2"/>
+                    </td>
+                    <td><span id="label-a2">{{A2}}</span></td>
+                </tr>
+                <tr v-show="model=='ao'">
+                    <td>Arousal</td>
+                    <td><button @click="vstate.a=50; updateVState()">&times;</button></td>
+                    <td>
+                        <input class="slider" type="range" v-model="vstate.a" @input="updateVState()"/>
+                    </td>
+                    <td><span id="label-a">{{A}}</span></td>
+                </tr>
+                <tr>
+                    <td>Dominance</td>
+                    <td><button @click="state.d=50">&times;</button></td>
+                    <td>
+                        <input class="slider" type="range" v-model="state.d"/>
+                    </td>
+                    <td><span id="label-p">{{D}}</span></td>
+                </tr>
+                <tr>
+                    <td>Contempt</td>
+                    <td><button @click="state.c=0">&times;</button></td>
+                    <td>
+                        <input class="slider" type="range" v-model="state.c"/>
+                    </td>
+                    <td><span id="label-c">{{C}}</span></td>
+                </tr>
+                <tr v-show="model=='ao'">
+                    <td>Control</td>
+                    <td><button @click="vstate.o=50; updateVState()">&times;</button></td>
+                    <td>
+                        <input class="slider" type="range" v-model="vstate.o" @input="updateVState()"/>
+                    </td>
+                    <td><span id="label-o">{{O}}</span></td>
+                </tr>
+            </table>
+            <button @click="state={v:50,a1:50,a2:50,d:50,c:0}">Reset all</button>
+        </div>
+        <hr/>
+        <div id="animation">
+            <label><input type="checkbox" v-model="animateBlink"/> Blink</label>
+            <br/>
+            <label><input type="checkbox" v-model="animate"/> Animate</label>
+            <p v-show="animate">
+                <label>
+                    Speed: <input class="slider" type="range" v-model="speed"/>
+                </label>
+                <br/>
+                <label><input type="checkbox" v-model="fix.v"> Fix valence</label>
+                <br/>
+                <label><input type="checkbox" v-model="fix.a1"> Fix arousal 1</label>
+                <br/>
+                <label><input type="checkbox" v-model="fix.a2"> Fix arousal 2</label>
+                <br/>
+                <label><input type="checkbox" v-model="fix.d"> Fix dominance</label>
+                <br/>
+                <label><input type="checkbox" v-model="fix.c"> Fix contempt</label>
+            </p>
+        </div>
+        <div style="height:50px"></div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,11 +1,23 @@
-body,html {
+html {
+    font-family: Arial;
+}
+
+.no-margin {
     margin: 0;
     padding: 0;
-    font-family: Arial;
+}
+body:not(.no-margin) {
+    margin: 3%;
 }
 
 h1 {
     margin: 0 0 10px 0;
+}
+
+.slider {
+    width: 90%;
+    min: 0;
+    max: 100;
 }
 
 input[type=range]::-webkit-slider-runnable-track {
@@ -39,7 +51,7 @@ div {
     overflow: hidden;
 }
 
-div#frame {
+div#app {
     border: 0;
     width: 100vw;
     height: 100vh;
@@ -48,29 +60,37 @@ div#frame {
 }
 
 @media (orientation:portrait) {
-    div#frame {
+    #app {
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr;
+    }
+    #control {
+        padding-right: 10px;
+        padding-left: 10px;
     }
     .landscape-only { display: none }
 }
 
 @media (orientation:landscape) {
-    div#frame {
+    #app {
         grid-template-columns: 2fr 1fr;
         grid-template-rows: 1fr;
+    }
+    #control {
+        padding-top: 10px;
     }
 }
 
 #emoticon {
     padding: 5%;
 }
-#emoticon-svg {
+#emoticon svg {
     background-color: seashell;
 }
 
-div#control {
+#control {
     overflow-y: scroll;
+    padding-right: 10px;
 }
 
 button {
@@ -81,7 +101,7 @@ button {
     font-size: 14px;
 }
 
-a {
-    text-decoration:none;
-    color: black;
+pre {
+    padding: 10px;
+    background-color: #EEE;
 }

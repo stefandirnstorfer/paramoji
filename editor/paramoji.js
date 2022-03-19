@@ -1,5 +1,5 @@
-let x=1, y=1, z=-1
-let emoticon_data=[
+const emoticon_data = []
+const pre_data=[
     // eyes vertical
     [ 51, -2,-10,  0, 0, 0, 0, 0],
     // right eye
@@ -55,7 +55,7 @@ let emoticon_data=[
     "#mouth:1",         [14,0,  9,-2],  [0,-12, -2,  0, -3,   0, 6, -2],
     "#mouth:2",         [10,0, 11,-3],  [0, -2, 11,  0,  0,   0, 0, -9],
     "#mouth:3",         [ 6,0,  6,-3],   [0,  2, 12,  0,  0,   0, 0, -5],
-    "mouth:center-dwn", /*50*/,         [0,  2, 12,  0,  0,   0, 0, -4],
+    "mouth:center-dwn", /*50*/         [0,  2, 12,  0,  0,   0, 0, -4],
     "mirror:2#mouth:2", [-10,0,-11, 3], [0, -2, 11,  0,  0,   0, 0, -2],
     "mirror:1#mouth:1", [-14,0, -9, 2], [0,-12, -2,  0, -3,   0, 6,  2],
     "#mouth:6",         [-10,0,-11, 3], [0, -2,-11,  0,  0,   0, 0, -5],
@@ -66,35 +66,34 @@ let emoticon_data=[
     "lips-sheer", [0, 0, 0, 0, 0.4, 0, 0.15, -0.25],
     "lips-pos", [50,0,  0, 0,-12,0,0,6], [ 80,  0,  0, -2,  -2,   0, 0, 1],
     // left-eye-brow
-    "#right-eye-brow:1", [ 60+z,  1+x,  1, -7+y], [ 42, -8,-21, 12],
-    "#right-eye-brow:2", [ 72+z,  1+x,  3, -6+y], [ 42,-11,-23,  3],
-    "#right-eye-brow:3", [ 80+z,  0+x,  6, -5+y], [ 42, -3,-20, -3],
+    "#right-eye-brow:1", [ 60-1,  1+1,  1, -7+1], [ 42, -8,-21, 12],
+    "#right-eye-brow:2", [ 72-1,  1+1,  3, -6+1], [ 42,-11,-23,  3],
+    "#right-eye-brow:3", [ 80-1,  0+1,  6, -5+1], [ 42, -3,-20, -3],
     "weight", [  2, -.5,  1,  .5], // stroke-width
     // wrinkle-left-brow
-    "#wrinkle-right-brow:1", [ 62, -1+x, -4, -3+y], [ 35, -5,-18,  7],
-    "#wrinkle-right-brow:2", [ 56,  1+x,  0, -4+y], [ 41, -7,-24,  9],
-    "#wrinkle-right-brow:3", [ 56,  0+x,  0, -2+y], [ 43, -8,-22, 10],
+    "#wrinkle-right-brow:1", [ 62, -1+1, -4, -3+1], [ 35, -5,-18,  7],
+    "#wrinkle-right-brow:2", [ 56,  1+1,  0, -4+1], [ 41, -7,-24,  9],
+    "#wrinkle-right-brow:3", [ 56,  0+1,  0, -2+1], [ 43, -8,-22, 10],
     "left-brow", [  0,  0,  0,  0,  1,  3, 2]
     ]
 
 let current_expressability = -1
-emoticon_data = emoticon_data.filter(entry => {
-    if (typeof(entry)=="string") {
-        if (entry=="#right-eye-brow:1") current_expressability= -1
+for (entry of pre_data) {
+    if (typeof (entry) == "string") {
+        if (entry == "#right-eye-brow:1") current_expressability = -1
         if (entry.match(/#wrinkle-(left|right)-cheek:3/)) current_expressability = 0.6
         if (entry.match(/#wrinkle-(left|right)-cheek:1/)) current_expressability = 1
-        if (entry=="#lips:1") current_expressability = 1
-        if (entry=="lower-teeth") current_expressability = 1
-        if (entry=="#mouth:1") current_expressability = 1
-        if (entry=="nose") current_expressability = 0.5
-        return false
+        if (entry == "#lips:1") current_expressability = 1
+        if (entry == "lower-teeth") current_expressability = 1
+        if (entry == "#mouth:1") current_expressability = 1
+        if (entry == "nose") current_expressability = 0.5
     } else {
         const a = entry[2]
         entry[2] = (1 - current_expressability) / 2 * a
         entry.splice(3, 0, (1 + current_expressability) / 2 * a)
-        return true
+        emoticon_data.push(entry)
     }
-})
+}
 
 function formatRow(row) {
     if (row[1] == -0.5) {
@@ -106,15 +105,7 @@ function formatRow(row) {
 console.log(("const data=["+emoticon_data.map(x => '[' +formatRow(x) + ']').join(',') +"]")
     .replace(/(.{75}[^,]*,)/g, '$1\n'))
 
-
-function emoticon_svg(v, a, p, c, e) {
-    return paramoji_svg(v / 100,
-        Math.min(1.0, Math.max(0.0, (a - 2 * e + 100) / 100)),
-        Math.min(1.0, Math.max(0.0, (a + 2 * e - 100) / 100)),
-        p / 100, c / 100)
-}
-
-function paramoji_svg(v, a1, a2, p, c) {
+function paramoji_svg(v, a1, a2, p, c, b) {
     const dotprod = (X,Y) => X.reduce((a, b, i) => a + b*(Y[i] || 0), 0)
     let data = emoticon_data
         .filter(x => typeof(x) != 'string')
@@ -176,4 +167,12 @@ function paramoji_svg(v, a1, a2, p, c) {
     ]
     let index=0;
     return template.join("\n").replace(/\?/g, () => data[index++]);
+}
+
+function paramoji_blink_svg(v, a1, a2, d, c) {
+    const closed = paramoji_svg((1-a1)*v, 0, 0, d, c)
+    const open = paramoji_svg(v, a1, a2, d, c)
+    return open
+        .replace(/id="eye-r[^>]*/, closed.match(/id="eye-r[^>]*/)[0])
+        .replace(/id="eye-l[^>]*/, closed.match(/id="eye-l[^>]*/)[0])
 }
