@@ -50,23 +50,22 @@
 
 \begin{abstract}
 
- The field of affective computing inherently relies on the ability to represent a human emotion in computational form.
+ All efforts in the field of affective computing rely on some method to represent a human emotion in computational form.
  Two main approaches have emerged to accomplish this task. The traditional approach describes an emotion along
  a set of independent dimensions, such as valence, arousal, and dominance. This is mathematically elegant, but suffers from
  lacking consensus on how to represent more advanced emotions. More recent approaches use facial expressions as indicators
- for specific emotional states or basic emotions. These have been popularized through the widespread use
+ for discrete emotional states or basic emotions. These have been popularized through the widespread use
  of emojis that can be instantly recognized and interpreted.
  However, due to their categorical nature they lack support for the computation of mid points, averages and other
  statistical measures.
 
  This paper seeks to bridge the gap between these two approaches by suggesting an emoji style visualization of an
  emotional model with five dimensions.
- These parametric emojis (paramojis) turn common emotional dimensions into facial expressions.
- Just like their wide spread counterparts paramojis are playful, exaggerated and easy to decode.
+ These parametric emojis (paramojis) turn common emotional dimensions into comic style facial expressions.
  They can parameterize most face emojis, as well as the seven universal emotions described by Paul Ekman.
- To test their effectiveness I hired untrained crowd workers to relabel a large set of photos
+ To test their effectiveness I hired untrained crowd workers to annotate a large set of photos
  from three different datasets used by the affective machine learning
- community. The quality of the obtained parametric labels are then compared with the qualities reported in the original publications.
+ community. The obtained parameters are then compared with the results reported in the original publications.
  Since the suggested approach is essentially a visualization technique the final test for its usefulness should
  be based on clarity of presentation. No evidence for missing emotional expressivity could be found.
 %%% Leave the Abstract empty if your article does not require one, please see the Summary Table for full details.
@@ -83,22 +82,33 @@
 
 \section{Introduction}
 
-Emojis, graphical depictions of objects and human faces, are taking an increasing share of text based communication.
-They owe their success to the simplicity with which they describe situations, feelings and emotional states.
-As humans we understand their emotional content instantly and with ease.
-However, their systematic understanding has become the subject of growing scientific research. \cite{emoji_review}.
-The absence of any objective scale for emotions makes it harder to grasp an emoji's meaning than one might think.
+The field of affective computing was introduced by \cite{Picard97} with the goal to make computers
+recognize, express and possibly ``have'' emotions.
+Its major challenge lies in the question of how to represent a human emotion in computer software.
+Current approaches are based on statistical methods that measure various attributes of an
+emotion or label them according to defined categories.
+This is happening while almost the entire internet has moved to the use
+of early emoticons and now emojis for that same purpose.
+It might seem natural that affective computing applications make use of emojis as a primary language
+for the exchange of information about emotional states. However, this is not happening.
+There is currently no known application
+where a computer interacts with a human through the meaningful help of emojis.
+What makes emojis so intuitive for humans but yet so hard to process for computers?
 
-A large body of emojis has been standardized by the Unicode Consortium for the use on computer networks.
-With skyrocketing occurance on platforms, such as Twitter, vast amounts of real world usage data are created and analysed.
-Cooccurances with labeled text fragments can reveal some ranking of emojis along an axis of sentiment, \cite{sentiment_score}, or detect
-clusters of meaning within a high dimension vector space. \cite{emoji_vector_space}.
-These approaches observe broad usage pattern within some user group. A severe limitation is placed by
-context dependence and large disagreement over some the emojis' meaning, as well a rendering differences on various hardware plattforms \cite{emoji_interpretation}.
-A more objective interpretation can be obtained from an anatomical study of emojis with facial expressions.
-An adapted version of the facial action coding system was applied to infer muscle activity and the causal emotions. \cite{emoji_facs}.
+A large body of emojis have been standardized by the Unicode Consortium for the use on computer networks.
+They started as depictions of facial expressions and sometimes objects that
+describe situations, feelings and emotional states. Although other purposes
+have been added it is that emotional quality that made them successful.
+Despite wide spread use, \cite{emoji_interpretation} have found significant mismatch in the way that humans interpret
+some of the emojis. While the standardization may define an emoji as eg. a ``grinning face'' the authors counted
+at least 17 different versions of how this face may be displayed on various software platforms. The consequence is
+a severe misunderstanding on even basic attributes of sentiment from positive to negative.
+Another approach to get a more objective interpretation studies the anatomy of the facial expressions in emojis.
+\cite{emoji_facs} have used an adapted version of the facial action coding system
+to infer muscle activity and the causal emotions.
 A coarse group of 11 emotional units was extracted, but exact interpretation varied widely based
-on how they were rendered on various platforms and software versions. The bottom line is that standardized Unicode emoji are
+on how they were rendered on various platforms and software versions.
+The bottom line is that standardized Unicode emoji are
 not suitable to encode nuanced and precisely defined emotions.
 
 Outside the body of Unicode many emoji sets have been graphically designed to capture fine grained scales of emotions.
@@ -107,9 +117,9 @@ Smiley face Likert scales are sequences of emoji that encode a gradual increase 
 Two effective emoji scales were designed to capture levels of perceived pain within children and adults. \cite{bakerwong, dvprs}.
 It was found that visual emoji scales produced more stable and consistent results in self-reported pain and greatly improved pain treatment.
 A wider range of emotional experiences can be expressed if additional dimensions are allowed.
-The circumplex model is a widely used 2-dimensional model by \cite{circumplex} that can be visualized as facial expressions.
-An emoji grid was designed and found useful for reporting food elicited emotions. \cite{emojigrid}.
-Despite the additional depth of two dimensions the grid still lacks space for many basic emotions, such as disgust, fear and contempt.
+The circumplex model of affect is a widely used 2-dimensional model by \cite{circumplex} that can be visualized as facial expressions.
+\cite{emojigrid} designed such an emoji grid and found it useful for reporting food elicited emotions.
+Despite the additional depth of two dimensions the grid still lacks space for many emotions.
 Additionally, the grid was only defined for emojis on the boundary of the domain without an obvious way to interpolate their visual appearance.
 In short, these custom emoji sets are nuanced on very limited domains. They fall greatly behind in terms of expressable range.
 
@@ -405,8 +415,8 @@ They can also encode emotional information that go beyond what real faces show.
 
 In the previous section I described my subjective choices for the paramoji's visual appearance.
 In this section I will lay out my process to obtain objective values for its parameters.
-In particular I wanted to know how random participants would label some photos of facial expressions,
-such that these labels could be checked for consistency with existing annotations.
+In particular I wanted to know what parameters random participants would choose for some photos with facial expressions.
+The results are checked for consistency with existing annotations from the respective data sets.
 
 \subsection{Workers}
 
@@ -429,7 +439,7 @@ about 8 years
 in which the design was subsequently improved as an occasional hobby project.
 Never did they get any instructions or feedback on the quality of their classifications. All workers
 were paid without additional quality control. No submissions were excluded from the final analysis.
-Workers were only allowed to participate once per experiment, ie. contribute 20 labelings, to avoid confounding
+Workers were only allowed to participate once per experiment, ie. contribute 20 parameterization, to avoid confounding
 influence from preexisting qualifications.
 Only a truly neglegible number of workers submitted destructive results by e.g. always clicking on the same position.
 Overall work participation was very good and consistent, albeit noisy. Depending on accuracy requirements 10 to 100
@@ -490,9 +500,9 @@ create any bias other than a posterior distribution that is closer to the prior.
 
 In this final section on data collection and bias control I want to address the issue of selective inference.
 None of the numerical results are on a level that would be worth faking, but - that said - they could be worse.
-Most of the analyses that preceeded the results below have been done on an unlabeled data sets and benchmarked against
+Most of the analyses that preceeded the results below have been done on an unannotated photo sets and benchmarked against
 standard emojis for inter-annotator agreement. The published results are almost a first shot in benchmarking
-against labeled data. Unfortunately, the first run was done with an older version of paramoji, where
+against pre-annotated data from the internet. Unfortunately, the first run was done with an older version of paramoji, where
 contempt raised an upper lip proportional to $c$, leading to a contemptuous face to always show traces of disgust.
 Hence, paramojis were not able to reproduce the rather friendly contempt faces from the AffectNet data set.
 After fixing the problem, all analyses were rerun without significant changes other than the parameters for the
@@ -582,9 +592,9 @@ visualization is hard to escape.
  \label{tab:emotic_samples}
 \end{table}
 
-Table \ref{tab:emotic_corr} shows the correlations between EMOTIC labels and paramoji labels.
-For this analysis 200 crowdworkers labelled 200 randomly selected images. For each image the median was taken of the
-parameters. With 20 images per batch, there were 20 labels per image.
+Table \ref{tab:emotic_corr} shows the correlations between EMOTIC parameters and paramoji parameters.
+For this analysis 200 crowdworkers annotated 200 randomly selected images. For each image the median was taken of the
+parameters. With 20 images per batch, there were 20 parameter per image.
 Given the difficulty of the task a correlation of around 60\% for valence is actually quite good, but also not that surprising
 because valence was coded with a smiley face scaling from mouth down to mouth up. Hence, respondents
 were literaly asked the same question.
@@ -616,18 +626,18 @@ be confused with a ``dominant'' social status.
 The AffectNet data set is a collection of annotated images of human faces by \cite{affectnet}.
 It is unarguably the largest set of annotated photos showing human
 facial expressions.
-It includes labels for valence, arousal and categorizes all faces into
+It includes annotations for valence, arousal and categorizes all faces into
 8 classes: Normal, Happy, Sad, Surprise, Fear, Disgust, Anger, Contempt.\footnote{The AffectNet data set is not freely available to non-academics.
 Therefore a sampler from Kaggle.com had to be used. Unfortunately, it was missing valence and arousal annotations.}
 The difficulty of assigning faces to only one of those classes has been described by \cite{affectnet_relabel}.
 It was found that little agreement was reached within a small group of annotators for many images with multiple cues.
-Label qualities were confirmed for valence values, but for arousal the agreement was only reported as ``medium''.
+Annotation qualities were confirmed for valence values, but for arousal the agreement was only reported as ``medium''.
 AffectNet data is widely used as a benchmark for facial expression recognition
 applications and is the perfect basis to calibrate the paramoji model to a widely accepted standard for 8 base expressions.
 
 Table \ref{tab:affnet} shows the median rating for randomly selected images from the
 AffectNet data set.
-The parameters in this experiment have not been obtained by labeling single images with high accuracy.
+The parameters in this experiment have not been obtained by annotating single images with high accuracy.
 These are median values of ratings spread over a class rather than focused on single images.
 The result shows that the average emotion in each class conforms with the expectation.
 It also reveals some artefacts in the way AffectNet is clustered.
@@ -695,8 +705,8 @@ their original definition provided by \cite{Ekman72}:
  \item {\bf Surprise:}
   Raised curved eye brows; wide open eyes showing sklera above and below the iris; skin above eyelid streched,
   dropped open mouth; lips are parted.
-  The major missing feature are the relaxed outer lips. The crowdworker labels show some bias
-  towards high valence, which raises outer lips.
+  The major missing feature are the relaxed outer lips. The crowdworkers chose parameters
+  towards high valence, which raises eye brows and outer lips.
  \item {\bf Fear:}
   Raised, drawn together eye brows; short horizontal eye brow wrinkles; eyes opened,
   hard stare. The mouth is opened, outer lips are drawn back.
@@ -730,7 +740,7 @@ emotion.
 
 The FEC data set is collection of image triplets for which human annotators marked the odd one out.
 \cite{fec}.
-These labels can be used to train and test algorithms for facial expression similarity.
+These data can be used to train and test algorithms for facial expression similarity.
 The judgement on which of the faces look more similar was only made on the basis of facial expression, without
 consideration of color, gender, hair style or make up.
 A paramoji encodes facial expressions with 5 parameters and explicitely limits itself to dimensions
@@ -777,7 +787,7 @@ look more similar than two images from the same class.
 \end{figure}
 
 The numerical results in table \ref{tab:fec_results} show the recognition rate after converting them into paramoji.
-This was achieved by 600 workers labeling 479 images from 236 triplets with an average number of 25 annotations per image.
+This was achieved by 600 workers annotating 479 images from 236 triplets with an average number of 25 annotations per image.
 The parameterization was considered successful if the the Euclidean distance between two parameter vectors was minimal
 in accordance with the voting majority of the original annotators. When annotators could only see one image at a time
 and all knowledge about the facial expression had to encoded into a paramoji the success rate was 60\%.
@@ -832,9 +842,9 @@ in a strongly exaggerated manner. The resulting graphical representations are cl
 
 It was also shown that the emotional model behind paramojis might be a good training target for
 machine learning algorithms. This would have a number of benefits. First, a unified framework
-for continuous and categorical dimensions would avoid labelling incongruencies. Second, the
+for continuous and categorical dimensions would avoid annotation incongruencies. Second, the
 exaggerated visualization makes it much easier for untrained participants to consistently and
-reproducibly label large amounts of images at low cost. Third, additional information about
+reproducibly annotate large amounts of images at low cost. Third, additional information about
 the structure within categories as well the consistent representation of border cases would
 offer additional applications, such as statistical post-processing.
 Fourth, the ability to visualize results would make it much easier to check an annotation's
