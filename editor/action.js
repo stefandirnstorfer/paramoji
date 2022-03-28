@@ -4,12 +4,12 @@ const app = Vue.createApp({
             state: {
                 v: 50,
                 a1: 50,
-                a2: 0,
+                a2: 50,
                 d: 50,
                 c: 0
             },
             vstate: {
-                a: 50,
+                   a: 50,
                 o: 50
             },
             fix: {
@@ -28,10 +28,12 @@ const app = Vue.createApp({
         }
     },
     created() {
+        const newState = {}
         for (let key in this.state) {
             var m= location.search.match(RegExp(key + "=([0-9]+)"));
-            if (m) this.state[key]= parseInt(m[1]);
+            newState[key]= m ? parseInt(m[1]) : this.state[key];
         }
+        this.state = newState
         this.doBlink();
     },
     methods: {

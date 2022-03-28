@@ -28,7 +28,7 @@ completeness and with arbitrary mixtures.
 
 | Normal | Happy | Sad | Surpriseed |
 | -------|-------| --- |------------|
-| ![Normal](https://paramoji.org/paramoji.svg.php?size=100&v=55&a1=47&a2=0&d=45&c=0) | ![Normal](https://paramoji.org/paramoji.svg.php?size=100&v=100&a1=31&a2=50&d=55&c=6) | ![Normal](https://paramoji.org/paramoji.svg.php?size=100&v=3&a1=27&a2=0&d=13&c=0)| ![Normal](https://paramoji.org/paramoji.svg.php?size=100&v=84&a1=90&a2=94&d=0&c=0) |
+| ![Normal](https://paramoji.org/paramoji.svg.php?size=100&v=58&a1=35&a2=0&d=50&c=0) | ![Normal](https://paramoji.org/paramoji.svg.php?size=100&v=100&a1=31&a2=50&d=55&c=6) | ![Normal](https://paramoji.org/paramoji.svg.php?size=100&v=3&a1=27&a2=0&d=13&c=0)| ![Normal](https://paramoji.org/paramoji.svg.php?size=100&v=84&a1=90&a2=94&d=0&c=0) |
 
 | Fearful | Disgusted | Angry | Contemptuous |
 | ---------|-----------|-------|--------------|
