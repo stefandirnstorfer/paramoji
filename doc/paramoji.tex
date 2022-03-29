@@ -50,24 +50,26 @@
 
 \begin{abstract}
 
- All efforts in the field of affective computing rely on some method to represent a human emotion in computational form.
+ Efforts in the field of affective computing rely on some method to represent a human emotion in digital form.
  Two main approaches have emerged to accomplish this task. The traditional approach describes an emotion along
  a set of independent dimensions, such as valence, arousal, and dominance. This is mathematically elegant, but suffers from
- lacking consensus on how to represent more advanced emotions. More recent approaches use facial expressions as indicators
- for discrete emotional states or basic emotions. These have been popularized through the widespread use
- of emojis that can be instantly recognized and interpreted.
+ lacking consensus on how to represent more complex emotions. More recent approaches use discrete emotional states
+ that are indicated by facial expressions or well described basic emotions.
+ These have been popularized through the widespread use
+ of emojis that humans can instantly recognize and interpret.
  However, due to their categorical nature they lack support for the computation of mid points, averages and other
  statistical measures.
 
  This paper seeks to bridge the gap between these two approaches by suggesting an emoji style visualization of an
  emotional model with five dimensions.
- These parametric emojis (paramojis) turn common emotional dimensions into comic style facial expressions.
+ These parametric emojis (paramojis) turn common emotional dimensions into facial expressions that
+ can easily be interpreted by humans.
  They can parameterize most face emojis, as well as the seven universal emotions described by Paul Ekman.
  To test their effectiveness I hired untrained crowd workers to annotate a large set of photos
  from three different datasets used by the affective machine learning
  community. The obtained parameters are then compared with the results reported in the original publications.
- Since the suggested approach is essentially a visualization technique the final test for its usefulness should
- be based on clarity of presentation. No evidence for missing emotional expressivity could be found.
+ The suggested approach is essentially a visualization technique; its usefulness should
+ be judged on the clarity of presentation. No evidence for missing emotional expressivity could be found.
 %%% Leave the Abstract empty if your article does not require one, please see the Summary Table for full details.
 
 \tiny
@@ -83,10 +85,10 @@
 \section{Introduction}
 
 The field of affective computing was introduced by \cite{Picard97} with the goal to make computers
-recognize, express and possibly ``have'' emotions.
+recognize, express, and in some cases, ``have'' emotions.
 Its major challenge lies in the question of how to represent a human emotion in computer software.
 Current approaches are based on statistical methods that measure various attributes of an
-emotion or label them according to defined categories.
+emotion or label them according to discrete categories.
 This is happening while almost the entire internet has moved to the use
 of early emoticons and now emojis for that same purpose.
 It might seem natural that affective computing applications make use of emojis as a primary language
@@ -99,8 +101,10 @@ A large body of emojis have been standardized by the Unicode Consortium for the 
 They started as depictions of facial expressions and sometimes objects that
 describe situations, feelings and emotional states. Although other purposes
 have been added it is that emotional quality that made them successful.
-Despite wide spread use, \cite{emoji_interpretation} have found significant mismatch in the way that humans interpret
-some of the emojis. While the standardization may define an emoji as eg. a ``grinning face'' the authors counted
+Despite intensive research the question of their objective meaning is still difficult to answer. \cite{emoji_review}.
+There is even a significant mismatch in the way that humans interpret
+some of the emojis.
+While the standardization may define an emoji as eg. a ``grinning face'' \cite{emoji_interpretation} counted
 at least 17 different versions of how this face may be displayed on various software platforms. The consequence is
 a severe misunderstanding on even basic attributes of sentiment from positive to negative.
 Another approach to get a more objective interpretation studies the anatomy of the facial expressions in emojis.
@@ -113,7 +117,7 @@ not suitable to encode nuanced and precisely defined emotions.
 
 Outside the body of Unicode many emoji sets have been graphically designed to capture fine grained scales of emotions.
 Research has found them useful for the communication of qualias, such as pain and taste.
-Smiley face Likert scales are sequences of emoji that encode a gradual increase of approval. \cite{likertscale}.
+\cite{likertscale} tested two smiley face Likert scales. These are sequences of emoji that encode a gradual increase of approval.
 Two effective emoji scales were designed to capture levels of perceived pain within children and adults. \cite{bakerwong, dvprs}.
 It was found that visual emoji scales produced more stable and consistent results in self-reported pain and greatly improved pain treatment.
 A wider range of emotional experiences can be expressed if additional dimensions are allowed.
@@ -447,21 +451,57 @@ classifications per image should be considered.
 
 \subsection{User interface}
 
-Designing a good user interface is a very delicate issue.
-Most user interfaces are designed to nudge its users into to most likely path of continuation, but with less
-salient options to explore additional features. The user interface for the selection of a paramoji
-is more like a questionnaire. It must not create any bias presented by order, scale, positioning or preselection.
-Everything must be randomized, such that only the facial expression counts.
-
-A natural user interface would use sliders to select values for the individual dimensions.
-However, the values obtained from sliders have a significant bias towards the center position, with some spikes
+Figure \ref{fig:encoder2} shows a possible user interface that uses sliders to select the values for each individual
+dimension.\footnote{A version of this interface is currently deployed on https://paramoji.org/editor.html}
+This input method is very user friendly and intuitive. However, it creates biased results.
+The values obtained from sliders have are clustered at the center position, with some spikes
 at the extreme values. I also suspect - without evidence - that users are attracted to certain pattern that
-are formed by multiple slider positions stacked upon each other. Sliders are extremely powerful for fine tuning a result,
+are formed by multiple slider positions stacked upon each other. Sliders are extremely powerful for fine tuning,
 but unexperienced users are prone to abuse their regularity for mental short cuts.
 
-The best we can do is to control the bias in the form of a known prior distribution. Figure \ref{fig:encoder}
-shows a low bias user interface for  paramoji selection. Initially, each user sees 15 random paramojis that are sampled from
-a prior distribution given by equation (\ref{eqn:prior}):
+\begin{figure}[ht!]
+ \begin{center}
+  \includegraphics[height=5cm]{gen/encode2.pdf}
+  \vspace*{-3ex}
+ \end{center}
+ \caption{
+  A natural user interface with sliders for each dimension. This allows for highly accurate
+  input, but the results are biased by order, orientation and naming. Hence, this interface is not suitable
+  for quick annotations by untrained participants.
+ }
+ \label{fig:encoder2}
+\end{figure}
+
+Figure \ref{fig:encoder} shows a low bias user interface for paramoji selection. It does not allow
+users to select or see the dimensions individually. They can only choose the best fit from a small
+number of randomly parameterized options. Because every possible selection is completely random no
+bias is created if users prefer to click at certain positions or press randomly to speed up their work.
+An accurate result can easily be obtained through repeated measurement and statistical aggregation of
+the numerical parameters.
+
+\begin{figure}[ht!]
+ \begin{center}
+  \includegraphics[height=5cm]{gen/encode.pdf}
+  \vspace*{-3ex}
+ \end{center}
+ \caption{
+  Low bias, low accuracy user interface.
+  Initially, users see 15 random paramojis sampled from a prior distribution.
+  Upon first observation (ie. user clicks) the prior is updated. Users had to repeat this process with
+  20 different images. No additional explanation or instruction was given. This input method is
+  very inaccurate, because users can only select from few totally random options. Due
+  to low bias, the experiment can be repeated and the medians of the underlying
+  parameters converge to a reproducible result.
+ }
+ \label{fig:encoder}
+\end{figure}
+
+Equation (\ref{eqn:prior}) shows the prior distribution from which the initial options are sampled.
+Each user starts with their own random sample from $x_1,\cdots, x_{15} \sim P(v,a_1,a_2,d,c)$.
+After the first click on a paramoji $x_s$ the prior is updated to focus in the area of the selection. The new
+options are shown as $\tilde{x}_i = (x_i + x_s)/2$. Another option is to restart the process with a new random sample.
+Before the final selection users saw at least 29 different options.
+80\% of users sticked with the first selection. 20\% refined their selection at least once when more choices were presented.
 
 \begin{equation}
  \label{eqn:prior}
@@ -477,24 +517,9 @@ a prior distribution given by equation (\ref{eqn:prior}):
  \end{array}
 \end{equation}
 
-Once a user clicks on a paramoji the prior can be updated to focus in the area of selection. Another option
-is to restart the process from the beginning. 80\% of users sticked with the first selection. 20\% refined their
-selection at least once when more choices were presented. The marginal distribution over all samples corresponds
+The marginal distribution over all selected samples corresponds
 largely to the prior distribution. Any randomness created by low motivation or missing understanding would not
-create any bias other than a posterior distribution that is closer to the prior.
-
-\begin{figure}[ht!]
- \begin{center}
-  \includegraphics[width=12cm]{gen/encode.pdf}
-  \vspace*{-3ex}
- \end{center}
- \caption{
-  Low bias, low accuracy user interface.
-  Initially, users see 15 random paramoji sampled from a prior distribution.
-  Upon first observation (ie. user clicks) the prior is updated.
- }
- \label{fig:encoder}
-\end{figure}
+create any bias other than a posterior sample distribution that is closer to the prior.
 
 \subsection{Data selection}
 
@@ -509,6 +534,11 @@ After fixing the problem, all analyses were rerun without significant changes ot
 contempt class of AffectNet data.
 
 \section{Results}
+
+In this section I want to apply the introduced method to the data sets of three different affective computing projects that deal with
+the digitzation of emotions or facial expressions. All humans have agreed to use emojis for this purpose.
+It is not entirely clear, why current affective computing applications don't. Whatever the reason may be,
+paramojis can easily translate between numeric methods and emoji-like visualizations.
 
 \subsection{EMOTIC data set}
 
@@ -527,7 +557,7 @@ Since the resulting values differ you are free to agree with either approach. I 
 that it is easier to have an opinion about mine. The emotional impact created by the available
 visualization is hard to escape.
 
-\begin{table}[ht!]F
+\begin{table}[ht!]
  \begin{center}
   \begin{tabular}[t]{cllll}
     & \multicolumn{2}{l}{Paramoji} & \multicolumn{2}{l}{EMOTIC} \\
@@ -697,7 +727,7 @@ their original definition provided by \cite{Ekman72}:
 \begin{enumerate}
  \item {\bf Happiness:}
   Eyes relaxed and narrowed; lower lid pushed up; outer corners of lips raised; opening mouth and teeth
-  appearing. Missing are crow feet at the out edge of the eyes and lips being pushed ``back''.
+  appearing; lips are pushed back. The only missing feature are the crow feet at the out edge of the eyes.
  \item {\bf Sadness:}
   Brows drawn together with inner corners raised and outer corners lowered; bulge or muscular
   contraction above center of brow area; drooping upper lid; lax lower lid; lid pulled up at inner corner,
@@ -780,9 +810,10 @@ look more similar than two images from the same class.
    \paramoji{71,33,3,43,73}
  \end{tabular}
  \end{center}
- \caption{Three example triplets from the original publication of the FEC model. The question is,
- how much more difficult does it get to find the most similar facial expressions after they have been transcoded into
- pramojis.}
+ \caption{Three example triplets from the original publication of the FEC model. The question is
+ to what extent the facial expression can be expressed with the five numbers.
+ This can be measured by how much more difficult it gets to find the most similar
+ expressions after encoding them into paramojis.}
  \label{fig:fec_samples}
 \end{figure}
 
@@ -871,6 +902,9 @@ web browser.
 The easiest way to run the code at home is as follows: 1) Open the developer console in your web browser.
 2) paste the source code into the console and press enter. 3) Type: \texttt{document.write(paramoji(1,1,0,0,0))}
 and press enter again. The facial expression should appear on your screen.
+
+Alternatively, you can visit \url{https://paramoji.org/editor.html} to play with the code.
+
 {\small
 \begin{verbatim}
 function paramoji(v, a1, a2, d, c) {

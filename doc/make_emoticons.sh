@@ -45,7 +45,7 @@ done
 for IMG in img/*; do
 OUT=${IMG/img/gen}
 OUT=${OUT/.*/.pdf}
-if [ ! -e $OUT ]; then
+if [ $OUT -ot $IMG ]; then
   echo $IMG $OUT
   inkscape $IMG --export-type=pdf --export-filename=$OUT
 fi
