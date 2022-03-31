@@ -26,11 +26,11 @@ emotions. The seven emotions defined by Paul Ekman can be represented with reaso
 completeness and with arbitrary mixtures.
 
 
-| Normal | Happy | Sad | Surpriseed |
+| Normal [&#x270E;](https://paramoji.org/editor.html?v=59&a1=35&a2=17&d=50&c=0)| Happy [&#x270E;](https://paramoji.org/editor.html?&v=100&a1=31&a2=50&d=55&c=0)| Sad [&#x270E;](https://paramoji.org/editor.html?v=3&a1=27&a2=0&d=13&c=0)| Surpriseed [&#x270E;](https://paramoji.org/editor.html?v=84&a1=90&a2=94&d=0&c=0) |
 | -------|-------| --- |------------|
-| ![Normal](https://paramoji.org/paramoji.svg.php?size=100&v=58&a1=35&a2=0&d=50&c=0) | ![Normal](https://paramoji.org/paramoji.svg.php?size=100&v=100&a1=31&a2=50&d=55&c=6) | ![Normal](https://paramoji.org/paramoji.svg.php?size=100&v=3&a1=27&a2=0&d=13&c=0)| ![Normal](https://paramoji.org/paramoji.svg.php?size=100&v=84&a1=90&a2=94&d=0&c=0) |
+| ![Normal](https://paramoji.org/paramoji.svg.php?size=100&v=59&a1=35&a2=17&d=50&c=0) | ![Normal](https://paramoji.org/paramoji.svg.php?size=100&v=100&a1=31&a2=50&d=55&c=0) | ![Normal](https://paramoji.org/paramoji.svg.php?size=100&v=3&a1=27&a2=0&d=13&c=0)| ![Normal](https://paramoji.org/paramoji.svg.php?size=100&v=84&a1=90&a2=94&d=0&c=0) |
 
-| Fearful | Disgusted | Angry | Contemptuous |
+| Fearful [&#x270E;](https://paramoji.org/editor.html?v=31&a1=70&a2=40&d=0&c=0) | Disgusted [&#x270E;](https://paramoji.org/editor.html?v=0&a1=34&a2=64&d=94&c=70) | Angry [&#x270E;](https://paramoji.org/editor.html?v=27&a1=68&a2=0&d=77&c=0) | Contemptuous [&#x270E;](https://paramoji.org/editor.html?v=60&a1=51&a2=0&d=69&c=100) |
 | ---------|-----------|-------|--------------|
 | ![Normal](https://paramoji.org/paramoji.svg.php?size=100&v=31&a1=70&a2=40&d=0&c=0)| ![Normal](https://paramoji.org/paramoji.svg.php?size=100&v=0&a1=34&a2=64&d=94&c=70)| ![Normal](https://paramoji.org/paramoji.svg.php?size=100&v=27&a1=68&a2=0&d=77&c=0) | ![Normal](https://paramoji.org/paramoji.svg.php?size=100&v=60&a1=51&a2=0&d=69&c=100) |
 
@@ -43,6 +43,8 @@ The easiest way to link the image directly. You can set the parameters from 0 to
 ```html
 <img src="https://paramoji.org/paramoji.svg.php?v=70&a=50&d=45&c=0&o=40"/>
 ```
+
+[Show me the source](https://paramoji.org/paramoji.svg.php?showSource=true)
 
 ## Contact
 [Email me](mailto:stefandirnstorfer@gmail.com)

@@ -932,31 +932,30 @@ function paramoji(v, a1, a2, d, c) {
   'fs><clipPath id="c-eye-r"><use href="#eye-r"/></clipPath><clipPath id="'+
   'c-eye-l"><use href="#eye-l"/></clipPath><clipPath id="c-lips"><use href'+
   '="#lips"/></clipPath></defs><g transform="translate(68,?)"><path id="ey'+
-  'e-r" transform="rotate(?)" d="M -8,? C ?,? ?,? ?,? ?,? ?,? ?,0 ?,? ?,? '+
-  '-8,? Z" fill="white" stroke="black"/><g clip-path="url(#c-eye-r)"><g id'+
-  '="lens" transform="translate(?,?)"><circle r="5" fill="#9d4922"/><circl'+
-  'e r="?"/><circle r="1" cx="-2.5" cy="-1.5" fill="white"/></g><path d="M'+
-  ' -15,-20 H 20 V0 Q ?,? -15,-2 Z" opacity=".25"/></g><g transform="trans'+
-  'late(-36,0)"><path id="eye-l" transform="rotate(?)" d="M 8,? C ?,? ?,? '+
-  '?,? ?,? ?,? ?,0 ?,? ?,? 8,? Z" fill="white" stroke="black"/><g clip-pat'+
-  'h="url(#c-eye-l)"><use href="#lens" x="?"/><path d="M -15,-20 H 15 V-2 '+
-  'Q ?,? -20,0 Z" opacity=".25"/></g></g></g><path transform="matrix(1,?,0'+
-  ',1,53,?)" d="M -4,0 q -2,-2 -4,0 M -1,0 Q 3,-2 4,-1 T 6,? 4,?" fill="no'+
-  'ne" stroke="black"/><path d="M ?,? Q ?,? ?,?" fill="none" stroke="black'+
-  '"/><path d="M ?,? Q ?,? ?,?" fill="none" stroke="black"/><g clip-path="'+
-  'url(#c-lips)"><rect height="100" width="100"/><ellipse cx="50" cy="91" '+
-  'rx="15" ry="10" fill="#800f08"/><g transform="translate(0,?)"><use href'+
-  '="#tooth" x="-14"/><use href="#tooth" x="-7"/><use href="#tooth"/><use '+
-  'href="#tooth" x="7"/></g><g transform="translate(0,?)"><use href="#toot'+
-  'h" transform="matrix(1,.14,0,1,-14,-8)"/><use href="#tooth" x="-7"/><re'+
-  'ct id="tooth" x="50.5" rx="2" ry="1" height="15" fill="white" width="6"'+
-  ' stroke="black" stroke-width=".5"/><use href="#tooth" transform="matrix'+
-  '(1,-.14,0,1,7,7)"/></g></g><path id="lips" d="M ?,? C ?,? ?,? 0,? S ?,?'+
-  ' ?,? C ?,? ?,? 0,? S ?,? ?,? Z" transform="matrix(1,?,0,1,?,?)" fill="n'+
-  'one" stroke="black"/><g id="brow-r"><path d="M ?,? Q ?,? ?,?" stroke-wi'+
-  'dth="?" stroke="black" fill="none"/><path d="M ?,? Q ?,? ?,?" fill="non'+
-  'e" stroke="black"/></g><use href="#brow-r" transform="matrix(-1,0,0,1,1'+
-  '00,?)"/></svg>'
+  'e-r" transform="rotate(?)" d="M-8,?C?,? ?,? ?,? ?,? ?,? ?,0 ?,? ?,? -8,'+
+  '?Z" fill="white" stroke="black"/><g clip-path="url(#c-eye-r)"><g id="le'+
+  'ns" transform="translate(?,?)"><circle r="5" fill="#9d4922"/><circle r='+
+  '"?"/><circle r="1" cx="-2.5" cy="-1.5" fill="white"/></g><path d="M-15,'+
+  '-20H20V0Q?,? -15,-2Z" opacity=".25"/></g><g transform="translate(-36,0)'+
+  '"><path id="eye-l" transform="rotate(?)" d="M8,?C?,? ?,? ?,? ?,? ?,? ?,'+
+  '0 ?,? ?,? 8,?Z" fill="white" stroke="black"/><g clip-path="url(#c-eye-l'+
+  ')"><use href="#lens" x="?"/><path d="M-15,-20H15V-2Q?,? -20,0Z" opacity'+
+  '=".25"/></g></g></g><path transform="matrix(1,?,0,1,53,?)" d="M-4,0q-2,'+
+  '-2 -4,0M-1,0Q3,-2 4,-1T6,? 4,?" fill="none" stroke="black"/><path d="M?'+
+  ',?Q?,? ?,?" fill="none" stroke="black"/><path d="M?,?Q?,? ?,?" fill="no'+
+  'ne" stroke="black"/><g clip-path="url(#c-lips)"><rect height="100" widt'+
+  'h="100"/><ellipse cx="50" cy="91" rx="15" ry="10" fill="#800f08"/><g tr'+
+  'ansform="translate(0,?)"><use href="#tooth" x="-14"/><use href="#tooth"'+
+  ' x="-7"/><use href="#tooth"/><use href="#tooth" x="7"/></g><g transform'+
+  '="translate(0,?)"><use href="#tooth" transform="matrix(1,.14,0,1,-14,-8'+
+  ')"/><use href="#tooth" x="-7"/><rect id="tooth" x="50.5" rx="2" ry="1" '+
+  'height="15" fill="white" width="6" stroke="black" stroke-width=".5"/><u'+
+  'se href="#tooth" transform="matrix(1,-.14,0,1,7,7)"/></g></g><path id="'+
+  'lips" d="M?,?C?,? ?,? 0,?S?,? ?,?C?,? ?,? 0,?S?,? ?,?Z" transform="matr'+
+  'ix(1,?,0,1,?,?)" fill="none" stroke="black"/><g id="brow-r"><path d="M?'+
+  ',?Q?,? ?,?" stroke-width="?" stroke="black" fill="none"/><path d="M?,?Q'+
+  '?,? ?,?" fill="none" stroke="black"/></g><use href="#brow-r" transform='+
+  '"matrix(-1,0,0,1,100,?)"/></svg>'
  const dotprod = (X,Y) => X.reduce((a, b, i) => a + b*(Y[i] || 0), 0)
  let index = 0, V = [1, 2*v-1, a1, a2, 2*d-1, c, c*a1, c*v, c*a2, c*d]
  return template.replace(/\?/g, () => dotprod(V, data[index++]))

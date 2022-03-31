@@ -88,9 +88,9 @@
                     <td><span id="label-o">{{O}}</span></td>
                 </tr>
             </table>
-            <button @click="state={v:50,a1:50,a2:50,d:50,c:0}">Reset all</button>
+            <button @click="state={v:50,a1:50,a2:50,d:50,c:0}" class="mt-1">Reset all</button>
         </div>
-        <hr/>
+        <hr class="mt-1"/>
         <div id="animation">
             <label><input type="checkbox" v-model="animateBlink"/> Blink</label>
             <br/>
@@ -111,7 +111,10 @@
                 <label><input type="checkbox" v-model="fix.c"> Fix contempt</label>
             </p>
         </div>
-        <div style="height:50px"></div>
+        <div style="height:20px"></div>
+        <div>
+            <a href="/">More about paramojis.</a>
+        </div>
     </div>
 </div>
 </body>
