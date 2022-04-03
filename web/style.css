@@ -109,3 +109,20 @@ pre {
     padding: 10px;
     background-color: #EEE;
 }
+
+.ekman-table {
+    display: grid;
+    grid-template-columns: repeat(4, min-content);
+    place-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}
+
+.table-head {
+    font-weight: bold;
+}
+
+.onhover:hover {
+    background-color: lightsteelblue;
+}

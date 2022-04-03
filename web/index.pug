@@ -1,0 +1,104 @@
+doctype html
+html(lang="en")
+  head
+    title Paramoji - Parametric Emoji
+    link(rel='stylesheet' href='style.css')
+    meta(charset="utf-8")
+    meta(name="description" content="A parametric emoji that can be parameterized with five continuous dimensions. It visualizes and unifies dimensional and categorical emotional models.")
+  h1#paramoji Paramoji
+  h2#what-is-a-paramoji What is a paramoji
+  p
+    | A paramoji is a parametric emoji. It renders facial expressions
+    | from five continuous parameters. It can be used to visualize manually selected, automatically detected or
+    | computationally generated emotions with accuracy and with arbitrary nuances.
+    | The resulting emoji style icons are expressive, exaggerated and playful. Their emotional content
+    | can be easily recognized by humans.
+  p(style="text-align:center")
+    a(href='https://paramoji.org/editor.html')
+      button(style="width:300px") Try out your own
+  h2#what-are-the-available-dimensions-of-the-paramoji What are the available dimensions of the paramoji
+  p The paramoji renders from the following meaningful parameters:
+  ol
+    li
+      em Valence
+      |  is the axis from bad to good, misery to pleasure, disagreement to agrement.
+    li
+      em Arousal
+      |  is the axis from calm to aroused, inactive to active, sleepy to alarmed.
+    li
+      em Dominance
+      |  is the axis from weakness to strength, fear to anger, submission to dominance.
+    li
+      em Contempt
+      |  is the axis from neutral to smug, vain, disdainful and contempt.
+    li
+      em Control
+      |  is the axis from uncontrolled to controlled, expressed to suppressed.
+  p
+    | With these dimensions the paramoji is able to express the emotional dimensions of the
+    | <a href="https://www.researchgate.net/publication/235361517_A_Circumplex_Model_of_Affect"> Circumplex model of affect</a>
+    | and the <a href="https://en.wikipedia.org/wiki/PAD_emotional_state_model">PAD model</a>
+    | of emotional states.
+  h2#what-emotions-can-be-represented-with-the-paramoji What emotions can be represented with the paramoji
+  p
+    | The paramoji parameterizes facial expressions with a wide variety of emotional expressions.
+    | They can represent the seven
+    | <a href="https://www.paulekman.com/universal-emotions">universal emotions defined by Paul Ekman</a>
+    | with reasonable completeness. Here are the author's pick for those emotions. You can click the image
+    | to create your own variations of those expressions.
+  .ekman-table
+    .table-head Normal
+    .table-head Happy
+    .table-head Sad
+    .table-head Surpriseed
+    a.onhover(href='https://paramoji.org/editor.html?v=59&a1=35&a2=17&d=50&c=0')
+      img(src='https://paramoji.org/paramoji.svg.php?size=100&v=59&a1=35&a2=17&d=50&c=0' alt='Normal')
+    a.onhover(href='https://paramoji.org/editor.html?&v=100&a1=31&a2=50&d=55&c=0')
+      img(src='https://paramoji.org/paramoji.svg.php?size=100&v=100&a1=31&a2=50&d=55&c=0' alt='Normal')
+    a.onhover(href='https://paramoji.org/editor.html?v=3&a1=27&a2=0&d=13&c=0')
+      img(src='https://paramoji.org/paramoji.svg.php?size=100&v=3&a1=27&a2=0&d=13&c=0' alt='Normal')
+    a.onhover(href='https://paramoji.org/editor.html?v=84&a1=90&a2=94&d=0&c=0')
+      img(src='https://paramoji.org/paramoji.svg.php?size=100&v=84&a1=90&a2=94&d=0&c=0' alt='Normal')
+    div(style="grid-column:1/5;height:20px")
+    .table-head Fearful
+    .table-head Disgusted
+    .table-head Angry
+    .table-head Contemptuous
+    a.onhover(href='https://paramoji.org/editor.html?v=31&a1=70&a2=40&d=0&c=0')
+      img(src='https://paramoji.org/paramoji.svg.php?size=100&v=31&a1=70&a2=40&d=0&c=0' alt='Normal')
+    a.onhover(href='https://paramoji.org/editor.html?v=0&a1=34&a2=64&d=94&c=70')
+      img(src='https://paramoji.org/paramoji.svg.php?size=100&v=0&a1=34&a2=64&d=94&c=70' alt='Normal')
+    a.onhover(href='https://paramoji.org/editor.html?v=27&a1=68&a2=0&d=77&c=0')
+      img(src='https://paramoji.org/paramoji.svg.php?size=100&v=27&a1=68&a2=0&d=77&c=0' alt='Normal')
+    a.onhover(href='https://paramoji.org/editor.html?v=60&a1=51&a2=0&d=69&c=100')
+      img(src='https://paramoji.org/paramoji.svg.php?size=100&v=60&a1=51&a2=0&d=69&c=100' alt='Normal')
+
+  h2#how-can-paramojis-be-mixed How can paramojis be mixed
+  p
+   | All generated expressions are generated from continuous parameters they can
+   | be interpolated into each other with arbitrary mixtures. With a slight exception in the
+   | contempt dimension all graphical parameters are linearly dependent on the five input parameters.
+   | This linearity ensures that the facial expressions can be smoothly interpolated into each other
+   | without jumps or unintended easing.
+   p(style="text-align:center")
+    img(src="anim.gif" alt="paramoji animation")
+
+
+  h2#how-can-i-use-paramojis-on-my-website How can I use paramojis on my website
+  p
+    | The easiest way to link the image directly. You can set the request parameters from 0 to 100.
+    | Optionally you can set the size to get a fixed size image.
+  pre
+    code
+      | &lt;img src="https://paramoji.org/paramoji.svg.php?v=70&amp;a=50&amp;d=45&amp;c=0&amp;o=40"/&gt;
+
+  p
+    | The source code is licensed as MIT and can be accessed here:
+  ul
+    li
+      a(href='https://paramoji.org/paramoji.svg.php?showSource=true') PHP code
+    li
+      a(href='https://paramoji.org/paramoji.js') Java Script
+  h2#contact Contact
+  p
+    a(href='mailto:stefandirnstorfer@gmail.com') Email me
