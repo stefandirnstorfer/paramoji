@@ -1,7 +1,8 @@
 set -e
+SRC="*.tex"
 
 # Create parametric emoji
-PARAMS=$(cat *.tex | \
+PARAMS=$(cat $SRC | \
    grep "paramoji{" | \
    sed -e s"/.*paramoji{\([^}]*\)}.*/\1/" | \
    sort -u)
@@ -21,7 +22,7 @@ fi
 done
 
 # Create bold paramoji
-PARAMS=$(cat *.tex | \
+PARAMS=$(cat $SRC | \
    grep "paramojib{" | \
    sed -e s"/.*paramojib{\([^}]*\)}.*/\1/" | \
    sort -u)
@@ -35,7 +36,7 @@ echo Processing bold paramoji with params=$PARAM
 mkdir -p gen
 node << EOF | inkscape --pipe --export-filename=$FILE
   const emoji = require('./emoticon.js')
-  console.log(emoji.emoticon_svg(${PARAM},2.5))
+  console.log(emoji.emoticon_svg(${PARAM},1.8))
 EOF
 fi
 done
@@ -54,7 +55,7 @@ done
 
 # Faces
 IMG_PATH=../../emoticon-data
-PARAMS=$(cat *.tex | \
+PARAMS=$(cat $SRC | \
    egrep "face?{" | \
    sed -e s"/.*{\([^}]*\)}.*/\1/")
 

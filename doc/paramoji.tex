@@ -26,7 +26,7 @@
 \def\corrEmail{stefan@thetaris.com}
 
 
-\newcommand{\paramoji}[1]{\includegraphics[width=2cm]{gen/paramoji-#1}}
+\newcommand{\paramoji}[1]{\hspace*{-1ex}\includegraphics[width=2cm]{gen/paramoji-#1}\hspace*{-1ex}}
 \newcommand{\paramojib}[1]{\raisebox{-0.6ex}{\hspace*{-.2ex}\includegraphics[height=2.8ex]{gen/paramojib-#1}}\hspace*{-0.2ex}}
 \newcommand{\face}[1]{\includegraphics[height=2cm]{gen/#1}}
 \newcommand{\faces}[1]{\includegraphics[height=1.6cm]{gen/#1}}
@@ -272,7 +272,7 @@ Obviously, the scale is continuous and all intermediate values could be interpol
    $a$ & 0 & 1 & 0 & 1 \\
   \end{tabular}
  \end{center}
- \caption{A block of four paramojis plotted with low (0.0) and strong (1.0) dominance.
+ \caption{Three paramojis plotted with low (0.0) and strong (1.0) dominance.
  Previous paramojis above are medium dominance (0.5).
  All expressions can be smoothly interpolated in the interior of the domain where more natural looks are found.}
  \label{fig:dominance}
@@ -356,7 +356,7 @@ these two. For a consciously deintensified expression $o$ is large. For an inten
 $a_1$ and $a_2$ are mathemtically preferred, because they are defined on a cartesian domain. The dimensions $a$ and $o$
 are closer to a possible interpretation, but do not produce valid visualizations for all combinations of values.
 
-Equation (\ref{eqn:control}) defines how these two dimension pairs can be converted into each other.
+Equation (\eqref{eqn:control}) defines how these two dimension pairs can be converted into each other.
 The complexity of these mathematical equations is commensurate with the psychological depth of the model.
 In the end its the visualization that counts, not the numbers.
 
