@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap');
+
 html {
-    font-family: Arial;
+    font-family: 'Titillium Web', sans-serif;
 }
 
 .no-margin {
@@ -10,8 +12,12 @@ body:not(.no-margin) {
     margin: 3%;
 }
 
-h1 {
-    margin: 0 0 10px 0;
+h1,h2 {
+    font-weight: 600;
+}
+
+a {
+    color: firebrick;
 }
 
 .mt-1 {
@@ -81,7 +87,7 @@ div#app {
         grid-template-rows: 1fr;
     }
     #control {
-        padding-top: 10%;
+        padding-top: 5%;
     }
 }
 
@@ -105,7 +111,8 @@ button {
     font-size: 14px;
 }
 
-pre {
+.code {
+    width: 100%;
     padding: 10px;
     background-color: #EEE;
 }
@@ -123,6 +130,35 @@ pre {
     font-weight: bold;
 }
 
+.onhover {
+    border-radius: 5px;
+}
 .onhover:hover {
-    background-color: lightsteelblue;
+    background-color: coral;
+    box-shadow:inset 0 -0.6em 1em -0.35em rgba(0,0,0,0.17),inset 0 0.6em 2em -0.3em rgba(255,255,255,0.15),inset 0 0 0em 0.05em rgba(255,255,255,0.12);
+}
+
+a.button7 {
+    display:inline-block;
+    padding:0.7em 1.7em;
+    margin:0 0.3em 0.3em 0;
+    border-radius:0.2em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:400;
+    color:#FFFFFF;
+    background-color:#3369ff;
+    box-shadow:inset 0 -0.6em 1em -0.35em rgba(0,0,0,0.17),inset 0 0.6em 2em -0.3em rgba(255,255,255,0.15),inset 0 0 0em 0.05em rgba(255,255,255,0.12);
+    text-align:center;
+    position:relative;
+}
+a.button7:active {
+    box-shadow:inset 0 0.6em 2em -0.3em rgba(0,0,0,0.15),inset 0 0 0em 0.05em rgba(255,255,255,0.12);
+}
+@media all and (max-width:30em) {
+    a.button7 {
+        display:block;
+        margin:0.4em auto;
+    }
 }
