@@ -12,6 +12,10 @@ h1,h2 {
     font-weight: 600;
 }
 
+li {
+    margin-bottom: 0.5rem;
+}
+
 .no-margin {
     margin: 0;
     padding: 0;

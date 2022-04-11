@@ -8,7 +8,7 @@ html(lang="en")
   head
     title Paramoji - Parametric Emoji
     link(rel='stylesheet' href='style.css')
-    link(rel="icon" href="https://paramoji.org/paramoji.svg.php?v=100&a1=100&a2=0&d=50&c=0")
+    link(rel="icon" href="https://paramoji.org/paramoji.svg.php?v=100&a1=100&a2=100&d=50&c=0")
     meta(charset="utf-8")
     meta(property="og:image" content="https://paramoji.org/encode2.png")
     meta(property="og:image:width" content="879")
@@ -21,9 +21,10 @@ html(lang="en")
     div
       h1#what-is-a-paramoji What is a paramoji?
       p
-        | A paramoji is a <b>parametric emoji</b> that represents facial expressions on continuous scales.
-        | It renders emotinal expressions
-        | from five parameters that can be freely selected. It can be used to visualize manually selected, automatically detected or
+        | A paramoji is a parametric smiley face that represents facial expressions on continuous scales.
+        | Unlike widespread emojis the paramojis are not defined for discretely defined states.
+        | Instead, emotinal expressions are rendered
+        | from five parameters that can be freely selected. They can be used to visualize manually selected, automatically detected or
         | computationally generated emotions with accuracy and with arbitrary nuances.
         | The resulting emoji style icons are expressive, exaggerated and playful. Their emotional content
         | can be easily recognized by humans.
@@ -139,20 +140,29 @@ html(lang="en")
     .twocol
       ul
         li
-          | For a full parametric facial expression the best solution is the
+          | For a full parametric facial expression the best solution is still the
           | good old <a href="https://en.wikipedia.org/wiki/Chernoff_face">Chernoff face</a> from the 70's.
         li
           | A lot of discrete emojis for faces and people can be found
           | on <a href="https://emojipedia.org/people/">Emojipedia</a>.
         li
-          | The <a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2018.02396/full">EmojiGrid</a>
+          | T he <a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2018.02396/full">EmojiGrid</a>
           | is a 2D pictorial grid of emojis for the dimensions valence and arousal.
+        li
+          | <a href="https://process.studio/works/aimoji-ai-generated-emoji/">AImoji</a> are AI generated emoji.
+        li
+          | <a href="https://www.semanticscholar.org/paper/Parametric-face-drawings%3A-A-demographically-diverse-Day-Davidenko/07c4a0dddf6903bb80b6f445185ecc9e58e978e9">Parametric
+          | Face Drawings</a> is visualization technique for facial landmarks.
         li
           | A research paper on
           | <a href="https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.206.3855&rep=rep1&type=pdf">Parametric Facial Expression Synthesis</a>.
         li
           | The <a href="https://www.researchgate.net/publication/229589717_Parametric_Generation_of_Facial_Expressions_Based_on_FACS">Facial expression generator based on FACS</a>
-          | is pay-walled, but accessible through sci-hub.
+          | is a pay-walled paper on facial expression generation.
     h2.twocol#contact Contact
-    p
-      a(href='mailto:stefandirnstorfer@gmail.com') Email me
+    .twocol
+      p
+        a(href='mailto:stefandirnstorfer@gmail.com') Email me
+      p
+        | Join the discussion on
+        | <a href='https://www.reddit.com/r/InternetIsBeautiful/comments/ty7ip6/a_parametric_emoji_that_renders_facial/'>Reddit</a>

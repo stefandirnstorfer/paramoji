@@ -19,7 +19,7 @@
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
 
-\title{A parametric emoji for the representation of emotional states}
+\title{A parametric facial expression to represent emotions}
 \author{\IEEEauthorblockN{Stefan Dirnstorfer}
 \IEEEauthorblockA{\textit{Thetaris GmbH} \\
 Munich Germany \\
@@ -38,30 +38,32 @@ stefan@thetaris.com}
     such as valence, arousal, and dominance. This is mathematically elegant, but lacks consensus on how
     to represent more complex emotions. The categorical approach uses a discrete number of basic emotions.
     It can capture any emotion that can be described. However, their categorical nature forbids the computation
-    of mid points, averages and other statistical measures.
+    of averages, dinstances and other statistical measures.
     To bridge the gap between these two approaches this paper suggests a five dimensional emotional model that
-    can be visualized with emoji style facial expressions, such that they can easily be interpreted by humans.
-    The resulting parametric emojis (paramojis) can represent most of the commonly used emoji faces,
+    can be visualized with an emoji style smiley face, such that they can easily be interpreted by humans.
+    The resulting parametric facial expressions can represent most of the commonly used emoji faces,
     as well as the seven universal emotions described by Paul Ekman. The resulting graphical
     depictions are clear, expressive and exist with arbitrary nuances and mixtures.
 \end{abstract}
 
 \begin{IEEEkeywords}
-emoji, facial expressions, parametric model, emotion model, visualization
+facial expressions, parametric model, emotion model, visualization, parametric emoji
 \end{IEEEkeywords}
 
 \section{Introduction}
-Most humans have agreed to use emojis to represent emotions when communicating over a digital
-channel. With skyrocketing occurance on social media platforms there is now a huge amount
+Most humans have agreed to use emoticons or emojis with facial expressions
+to represent emotions when communicating over a digital
+channel.  With skyrocketing occurance on social media platforms there is now a huge amount
 of human generated content that is annotated with emotional states.
 This could have provided a unique opportunity for humans and computers to exchange emotional
-information, as envisioned by \cite{Picard97}. However, this is not happening.
+information, as envisioned by Picard\cite{Picard97}. However, this is not happening.
 There is currently no known application
 where a computer interacts with a human through the meaningful help of emojis.
-What makes emojis so intuitive for humans but yet so hard to process for computers?
+What makes their emotional content so intuitive for humans but yet so hard to process for computers?
 
 The Unicode Consortium standardized a large body of emojis for computer mediated human-to-human communication.
-The standard defines rough gidelines for how an emoji is supposed to look. Unfortunately,
+The standard defines rough gidelines for many emotionally expressive symbols, often in the form
+of facial expressions. Unfortunately,
 this level of standardization is not sufficient to converge on a globally shared consensus on their semantics.
 While the standard may define an emoji as eg. a ``grinning face'', there were counted
 at least 17 different versions of how this face may be displayed on various software platforms \cite{emoji_interpretation}.
@@ -71,35 +73,40 @@ In an anatomy based approach the facial expressions displayed in emojis were stu
 An adapted version of the facial action coding system was used to infer muscle activity and the causal emotions,
 but exact interpretation varied widely based
 on how they were rendered on various platforms and software versions.
-The bottom line is that standardized Unicode emoji are
+The bottom line is that standardized emojis are
 not suitable to encode nuanced and precisely defined emotions.
 
-Outside the body of Unicode many emoji sets have been graphically designed to capture fine grained scales of emotions.
+Outside the body of emojis other sets of facial expressions have been graphically
+designed to capture fine grained scales of emotions.
 Research has found them useful for the communication of qualias, such as pain and taste.
-Two effective scales of faces expressions were designed to capture levels of perceived pain within children and adults. \cite{bakerwong, dvprs}.
-It was found that visual scales in an emoji style produced more stable and consistent results in self-reported pain and greatly improved pain treatment.
+Two effective scales of faces were designed to capture levels of perceived pain within children and adults. \cite{bakerwong, dvprs}.
+It was found that visual scales of facial expressions produced more stable and consistent results in self-reported pain and greatly improved pain treatment.
 A wider range of emotional experiences can be expressed if additional dimensions are allowed.
 The circumplex model of affect is a widely used 2-dimensional model \cite{circumplex} that can be visualized as facial expressions.
 An emoji grid with emojis on these to axes was found useful for reporting food elicited emotions\cite{emojigrid}.
 Despite the additional depth of two dimensions the grid still lacks space for many emotions.
 Additionally, the grid was only defined for emojis on the boundary of the domain without an obvious way to interpolate their visual appearance.
-In short, these custom emoji sets are only defined on very limited domains. They fall greatly behind in terms of expressable range.
+In short, these custom sets are only consistenty defined on very limited domains.
+Their expressive range does not nearly cover the variety of Unicode faces.
 
 For a greater range of facial expressions there is a visualization technique that can directly generate comic style
 faces from high dimensional data.
 Chernoff faces provide unique facial expressions for 18 parameters covering the
 sizes of eyes, mouth and ears as well as angles and distances between them\cite{chernoff}.
 Unfortunately, this does not include any of the subtle activations that are necessary for the display of deep emotions.
-The overall graphical quality is also limited by the technical constraints of the early 1970s.
-Nevertheless, Chernoff faces come closest at being a predecessor, or next best solution, to the one I present in this paper.
+Few other methdods have been tried to sythetically generate realistic facial expressions from
+data \cite{parametric_face_drawings, parametric_faces, parametric_face_facs}.
+However, without the exaggerated comic style representation the emotional content is difficult to decode.
+Therefore, Chernoff faces come closest at being a predecessor, or next best solution, to the one I present in this paper.
 Both approaches visualize high dimensional data in a human face. Neither has yet produced a success story in any
 practical application. In the following sections I will do my best to make that change.
 
-\section{The parameters of the parametric emoji}
+\section{Five dimensions of the facial expression}
 The idea of expressing a human emotion along measurable dimensions is said to date back to Wundt \cite{wundt}, who derived
 his ideas mainly through self-inspection.
 In a more accessible summary of his work his three dimensions of feeling were translated as pleasantness, excitement and tension\cite{tridimensional}.
-The first two of these dimensions have become the universal backbone of emotion classification, now known as "valence" and "arousal".
+The first two of these dimensions have become the universal backbone of emotion classification,
+now known as "valence" and "arousal" \cite{circumplex}.
 A much more intense debate formed around the third dimension. This paper follows the nomenclature of "dominance"\cite{dominance_mehrabian}.
 The fourth dimension is ``contempt'', derived from a discovery that this feeling of superiority is not a distinct emotion, but combines differently with positive and negative feelings. \cite{contempt_ekman}.
 As a final dimension I will use ``control', which follows a simplified model for conscious modulation.
@@ -221,8 +228,8 @@ Obviously, the scale is continuous and all intermediate values could be interpol
             & $a$ & 0.5 & 0.0 & 1.0
         \end{tabular}
     \end{center}
-    \caption{Three paramojis plotted with low (0.0) and strong (1.0) dominance.
-    Previous paramojis above are assumed to be at medium dominance (0.5).
+    \caption{Three facial expressions plotted with low (0.0) and strong (1.0) dominance.
+    Previous faces above are assumed to be at medium dominance (0.5).
     All expressions can be smoothly interpolated in the interior of the domain where more natural looks are found.}
     \label{fig:dominance}
 \end{figure}
@@ -313,7 +320,7 @@ In the end its the visualization that counts, not the numbers.
     \begin{array}{rcl}
         a_1 &=& a + o/2 \\
         a_2 &=& a - o/2 \\
-        o &=& a_1 - a_2\
+        o &=& a_1 - a_2
     \end{array}
 \end{equation}
 
@@ -372,26 +379,26 @@ their original definition provided by Ekman \cite{Ekman72, contempt_ekman}:
     \begin{center}
         \begin{tabular}{l|cccc}
             & \hspace*{-1ex} \paramoji{60,50,10,50,0} \hspace*{-2ex}
-            & \hspace*{-2ex} \paramoji{100,30,50,60,0} \hspace*{-2ex}
+            & \hspace*{-2ex} \paramoji{100,20,100,50,0} \hspace*{-2ex}
             & \hspace*{-2ex} \paramoji{0,30,0,10,0} \hspace*{-2ex}
-            & \hspace*{-2ex} \paramoji{60,90,70,0,0} \hspace*{-1ex}
+            & \hspace*{-2ex} \paramoji{70,90,70,20,0} \hspace*{-1ex}
             \\
             & Normal & Happy & Sad & Surprise \\[1ex]
-            $v$ & 0.6 & 1.0 & 0.0 & 0.6 \\
-            $a_1$ & 0.5 & 0.3 & 0.3 & 0.9 \\
-            $a_2$ & 0.1 & 0.5 & 0.0 & 0.7 \\
-            $d$ & 0.5 & 0.6 & 0.1 & 0.3 \\
+            $v$ & 0.6 & 1.0 & 0.0 & 0.7 \\
+            $a_1$ & 0.5 & 0.2 & 0.3 & 0.9 \\
+            $a_2$ & 0.1 & 1.0 & 0.0 & 0.7 \\
+            $d$ & 0.5 & 0.5 & 0.1 & 0.2 \\
             $c$ & 0.0 & 0.0 & 0.0 & 0.0 \\ \hline
-            & \hspace*{-1ex} \paramoji{30,70,40,0,0} \hspace*{-2ex}
+            & \hspace*{-1ex} \paramoji{40,50,30,20,0} \hspace*{-2ex}
             & \hspace*{-2ex} \paramoji{0,30,60,90,70} \hspace*{-2ex}
             & \hspace*{-2ex} \paramoji{30,70,0,80,0} \hspace*{-2ex}
             & \hspace*{-2ex} \paramoji{60,50,0,70,100} \hspace*{-1ex}
             \\
             & Fear & Disgust & Anger & Contempt \\[1ex]
-            $v$ & 0.3 & 0.0 & 0.3 & 0.6 \\
-            $a_1$ & 0.7 & 0.3 & 0.7 & 0.5 \\
-            $a_2$ & 0.4 & 0.6 & 0.0 & 0.0 \\
-            $d$ & 0.0 & 0.9 & 0.8 & 0.7 \\
+            $v$ & 0.4 & 0.0 & 0.3 & 0.6 \\
+            $a_1$ & 0.5 & 0.3 & 0.7 & 0.5 \\
+            $a_2$ & 0.3 & 0.6 & 0.0 & 0.0 \\
+            $d$ & 0.2 & 0.9 & 0.8 & 0.7 \\
             $c$ & 0.0 & 0.7 & 0.0 & 1.0
         \end{tabular}
     \end{center}
@@ -418,8 +425,7 @@ their original definition provided by Ekman \cite{Ekman72, contempt_ekman}:
     The weakest feature are the relaxed outer lips that show more tension than optimal.
     \item {\bf Fear:}
     Raised, drawn together eye brows; short horizontal eye brow wrinkles; eyes opened,
-    hard stare; the mouth is opened, outer lips are drawn back.
-    There is more sklera on top of the pupil than below.
+    hard stare; the mouth is opened, outer lips are drawn back; sklera on top of the pupil and none below.
     \item {\bf Disgust:}
     Brows drawn down; vertical creases in forhead and mouth; lower eyelid pushed up, but not tense;
     deep nasolabial fold; upper lip raised; lower lip pushed ``outwards'', slightly opening the mouth.
@@ -465,12 +471,12 @@ from five continuously scalable dimensions. Unlike other dimensional emotional m
 the visualization provides a clear and convincing position for the universal emotions
 in parameter space.
 
-I believe that the affective computing would greatly benefit from using paramoji dimensions to represent
-visualizable emotional states. In particular, the application of affect classification from photos of faces
+I believe that the affective computing community would greatly benefit from using the presented
+visualizable emotional model. In particular, the application of affect classification from photos of faces
 and humans in action such as AffectNet\cite{affectnet} and EMOTIC\cite{emotic_2019} would benefit in
 multiple ways. First, a unified framework
 for continuous and categorical dimensions would avoid value incongruencies. Second, the
-clear visualization makes it much easier to annotate facial expressions consistently.
+exaggerated visualization makes it much easier to annotate facial expressions and spot potential mistakes.
 Third, additional information about
 the structure within categories and the representation of border cases would be possible.
 Fourth, the use of continuous parameters for all emotions
@@ -486,7 +492,8 @@ Another danger is that this simplistic model of an emotion will lead to a reduct
 especially when software is developed that detects and aggregates these visualizable emotional dimensions.
 
 \section*{Code}
-The source code of the paramoji might seem confusing at first. However, it is extremely simple, once broken down.
+The source code of the parametric character (paramoji) might seem confusing at first.
+However, it is extremely simple,once broken down.
 A sparse matrix contains all the parameters. It has a row for each parameter in the drawing instruction and a column
 for each entry in the vector $(1, 2v-1, a_1, a_2, 2d-1, c, ca_1,cv, ca_2, cd)$.  The product of the two is inserted
 for the question marks in the template. The output format is in SVG, a standardized description language for
