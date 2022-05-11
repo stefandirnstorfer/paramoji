@@ -1,6 +1,7 @@
 node_modules
 dist
 __pycache__
+references
 gen
 anim/frames
 .idea

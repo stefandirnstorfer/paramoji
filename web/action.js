@@ -9,8 +9,11 @@ const app = Vue.createApp({
                 c: 0
             },
             vstate: {
-                   a: 50,
+                a: 50,
                 o: 50
+            },
+            a2state: {
+                a: 50
             },
             fix: {
                 v: false,
@@ -99,8 +102,12 @@ const app = Vue.createApp({
             const a = parseFloat(this.vstate.a)
             this.state.a1 = Math.max(0, Math.min(100, a + (o-50)))
             this.state.a2 = Math.max(0, Math.min(100, a - (o-50)))
+        },
+        updateA2State() {
+            const a2 = parseFloat(this.a2state.a)
+            this.state.a1 = a2 * a2 * (100-a2) / 1500
+            this.state.a2 = a2 * a2 / 100
         }
-
     },
     watch: {
         animate(value, oldValue) {
@@ -112,6 +119,7 @@ const app = Vue.createApp({
             handler() {
                 this.vstate.a = (parseFloat(this.state.a1) + parseFloat(this.state.a2))/2
                 this.vstate.o = (parseFloat(this.state.a1) - parseFloat(this.state.a2))/2 + 50
+                this.a2state.a = 100* Math.sqrt(parseFloat(this.state.a2)/100)
                 if (this.updateUrlTimer) clearTimeout(this.updateUrlTimer)
                 let query= ["V","A1","A2","D","C"].map(x => x.toLowerCase()+'='+this[x])
                 this.updateUrlTimer = setTimeout(() => {
@@ -127,7 +135,8 @@ const app = Vue.createApp({
         "D"() { return parseInt(this.state.d).toFixed(0) },
         "C"() { return parseInt(this.state.c).toFixed(0) },
         "O"() { return parseInt(this.vstate.o).toFixed(0) },
-        "A"() { return parseInt(this.vstate.a).toFixed(0)}
+        "A"() { return parseInt(this.vstate.a).toFixed(0) },
+        "Asup2"() { return parseInt(this.a2state.a).toFixed(0) }
     }
 })
 window.onload = () => { app.mount("#app") }

@@ -20,12 +20,10 @@
 \begin{document}
 
 \title{A parametric facial expression to represent emotions}
-\author{
-    \IEEEauthorblockN{Anonymous}
-%\IEEEauthorblockN{Stefan Dirnstorfer}
-%\IEEEauthorblockA{\textit{Thetaris GmbH} \\
-%Munich Germany \\
-%stefan@thetaris.com}
+\author{\IEEEauthorblockN{Stefan Dirnstorfer}
+\IEEEauthorblockA{\textit{Thetaris GmbH} \\
+Munich Germany \\
+stefan@thetaris.com}
 }
 \maketitle
 
@@ -42,7 +40,7 @@
     It can capture any emotion that can be described. However, their categorical nature forbids the computation
     of averages, dinstances and other statistical measures.
     To bridge the gap between these two approaches this paper suggests a five dimensional emotional model that
-    can be visualized with an emoji style smiley face, such that they can easily be interpreted by humans.
+    can be visualized with an emoji style smiley face that can easily be interpreted by humans.
     The resulting parametric facial expressions can represent most of the commonly used emoji faces,
     as well as the seven universal emotions described by Paul Ekman. The resulting graphical
     depictions are clear, expressive and exist with arbitrary nuances and mixtures.
@@ -97,7 +95,7 @@ Chernoff faces provide unique facial expressions for 18 parameters covering the
 sizes of eyes, mouth and ears as well as angles and distances between them\cite{chernoff}.
 Unfortunately, this does not include any of the subtle activations that are necessary for the display of deep emotions.
 Few other methdods have been tried to sythetically generate realistic facial expressions from
-data \cite{parametric_face_drawings, parametric_faces, parametric_face_facs}.
+data \cite{parametric_face_drawings, parametric_faces, parametric_face_facs, FACSGen}.
 However, without the exaggerated comic style representation the emotional content is difficult to decode.
 Therefore, Chernoff faces come closest at being a predecessor, or next best solution, to the one I present in this paper.
 Both approaches visualize high dimensional data in a human face. Neither has yet produced a success story in any
@@ -392,15 +390,15 @@ their original definition provided by Ekman \cite{Ekman72, contempt_ekman}:
             $d$ & 0.5 & 0.5 & 0.1 & 0.2 \\
             $c$ & 0.0 & 0.0 & 0.0 & 0.0 \\ \hline
             & \hspace*{-1ex} \paramoji{40,50,30,20,0} \hspace*{-2ex}
-            & \hspace*{-2ex} \paramoji{0,30,60,90,70} \hspace*{-2ex}
-            & \hspace*{-2ex} \paramoji{30,70,0,80,0} \hspace*{-2ex}
+            & \hspace*{-2ex} \paramoji{0,10,60,40,70} \hspace*{-2ex}
+            & \hspace*{-2ex} \paramoji{20,60,0,100,0} \hspace*{-2ex}
             & \hspace*{-2ex} \paramoji{60,50,0,70,100} \hspace*{-1ex}
             \\
             & Fear & Disgust & Anger & Contempt \\[1ex]
-            $v$ & 0.4 & 0.0 & 0.3 & 0.6 \\
-            $a_1$ & 0.5 & 0.3 & 0.7 & 0.5 \\
+            $v$ & 0.4 & 0.0 & 0.2 & 0.6 \\
+            $a_1$ & 0.5 & 0.1 & 0.6 & 0.5 \\
             $a_2$ & 0.3 & 0.6 & 0.0 & 0.0 \\
-            $d$ & 0.2 & 0.9 & 0.8 & 0.7 \\
+            $d$ & 0.2 & 0.4 & 1.0 & 0.7 \\
             $c$ & 0.0 & 0.7 & 0.0 & 1.0
         \end{tabular}
     \end{center}
@@ -536,11 +534,11 @@ function paramoji(v, a1, a2, d, c) {
   ,,,,-3],[,1,,-12,,,,,-1],[10,1,,11,-2],[,-2,,
   -11,,,,,-2],[14,1,,9,-1],[,-12,,-2,,-3,,6,-2]
   ,[,,,,,.4,,.15,-.25],[50,,,,,-12,,,6],[81,2,,
-  ,-2,-2,,,1],[59,2,1,,-6],[42,-8,-21,,12],[71,
-  2,3,,-5],[42,-11,-23,,3],[79,1,6,,-4],[42,-3,
-  -20,,-3],[2,-.5,1,,.5],[62,,-4,,-2],[35,-5,-
-  18,,7],[56,2,,,-3],[41,-7,-24,,9],[56,1,,,-1]
-  ,[43,-8,-22,,10],[,,,,,1,3,2]]
+  ,-2,-2,,,1],[59,2,1,,-6],[40,-8,-19,,12],[71,
+  2,3,,-5],[40,-11,-21,,3],[79,1,6,,-4],[40,-3,
+  -18,,-3],[2,-.5,1,,.5],[62,,-4,,-2],[33,-5,-
+  16,,7],[56,2,,,-3],[39,-7,-22,,9],[56,1,,,-1]
+  ,[41,-8,-20,,10],[,,,,,1,3,2]]
  const template='<svg width="100%" height="10'+
   '0%" viewBox="0 0 100 100"><defs><clipPath '+
   'id="c-eye-r"><use href="#eye-r"/></clipPat'+

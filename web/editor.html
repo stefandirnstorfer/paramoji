@@ -29,9 +29,15 @@
                             <input type="radio" name="model" value="a1a2" v-model="model"/>
                             a<sub>1</sub>a<sub>2</sub>
                         </label>
+                        &nbsp;
                         <label>
                             <input type="radio" name="model" value="ao" v-model="model"/>
                             ao
+                        </label>
+                        &nbsp;
+                        <label>
+                            <input type="radio" name="model" value="a2" v-model="model"/>
+                            a<sup>2</sup>
                         </label>
                     </td>
                 </tr>
@@ -66,6 +72,14 @@
                         <input class="slider" type="range" v-model="vstate.a" @input="updateVState()"/>
                     </td>
                     <td><span id="label-a">{{A}}</span></td>
+                </tr>
+                <tr v-show="model=='a2'">
+                    <td>Arousal</td>
+                    <td><button @click="vstate.a=50; updateVState()">&times;</button></td>
+                    <td>
+                        <input class="slider" type="range" v-model="a2state.a" @input="updateA2State()"/>
+                    </td>
+                    <td><span id="label-a2">{{Asup2}}</span></td>
                 </tr>
                 <tr>
                     <td>Dominance</td>
