@@ -169,7 +169,6 @@ button {
 @media (max-width: 800px) {
     .ekman-table {
         margin-left: 0;
-        grid-template-columns: repeat(2, min-content);
     }
     .onhover {
         width: 20vw !important;

@@ -4,6 +4,12 @@ mixin try-it
     a.button7(href='editor.html' style="background-color:coral")
       span(style="border-right:1px solid rgba(255,255,255,0.5); padding-right:0.3em; margin-right:0.3em;") &#x270E;
       | Try it out
+mixin clickable-face(param, name)
+  -var facelink='https://paramoji.org/paramoji.svg.php?' + param
+  -var editlink='editor.html?' + param
+  a.onhover(href=editlink)
+    img(src=facelink, alt=name)
+
 html(lang="en")
   head
     title Paramoji
@@ -44,27 +50,19 @@ html(lang="en")
       .table-head Happy
       .table-head Sad
       .table-head Surpriseed
-      a.onhover(href='editor.html?v=55&a1=35&a2=10&d=50&c=0')
-        img(src='https://paramoji.org/paramoji.svg.php?v=55&a1=35&a2=10&d=50&c=0' alt='Normal')
-      a.onhover(href='editor.html?&v=100&a1=21&a2=70&d=55&c=0')
-        img(src='https://paramoji.org/paramoji.svg.php?v=100&a1=21&a2=70&d=55&c=0' alt='Happy')
-      a.onhover(href='editor.html?v=3&a1=27&a2=0&d=13&c=0')
-        img(src='https://paramoji.org/paramoji.svg.php?v=3&a1=27&a2=0&d=13&c=0' alt='Sad')
-      a.onhover(href='editor.html?v=74&a1=90&a2=94&d=0&c=0')
-        img(src='https://paramoji.org/paramoji.svg.php?v=74&a1=90&a2=94&d=0&c=0' alt='Surprise')
+      +clickable-face('v=53&a1=35&a2=5&d=50&c=0', 'Normal')
+      +clickable-face('v=100&a1=21&a2=70&d=55&c=0', 'Happy')
+      +clickable-face('v=3&a1=27&a2=0&d=13&c=0', 'Sad')
+      +clickable-face('v=74&a1=90&a2=94&d=0&c=0', 'Surprise')
       div(style="grid-column:1/5;height:20px")
       .table-head Fearful
       .table-head Disgusted
       .table-head Angry
       .table-head Contemptuous
-      a.onhover(href='editor.html?v=31&a1=60&a2=40&d=0&c=0')
-        img(src='https://paramoji.org/paramoji.svg.php?v=31&a1=60&a2=40&d=0&c=0' alt='Fearful')
-      a.onhover(href='editor.html?v=0&a1=15&a2=64&d=41&c=70')
-        img(src='https://paramoji.org/paramoji.svg.php?v=0&a1=15&a2=64&d=41&c=70' alt='Disgusted')
-      a.onhover(href='editor.html?v=27&a1=56&a2=0&d=92&c=0')
-        img(src='https://paramoji.org/paramoji.svg.php?v=27&a1=56&a2=0&d=92&c=0' alt='Angry')
-      a.onhover(href='editor.html?v=60&a1=51&a2=0&d=69&c=100')
-        img(src='https://paramoji.org/paramoji.svg.php?v=60&a1=51&a2=0&d=69&c=100' alt='Contemptuous')
+      +clickable-face('v=31&a1=60&a2=40&d=0&c=0', 'Fearful')
+      +clickable-face('v=0&a1=15&a2=64&d=41&c=70', 'Disgusted')
+      +clickable-face('v=27&a1=56&a2=0&d=92&c=0', 'Angry')
+      +clickable-face('v=60&a1=51&a2=0&d=69&c=100', 'Contemptuous')
 
     h2.twocol#how-can-paramojis-be-mixed How can paramojis be mixed?
     p
@@ -150,6 +148,8 @@ html(lang="en")
           | is a 2D pictorial grid of emojis for the dimensions valence and arousal.
         li
           | <a href="https://process.studio/works/aimoji-ai-generated-emoji/">AImoji</a> are AI generated emoji.
+        li
+          | <a href="https://www.unige.ch/cisa/research/materials-and-online-research/facsgen/home/">FACSGen</a> - A facial expression generator tool based on the facial action coding system (FACS)
         li
           | <a href="https://www.semanticscholar.org/paper/Parametric-face-drawings%3A-A-demographically-diverse-Day-Davidenko/07c4a0dddf6903bb80b6f445185ecc9e58e978e9">Parametric
           | Face Drawings</a> is visualization technique for facial landmarks.
