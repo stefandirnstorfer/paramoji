@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "build": "vite build --base=/emoticons/ --emptyOutDir",
+    "build": "vite build --base=/crowdwork/ --emptyOutDir",
     "start": "vite --port 8081"
   },
   "keywords": [],

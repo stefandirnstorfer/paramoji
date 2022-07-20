@@ -1,59 +1,40 @@
 <template lang="pug">
-.emoticon.groundzero(ref="container" v-html="body()")
+.emoticon.topleft(:style="style")
+    div(v-if="state.label") {{ state.label }}
 </template>
 
 <script>
-import * as emo from './emoticon'
-
-var id_prefix= 0
 
 export default {
     props: [ 'state', 'color', 'size'],
-    methods: {
-        fixids(svg) {
-            id_prefix++
-            svg = svg
-                .replace(/href="#/g,"href=\"#id-"+id_prefix+"-")
-                .replace(/\(#/g,"(#id-"+id_prefix+"-")
-                .replace(/id="/g,"id=\"id-"+id_prefix+"-")
-            if (this.color) {
-                svg = svg.replace(/>/, '><circle cx="50" cy="50", r="50" fill="'+this.color+'"/>')
-            }
-            return svg
+    computed: {
+        imageUrl() {
+          if (this.state.code) {
+            return BASE_URL + '/emoticon-data/emoji/emoji_u' + this.state.code.toString(16);
+          } else {
+            const f = i => (100 * this.state[i]).toFixed(0);
+            return 'https://paramoji.org/paramoji.svg.php?' +
+                'v=' + f(0) + '&a1=' + f(1) + '&a2=' + f(2) + '&d=' + f(3) + '&c=' + f(4)
+          }
         },
-        body() {
-            if (this.state) {
-              if (this.state.label)
-                return '<div class="label '+ (this.size || '') +'">'
-                    + this.state.label + '</div>'
-              if (this.state.code)
-                return '<img class="emoji" src="' + BASE_URL + '/emoticon-data/emoji/emoji_u' + this.state.code.toString(16) + '.svg"/>';
-              if (Array.isArray(this.state)) {
-                return this.fixids(emo.paramoji_svg(this.state[0], this.state[1], this.state[2], this.state[3], this.state[4]))
-              } else
-                return this.fixids(emo.emoticon_svg(
-                    this.state.valence,
-                    this.state.arousal,
-                    this.state.potency,
-                    this.state.contempt
-                  ))
-            }
+        style() {
+            return 'background-image: url('+this.imageUrl+')';
         }
     }
 };
 </script>
 <style>
     .emoticon {
+        width: 100%;
         height: 100%;
-        overflow : hidden;
         text-align: center;
-        display: grid;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
     }
     .emoji {
-        width: 80%;
-        height: 80%;
         object-fit: contain;
-        place-items: center;
+        place-self: center;
     }
     .label {
         margin: auto;
@@ -65,7 +46,7 @@ export default {
     .label.small {
         font-size: 1rem;
     }
-    .groundzero {
+    .topleft {
         grid-column: 1;
         grid-row: 1;
     }

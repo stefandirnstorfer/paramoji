@@ -3,14 +3,14 @@
   .choice.p-1(v-for="(choice,index) in choices")
     emoticon-display.clickable(
       :state="clamp(choice)"
-      :color="index == selection ? 'lightsteelblue' : 'transparent'"
+      :class="{selected: selection==index}"
       @click="select(choice,index)")
   button.btn.recycle(@click="resample()")  &#x267B;
 
 </template>
 
 <script>
-import {randomStates, converge} from './sampler.js'
+import {randomStates} from './sampler.js'
 import EmoticonDisplay from './EmoticonDisplay.vue'
 
 export default {
@@ -41,7 +41,7 @@ export default {
       this.$emit('update:modelValue', {
         selection: index,
         iteration: this.iteration + (isChanged ? 1 : 0),
-        choices: converge(this.choices, index),
+        choices: this.choices,
         value: this.clamp(choice)
       })
       if (!isChanged && this.iteration > 1) this.$emit('complete')
@@ -66,6 +66,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
+  width: 100%;
 }
 .choice {
   height: 100%;
@@ -75,7 +76,11 @@ export default {
   cursor: pointer;
 }
 .clickable:hover {
+  background-color: ghostwhite;
+}
+.clickable.selected {
   background-color: lightsteelblue;
+  border-radius:200px;
 }
 .recycle.btn {
   place-self: center;

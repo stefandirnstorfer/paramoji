@@ -25,11 +25,11 @@ export default defineConfig({
     server: {
         proxy: {
             "/emoticon-data": {
-                target: "http://4d5166.online-server.cloud/",
+                target: "https://paramoji.org/",
                 changeOrigin: true,
             },
             "/api": {
-                target: "http://4d5166.online-server.cloud/",
+                target: "https://paramoji.org/",
                 secure: false,
                 changeOrigin: true,
             },

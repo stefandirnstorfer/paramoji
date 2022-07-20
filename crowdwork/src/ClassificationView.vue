@@ -3,7 +3,7 @@
     .at-work.main(v-if="mode=='EDIT' && currentTask")
         h3.title Find the matching emoji ({{currentIndex +1}}/{{work.items.length}})
         emotic-image.image.portrait(:item="currentTask")
-        paramoji-selector.control.portrait(v-model="currentTask.paramoji" @complete="next")
+        paramoji-selector.portrait(v-model="currentTask.paramoji" @complete="next")
         div.text-left.m-3
         div.text-right.m-3
             button.btn.btn-outline-primary.mr-1(@click="back" v-if="currentIndex>0 && !complete") Back
@@ -77,8 +77,6 @@ export default {
         }
         shuffleArray(this.work.items)
         this.edit(0)
-        if (!BASE_URL)
-          await axios.get(BASE_URL+'/api/ping').catch(() => { throw new Error("Server not available")})
     },
     methods: {
         select(index) {
@@ -113,6 +111,7 @@ export default {
             this.mode='EDIT'
         },
         async finish() {
+            for (let item of this.work.items) delete item.paramoji['choices']
             this.workConfirmation = await this.$root.saveWork(this.work)
             sessionStorage.removeItem(this.task.id)
             this.mode='FINISHED'

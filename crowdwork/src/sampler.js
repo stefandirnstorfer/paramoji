@@ -33,7 +33,7 @@ export function randomStates(n=15) {
         shuffleArray(plain)
         for (let i in states) {
             if (dim == 4) plain[i] = plain[i] * 2 - 1;
-            states[i].push(plain[i]);
+            states[i].push(Math.round(100 * plain[i]) / 100);
         }
     }
     return states;
@@ -47,30 +47,4 @@ export function choose(list, n, start=[]) {
     }
     shuffleArray(result)
     return result
-}
-
-export function converge(list, target) {
-    const mean=[]
-    for (var i=0; i<list[0].length; ++i) {
-        mean.push(0)
-        for (let j = 0; j < list.length; ++j) {
-            mean[i] += list[j][i]
-        }
-        mean[i] /= list.length
-    }
-    const newList = []
-    for (let j=0; j<list.length; ++j) {
-        if (j == target) {
-            newList.push(list[j])
-        } else {
-            const newItem = []
-            for (let i=0; i<5; ++i) {
-                let d = Math.min(1.0, Math.max(0.0, list[target][i]))
-                if (i != 4) d = d - mean[i]
-                newItem.push(list[j][i] + d/2)
-            }
-            newList.push(newItem)
-        }
-    }
-    return newList
 }

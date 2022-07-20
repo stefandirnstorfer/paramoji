@@ -29,7 +29,7 @@ const app = createApp({
             this.campaignId = m[1];
             this.workerId = m[2];
             this.taskId = m[3];
-            this.task = await (fetch(BASE_URL + "/emoticon-data/work-emotic.json").then(x => x.json()))
+            this.task = await (fetch(BASE_URL + "/emoticon-data/work.json").then(x => x.json()))
         }
     },
     methods: {
@@ -45,8 +45,8 @@ const app = createApp({
                 startTime: this.startTime,
                 endTime: Date.now()
             })
-            const response = await axios.post(BASE_URL + '/api', work)
-            return response.data.code;
+            const response = await axios.post(BASE_URL + '/api.php', work)
+            return response.data.vcode;
         }
     },
     components: {
