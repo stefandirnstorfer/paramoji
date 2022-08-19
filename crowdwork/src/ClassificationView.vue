@@ -3,7 +3,7 @@
     .at-work.main(v-if="mode=='EDIT' && currentTask")
         h3.title Find the matching emoji ({{currentIndex +1}}/{{work.items.length}})
         emotic-image.image.portrait(:item="currentTask")
-        paramoji-selector.portrait(v-model="currentTask.paramoji" @complete="next")
+        paramoji-selector.portrait(v-model="currentTask.paramoji")
         div.text-left.m-3
         div.text-right.m-3
             button.btn.btn-outline-primary.mr-1(@click="back" v-if="currentIndex>0 && !complete") Back
@@ -61,7 +61,7 @@ export default {
     },
     async created() {
         const data = this.task.data.slice()
-        const storedWork= sessionStorage.getItem(this.task.id)
+        const storedWork= null//sessionStorage.getItem(this.task.id)
         if (storedWork) {
             this.work.items = JSON.parse(storedWork);
         }

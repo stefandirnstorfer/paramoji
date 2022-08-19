@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import {randomStates} from './sampler.js'
+import {randomStates, converge} from './sampler.js'
 import EmoticonDisplay from './EmoticonDisplay.vue'
 
 export default {
@@ -32,19 +32,18 @@ export default {
       if (!nopropagate) {
         this.$emit('update:modelValue', {
           ...this.modelValue,
+          iteration: this.iteration + 1,
           choices: this.backupChoices,
         })
       }
     },
     select(choice, index) {
-      const isChanged = index != this.selection
       this.$emit('update:modelValue', {
         selection: index,
-        iteration: this.iteration + (isChanged ? 1 : 0),
-        choices: this.choices,
+        iteration: this.iteration + 1,
+        choices: converge(this.choices, index),
         value: this.clamp(choice)
       })
-      if (!isChanged && this.iteration > 1) this.$emit('complete')
     },
     clamp(state) {
       return state.map(x => Math.min(1.0, Math.max(0.0, x)))

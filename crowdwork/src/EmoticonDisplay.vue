@@ -1,24 +1,27 @@
 <template lang="pug">
-.emoticon.topleft(:style="style")
-    div(v-if="state.label") {{ state.label }}
+.emoticon
+    .label(v-if="state.label") {{ state.label }}
+    .emoji(v-if="state.code" :style="emoji_style")
+    .paramoji(v-if="Array.isArray(state)" v-html="paramoji")
 </template>
 
 <script>
-
+let id_prefix=0
 export default {
     props: [ 'state', 'color', 'size'],
     computed: {
-        imageUrl() {
-          if (this.state.code) {
-            return BASE_URL + '/emoticon-data/emoji/emoji_u' + this.state.code.toString(16);
-          } else {
-            const f = i => (100 * this.state[i]).toFixed(0);
-            return 'https://paramoji.org/paramoji.svg.php?' +
-                'v=' + f(0) + '&a1=' + f(1) + '&a2=' + f(2) + '&d=' + f(3) + '&c=' + f(4)
-          }
+        paramoji() {
+          let svg = paramoji_svg(this.state[0], this.state[1], this.state[2], this.state[3], this.state[4])
+          svg = svg
+              .replace(/href="#/g,"href=\"#id-"+id_prefix+"-")
+              .replace(/\(#/g,"(#id-"+id_prefix+"-")
+              .replace(/id="/g,"id=\"id-"+id_prefix+"-")
+          id_prefix += 1
+          return svg
         },
-        style() {
-            return 'background-image: url('+this.imageUrl+')';
+        emoji_style() {
+            const imageUrl= BASE_URL + '/emoticon-data/emoji/emoji_u' + this.state.code.toString(16);
+            return 'background-image: url('+imageUrl+')';
         }
     }
 };
@@ -28,13 +31,23 @@ export default {
         width: 100%;
         height: 100%;
         text-align: center;
+        display: grid;
+        overflow: hidden;
+    }
+    .emoji {
+        width:100%;
+        height: 100%;
         background-repeat: no-repeat;
         background-size: contain;
         background-position: center;
-    }
-    .emoji {
         object-fit: contain;
         place-self: center;
+    }
+    .paramoji {
+        display: grid;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
     }
     .label {
         margin: auto;
@@ -42,12 +55,5 @@ export default {
         font-size: 4rem;
         border: 2px solid black;
         padding: 5px 20px 5px 20px;
-    }
-    .label.small {
-        font-size: 1rem;
-    }
-    .topleft {
-        grid-column: 1;
-        grid-row: 1;
     }
 </style>

@@ -48,3 +48,31 @@ export function choose(list, n, start=[]) {
     shuffleArray(result)
     return result
 }
+
+export function converge(list, target) {
+    const mean=[]
+    for (var i=0; i<list[0].length; ++i) {
+        mean.push(0)
+        for (let j = 0; j < list.length; ++j) {
+            mean[i] += Math.min(1, Math.max(0, list[j][i]))
+        }
+        mean[i] /= list.length
+    }
+    const newList = []
+    for (let j=0; j<list.length; ++j) {
+        if (j == target) {
+            newList.push(list[j])
+        } else {
+            const newItem = []
+            for (let i=0; i<5; ++i) {
+                const f= 0.1 + 0.9
+                        * Math.random() * Math.max(0, 4 * (1-list[j][i]) * list[j][i])
+                        * (1 - 3 * Math.max(0, (1-list[target][i]) * list[target][i]))
+                const v = f * list[target][i] + (1-f) * list[j][i] +  0.5 * f * (list[target][i] - mean[i]);
+                newItem.push(v)
+            }
+            newList.push(newItem)
+        }
+    }
+    return newList
+}
