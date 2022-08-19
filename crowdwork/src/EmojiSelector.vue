@@ -2,15 +2,14 @@
 .paramoji-main
   .choice.p-1(v-for="(choice,index) in choices")
     emoticon-display.clickable(
-      :state="clamp(choice)"
+      :state="choice"
       :class="{selected: selection==index}"
       @click="select(choice,index)")
-  button.btn.recycle(@click="resample()")  &#x267B;
 
 </template>
 
 <script>
-import {randomStates, converge} from './sampler.js'
+import {randomEmojis} from './sampler.js'
 import EmoticonDisplay from './EmoticonDisplay.vue'
 
 export default {
@@ -25,7 +24,7 @@ export default {
   },
   methods: {
     resample(nopropagate) {
-      this.backupChoices = randomStates(15)
+      this.backupChoices = randomEmojis()
       if (this.selection)
         this.backupChoices[this.selection] = this.modelValue.value
       if (!nopropagate) {
@@ -40,12 +39,9 @@ export default {
       this.$emit('update:modelValue', {
         selection: index,
         iteration: this.iteration + 1,
-        choices: converge(this.choices, index),
-        value: this.clamp(choice)
+        choices: this.choices,
+        value: choice
       })
-    },
-    clamp(state) {
-      return state.map(x => Math.min(1.0, Math.max(0.0, x)))
     }
   },
   computed: {
@@ -62,8 +58,7 @@ export default {
 <style scoped>
 .paramoji-main {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, calc(3vh + 3vw));
   width: 100%;
 }
 .choice {
@@ -78,12 +73,6 @@ export default {
 }
 .clickable.selected {
   background-color: lightsteelblue;
-  border-radius:200px;
-}
-.recycle.btn {
-  place-self: center;
-  font-size: 40px;
-  margin-top: -1ex;
-  margin-bottom: -1ex;
+  border-radius:10px;
 }
 </style>

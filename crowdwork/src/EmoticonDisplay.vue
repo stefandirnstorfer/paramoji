@@ -20,7 +20,7 @@ export default {
           return svg
         },
         emoji_style() {
-            const imageUrl= BASE_URL + '/emoticon-data/emoji/emoji_u' + this.state.code.toString(16);
+            const imageUrl= BASE_URL + '/emoticon-data/emoji/emoji_u' + this.state.code.toString(16) + '.png';
             return 'background-image: url('+imageUrl+')';
         }
     }
@@ -52,7 +52,7 @@ export default {
     .label {
         margin: auto;
         place-items: center;
-        font-size: 4rem;
+        font-size: 2rem;
         border: 2px solid black;
         padding: 5px 20px 5px 20px;
     }

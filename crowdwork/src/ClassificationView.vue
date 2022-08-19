@@ -3,7 +3,9 @@
     .at-work.main(v-if="mode=='EDIT' && currentTask")
         h3.title Find the matching emoji ({{currentIndex +1}}/{{work.items.length}})
         emotic-image.image.portrait(:item="currentTask")
-        paramoji-selector.portrait(v-model="currentTask.paramoji")
+        paramoji-selector.portrait(v-if="group==0" v-model="currentTask.paramoji")
+        emoji-selector.portrait(v-if="group==1" v-model="currentTask.paramoji")
+        label-selector.portrait(v-if="group==2" v-model="currentTask.paramoji")
         div.text-left.m-3
         div.text-right.m-3
             button.btn.btn-outline-primary.mr-1(@click="back" v-if="currentIndex>0 && !complete") Back
@@ -36,6 +38,8 @@
 <script>
 import axios from 'axios'
 import EmoticonDisplay from './EmoticonDisplay.vue'
+import EmojiSelector from "./EmojiSelector.vue";
+import LabelSelector from "./LabelSelector.vue";
 import ParamojiSelector from "./ParamojiSelector.vue";
 import EmoticImage from "./EmoticImage.vue";
 import {randomStates, shuffleArray} from './sampler.js'
@@ -43,7 +47,7 @@ import {randomStates, shuffleArray} from './sampler.js'
 const TASK_LEN= 20;
 
 export default {
-    props: ['task', 'ab'],
+    props: ['task', 'group'],
     data() {
         return {
             currentTask: null,
@@ -137,6 +141,8 @@ export default {
     },
     components: {
         'emoticon-display' : EmoticonDisplay,
+        'label-selector' : LabelSelector,
+        'emoji-selector' : EmojiSelector,
         'paramoji-selector' : ParamojiSelector,
         'emotic-image' : EmoticImage
     }

@@ -11,13 +11,14 @@ function hashCode(s) {
 const app = createApp({
     template: '<div>' +
         '<error-dialog v-model:error="error"></error-dialog>'+
-        '<classification-view v-if="task.id" :task="task"></classification-view>' +
+        '<classification-view v-if="task.id" :task="task" :group="group"></classification-view>' +
         '</div>',
     data() { return {
         error: "",
         campaignId: "",
         workerId: "",
         taskId: "",
+        group: "",
         task: {},
         startTime: Date.now()
     }},
@@ -29,6 +30,7 @@ const app = createApp({
             this.campaignId = m[1];
             this.workerId = m[2];
             this.taskId = m[3];
+            this.group = hashCode(this.workerId) % 3
             this.task = await (fetch(BASE_URL + "/emoticon-data/work.json").then(x => x.json()))
         }
     },
@@ -41,6 +43,7 @@ const app = createApp({
                 campaignId: this.campaignId,
                 workerId: this.workerId,
                 taskId: this.taskId,
+                group: ['A','B','C'][this.group],
                 workName: this.task.id,
                 startTime: this.startTime,
                 endTime: Date.now()

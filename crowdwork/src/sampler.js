@@ -14,6 +14,8 @@ const EMOJI=[0x1F600, 0x1F601, 0x1F602, 0x1F923, 0x1F603,
     0x1F92A, 0x1F635, 0x1F621, 0x1F620,
     0x1F922, 0x1F92E];
 
+const labels = ['happiness', 'fear', 'sadness', 'normal', 'surprise', 'anger', 'contempt', 'disgust']
+
 export function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
@@ -22,6 +24,14 @@ export function shuffleArray(array) {
         array[j] = temp;
     }
     return array
+}
+
+export function randomEmojis() {
+    return shuffleArray(EMOJI.map(x => ({code : x})))
+}
+
+export function randomLabels() {
+    return shuffleArray(labels.map(x => ({label : x})))
 }
 
 export function randomStates(n=15) {

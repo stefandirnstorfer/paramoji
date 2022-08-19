@@ -1,6 +1,5 @@
 <template lang="pug">
 svg(width="100%" height="100%" viewBox="-2 -2 404 404")
-    text(y=20) url ={{ url }}
     image(:width="width" :height="height" :href="url" :preserveAspectRatio="aspectRatio")
     rect(v-if="item.X_min" :x="item.X_min" :y="item.Y_min"
          :width="(item.X_max - item.X_min)"

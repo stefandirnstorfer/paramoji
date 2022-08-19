@@ -10,6 +10,7 @@ const rootDir = path.join(process.cwd(), "src")
 export default defineConfig({
     plugins: [vue()],
     root: rootDir,
+    base: "/crowdwork",
     define: {
         BASE_URL: JSON.stringify(process.env.BASE_URL || "")
     },
