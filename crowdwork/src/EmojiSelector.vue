@@ -58,7 +58,7 @@ export default {
 <style scoped>
 .paramoji-main {
   display: grid;
-  grid-template-columns: repeat(auto-fill, calc(3vh + 3vw));
+  grid-template-columns: repeat(auto-fill, calc(8px + 3vh + 3vw));
   width: 100%;
 }
 .choice {

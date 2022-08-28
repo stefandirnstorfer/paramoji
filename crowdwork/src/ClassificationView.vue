@@ -1,7 +1,7 @@
 <template lang="pug">
 .root()
     .at-work.main(v-if="mode=='EDIT' && currentTask")
-        h3.title Find the matching emoji ({{currentIndex +1}}/{{work.items.length}})
+        h3.title Find the matching emotion ({{currentIndex +1}}/{{work.items.length}})
         emotic-image.image.portrait(:item="currentTask")
         paramoji-selector.portrait(v-if="group==0" v-model="currentTask.paramoji")
         emoji-selector.portrait(v-if="group==1" v-model="currentTask.paramoji")
@@ -11,27 +11,11 @@
             button.btn.btn-outline-primary.mr-1(@click="back" v-if="currentIndex>0 && !complete") Back
             button.btn.btn-primary(@click="next" v-if="stepComplete") Continue
             button.btn.btn-secondary.disabled(v-if="!stepComplete") Continue
-    .final-check.main(v-if="mode=='CHECK'")
-        h2.title Final check
-        .big-view.work-list
-            .work-check(v-for="(task,i) in work.items" @click="edit(i)")
-                emotic-image.image.btn(:item="task")
-                emoticon-display.btn(:state="task.paramoji.value")
-        div.text-left.m-3
-            label.ml-3
-                input.form-check-input(type="checkbox" v-model="finalCheck")
-                | I've checked all emotions
-        div.text-right.m-1
-            button.btn.btn-primary(@click="finish" v-if="finalCheck") Finish
-            button.btn.btn-secondary.disabled(v-if="!finalCheck") Finish
     .finished(v-if="mode=='FINISHED'")
         h2.title Complete
-        .big-view
-            div.text-center
-                emoticon-display(style="height:20vh; overflow:hidden" :state="[.9,.3,1.0,.6,0]")
-            .card.big-view
-                .card-header.bg-primary.text-white Thank you for completing your work.
-                .card-body.display-4.mwcode {{ workConfirmation }}
+        .card.big-view
+            .card-header.bg-primary.text-white Thank you for completing your task.
+            .card-body.display-4.mwcode {{ workConfirmation }}
 
 </template>
 
@@ -64,22 +48,22 @@ export default {
         }
     },
     async created() {
-        const data = this.task.data.slice()
-        const storedWork= null//sessionStorage.getItem(this.task.id)
+        const storedWork= sessionStorage.getItem(this.group + this.task.id)
         if (storedWork) {
-            this.work.items = JSON.parse(storedWork);
-        }
-        shuffleArray(data)
-        data.sort((b,a) => (a.published?0:1) - (b.published?0:1))
-        while (this.work.items.length < TASK_LEN) {
+          this.work.items = JSON.parse(storedWork);
+        } else {
+          const data = this.task.data.slice()
+          shuffleArray(data)
+          data.sort((b,a) => (a.published?0:1) - (b.published?0:1))
+          while (this.work.items.length < TASK_LEN) {
             const entry = data.pop()
             this.work.items.push({
-                ...entry,
-                paramoji: {},
-                startTime: 0
+              ...entry,
+              paramoji: {},
+              startTime: 0
             });
+          }
         }
-        shuffleArray(this.work.items)
         this.edit(0)
     },
     methods: {
@@ -97,7 +81,7 @@ export default {
             this.currentTask.choices = this.currentChoices
         },
         next() {
-            sessionStorage.setItem(this.task.id, JSON.stringify(this.work.items))
+            sessionStorage.setItem(this.group + this.task.id, JSON.stringify(this.work.items))
             if (this.complete) {
                 this.currentIndex= this.work.items.length
             } else {
@@ -117,7 +101,7 @@ export default {
         async finish() {
             for (let item of this.work.items) delete item.paramoji['choices']
             this.workConfirmation = await this.$root.saveWork(this.work)
-            sessionStorage.removeItem(this.task.id)
+            sessionStorage.removeItem(this.group + this.task.id)
             this.mode='FINISHED'
         }
     },
@@ -125,7 +109,7 @@ export default {
         stepComplete() { return this.currentTask.paramoji.iteration }
     },
     watch: {
-        currentIndex(value, old) {
+        async currentIndex(value, old) {
             if (this.currentTask) {
                 this.currentTask.endTime= Date.now()
             }
@@ -135,7 +119,7 @@ export default {
                     this.currentTask.startTime = Date.now()
                 }
             } else {
-                this.mode="CHECK"
+                await this.finish()
             }
         }
     },
@@ -198,7 +182,7 @@ export default {
     grid-row: 2 / 4;
     display: grid;
     overflow-y: auto;
-    padding: 3ex;
+    margin: 3ex;
 }
 
 .work-list {

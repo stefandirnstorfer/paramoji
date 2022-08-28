@@ -1,10 +1,11 @@
 <template lang="pug">
 .paramoji-main
-  .choice.p-1(v-for="(choice,index) in choices")
-    emoticon-display.clickable(
-      :state="choice"
-      :class="{selected: selection==index}"
-      @click="select(choice,index)")
+  .floaty
+    .choice.p-1(v-for="(choice,index) in choices")
+      emoticon-display.clickable(
+        :state="choice"
+        :class="{selected: selection==index}"
+        @click="select(choice,index)")
 
 </template>
 
@@ -57,6 +58,10 @@ export default {
 
 <style scoped>
 .paramoji-main {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+
 }
 .choice {
   float: left;

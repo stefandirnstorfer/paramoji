@@ -52,7 +52,7 @@ export default {
     .label {
         margin: auto;
         place-items: center;
-        font-size: 2rem;
+        font-size: calc(1rem + 2vh);
         border: 2px solid black;
         padding: 5px 20px 5px 20px;
     }
