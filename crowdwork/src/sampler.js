@@ -59,14 +59,10 @@ export function choose(list, n, start=[]) {
     return result
 }
 
-export function converge(list, target) {
-    const mean=[]
-    for (var i=0; i<list[0].length; ++i) {
-        mean.push(0)
-        for (let j = 0; j < list.length; ++j) {
-            mean[i] += Math.min(1, Math.max(0, list[j][i]))
-        }
-        mean[i] /= list.length
+export function converge(list, target, old) {
+    let mean=list[target]
+    if (old != undefined) {
+       mean = list[old]
     }
     const newList = []
     for (let j=0; j<list.length; ++j) {

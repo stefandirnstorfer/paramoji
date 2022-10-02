@@ -1,31 +1,33 @@
 <template lang="pug">
 .root()
     .at-work.main(v-if="mode=='EDIT' && currentTask")
-        h3.title Matching the emotion ({{currentIndex +1}}/{{work.items.length}})
-        emotic-image.image.portrait(:item="currentTask")
-        paramoji-selector.portrait(v-if="group==0" v-model="currentTask.paramoji")
-        emoji-selector.portrait(v-if="group==1" v-model="currentTask.paramoji")
-        label-selector.portrait(v-if="group==2" v-model="currentTask.paramoji")
+        h2.title Which face matches the emoticon? ({{currentIndex +1}}/{{work.items.length}})
+        div.image.portrait
+          emoticon-display(:state="currentTask.emotion" color="none")
+        div.controls.portrait
+            .choice.image(v-for="(choice,index) in currentTask.choices"
+                :class="{selected : currentTask.selected == index}"
+                @click="select(index)"
+                :style="image(choice)")
         div.text-left.m-3
-        div.text-right.m-3
+        div.text-right.m-2
             button.btn.btn-outline-primary.mr-1(@click="back" v-if="currentIndex>0 && !complete") Back
-            button.btn.btn-primary(@click="next" v-if="stepComplete") Continue
-            button.btn.btn-secondary.disabled(v-if="!stepComplete") Continue
+            button.btn.btn-primary(@click="next" v-if="currentTask.selected >= 0") Continue
+            button.btn.btn-secondary.disabled(v-if="currentTask.selected < 0") Continue
     .finished(v-if="mode=='FINISHED'")
         h2.title Complete
-        .card.big-view
-            .card-header.bg-primary.text-white Thank you for completing your task.
-            .card-body.display-4.mwcode {{ workConfirmation }}
-
+        .big-view
+            div.final-smile
+                emoticon-display(style="height:20vh; overflow:hidden" :state="{valence: 90, arousal:20, potency: 60, contempt: 0, expression:30}" color="none")
+                emoticon-display.mt-3(style="height:20vh; overflow:hidden" :state="{code:'1f642'}" color="none")
+            .card.big-view
+                .card-header.bg-success.text-white Thank you for completing your work.
+                .card-body.display-4.mwcode {{ workConfirmation }}
 </template>
 
 <script>
 import axios from 'axios'
 import EmoticonDisplay from './EmoticonDisplay.vue'
-import EmojiSelector from "./EmojiSelector.vue";
-import LabelSelector from "./LabelSelector.vue";
-import ParamojiSelector from "./ParamojiSelector.vue";
-import EmoticImage from "./EmoticImage.vue";
 import {randomStates, shuffleArray} from './sampler.js'
 
 const TASK_LEN= 20;
@@ -39,7 +41,6 @@ export default {
             currentIndex: -1,
             work: {
                 items: [],
-                version: 2,
             },
             workConfirmation: "Waiting for server",
             complete: false,
@@ -48,25 +49,33 @@ export default {
         }
     },
     async created() {
-        const storedWork= sessionStorage.getItem(this.group + this.task.id)
+        const storedWork= sessionStorage.getItem(this.task.id)
         if (storedWork) {
-          this.work.items = JSON.parse(storedWork);
-        } else {
-          const data = this.task.data.slice()
-          shuffleArray(data)
-          data.sort((b,a) => (a.published?0:1) - (b.published?0:1))
-          while (this.work.items.length < TASK_LEN) {
-            const entry = data.pop()
+            this.work.items = JSON.parse(storedWork);
+        }
+        this.currentChoices = randomStates(this.$root.AB)
+        shuffleArray(this.work.items)
+        while (this.work.items.length < TASK_LEN) {
+            const entry= this.task.data.pop()
+            const batch= 0//Math.floor(Math.random() * entry.decoy_sets.length)
+            shuffleArray(entry.decoy_sets[batch])
             this.work.items.push({
-              ...entry,
-              paramoji: {},
-              startTime: 0
+                file: entry.file,
+                batch,
+                emotion: entry[this.ab],
+                choices: entry.decoy_sets[batch],
+                selected: -1,
+                startTime: 0
             });
-          }
         }
         this.edit(0)
+        if (!BASE_URL)
+          await axios.get(BASE_URL+'/api/ping').catch(() => { throw new Error("Server not available")})
     },
     methods: {
+        image(entry) {
+            return {'background-image': `url(${BASE_URL+"/emoticon-data/"+entry.file})`}
+        },
         select(index) {
             if (this.currentTask.selected == index) {
                 this.next()
@@ -74,14 +83,8 @@ export default {
                 this.currentTask.selected = index
             }
         },
-        resample() {
-            this.currentTask.selected = -1
-            this.currentTask.sample += 1
-            this.currentChoices = randomStates(this.$root.AB)
-            this.currentTask.choices = this.currentChoices
-        },
         next() {
-            sessionStorage.setItem(this.group + this.task.id, JSON.stringify(this.work.items))
+            sessionStorage.setItem(this.task.id, JSON.stringify(this.work.items))
             if (this.complete) {
                 this.currentIndex= this.work.items.length
             } else {
@@ -99,14 +102,10 @@ export default {
             this.mode='EDIT'
         },
         async finish() {
-            for (let item of this.work.items) delete item.paramoji['choices']
             this.workConfirmation = await this.$root.saveWork(this.work)
-            sessionStorage.removeItem(this.group + this.task.id)
+            sessionStorage.removeItem(this.task.id)
             this.mode='FINISHED'
         }
-    },
-    computed: {
-        stepComplete() { return this.currentTask.paramoji.iteration }
     },
     watch: {
         async currentIndex(value, old) {
@@ -115,20 +114,16 @@ export default {
             }
             if (value < TASK_LEN) {
                 this.currentTask = this.work.items[this.currentIndex]
-                if (!this.currentTask.startTime) {
+                if (this.currentTask.selected == -1) {
                     this.currentTask.startTime = Date.now()
                 }
             } else {
-                await this.finish()
+                await finish()
             }
         }
     },
     components: {
-        'emoticon-display' : EmoticonDisplay,
-        'label-selector' : LabelSelector,
-        'emoji-selector' : EmojiSelector,
-        'paramoji-selector' : ParamojiSelector,
-        'emotic-image' : EmoticImage
+        'emoticon-display' : EmoticonDisplay
     }
 };
 </script>
@@ -139,7 +134,7 @@ export default {
   color: #2c3e50;
   height: 100vh;
   display: grid;
-  grid-template-rows: min-content 1fr 1.1fr min-content;
+  grid-template-rows: min-content 1fr 1fr min-content;
   grid-template-columns: 1fr 1fr;
   overflow: hidden;
   justify-items: center;
@@ -154,16 +149,30 @@ export default {
 
 .controls {
     width: 100%;
-    margin: 10px;
+    padding: 0 10px 0 0;
     overflow-y: hidden;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-gap: 10px;
 }
 .selected {
     background-color: lightsteelblue;
+    border: 3px solid darkblue;
+}
+.choice {
+    height: 100%;
+    overflow: hidden;
+}
+.recycle.btn {
+  place-self: center;
+  font-size: 40px;
 }
 
 .image {
     width:100%;
     height:100%;
+    max-width: 500px;
     overflow: hidden;
     text-align: center;
     background-repeat: no-repeat;
@@ -182,7 +191,7 @@ export default {
     grid-row: 2 / 4;
     display: grid;
     overflow-y: auto;
-    margin: 3ex;
+    padding: 3ex;
 }
 
 .work-list {
@@ -204,15 +213,20 @@ export default {
     background-color: gainsboro;
 }
 @media (orientation: portrait) {
-    .portrait {
-      grid-column: 1/3;
-      min-height: 15%
-    }
+    .portrait { grid-column: 1/3 }
 }
 @media (orientation: landscape) {
     .portrait { grid-row: 2/4 }
 }
 .mwcode {
   overflow-wrap: anywhere
+}
+.final-smile {
+    display:grid;
+    grid-auto-flow: column;
+    width:100%;
+    align-content: end;
+    justify-content: space-between;
+    grid-column: 1/3;
 }
 </style>

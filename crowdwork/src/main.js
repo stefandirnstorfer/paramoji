@@ -1,17 +1,18 @@
 import { createApp } from "vue"
 import ErrorDialog from "./ErrorDialog.vue";
 import ClassificationView from "./ClassificationView.vue"
+import RecognitionView from "./RecognitionView.vue";
 import axios from "axios";
 
 function hashCode(s) {
     return s.split('').reduce((a,b) => (((a << 5) - a) + b.charCodeAt(0))|0, 0);
 }
 
-
 const app = createApp({
     template: '<div>' +
-        '<error-dialog v-model:error="error"></error-dialog>'+
-        '<classification-view v-if="task.id" :task="task" :group="group"></classification-view>' +
+        '<error-dialog v-model:error="error"></error-dialog>' +
+        '<classification-view v-if="direction==\'encode\'" :task="task" :group="group"></classification-view>' +
+        '<recognition-view v-if="direction==\'decode\'" :task="task" :group="group"></recognition-view>' +
         '</div>',
     data() { return {
         error: "",
@@ -19,20 +20,25 @@ const app = createApp({
         workerId: "",
         taskId: "",
         group: "",
+        direction: "",
         task: {},
         startTime: Date.now()
     }},
     async created() {
-        const m = window.location.search.match(/^\?CAMPID=(.*)&WORKERID=(.*)&TASKID=(.*)/)
-        if (!m || m.length < 4) {
-            this.error = "Worker and campaign id not found"
-        } else {
-            this.campaignId = m[1];
-            this.workerId = m[2];
-            this.taskId = m[3];
-            this.group = hashCode(this.workerId) % 3
-            this.task = await (fetch(BASE_URL + "/emoticon-data/work.json").then(x => x.json()))
+        const getParam = (key, val) => {
+            const m=window.location.search.match(new RegExp("[?&]"+key+"=([^&]*)"))
+            if (!m) {
+                if (val === undefined) { throw new Error("Missing url param " + key) } else return val
+            }
+            return m[1]
         }
+        this.campaignId = getParam("CAMPID");
+        this.workerId = getParam("WORKERID");
+        this.taskId = getParam("TASKID");
+        this.group = (hashCode(this.workerId) % 3 + 3) % 3
+        const direction = getParam("DIRECTION", "encode")
+        this.task = await (fetch(BASE_URL + "/emoticon-data/work-" + direction +".json").then(x => x.json()))
+        this.direction = direction
     },
     methods: {
         showError(error) {
@@ -44,6 +50,7 @@ const app = createApp({
                 workerId: this.workerId,
                 taskId: this.taskId,
                 group: ['A','B','C'][this.group],
+                direction: this.direction,
                 workName: this.task.id,
                 startTime: this.startTime,
                 endTime: Date.now()
@@ -55,6 +62,7 @@ const app = createApp({
     components: {
         'error-dialog' : ErrorDialog,
         'classification-view': ClassificationView,
+        'recognition-view': RecognitionView
     }
 });
 app.mount('#app')

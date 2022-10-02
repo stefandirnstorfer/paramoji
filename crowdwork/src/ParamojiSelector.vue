@@ -40,7 +40,7 @@ export default {
       this.$emit('update:modelValue', {
         selection: index,
         iteration: this.iteration + 1,
-        choices: converge(this.choices, index),
+        choices: converge(this.choices, index, this.modelValue.selection),
         value: this.clamp(choice)
       })
     },
