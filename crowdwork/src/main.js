@@ -2,6 +2,7 @@ import { createApp } from "vue"
 import ErrorDialog from "./ErrorDialog.vue";
 import ClassificationView from "./ClassificationView.vue"
 import RecognitionView from "./RecognitionView.vue";
+import FinishedView from "./FinishedView.vue";
 import axios from "axios";
 
 function hashCode(s) {
@@ -13,6 +14,7 @@ const app = createApp({
         '<error-dialog v-model:error="error"></error-dialog>' +
         '<classification-view v-if="direction==\'encode\'" :task="task" :group="group"></classification-view>' +
         '<recognition-view v-if="direction==\'decode\'" :task="task" :group="group"></recognition-view>' +
+        '<finished-view v-if="direction==\'finished\'" :vcode="vcode"></finished-view>' +
         '</div>',
     data() { return {
         error: "",
@@ -22,6 +24,7 @@ const app = createApp({
         group: "",
         direction: "",
         task: {},
+        vcode: "",
         startTime: Date.now()
     }},
     async created() {
@@ -36,7 +39,7 @@ const app = createApp({
         this.workerId = getParam("WORKERID");
         this.taskId = getParam("TASKID");
         this.group = (hashCode(this.workerId) % 3 + 3) % 3
-        const direction = getParam("DIRECTION", "encode")
+        const direction = getParam("DIRECTION", "decode")
         this.task = await (fetch(BASE_URL + "/emoticon-data/work-" + direction +".json").then(x => x.json()))
         this.direction = direction
     },
@@ -55,14 +58,16 @@ const app = createApp({
                 startTime: this.startTime,
                 endTime: Date.now()
             })
+            this.direction="finished"
             const response = await axios.post(BASE_URL + '/api.php', work)
-            return response.data.vcode;
+            this.vcode =  response.data.vcode;
         }
     },
     components: {
         'error-dialog' : ErrorDialog,
         'classification-view': ClassificationView,
-        'recognition-view': RecognitionView
+        'recognition-view': RecognitionView,
+        'finished-view': FinishedView,
     }
 });
 app.mount('#app')

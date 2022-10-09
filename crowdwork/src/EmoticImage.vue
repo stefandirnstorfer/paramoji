@@ -9,7 +9,7 @@ svg(width="100%" height="100%" viewBox="-2 -2 404 404")
 
 <script>
 export default {
-  props: ['item'],
+  props: ['item', 'strokeScale'],
   data() {
     return {
       rect: true,
@@ -39,10 +39,11 @@ export default {
   },
   computed: {
     strokewidth() {
+      const scale = this.strokeScale || 1
       if (this.rect)
-        return this.item.Height / 150
+        return scale * this.item.Height / 150
       else
-        return (this.item.Y_max - this.item.Y_min) / 100
+        return scale * (this.item.Y_max - this.item.Y_min) / 100
     },
     width() { return this.item.Width || 100 },
     height() { return this.item.Height || 100 },

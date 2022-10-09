@@ -1,6 +1,6 @@
 <template lang="pug">
 .root()
-    .at-work.main(v-if="mode=='EDIT' && currentTask")
+    .at-work.main(v-if="currentTask")
         h3.title Matching the emotion ({{currentIndex +1}}/{{work.items.length}})
         emotic-image.image.portrait(:item="currentTask")
         paramoji-selector.portrait(v-if="group==0" v-model="currentTask.paramoji")
@@ -11,12 +11,6 @@
             button.btn.btn-outline-primary.mr-1(@click="back" v-if="currentIndex>0 && !complete") Back
             button.btn.btn-primary(@click="next" v-if="stepComplete") Continue
             button.btn.btn-secondary.disabled(v-if="!stepComplete") Continue
-    .finished(v-if="mode=='FINISHED'")
-        h2.title Complete
-        .card.big-view
-            .card-header.bg-primary.text-white Thank you for completing your task.
-            .card-body.display-4.mwcode {{ workConfirmation }}
-
 </template>
 
 <script>
@@ -41,10 +35,8 @@ export default {
                 items: [],
                 version: 2,
             },
-            workConfirmation: "Waiting for server",
             complete: false,
             finalCheck: false,
-            mode: "EDIT"
         }
     },
     async created() {
@@ -96,13 +88,11 @@ export default {
         },
         edit(i) {
             this.currentIndex= i
-            this.mode='EDIT'
         },
         async finish() {
             for (let item of this.work.items) delete item.paramoji['choices']
-            this.workConfirmation = await this.$root.saveWork(this.work)
+            await this.$root.saveWork(this.work)
             sessionStorage.removeItem(this.group + this.task.id)
-            this.mode='FINISHED'
         }
     },
     computed: {
@@ -211,8 +201,5 @@ export default {
 }
 @media (orientation: landscape) {
     .portrait { grid-row: 2/4 }
-}
-.mwcode {
-  overflow-wrap: anywhere
 }
 </style>

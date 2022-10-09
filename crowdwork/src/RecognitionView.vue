@@ -1,33 +1,28 @@
 <template lang="pug">
 .root()
-    .at-work.main(v-if="mode=='EDIT' && currentTask")
+    .at-work.main(v-if="currentTask")
         h2.title Which face matches the emoticon? ({{currentIndex +1}}/{{work.items.length}})
         div.image.portrait
-          emoticon-display(:state="currentTask.emotion" color="none")
+            emoticon-display(:state="currentTask.emotion" color="none")
         div.controls.portrait
-            .choice.image(v-for="(choice,index) in currentTask.choices"
-                :class="{selected : currentTask.selected == index}"
+            emotic-image.choice(
+                v-for="(choice,index) in currentTask.choices"
+                :item="task.images[choice]"
+                :strokeScale="1.5"
                 @click="select(index)"
-                :style="image(choice)")
+                :class="{selected : currentTask.selected == index}"
+                )
         div.text-left.m-3
         div.text-right.m-2
             button.btn.btn-outline-primary.mr-1(@click="back" v-if="currentIndex>0 && !complete") Back
             button.btn.btn-primary(@click="next" v-if="currentTask.selected >= 0") Continue
             button.btn.btn-secondary.disabled(v-if="currentTask.selected < 0") Continue
-    .finished(v-if="mode=='FINISHED'")
-        h2.title Complete
-        .big-view
-            div.final-smile
-                emoticon-display(style="height:20vh; overflow:hidden" :state="{valence: 90, arousal:20, potency: 60, contempt: 0, expression:30}" color="none")
-                emoticon-display.mt-3(style="height:20vh; overflow:hidden" :state="{code:'1f642'}" color="none")
-            .card.big-view
-                .card-header.bg-success.text-white Thank you for completing your work.
-                .card-body.display-4.mwcode {{ workConfirmation }}
 </template>
 
 <script>
 import axios from 'axios'
 import EmoticonDisplay from './EmoticonDisplay.vue'
+import EmoticImage from "./EmoticImage.vue";
 import {randomStates, shuffleArray} from './sampler.js'
 
 const TASK_LEN= 20;
@@ -42,10 +37,8 @@ export default {
             work: {
                 items: [],
             },
-            workConfirmation: "Waiting for server",
             complete: false,
             finalCheck: false,
-            mode: "EDIT"
         }
     },
     async created() {
@@ -53,28 +46,36 @@ export default {
         if (storedWork) {
             this.work.items = JSON.parse(storedWork);
         }
-        this.currentChoices = randomStates(this.$root.AB)
-        shuffleArray(this.work.items)
+        //this.task.items = this.task.items.filter(x => x.group == ['A','B','C'][this.group])
+        shuffleArray(this.task.items)
         while (this.work.items.length < TASK_LEN) {
-            const entry= this.task.data.pop()
-            const batch= 0//Math.floor(Math.random() * entry.decoy_sets.length)
-            shuffleArray(entry.decoy_sets[batch])
+            const entry= this.task.items.pop()
+            const batch= [entry.image]
+            const images = Object.keys(this.task.images)
+            while (batch.length < 4) {                
+                const i = Math.floor(Math.random() * images.length)
+                if (!batch.includes(images[i]))
+                    batch.push(images[i])
+            }
+            shuffleArray(batch)
+            let emotion
+            if (entry.group == 'A') emotion = entry.paramoji
+            if (entry.group == 'B') emotion = {"code": entry.emoji}
+            if (entry.group == 'C') emotion = {"label": entry.label}
             this.work.items.push({
-                file: entry.file,
-                batch,
-                emotion: entry[this.ab],
-                choices: entry.decoy_sets[batch],
+                image: entry.image,
+                choices: batch,
+                emotion: emotion,
                 selected: -1,
                 startTime: 0
             });
         }
         this.edit(0)
-        if (!BASE_URL)
-          await axios.get(BASE_URL+'/api/ping').catch(() => { throw new Error("Server not available")})
     },
     methods: {
         image(entry) {
-            return {'background-image': `url(${BASE_URL+"/emoticon-data/"+entry.file})`}
+            const image = this.task.images[entry]
+            return {'background-image': `url(${BASE_URL+"/emoticon-data/"+image.file})`}
         },
         select(index) {
             if (this.currentTask.selected == index) {
@@ -99,12 +100,10 @@ export default {
         },
         edit(i) {
             this.currentIndex= i
-            this.mode='EDIT'
         },
         async finish() {
-            this.workConfirmation = await this.$root.saveWork(this.work)
+            await this.$root.saveWork(this.work)
             sessionStorage.removeItem(this.task.id)
-            this.mode='FINISHED'
         }
     },
     watch: {
@@ -118,12 +117,13 @@ export default {
                     this.currentTask.startTime = Date.now()
                 }
             } else {
-                await finish()
+                await this.finish()
             }
         }
     },
     components: {
-        'emoticon-display' : EmoticonDisplay
+        'emoticon-display' : EmoticonDisplay,
+        'emotic-image' : EmoticImage
     }
 };
 </script>
@@ -134,8 +134,8 @@ export default {
   color: #2c3e50;
   height: 100vh;
   display: grid;
-  grid-template-rows: min-content 1fr 1fr min-content;
-  grid-template-columns: 1fr 1fr;
+  grid-template-rows: min-content 1fr 2fr min-content;
+  grid-template-columns: 1fr 2fr;
   overflow: hidden;
   justify-items: center;
 }
@@ -152,21 +152,13 @@ export default {
     padding: 0 10px 0 0;
     overflow-y: hidden;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     grid-gap: 10px;
 }
 .selected {
     background-color: lightsteelblue;
     border: 3px solid darkblue;
-}
-.choice {
-    height: 100%;
-    overflow: hidden;
-}
-.recycle.btn {
-  place-self: center;
-  font-size: 40px;
 }
 
 .image {
@@ -186,29 +178,7 @@ export default {
 .text-right {
     justify-self: end;
 }
-.big-view {
-    grid-column: 1 / 3;
-    grid-row: 2 / 4;
-    display: grid;
-    overflow-y: auto;
-    padding: 3ex;
-}
 
-.work-list {
-    width: 100%;
-    grid-template-columns: repeat(auto-fill, 330px);
-    justify-content: start;
-}
-
-.work-check {
-    width: 300px;
-    height: 150px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin: 1em;
-    padding: 1ex;
-    border: 1px solid black;
-}
 .work-check:hover {
     background-color: gainsboro;
 }
@@ -217,16 +187,5 @@ export default {
 }
 @media (orientation: landscape) {
     .portrait { grid-row: 2/4 }
-}
-.mwcode {
-  overflow-wrap: anywhere
-}
-.final-smile {
-    display:grid;
-    grid-auto-flow: column;
-    width:100%;
-    align-content: end;
-    justify-content: space-between;
-    grid-column: 1/3;
 }
 </style>

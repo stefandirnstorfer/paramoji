@@ -29,7 +29,7 @@ export default defineConfig({
                 target: "https://paramoji.org/",
                 changeOrigin: true,
             },
-            "/api": {
+            "/api.php": {
                 target: "https://paramoji.org/",
                 secure: false,
                 changeOrigin: true,
