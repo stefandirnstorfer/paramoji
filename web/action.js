@@ -23,7 +23,7 @@ const app = Vue.createApp({
                 c: false
             },
             blink: false,
-            model: "a1a2",
+            model: "ao",
             animate: false,
             animateBlink: false,
             oldtime: 0,

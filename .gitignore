@@ -4,6 +4,8 @@ __pycache__
 references
 gen
 anim/frames
+web/init.php
+
 .idea
 .DS_Store
 .ipynb_checkpoints/

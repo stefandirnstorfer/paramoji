@@ -72,7 +72,7 @@ div {
 div#app {
     border: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     padding: 0;
     display: grid;
 }
@@ -82,11 +82,18 @@ div#app {
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr;
     }
+    #emoticon {
+        padding: 2%;
+    }
     #control {
         padding-right: 10px;
         padding-left: 10px;
     }
     .landscape-only { display: none }
+    h1 {
+      margin-top: 0;
+      margin-bottom: 10px;
+   }
 }
 
 @media (orientation:landscape) {
@@ -94,14 +101,14 @@ div#app {
         grid-template-columns: 2fr 1fr;
         grid-template-rows: 1fr;
     }
+    #emoticon {
+        padding: 5%;
+    }
     #control {
         padding-top: 5%;
     }
 }
 
-#emoticon {
-    padding: 5%;
-}
 #emoticon svg {
     background-color: seashell;
 }
