@@ -1,7 +1,6 @@
 import { createApp } from "vue"
 import ErrorDialog from "./ErrorDialog.vue";
 import ClassificationView from "./ClassificationView.vue"
-import RecognitionView from "./RecognitionView.vue";
 import FinishedView from "./FinishedView.vue";
 import axios from "axios";
 
@@ -13,7 +12,6 @@ const app = createApp({
     template: '<div>' +
         '<error-dialog v-model:error="error"></error-dialog>' +
         '<classification-view v-if="direction==\'encode\'" :task="task" :group="group"></classification-view>' +
-        '<recognition-view v-if="direction==\'decode\'" :task="task" :group="group"></recognition-view>' +
         '<finished-view v-if="direction==\'finished\'" :vcode="vcode"></finished-view>' +
         '</div>',
     data() { return {
@@ -38,10 +36,9 @@ const app = createApp({
         this.campaignId = getParam("CAMPID");
         this.workerId = getParam("WORKERID");
         this.taskId = getParam("TASKID");
-        this.group = (hashCode(this.workerId) % 3 + 3) % 3
-        const direction = getParam("DIRECTION", "decode")
-        this.task = await (fetch(BASE_URL + "/emoticon-data/work-" + direction +".json").then(x => x.json()))
-        this.direction = direction
+        this.group = ['A','B'][(hashCode(this.workerId) % 2 + 2) % 2]
+        this.task = await (fetch(BASE_URL + "/emoticon-data/work.json").then(x => x.json()))
+        this.direction = "encode"
     },
     methods: {
         showError(error) {
@@ -52,11 +49,11 @@ const app = createApp({
                 campaignId: this.campaignId,
                 workerId: this.workerId,
                 taskId: this.taskId,
-                group: ['A','B','C'][this.group],
+                group: this.group,
                 direction: this.direction,
                 workName: this.task.id,
                 startTime: this.startTime,
-                endTime: Date.now()
+            endTime: Date.now()
             })
             this.direction="finished"
             const response = await axios.post(BASE_URL + '/api.php', work)
@@ -66,7 +63,6 @@ const app = createApp({
     components: {
         'error-dialog' : ErrorDialog,
         'classification-view': ClassificationView,
-        'recognition-view': RecognitionView,
         'finished-view': FinishedView,
     }
 });

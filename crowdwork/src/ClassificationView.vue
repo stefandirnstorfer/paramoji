@@ -1,11 +1,10 @@
 <template lang="pug">
 .root()
     .at-work.main(v-if="currentTask")
-        h3.title Matching the emotion ({{currentIndex +1}}/{{work.items.length}})
-        emotic-image.image.portrait(:item="currentTask")
-        paramoji-selector.portrait(v-if="group==0" v-model="currentTask.paramoji")
-        emoji-selector.portrait(v-if="group==1" v-model="currentTask.paramoji")
-        label-selector.portrait(v-if="group==2" v-model="currentTask.paramoji")
+        h3.title Describe the emotion ({{currentIndex +1}}/{{work.items.length}})
+        emotic-image.image.portrait(v-if="group=='A'" :item="currentTask")
+        emoticon-display.image.portrait(v-if="group=='B'" :state="currentTask.paramoji")
+        emotion-controls.portrait(v-model="currentTask.value")
         div.text-left.m-3
         div.text-right.m-3
             button.btn.btn-outline-primary.mr-1(@click="back" v-if="currentIndex>0 && !complete") Back
@@ -19,6 +18,7 @@ import EmoticonDisplay from './EmoticonDisplay.vue'
 import EmojiSelector from "./EmojiSelector.vue";
 import LabelSelector from "./LabelSelector.vue";
 import ParamojiSelector from "./ParamojiSelector.vue";
+import EmotionControls from "./EmotionControls.vue";
 import EmoticImage from "./EmoticImage.vue";
 import {randomStates, shuffleArray} from './sampler.js'
 
@@ -44,14 +44,13 @@ export default {
         if (storedWork) {
           this.work.items = JSON.parse(storedWork);
         } else {
-          const data = this.task.data.slice()
+          const data = this.task[this.group].slice()
           shuffleArray(data)
-          data.sort((b,a) => (a.published?0:1) - (b.published?0:1))
           while (this.work.items.length < TASK_LEN) {
             const entry = data.pop()
             this.work.items.push({
               ...entry,
-              paramoji: {},
+              value: null,
               startTime: 0
             });
           }
@@ -90,13 +89,12 @@ export default {
             this.currentIndex= i
         },
         async finish() {
-            for (let item of this.work.items) delete item.paramoji['choices']
             await this.$root.saveWork(this.work)
             sessionStorage.removeItem(this.group + this.task.id)
         }
     },
     computed: {
-        stepComplete() { return this.currentTask.paramoji.iteration }
+        stepComplete() { return this.currentTask.value }
     },
     watch: {
         async currentIndex(value, old) {
@@ -118,8 +116,8 @@ export default {
         'label-selector' : LabelSelector,
         'emoji-selector' : EmojiSelector,
         'paramoji-selector' : ParamojiSelector,
-        'emotic-image' : EmoticImage
-    }
+        'emotic-image' : EmoticImage,
+        'emotion-controls' : EmotionControls,    }
 };
 </script>
 

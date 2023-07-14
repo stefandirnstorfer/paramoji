@@ -11,7 +11,8 @@ export default {
     props: [ 'state', 'color', 'size'],
     computed: {
         paramoji() {
-          let svg = paramoji_svg(this.state[0], this.state[1], this.state[2], this.state[3], this.state[4])
+          const param= this.state.map(x => x/100)
+          let svg = paramoji_svg(param[0], param[1], param[2], param[3], param[4])
           svg = svg
               .replace(/href="#/g,"href=\"#id-"+id_prefix+"-")
               .replace(/\(#/g,"(#id-"+id_prefix+"-")
