@@ -1,10 +1,25 @@
 <template lang="pug">
 .root()
     .at-work.main(v-if="currentTask")
-        h3.title Describe the emotion ({{currentIndex +1}}/{{work.items.length}})
-        emotic-image.image.portrait(v-if="group=='A'" :item="currentTask")
-        emoticon-display.image.portrait(v-if="group=='B'" :state="currentTask.paramoji")
-        emotion-controls.portrait(v-model="currentTask.value")
+        h3.title.wide Describe the emotion ({{currentIndex +1}}/{{work.items.length}})
+        h4.wide(v-if="group=='A'" :set1="a='negative'" :set2="b='positive'")
+            | Which face is more #[b {{ a }}] (miserable, rejected); which is more #[b {{ b }}] (pleasuable, accepted) ?
+        h4.wide(v-if="group=='B'" :set1="a='calm'" :set2="b='aroused'")
+            | Which face is more #[b {{a}}] (sleepy, relaxed, unimpressed); which is more #[b {{b}}] (surprised, panicking, facing the unexpected) ?
+        h4.wide(v-if="group=='C'" :set1="a='submissive'" :set2="b=''dominant")
+            | Which face is more #[b {{a}}] (in doubt, passive, insecure); which is more #[b {{b}}] (focused, strong, activated)?
+        h4.wide(v-if="group=='D'" :set1="a='uncontrolled'" :set2="b='controlled'")
+            | Which face is more #[b {{ a }}] (overwhelmed, expressed); which is more #[b {{ b }}] (pretended, modulated, suppressed) ?
+        h4.wide(v-if="group=='E'" :set1="a='humble'" :set2="b='contemptuous'")
+            | Which face is more #[b {{a}}] (moderate, respectful); which is more #[b {{b}}] (self-loving, vain, disdainful) ?
+        .portrait
+            .empty
+            emoticon-display.image(:state="currentTask.face1.paramoji")
+            emotion-selector(v-model="currentTask.value1" :a="a" :b="b")
+        .portrait
+            .empty
+            emoticon-display.image(:state="currentTask.face2.paramoji")
+            emotion-selector(v-model="currentTask.value2" :a="a" :b="b")
         div.text-left.m-3
         div.text-right.m-3
             button.btn.btn-outline-primary.mr-1(@click="back" v-if="currentIndex>0 && !complete") Back
@@ -18,11 +33,11 @@ import EmoticonDisplay from './EmoticonDisplay.vue'
 import EmojiSelector from "./EmojiSelector.vue";
 import LabelSelector from "./LabelSelector.vue";
 import ParamojiSelector from "./ParamojiSelector.vue";
-import EmotionControls from "./EmotionControls.vue";
 import EmoticImage from "./EmoticImage.vue";
+import EmotionSelector from "./EmotionSelector.vue";
 import {randomStates, shuffleArray} from './sampler.js'
 
-const TASK_LEN= 20;
+const TASK_LEN= 30;
 
 export default {
     props: ['task', 'group'],
@@ -44,13 +59,16 @@ export default {
         if (storedWork) {
           this.work.items = JSON.parse(storedWork);
         } else {
-          const data = this.task[this.group].slice()
-          shuffleArray(data)
+          const data1 = this.task.B.slice()
+          const data2 = this.task.B.slice()
+          shuffleArray(data1)
+          shuffleArray(data2)
           while (this.work.items.length < TASK_LEN) {
-            const entry = data.pop()
             this.work.items.push({
-              ...entry,
-              value: null,
+              face1: data1.pop(),
+              face2: data2.pop(),
+              value1: null,
+              value2: null,
               startTime: 0
             });
           }
@@ -94,7 +112,7 @@ export default {
         }
     },
     computed: {
-        stepComplete() { return this.currentTask.value }
+        stepComplete() { return this.currentTask.value1!==null && this.currentTask.value2!==null & this.currentTask.value1 === -this.currentTask.value2 },
     },
     watch: {
         async currentIndex(value, old) {
@@ -117,7 +135,8 @@ export default {
         'emoji-selector' : EmojiSelector,
         'paramoji-selector' : ParamojiSelector,
         'emotic-image' : EmoticImage,
-        'emotion-controls' : EmotionControls,    }
+        'emotion-selector' : EmotionSelector,
+    }
 };
 </script>
 
@@ -127,7 +146,7 @@ export default {
   color: #2c3e50;
   height: 100vh;
   display: grid;
-  grid-template-rows: min-content 1fr 1.1fr min-content;
+  grid-template-rows: min-content min-content 1fr 1fr min-content min-content;
   grid-template-columns: 1fr 1fr;
   overflow: hidden;
   justify-items: center;
@@ -136,8 +155,11 @@ export default {
 .title {
     width: 100%;
     background-color: gainsboro;
-    grid-column: 1 / 3;
     padding: 3px;
+}
+.wide {
+    grid-column: 1 / 3;
+    padding: 5px;
 }
 
 .controls {
@@ -191,13 +213,24 @@ export default {
 .work-check:hover {
     background-color: gainsboro;
 }
+.portrait {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+.choice {
+    text-align: center;
+}
 @media (orientation: portrait) {
     .portrait {
-      grid-column: 1/3;
+      grid-column: 1/5;
       min-height: 15%
     }
 }
 @media (orientation: landscape) {
-    .portrait { grid-row: 2/4 }
+    .portrait { grid-row: 3/5 }
 }
 </style>

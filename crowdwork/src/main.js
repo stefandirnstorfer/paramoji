@@ -36,7 +36,7 @@ const app = createApp({
         this.campaignId = getParam("CAMPID");
         this.workerId = getParam("WORKERID");
         this.taskId = getParam("TASKID");
-        this.group = ['A','B'][(hashCode(this.workerId) % 2 + 2) % 2]
+        this.group = ['A','B','C','D','E'][(hashCode(this.workerId) % 5 + 5) % 5]
         this.task = await (fetch(BASE_URL + "/emoticon-data/work.json").then(x => x.json()))
         this.direction = "encode"
     },
