@@ -34,8 +34,6 @@ a {
 
 .slider {
     width: 90%;
-    min: 0;
-    max: 100;
 }
 
 input[type=range]::-webkit-slider-runnable-track {
