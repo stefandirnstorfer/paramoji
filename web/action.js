@@ -102,11 +102,6 @@ const app = Vue.createApp({
             const a = parseFloat(this.vstate.a)
             this.state.a1 = Math.max(0, Math.min(100, a + (o-50)))
             this.state.a2 = Math.max(0, Math.min(100, a - (o-50)))
-        },
-        updateA2State() {
-            const a2 = parseFloat(this.a2state.a)
-            this.state.a1 = a2 * a2 * (100-a2) / 1500
-            this.state.a2 = a2 * a2 / 100
         }
     },
     watch: {
