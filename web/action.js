@@ -43,7 +43,7 @@ const app = Vue.createApp({
         random() {
             let newState= {}
             for (let key in this.state) {
-                newState[key] = Math.random()*100
+                newState[key] = Math.min(100, Math.max(0, Math.random()*120-10))
             }
             newState.c = newState.c * newState.c /100
             const states = [];
@@ -72,10 +72,10 @@ const app = Vue.createApp({
         updateEState() {
             const dotprod = (a,b,c,d,e,f) => a * this.estate.v + b * this.estate.d + c * this.estate.o + d * this.estate.a + e * this.estate.c + f
             this.state.v = dotprod(+1.00, +0.32, -0.25, -0.24, +0.22,   3)
-            this.state.a1= dotprod(+0.13, +0.18, +0.44, +1.00, +0.48, -50)
-            this.state.a2= dotprod(-0.11, -0.13, -1.00, +0.55, +0.07,  83)
+            this.state.a1= Math.max(0, dotprod(+0.13, +0.18, +0.44, +1.00, +0.48, -50))
+            this.state.a2= Math.max(0, dotprod(-0.11, -0.13, -1.00, +0.55, +0.07,  83))
             this.state.d = dotprod(-0.39, +1.00, -0.14, -0.07, -0.04,  31)
-            this.state.c = dotprod(-0.29, -0.10, -0.09, -0.47, +1.00,  48)
+            this.state.c = Math.min(110, dotprod(-0.29, -0.10, -0.09, -0.47, +1.00,  48))
         },
         fmt(x) { return parseFloat(x).toFixed(0) },
         updateUrl() {
