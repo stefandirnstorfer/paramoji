@@ -77,7 +77,14 @@ const app = Vue.createApp({
             this.state.d = dotprod(-0.39, +1.00, -0.14, -0.07, -0.04,  31)
             this.state.c = dotprod(-0.29, -0.10, -0.09, -0.47, +1.00,  48)
         },
-        fmt(x) { return parseInt(x).toFixed(0) }
+        fmt(x) { return parseFloat(x).toFixed(0) },
+        updateUrl() {
+            clearTimeout(this.updateUrlTimer)
+            let query= ["v","a1","a2","d","c"].map(x => x+'='+this.fmt(this.state[x]))
+            this.updateUrlTimer = setTimeout(() => {
+                window.history.replaceState({}, "Emoticons", "?" + query.join("&"))
+            }, 100)
+        }
     },
     watch: {
         animate(value, oldValue) {
@@ -89,11 +96,14 @@ const app = Vue.createApp({
             handler() {
                 this.vstate.a = (parseFloat(this.state.a1) + parseFloat(this.state.a2))/2
                 this.vstate.o = (parseFloat(this.state.a1) - parseFloat(this.state.a2))/2 + 50
-                clearTimeout(this.updateUrlTimer)
-                let query= ["v","a1","a2","d","c"].map(x => x+'='+this.fmt(this.state[x]))
-                this.updateUrlTimer = setTimeout(() => {
-                    window.history.replaceState({}, "Emoticons", "?" + query.join("&"))
-                }, 100)
+                const dotprod = (a,b,c,d,e) => a*(this.state.v-3) + b*(this.state.a1+50) + c*(this.state.a2-83) + d*(this.state.d-31) + e*(this.state.c-48)
+                const tryfix = (a,b) => Math.abs(a-b) < 2 ? a : b
+                this.estate.v = tryfix(this.estate.v, dotprod(0.79,  0.10, -0.09, -0.30, -0.23))
+                this.estate.d = tryfix(this.estate.d, dotprod(0.28,  0.15, -0.11,  0.86, -0.09))
+                this.estate.o = tryfix(this.estate.o, dotprod(-0.20, 0.34, -0.78, -0.11, -0.07))
+                this.estate.a = tryfix(this.estate.a, dotprod(-0.15, 0.63,  0.35, -0.05, -0.30))
+                this.estate.c = tryfix(this.estate.c, dotprod(0.17,  0.37,  0.05, -0.03, 0.78))
+                this.updateUrl()
             }
         },
     }
