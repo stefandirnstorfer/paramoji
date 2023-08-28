@@ -40,17 +40,12 @@ const app = Vue.createApp({
                 c=this.state.c/100
             return (this.blink ? paramoji_blink_svg : paramoji_svg)(v, a1, a2, d, c)
         },
-        random() {
-            let newState= {}
-            for (let key in this.state) {
-                newState[key] = Math.min(100, Math.max(0, Math.random()*120-10))
-            }
-            newState.c = newState.c * newState.c /100
+        animateTo(newState) {
             const states = [];
-            for (let t=0; t<=1.0; t += 1/24) {
+            for (let t=0; t<=24; t++) {
                 let tstate= {}
                 for (let key in this.state) {
-                    tstate[key] = t*newState[key] + (1-t)*this.state[key]
+                    tstate[key] = t/24*newState[key] + (1-t/24)*this.state[key]
                 }
                 states.push(tstate)
             }
@@ -62,6 +57,14 @@ const app = Vue.createApp({
             }
             update()
             this.state= newState
+        },
+        random() {
+            let newState= {}
+            for (let key in this.state) {
+                newState[key] = Math.min(100, Math.max(0, Math.random()*120-10))
+            }
+            newState.c = newState.c * newState.c /100
+            this.animateTo(newState)
         },
         updateVState() {
             const o = parseFloat(this.vstate.o)
@@ -96,7 +99,7 @@ const app = Vue.createApp({
             handler() {
                 this.vstate.a = (parseFloat(this.state.a1) + parseFloat(this.state.a2))/2
                 this.vstate.o = (parseFloat(this.state.a1) - parseFloat(this.state.a2))/2 + 50
-                const dotprod = (a,b,c,d,e) => a*(this.state.v-3) + b*(this.state.a1+50) + c*(this.state.a2-83) + d*(this.state.d-31) + e*(this.state.c-48)
+                const dotprod = (a,b,c,d,e) => a*(this.state.v-3) + b*(this.state.a1*1+50) + c*(this.state.a2-83) + d*(this.state.d-31) + e*(this.state.c-48)
                 const tryfix = (a,b) => Math.abs(a-b) < 2 ? a : b
                 this.estate.v = tryfix(this.estate.v, dotprod(0.79,  0.10, -0.09, -0.30, -0.23))
                 this.estate.d = tryfix(this.estate.d, dotprod(0.28,  0.15, -0.11,  0.86, -0.09))
