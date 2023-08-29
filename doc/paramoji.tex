@@ -142,7 +142,7 @@ The first two of these dimensions have become the universal backbone of emotion 
 now known as "valence" and "arousal" \cite{circumplex}.
 A much more intense debate formed around the third dimension. This paper follows the nomenclature of "dominance"\cite{dominance_mehrabian}.
 The fourth dimension is ``contempt'', derived from a discovery that this feeling of superiority is not a distinct emotion, but combines differently with positive and negative feelings. \cite{contempt_ekman}.
-As a final dimension I will use ``control', which follows a simplified model for conscious modulation.
+As a final dimension I will use ``control'', which follows a simplified model for conscious modulation.
 Hence, the interpretation of the last dimensions may partly be subject to cultural norms.
 
 It is easy to understand all these dimensions in isolation, but in combination it becomes quickly unclear how to interpret them.
@@ -309,9 +309,13 @@ All combinations of parameters produce sometimes comical, but always valid facia
             \rotatebox{90}{\hspace{1ex}$c = 1.0$} &
             \paramoji{86,19,19,68,100} &
             \paramoji{10,10,10,90,100} &
-            \paramoji{11,72,72,41,100} \\
+            \paramoji{38,72,72,41,100} \\
+            \rotatebox{90}{\hspace{1ex}$c = 0.0$} &
+            \paramoji{86,19,19,68,0} &
+            \paramoji{10,10,10,90,0} &
+            \paramoji{38,72,72,41,0} \\
             \hline\\[-1.8ex]
-            $v$ & 0.9 & 0.1 & 0.1 \\
+            $v$ & 0.9 & 0.1 & 0.4 \\
             $a$ & 0.2 & 0.1 & 0.7 \\
             $d$ & 0.7 & 0.9 & 0.4
         \end{tabular}
@@ -517,9 +521,9 @@ The axis is extended from minimal to maximal values until they reach the boundar
   \begin{center}
     \begin{tabular}{cccc}
         \paramoji{0,43,56,70,40}
-        \paramoji{33,48,52,57,30}
-        \paramoji{67,52,48,43,20}
-        \paramoji{100,57,44,30,10}
+        \paramoji{33,48,55,57,30}
+        \paramoji{67,52,50,43,20}
+        \paramoji{100,57,52,30,10}
     \end{tabular}
   \end{center}
   \caption{Valence}
@@ -742,6 +746,21 @@ function paramoji(v, a1, a2, d, c) {
 }
 \end{verbatim}
 }
+
+\begin{figure}[ht!]
+  \begin{center}
+    \begin{tabular}{cccc}
+        \paramoji{105,138,95,106,-97}
+        \paramoji{166,53,160,105,2}
+        \paramoji{-55,124,126,131,-9}
+        \paramoji{-58,180,0,-25,-9}
+    \end{tabular}
+  \end{center}
+  \caption{Extrapolations}
+  \label{fig:extrapolate}
+\end{figure}
+
+
 
 \section*{Conflict of Interest Statement}
 Author Stefan Dirnstorfer is employed by Thetaris GmbH. The remaining authors declare that the
