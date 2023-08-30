@@ -88,10 +88,10 @@ channel. There is no doubt that small facial expressions fill a gap in informal 
 With skyrocketing occurance on social media platforms there is now a huge amount
 of human generated content filled with such emotional cues.
 This could have provided a unique opportunity for humans and computers to exchange emotional
-information, as envisioned by Picard\cite{Picard97}. However, this is not happening.
+information, as envisioned by \cite{Picard97}. However, this is not happening.
 There is currently no known application
 where a computer interacts with a human through the meaningful help of emojis.
-What makes their emotional content so intuitive for humans but yet so hard to process for computers?
+What makes their emotional content so intuitive for humans, but yet so hard to process for computers?
 
 Many attempts have been made to measure the emotional content of standardized emojis.
 Unfortunately, there is little agreement on how they ought to be placed on a common scale.
@@ -100,45 +100,53 @@ emojis on a single axis of sentiment. Things get more complicated when system bo
 The Unicode Consortium defines only rough graphical gidelines for many of the emotionally expressive symbols.
 \cite{emoji_interpretation} have found that what is defined as a ``grinning face'' has
 at least 17 different graphical versions on various software platforms leading to
-a severe misunderstanding on even basic attributes of sentiment from positive to negative.
+a severe misunderstanding on even basic attributes of sentiment ranging from positive to
+negative.
 In an anatomy based approach by \cite{emoji_facs} the facial features in the emojis were studied.
-Using an adapted version of the facial action coding system they tried to infer muscle activity and the causing emotions,
-but exact interpretation varied widely based on rendering differences on various platforms and software versions.
+They tried to infer muscle activity and their causing emotions, but exact interpretation varied widely based on tiny rendering differences.
+Others tried to map emojis on linear scales, but were not successful at fully explaining each emoji's meaning.
+ \cite{SentimentOfEmoji, WhatDoesThisEmojiMean}
 The bottom line is that standardized emojis are
 not suitable to encode nuanced and precisely defined emotions.
 
 Outside the world of standardized emojis there are other sets of emoticons,
 i.e. graphical facial expressions, to fill the need for fine grained scales of emotions.
 Research has found them useful for the communication of qualias, such as pain and taste.
-Two effective scales of faces were designed to capture levels of perceived pain within children and adults. \cite{bakerwong, dvprs}.
-It was found that visual scales of facial expressions produced more stable and consistent results in self-reported pain and greatly improved pain treatment.
+Two effective scales of faces were designed to capture levels of perceived pain within children and adults.
+\cite{bakerwong, dvprs}.
+It was found that visual scales of facial expressions produced more stable and consistent results in self-reported
+pain and greatly improved pain treatment.
+\cite{likertscale} tested various designs of one-dimensional scales of smiley faces and were able
+to induce increased engagement in children.
 A wider range of emotional experiences can be expressed if additional dimensions are allowed.
 The emoji grid by \cite{emojigrid} spans two dimensions, valence and arousal, with emojis along the axes.
 It was found useful for reporting food elicited emotions.
 Despite the additional depth of two dimensions the grid still lacks space for many emotions.
-Since it was only defined for emojis on the domain boundary there is no obvious way to interpolate their visual appearance.
 In short, these custom sets are only consistenty defined on very limited domains.
 Their expressive range does not nearly cover the variety of Unicode faces.
 
-For a greater range of facial expressions there is a visualization technique that can directly generate comic style
-faces from high dimensional data.
-\cite{chernoff} faces provide unique facial expressions for 18 parameters covering the
+For a greater range of facial expressions there is active research into emotional visualization techniques.
+Urgent need for this originates from the field of robotics, where the ability of a machine to display
+appropriate emotions, was found essential for humans to accept it as intelligent. \cite{EmotionTowardsRobots}.
+Many such techniques seek for realism in the displayed face and are loosing on the expressiveness of the exaggerageted
+emojis. \cite{parametric_face_facs, FACSGen}. Another - almost ancient - technique for facial visualization uses line graphics
+driven by high dimensional data. \cite{chernoff} faces provide unique facial features controlled by 18 parameters covering the
 sizes of eyes, mouth and ears as well as angles and distances between them.
 Unfortunately, this does not include any of the subtle activations that are necessary for the display of deep emotions.
-Few other methdods have been tried to sythetically generate realistic facial expressions from
-data; \cite{parametric_face_drawings, parametric_faces, parametric_face_facs, FACSGen}.
-However, without the exaggerated comic style representation the emotional content is difficult to decode.
-Therefore, Chernoff faces come closest at being a predecessor, or next best solution, to the one I present in this paper.
-Both approaches visualize high dimensional data in a human face. Neither has yet produced a success story in any
+For their exaggerated comic style representations Chernoff faces come closest at being a predecessor, or
+next best solution, to the one I present in this paper.
+Both approaches visualize multi-dimensional data in a human face. Neither has yet produced a success story in any
 practical application. In the following sections I will do my best to make that change.
 
-\section{Five dimensions of the facial expression}
+\section{The facial expression}
 The idea of expressing a human emotion along measurable dimensions is said to date back to \cite{wundt}, who derived
 his ideas mainly through self-inspection.
-In a more accessible summary of his work by \cite{tridimensional} the three dimensions of feeling were translated as pleasantness, excitement and tension.
+In a subsequent review by \cite{tridimensional} the three dimensions of feeling were
+translated as pleasantness, excitement and tension.
 The first two of these dimensions have become the universal backbone of emotion classification,
-now known as ``valence'' and ``arousal'' by \cite{circumplex}.
-A much more intense debate formed around the third dimension. This paper follows the nomenclature of ``dominance'' by \cite{dominance_mehrabian}.
+now known as ``valence'' and ``arousal'' as termed by \cite{circumplex}.
+A much more intense debate formed around the third dimension. This paper follows the nomenclature
+of ``dominance'' by \cite{dominance_mehrabian}.
 The fourth dimension is ``contempt'', derived from a discovery that this feeling of superiority is not a distinct emotion,
 but combines differently with positive and negative feelings. \cite{contempt_ekman}.
 As a final dimension I will use ``control'', which follows a simplified model for conscious modulation.
@@ -149,15 +157,15 @@ To solve this problem I want to present a visualization in the form of a paramet
 unique and valid facial expression for each combination of parameters.
 The face is made to be generic, without any reference to physiological properties, like age, gender, color.
 It is the strength of the emotional expression that had the top priority.
-All graphical parameters depended linearly on the emotional dimensions, with the exception of contempt where bilinear factors drive one side.
+All graphical parameters depended linearly on the emotional dimensions, with the exception of contempt where
+bilinear factors drive one side.
 
 It would, of course, have been preferable to construct a scale that is linear in the expressed emotional intensity.
 However, we would hardly be able to agree on such a scale. Linearity in graphics is not just the second best option.
 It is objective, as it is easy to check that the generating code essentially consists of a matrix vector multiplication.
 It is at least something linear to which other systems can be calibrated. Finally, linearity creates the benefit that any detected smooth
-transition from one state to another would also show smoothly and without artefacts when animated. The ability to animate these faces would
-come handy when more complex temporal transitions were to be displayed.
-
+transition from one state to another would also show smoothly and without artefacts when animated. A midpoint
+in parameter space is guaranteed to also be a midpoint in graphical representation.
 
 \subsection{Valence and arousal}
 
@@ -228,7 +236,7 @@ More dimensions are needed to separate them.
 \subsection{Dominance}
 
 A first candidate for a working three-dimensional model was the evaluation-potency-activity model by \cite{potency_osgood}.
-It was developed to find the main axes of meaning in nouns by mapping them to adjectives through a rigorous data driven approach.
+It was developed to find the main axes of meaning in nouns by mapping them to adjectives through a data driven approach.
 Factor analysis revealed that two of the dimensions with most explanatory power were equivalent to valence and arousal.
 The third of the three most important dimensions of meaning is described by the adjective scales of strong vs weak,
 hard vs soft, brave vs cowardly, tenacious vs yielding.
@@ -396,53 +404,18 @@ They can also encode emotional information that go beyond what real faces show.
 \section{Empirical evidence}
 
 In the previous section I described my subjective choices for the paramoji's visual appearance.
-In this section I will lay out my process to obtain objective values for its parameters.
-In particular I wanted to know what parameters random participants would choose for some photos with facial expressions.
-The results are checked for consistency with existing annotations from the respective data sets.
+In this section I will lay out my process to verify or adjust the chosen parameters based on empirical evidence.
+In particular I wanted to know if untrained random participants would produce annotations of emotional dimensions
+in consistency with their theoretical derivation.
 
-\subsection{Workers}
+\subsection{The experiment}
 
-420 workers
-
-13190 submissions
-
-Average time spent 9.96
-
-
-The question at hand is, if the paramoji can be intuitively understood, without any training or instructions.
-To test the hypothesis test participants were hired from MicroWorkers.com, a global market place for crowdsourced work.
-A deep analysis of the workers' anatomy has been made by \cite{microworkers} and found to be still valid.
-The overall work force has a global bias towards India, Bangladesh and the Philippines with some participation
-from the Western countries.
-No relevent effect could be linked to country or language.
-
-Crowd workers were offered 20 Cents for the classification of a batch of 20 facial expressions.
-Hence, the cost for one low quality classification was 1 Cent. On the fastest path this takes two clicks to complete.
-The median time was 10 seconds per image; the mean was 20 seconds. A very small amount of workers
-took minutes to complete and frequently revised their selection before submitting it. No correlation
-was found between speed an any
-conceivable metrics for quality.
-
-It is very likely that many workers have seen multiple versions of the paramoji questionnaire during a period of
-about 8 years
-in which the design was subsequently improved as an occasional hobby project.
-Never did they get any instructions or feedback on the quality of their classifications. All workers
-were paid without additional quality control. No submissions were excluded from the final analysis.
-Workers were only allowed to participate once per experiment, ie. contribute 20 parameterization, to avoid confounding
-influence from preexisting qualifications.
-Only a truly neglegible number of workers submitted destructive results by e.g. always clicking on the same position.
-Overall work participation was very good and consistent, albeit noisy. Depending on accuracy requirements 10 to 100
-classifications per image should be considered.
-
-\subsection{User interface}
-
-Figure \ref{fig:encoder2} shows a possible user interface that uses sliders to select the values for each individual
-dimension.\footnote{A version of this interface is currently deployed on https://paramoji.org/editor.html}
-This input method is very user friendly and intuitive. However, it creates biased results.
-The values obtained from sliders have are clustered at the center position, with some spikes
-at the extreme values. I also suspect - without evidence - that users are attracted to certain pattern that
-are formed by multiple slider positions stacked upon each other. Sliders are extremely powerful for fine tuning,
-but unexperienced users are prone to abuse their regularity for mental short cuts.
+Figure \ref{fig:ui} shows the user interface that test participants had to navigate for the annotation of
+emotional dimensions. Two faces were randomly drawn from a uniform distribution. The user's task was to order
+them on the assigned emotional dimension. One had to be chosen as more intense and the the other consistently as
+less intense. Alternatively, both faces could be labeled as equal. When the two choices matched
+participants could continue to the next pair. No additional explanation was given after following a link
+to this emotion classificion task.
 
 \begin{figure}[ht!]
  \begin{center}
@@ -450,60 +423,98 @@ but unexperienced users are prone to abuse their regularity for mental short cut
   \vspace*{-3ex}
  \end{center}
  \caption{
-   User interface for untrained participants.
+   User interface for untrained test participants. Random pairs of faces had to be ordered on
+   one randomly assigned emotional dimension.
  }
- \label{fig:encoder2}
+ \label{fig:ui}
 \end{figure}
 
-Workers were randomly assigned to evaluation one of the emotional dimensions.
+Each participant was assigned to one emotional dimension, to avoid any cross influence caused by switching contexts.
+Each dimension was described by adjectives for their negative and positive extreme. Synonyms were given to avoid
+miscommunication. The following list shows the five possible tasks descriptions to which participants were assigned.
 
 \begin{enumerate}
-  \item Which face is more {\bf negative} (miserable, rejected); which is more {\bf positive} (pleasuable, accepted) ?
+  \item Which face is more {\bf negative} (miserable, rejected); which is more {\bf positive} (pleasurable, accepted) ?
   \item Which face is more {\bf calm} (sleepy, relaxed, unimpressed); which is more {\bf aroused} (surprised, panicking, facing the unexpected) ?
   \item Which face is more {\bf submissive} (in doubt, passive, insecure); which is more {\bf dominant} (focused, strong, activated)?
   \item Which face is more {\bf uncontrolled} (overwhelmed, expressed); which is more {\bf controlled} (pretended, modulated, suppressed) ?
-  \item Which face is more {\bf humble} (moderate, respectful); which is more {\bf contemtuous} (self-loving, vain, disdainful) ?
+  \item Which face is more {\bf humble} (moderate, respectful); which is more {\bf contemptuous} (self-loving, vain, disdainful) ?
 \end{enumerate}
+
+\subsection{Participation}
+
+Test participants were hired from MicroWorkers.com, a global market place for crowdsourced work.
+A deep analysis of the workers' anatomy has been made by \cite{microworkers} and found to be still valid.
+The overall work force has a global bias towards India, Bangladesh and the Philippines with some participation
+from the Western countries.
+
+420 workers took part in this experiment and produced 13190 comparisons.
+The pay was 1 Cent per comparison, paid in batches of size 20 or 30. Some workers submitted two batches without extra reward.
+The average time spent on one comparison was 10 seconds, the median 5 seconds.
+It is likely that some workers have seen previous versions of the experiment, but never got any feedback on their performance.
+The published data are the first results for a textual comparison task.
+Earlier experiments measured the efficiency of mapping paramojis to photos of human faces.
 
 \subsection{Raw results}
 
-Regression
+The data were collected as five dimensional parameters for the paramoji. In addition a label was stored to indicate what emotion was rated
+and whether that emotion was more, less or equally intense, yielding the rating numbers 1, 0 and 0.5.
+Since all pairs were chosen fully at random
+the values for the other side of the comparison can be ignored. The average value of that position can be interpreted as the fraction of
+paramojis that it supercedes, i.e. its quantile on the measured emotional scale.
+
+A linear regression of the reported rating numbers onto the Carthesian dimensions reveals how much the report is swayed by each
+theoretical dimension. Table table \ref{tab:raw_data} shows the results.
+The 1-norm column evaluates most extreme change in two opposite corners. In case of valence this value is event greater than the valid probability range from 0 to 1. This is because the parameters were estimated based on random points within the domain. The corner points were not among the queried samples and thus the results here are extrapolated values. Overall we can conclude that the reported change in valence can be explained through the graphical transformations to a very large degree.
+It is also interesting that just over half the effect in the valence case originates from the iconic mouth curvature controlled by $v$,
+which many icon sets depend on solely. Positivity is clearly more than a mouth shape.
+
+The next thing to observe in table \ref{tab:raw_data} is that most rows are dominated by the $v$ column. With exception of dominance
+there is high degree of colinearity between all rows. An aroused or contemptuous face was likely also seen as negative. Control was
+seen as positive. The describing adjectives were not understood as independent.
+Since we are interested in orthogonal dimensions, we must map these results onto independent axes.
 
 \begin{table}[ht!]
   \begin{center}
     \begin{tabular}{lrrrrrr}
       {} &     $v$ &     $a_1$ &     $a_2$ &     $d$ &     $c$ &  1-norm \\
       \midrule
-      Valence   &  0.54 & 0.07 & -0.06 & -0.21 & -0.16 & 1.03 \\
-      Arousal   & -0.29 & 0.01 &  0.12 &  0.16 &  0.06 & 0.63 \\
-      Dominance & -0.05 & 0.01 & -0.01 &  0.19 &  0.01 & 0.29 \\
-      Control   &  0.28 & 0.10 & -0.16 & -0.10 & -0.10 & 0.75 \\
-      Contempt  & -0.24 & 0.02 &  0.03 &  0.20 &  0.08 & 0.58 \\
+      Valence $(v^e)$   &  0.54 & 0.07 & -0.06 & -0.21 & -0.16 & 1.03 \\
+      Arousal           & -0.29 & 0.01 &  0.12 &  0.16 &  0.06 & 0.63 \\
+      Dominance         & -0.05 & 0.01 & -0.01 &  0.19 &  0.01 & 0.29 \\
+      Control           &  0.28 & 0.10 & -0.16 & -0.10 & -0.10 & 0.75 \\
+      Contempt          & -0.24 & 0.02 &  0.03 &  0.20 &  0.08 & 0.58 \\
       \midrule
     \end{tabular}
   \end{center}
-  \caption{Raw results}
+  \caption{Regression results of the likelihood of an emotional attribute being reported as more intense onto the Carthesian visualization parameters.}
   \label{tab:raw_data}
 \end{table}
 
-\subsection{Data normalization}
+\subsection{Orthogonalization}
+
+Apparently respondents did not understand the meaning of the questions as orthogonal.
+A better question to ask would have been along the line of “who looks more aroused,
+without considering the effect of negativity?” However such questions would become quite
+confusing when adding more dimensions.
+
 Gram-Schmidt process depends on an order of the dimensions.
 
-The start vector for the process is valence.
-It is the dimension with the strongest response; it is the first and most commonly used dimension in the literature, and it the one most easily described.
-The following dimensions are chosen according to their norm after projection onto the previous dimensions.
-The order is: valence, dominance, control, arousal, contempt.
+There should be little doubt that the first dimension should be the valence direction. It is the one most convincingly identified by participants. It is
+also the most commonly agreed dimension in literature with some research using it as the only measured variable. Figure \ref{fig:emp_valence} shows the
+resulting effect along this axis. This is the first value and is left unchanged in this orthogonalization method. The result confirms that the curvatures in
+eyes and mouth are the main driver.
 
 \begin{table}[ht!]
   \begin{center}
     \begin{tabular}{lrrrrrr}
       {} &         $v$ &     $a_1$ &     $a_2$ &     $d$ &     $c$ &       1-norm \\
       \midrule
-      Valence   &  0.54 & 0.07 & -0.06 & -0.21 & -0.16 & 1.03 \\
-      Dominance &  0.05 & 0.03 & -0.02 &  0.15 & -0.02 & 0.27 \\
-      Control   & -0.03 & 0.05 & -0.12 & -0.02 & -0.01 & 0.24 \\
-      Arousal   & -0.02 & 0.06 &  0.04 & -0.00 & -0.03 & 0.15 \\
-      Contempt  &  0.01 & 0.01 &  0.00 & -0.00 &  0.03 & 0.05 \\
+      Valence $(v^e)$   &  0.54 & 0.07 & -0.06 & -0.21 & -0.16 & 1.03 \\
+      Dominance $(d^e)$ &  0.05 & 0.03 & -0.02 &  0.15 & -0.02 & 0.27 \\
+      Control $(k^e)$   & -0.03 & 0.05 & -0.12 & -0.02 & -0.01 & 0.24 \\
+      Arousal $(a^e)$   & -0.02 & 0.06 &  0.04 & -0.00 & -0.03 & 0.15 \\
+      Contempt $(c^e)$  &  0.01 & 0.01 &  0.00 & -0.00 &  0.03 & 0.05 \\
       \midrule
     \end{tabular}
   \end{center}
@@ -511,12 +522,13 @@ The order is: valence, dominance, control, arousal, contempt.
   \label{tab:ortho_data}
 \end{table}
 
-Figure \ref{fig:emp/valence} shows the faces on the valence dimension.
-The plot is centered on the paramoji with dimensions $(.5,.5,.5,.5,.2)$.
-From there the parameters aree moved proportionally to the regression parameters in the table above.
-This is the direction with the strongest change in user reported response.
-This axis is the most effective in change the percetion from negative to positive with minimal changes in the graphical display parameters.
-The axis is extended from minimal to maximal values until they reach the boundaries of the drawable space in the unit cube.
+Figure \ref{fig:emp_valence} shows how to sway the perceived sentiment from negative to positive moste efficiently.
+The transformation is applied to a neutral face, which is chosen at the parameters $(0.5, 0.5, 0.5, 0.5, 0.25)$.
+This is a purely arbitrary choice. It just so happens to be in the center of the domain with a slight bias to
+the non-contemptuous symmetric expression. Any other parameters could have been chosen as the center, because the
+emotional effect of the graphical transformations were measured across the entire domain and not at a single point,
+or a long a single axis. From the chosen center parameters aree moved proportionally to the regression parameters in
+the table \ref{tab:ortho_data} until they reach the boundaries of the drawable space in the unit cube.
 
 \begin{figure}[ht!]
   \begin{center}
@@ -528,17 +540,21 @@ The axis is extended from minimal to maximal values until they reach the boundar
     \end{tabular}
   \end{center}
   \caption{Valence}
-  \label{fig:emp/valence}
+  \label{fig:emp_valence}
 \end{figure}
 
+The second most prominent dimension is dominance. It has the strongest measurable effect after correcting
+for any influence that can be explained through valence. In many models arousal is used as a second dimension.
+However the strong showing of dominance is consistent with \cite{potency_osgood} that also sees dominance as the more
+prominently identifiable dimension in vocal analysis. Figure \ref{fig:emp_dominance} shows the orthogonalized axis of
+dominance. After the correction, a slightly smiling face on the right compensates the frowning eye brows,
+which are seen an indicator for negative mood.
+
 The second strongest orthogonal dimension is dominance.
-Figure \ref{fig:emp/dominance} shows the faces on the dominance dimension.
-Dominance is naturally almost understood as an independent dimension. Little correction is necessary.
-It seems that the most dominant expresson is slightly more positive than the most submissive one.
-This is a result of the correction. Dominance was detected as correlated to negative experience. This effect is being corrected here.
-If that assumption is correct it would mean that there is a slight non-linearity between the psychological dimensions.
-This is not that surprising. Just because the linear graphical effect is linear does not necessarily extend to the pychology.
-Nevertheless, the effect is small when compared to the prediction of the theoretical model.
+Figure \ref{fig:emp_dominance} shows the faces on the dominance dimension after removing all the colinear projections.
+Dominance is almost naturally understood as an independent dimension. Little correction is necessary, but
+the mouth on the dominant side shows a slight smile, which would be positive. However, the frowning eyebrows are considered negative
+According to this analysis the effects should cancel each other and there is no measurable valence change on this scale.
 
 \begin{figure}[ht!]
   \begin{center}
@@ -550,10 +566,10 @@ Nevertheless, the effect is small when compared to the prediction of the theoret
     \end{tabular}
   \end{center}
   \caption{Dominance}
-  \label{fig:emp/dominance}
+  \label{fig:emp_dominance}
 \end{figure}
 
-The third strongest dimension is control in figure \ref{fig:emp/control}.
+The third strongest dimension is control in figure \ref{fig:emp_control}.
 The effect follows the theoretical model.
 The fact that this is the thrird strongest measurable dimension is surprising, since there is little literature on this dimension.
 Although control is correlated to positive sentiment in the raw data, the orthogonalization process overcompensates this.
@@ -569,10 +585,10 @@ The result is a subtle negative expression. Again this effect is small.
     \end{tabular}
   \end{center}
   \caption{Control shows the scale from throwing a tantrum to the proverbial biting of one's tonge.}
-  \label{fig:emp/control}
+  \label{fig:emp_control}
 \end{figure}
 
-The forth dimension is arousal in figure \ref{fig:emp/arousal}.
+The forth dimension is arousal in figure \ref{fig:emp_arousal}.
 The low showing of this dimension is somewhat disappointing, since it is the undisputed number two in all models.
 Apparently there is some limit to the extent in which a static image can trigger the experience of arousal.
 This dimension would be expected to coincide with sudden movements and rapid changes.
@@ -588,17 +604,17 @@ Nevertheless, the effect is measurable and follows the theory.
     \end{tabular}
   \end{center}
   \caption{Arousal}
-  \label{fig:emp/arousal}
+  \label{fig:emp_arousal}
 \end{figure}
 
-The final dimension is contempt in figure \ref{fig:emp/contempt}.
-Respondets were not naturally able discern contempt from other dimensions.
-Especially negativity and dominance lead to a contemptuous experience.
-After correcting for previously reported levels the remainder is dominated by the contempt dimension.
-The contempt dimension is the only asymmetric expression.
-It's emotional meaning is well understood, but definitely one of the more difficult to describe in layman terms.
-Respondents are clearly swayed by this dimension after only seeing few synonymous expressions.
-The effect is subtle, but measurable and consistent with theory and literature.
+The contempt dimension is the weakest. It’s orthogonal part only explains 5\% of the
+participants decision to report a face as more contemptuous. Despite being barely measurable
+we have no reason to doubt the correctness of this result. The asymmetry is a unique facial expression.
+Its meaning is well documented, but probably not that widely understood.
+Figure \ref{fig:emp_contempt} shows the orthogonal remnant that is left by all the other dimensions.
+In addition to the asymmetric mouth the eyes are enlarged in the contemptuous direction, even though only
+the mouth and not the eyes are universally shared features. It can thus be confirmed that the asymmetry in
+the eyes helps in making this emotion recorgnizable.
 
 \begin{figure}[ht!]
   \begin{center}
@@ -610,12 +626,15 @@ The effect is subtle, but measurable and consistent with theory and literature.
     \end{tabular}
   \end{center}
   \caption{Contempt}
-  \label{fig:emp/contempt}
+  \label{fig:emp_contempt}
 \end{figure}
 
 \subsection{Transformation}
 
-Transformation from empirical to orthogonal space is done by multiplying the empirical vector by the transformation matrix.
+This final formula summarizes the transformation from empirical coordinates into Cartesian ones for plotting.
+The entries in the empirical vector are ordered, such that each entry changes the impact of its emotional component
+without affecting the previous ones. They are ordered by decreasing effect on the reported emotional impression.
+The function maps the center point $(0.5, 0.5, 0.5, 0.5, 0.25)$ onto itself.
 
 \begin{equation}
   \left(
@@ -641,6 +660,14 @@ Transformation from empirical to orthogonal space is done by multiplying the emp
     \end{array}
     \right)
 \end{equation}
+
+The entries in the matrix are scaled to map each axis through the center point into a valid line within the unit cube.
+This ensures that each individual axis can always be visualized with the appended plotting function.
+Other points in the empirical domain may be mapped outside the unit cube of the Cartesian model.
+This is not such a big problem. As long as $a_1$ and $a_2$ are positive and keep the eyes at least as open as shut,
+the face can be extrapolated and
+recorgnized with some acceptance for artistic abstractions. Figure \ref{fig:extra} shows some results.
+
 
 \section{Conclusion}
 A lot of effort has been spent on decoding the emotional content from facial expressions.
@@ -679,7 +706,7 @@ I firmly believe that this is the next frontier for affective computing.
 
 The source code of the paramoji might seem confusing at first. However, it is extremely simple, once broken down.
 A sparse matrix contains all the parameters. It has a row for each parameter in the drawing instruction and a column
-for each entry in the vector $(1, 2v-1, a_1, a_2, 2d-1, c, ca_1,cv, ca_2, cd)$.  The matrix product of the two is inserted
+for each entry in the vector $(1, 2v-1, a_1, a_2, 2d-1, c, ca_1, cv, ca_2)$.  The matrix product of the two is inserted
 for all the question marks in a template for the drawing. The output format is in SVG, a standardized description language for
 vector graphics. Both, the JavaScript code and the SVG instructions, can be interpreted by any contemporary
 web browser.
@@ -757,8 +784,8 @@ function paramoji(v, a1, a2, d, c) {
         \paramoji{-58,180,0,-25,-9}
     \end{tabular}
   \end{center}
-  \caption{Extrapolations}
-  \label{fig:extrapolate}
+  \caption{Extrapolations of the facial features beyond the valid range: still recognizable, but increasingly abstract.}
+  \label{fig:extra}
 \end{figure}
 
 
