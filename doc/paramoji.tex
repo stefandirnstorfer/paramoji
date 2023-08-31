@@ -35,7 +35,7 @@
 \onecolumn
 \firstpage{1}
 
-\title[A parametric face]{A parametric facial expression for visualizing emotional states}
+\title[Visualizing emotions]{Visualizing Emotions with Parametric Facial Expressions}
 
 \author{\Authors} %This field will be automatically populated
 \address{} %This field will be automatically populated
@@ -136,7 +136,7 @@ Unfortunately, this does not include any of the subtle activations that are nece
 For their exaggerated comic style representations Chernoff faces come closest at being a predecessor, or
 next best solution, to the one I present in this paper.
 Both approaches visualize multi-dimensional data in a human face. Neither has yet produced a success story in any
-practical application. In the following sections I will do my best to make latter change.
+practical application. In the following sections I will do my best to let latter change.
 
 \section{The parametric emoji}
 This parametric emoji  (paramoji)
@@ -358,7 +358,7 @@ only a transformed domain.
 
 Equation \eqref{eqn:control} defines how these two dimension pairs can be converted into each other.
 The complexity of these mathematical equations is commensurate with the psychological depth of the model.
-In the end its the visualization that counts, not the numbers.
+In the end its the graphics that counts, not the numbers.
 
 \begin{equation}
   \label{eqn:control}
@@ -612,7 +612,7 @@ Anyways, the main driver is confirmed as the difference between the opening of e
         \paramoji{37,72,0,43,20}
     \end{tabular}
   \end{center}
-  \caption{Emperical reports for control show the scale from throwing a tantrum to the proverbial biting of one's tonge.}
+  \caption{Emperical reports for control show the scale from throwing a tantrum to the proverbial biting of one's tongue.}
   \label{fig:emp_control}
 \end{figure}
 
@@ -703,30 +703,42 @@ recorgnized with some acceptance for artistic abstractions. Figure \ref{fig:extr
 
 
 \section{Conclusion}
-This article introduced a parametric facial expression
-fed by emotional model
+This article introduced a parametric facial expression that can be parametrized to
+display a wide variety of emotions. Unlike other graphical methods, each parameter
+has a distinct emotional interpretation. Empirical evidence has been provided that
+the emotional teint can be extracted by untrained test participants. Their rating
+of the resulting faces along the axes of valence, arousal, dominance, contempt und
+control reproduced the input parameters with minor adjustments.
 
+It has become apparent that little facial expressions can add an emotional note
+that is hard to match in written text.
+Emojis have filled that role in human to human communication. They owe their success
+largely to their icons with emotional cues, not least the abundance of facial expressions.
+Latter can also be synthesized by the - hence called - parametric emoji. Thus
+they can fill a similar gap, but are much more suitable for computer processing,
+as questions for similarity, intensity and sentiment are straight forward to extract.
 
-Emoticon set that is computer processable.
-They allow statistics
-Applications: human to computer communication
-Annotation
-
-
-Effect of culture.
-Nonlinear effects
-Many combinations not checked.
-Especially when eyes and mouth disagree.
-Effect of priming.
-Temporal development, animations.
-
+It is known, that cultural norms demand varying degrees of self control with
+regards to the display of emotions in public. Consequently, facial expression
+are decoded according to these expections. When mapping emotions to adjectives
+language skills and educational background also play a role. A method was presented
+to adjust the emotion parameters to a specific target audience, crowd workers
+in this case. Only linear adjustments were considered, but there is reason to believe
+that non linear effects are minimal. The graphical transformations in each
+of the five dimensions is extremely smooth, mostly linear, in all places.
+When animated all transitions always looks smooth and straight, making them
+ideal for visualizations in real time or for replay.
 
 \section*{Code}
 
-The source code of the paramoji might seem confusing at first. However, it is extremely simple, once broken down.
-A sparse matrix contains all non-zero parameters. It has a row for each parameter in the drawing instruction and a column
-for each entry in the vector $(1, 2v-1, a_1, a_2, 2d-1, c, ca_1, cv, ca_2)$.  The matrix product of the two is inserted
-for all the question marks in a template containing the drawing instruction. The output format is in SVG, a standardized description language for
+The source code of the paramoji was difficult to construct, but is easy to read.
+A sparse matrix contains all values that define the transformation.
+There is a row for each free parameter
+in the drawing instruction and a column
+for each entry in the input vector $(1, 2v-1, a_1, a_2, 2d-1, c, ca_1, cv, ca_2)$.
+The dot product is computed between each matrix row and the input vector,
+which yields the values for all the question marks in the template string.
+The output format is SVG, a standardized description language for
 vector graphics. Both, the JavaScript code and the SVG instructions, can be interpreted by any contemporary
 web browser.
 
@@ -803,7 +815,7 @@ function paramoji(v, a1, a2, d, c) {
         \paramoji{-58,180,0,-25,-9}
     \end{tabular}
   \end{center}
-  \caption{Extrapolations of the facial features beyond the valid range: recognizable, but increasingly grotesque. :)}
+  \caption{Extrapolations of the facial features outside the valid range: recognizable, but increasingly grotesque. :)}
   \label{fig:extra}
 \end{figure}
 
