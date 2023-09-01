@@ -24,111 +24,120 @@
             <table id="sliders" width="100%">
                 <tr>
                     <td>Model</td>
-                    <td></td>
-                    <td>
-                        <label>
-                            <input type="radio" name="model" value="ao" v-model="model"/>
-                            ao
-                        </label>
-                        &nbsp;
-                        <label>
-                            <input type="radio" name="model" value="a1a2" v-model="model"/>
-                            a<sub>1</sub>a<sub>2</sub>
-                        </label>
-                        &nbsp;
-                        <label>
-                            <input type="radio" name="model" value="a2" v-model="model"/>
-                            a<sup>2</sup>
-                        </label>
+                    <td colspan="2">
+                        <select v-model="model">
+                            <option value="a1a2">Carthesian</option>
+                            <option value="ao">Theoretical</option>
+                            <option value="e">Empirical</option>
+                        </select>
                     </td>
                 </tr>
-                <tr>
-                    <td>Valence</td>
-                    <td><button @click="state.v=50">&times;</button></td>
-                    <td>
-                        <input class="slider" type="range" v-model="state.v"/>
-                    </td>
-                    <td width="30em"><span id="label-v">{{V}}</span></td>
-                </tr>
-                <tr v-show="model=='a1a2'">
-                    <td>Arousal 1</td>
-                    <td><button @click="state.a1=50">&times;</button></td>
-                    <td>
-                        <input class="slider" type="range" v-model="state.a1"/>
-                    </td>
-                    <td><span id="label-a1">{{A1}}</span></td>
-                </tr>
-                <tr v-show="model=='a1a2'">
-                    <td>Arousal 2</td>
-                    <td><button @click="state.a2=50">&times;</button></td>
-                    <td>
-                        <input class="slider" type="range" v-model="state.a2"/>
-                    </td>
-                    <td><span id="label-a2">{{A2}}</span></td>
-                </tr>
-                <tr v-show="model=='ao'">
-                    <td>Arousal</td>
-                    <td><button @click="vstate.a=50; updateVState()">&times;</button></td>
-                    <td>
-                        <input class="slider" type="range" v-model="vstate.a" @input="updateVState()"/>
-                    </td>
-                    <td><span id="label-a">{{A}}</span></td>
-                </tr>
-                <tr v-show="model=='a2'">
-                    <td>Arousal</td>
-                    <td><button @click="vstate.a=50; updateVState()">&times;</button></td>
-                    <td>
-                        <input class="slider" type="range" v-model="a2state.a" @input="updateA2State()"/>
-                    </td>
-                    <td><span id="label-a2">{{Asup2}}</span></td>
-                </tr>
-                <tr>
-                    <td>Dominance</td>
-                    <td><button @click="state.d=50">&times;</button></td>
-                    <td>
-                        <input class="slider" type="range" v-model="state.d"/>
-                    </td>
-                    <td><span id="label-p">{{D}}</span></td>
-                </tr>
-                <tr v-show="model=='ao'">
-                    <td>Control</td>
-                    <td><button @click="vstate.o=50; updateVState()">&times;</button></td>
-                    <td>
-                        <input class="slider" type="range" v-model="vstate.o" @input="updateVState()"/>
-                    </td>
-                    <td><span id="label-o">{{O}}</span></td>
-                </tr>
-                <tr>
-                    <td>Contempt</td>
-                    <td><button @click="state.c=0">&times;</button></td>
-                    <td>
-                        <input class="slider" type="range" v-model="state.c"/>
-                    </td>
-                    <td><span id="label-c">{{C}}</span></td>
-                </tr>
+                <template v-if="['ao','a1a2'].includes(model)">
+                    <tr>
+                        <td>Valence</td>
+                        <td><button @click="state.v=50">&times;</button></td>
+                        <td>
+                            <input class="slider" type="range" v-model="state.v"/>
+                        </td>
+                        <td width="30em"><span id="label-v">{{fmt(state.v)}}</span></td>
+                    </tr>
+                    <tr v-show="model=='a1a2'">
+                        <td>Arousal 1</td>
+                        <td><button @click="state.a1=50">&times;</button></td>
+                        <td>
+                            <input class="slider" type="range" v-model="state.a1"/>
+                        </td>
+                        <td><span id="label-a1">{{fmt(state.a1)}}</span></td>
+                    </tr>
+                    <tr v-show="model=='a1a2'">
+                        <td>Arousal 2</td>
+                        <td><button @click="state.a2=50">&times;</button></td>
+                        <td>
+                            <input class="slider" type="range" v-model="state.a2"/>
+                        </td>
+                        <td><span id="label-a2">{{fmt(state.a2)}}</span></td>
+                    </tr>
+                    <tr v-show="model=='ao'">
+                        <td>Arousal</td>
+                        <td><button @click="vstate.a=50; updateVState()">&times;</button></td>
+                        <td>
+                            <input class="slider" type="range" v-model="vstate.a" @input="updateVState()"/>
+                        </td>
+                        <td><span id="label-a">{{fmt(vstate.a)}}</span></td>
+                    </tr>
+                    <tr>
+                        <td>Dominance</td>
+                        <td><button @click="state.d=50">&times;</button></td>
+                        <td>
+                            <input class="slider" type="range" v-model="state.d"/>
+                        </td>
+                        <td><span id="label-p">{{fmt(state.d)}}</span></td>
+                    </tr>
+                    <tr v-show="model=='ao'">
+                        <td>Control</td>
+                        <td><button @click="vstate.o=50; updateVState()">&times;</button></td>
+                        <td>
+                            <input class="slider" type="range" v-model="vstate.o" @input="updateVState()"/>
+                        </td>
+                        <td><span id="label-o">{{fmt(vstate.o)}}</span></td>
+                    </tr>
+                    <tr>
+                        <td>Contempt</td>
+                        <td><button @click="state.c=25">&times;</button></td>
+                        <td>
+                            <input class="slider" type="range" v-model="state.c"/>
+                        </td>
+                        <td><span id="label-c">{{fmt(state.c)}}</span></td>
+                    </tr>
+                </template>
+                <template v-if="model=='e'">
+                    <tr>
+                        <td>Valence</td>
+                        <td><button @click="estate.v=50; updateEState()">&times;</button></td>
+                        <td>
+                            <input class="slider" type="range" v-model="estate.v" @input="updateEState()"/>
+                        </td>
+                        <td width="30em"><span>{{fmt(estate.v)}}</span></td>
+                    </tr>
+                    <tr>
+                        <td>Dominance</td>
+                        <td><button @click="estate.d=50; updateEState()">&times;</button></td>
+                        <td>
+                            <input class="slider" type="range" v-model="estate.d" @input="updateEState()"/>
+                        </td>
+                        <td><span>{{fmt(estate.d)}}</span></td>
+                    </tr>
+                    <tr>
+                        <td>Control</td>
+                        <td><button @click="estate.o=50; updateEState()">&times;</button></td>
+                        <td>
+                            <input class="slider" type="range" v-model="estate.o" @input="updateEState()"/>
+                        </td>
+                        <td><span>{{fmt(estate.o)}}</span></td>
+                    </tr>
+                    <tr>
+                        <td>Arousal</td>
+                        <td><button @click="estate.a=50; updateEState()">&times;</button></td>
+                        <td>
+                            <input class="slider" type="range" v-model="estate.a" @input="updateEState()"/>
+                        </td>
+                        <td><span>{{fmt(estate.a)}}</span></td>
+                    </tr>
+                    <tr>
+                        <td>Contempt</td>
+                        <td><button @click="estate.c=25; updateEState()">&times;</button></td>
+                        <td>
+                            <input class="slider" type="range" v-model="estate.c" @input="updateEState()"/>
+                        </td>
+                        <td><span>{{fmt(estate.c)}}</span></td>
+                    </tr>
+                </template>
             </table>
-            <button @click="state={v:50,a1:50,a2:50,d:50,c:0}" class="mt-1">Reset all</button>
-        </div>
-        <hr class="mt-1"/>
-        <div id="animation">
-            <label><input type="checkbox" v-model="animateBlink"/> Blink</label>
-            <br/>
-            <label><input type="checkbox" v-model="animate"/> Animate</label>
-            <p v-show="animate">
-                <label>
-                    Speed: <input class="slider" type="range" v-model="speed"/>
-                </label>
-                <br/>
-                <label><input type="checkbox" v-model="fix.v"> Fix valence</label>
-                <br/>
-                <label><input type="checkbox" v-model="fix.a1"> Fix arousal 1</label>
-                <br/>
-                <label><input type="checkbox" v-model="fix.a2"> Fix arousal 2</label>
-                <br/>
-                <label><input type="checkbox" v-model="fix.d"> Fix dominance</label>
-                <br/>
-                <label><input type="checkbox" v-model="fix.c"> Fix contempt</label>
-            </p>
+            <div class="button-row mt-1">
+                <button @click="animateTo({v:50,a1:50,a2:50,d:50,c:25})">Reset all</button>
+                <button @click="random()">Random</button>
+                <button @pointerdown="blink=true" @pointerup="blink=false">Blink</button>
+            </div>
         </div>
         <div style="height:20px"></div>
         <div style="margin-bottom: 50px">

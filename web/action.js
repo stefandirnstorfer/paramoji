@@ -6,28 +6,21 @@ const app = Vue.createApp({
                 a1: 50,
                 a2: 50,
                 d: 50,
-                c: 0
+                c: 25
             },
             vstate: {
                 a: 50,
                 o: 50
             },
-            a2state: {
-                a: 50
-            },
-            fix: {
-                v: false,
-                a1: false,
-                a2: false,
-                d: false,
-                c: false
+            estate: {
+                v: 50,
+                d: 50,
+                o: 50,
+                a: 50,
+                c: 25
             },
             blink: false,
-            model: "ao",
-            animate: false,
-            animateBlink: false,
-            oldtime: 0,
-            speed: 50,
+            model: "ao"
         }
     },
     created() {
@@ -37,7 +30,6 @@ const app = Vue.createApp({
             newState[key]= m ? parseInt(m[1]) : this.state[key];
         }
         this.state = newState
-        this.doBlink();
     },
     methods: {
         paramoji() {
@@ -48,54 +40,31 @@ const app = Vue.createApp({
                 c=this.state.c/100
             return (this.blink ? paramoji_blink_svg : paramoji_svg)(v, a1, a2, d, c)
         },
-        doBlink() {
-            if (this.animateBlink) {
-                this.blink = true
-                setTimeout(() => {
-                    this.blink = false
-                    const delay = -4e3 * Math.log(Math.random())
-                    setTimeout(() => {
-                        this.blink = this.animateBlink;
-                            this.doBlink()
-                    }, delay)
-                }, 100)
+        animateTo(newState) {
+            const states = [];
+            for (let t=0; t<=24; t++) {
+                let tstate= {}
+                for (let key in this.state) {
+                    tstate[key] = t/24*newState[key] + (1-t/24)*this.state[key]
+                }
+                states.push(tstate)
             }
-        },
-        runAnimation(dstate) {
-            if (!this.animate) return;
-            const now = new Date().getTime();
-            if (!dstate) {
-                this.oldtime = now;
-                dstate = {v:0, a1:0, a2:0, d:0, c:0}
-            }
-            let speed = this.speed;
-            let dt = (now - this.oldtime) * speed / 200;
-            if (dt > 1) {
-                this.oldtime = now;
-                var decay = 0.05;
-                for (var key in this.state) {
-                    if (this.fix[key]) continue;
-                    let x = parseFloat(this.state[key]);
-                    let dx = dstate[key] || 0;
-                    dx = decay * (Math.random() - .5) * Math.sqrt(dt) + (1 - decay) * dx;
-                    x = x + dx * dt;
-                    if (x > 100) {
-                        x = 100;
-                        dx = 0;
-                    }
-                    if (x < 0) {
-                        x = 0;
-                        if (!["c"].includes(key)) {
-                            dx = 0;
-                        }
-                    }
-                    this.state[key] = x;
-                    dstate[key] = dx;
+            const update = () => {
+                if (states.length) {
+                    this.state = states.shift()
+                    requestAnimationFrame(update)
                 }
             }
-            window.requestAnimationFrame(() => {
-                this.runAnimation(dstate);
-            })
+            update()
+            this.state= newState
+        },
+        random() {
+            let newState= {}
+            for (let key in this.state) {
+                newState[key] = Math.min(100, Math.max(0, Math.random()*120-10))
+            }
+            newState.c = newState.c * newState.c /100
+            this.animateTo(newState)
         },
         updateVState() {
             const o = parseFloat(this.vstate.o)
@@ -103,10 +72,21 @@ const app = Vue.createApp({
             this.state.a1 = Math.max(0, Math.min(100, a + (o-50)))
             this.state.a2 = Math.max(0, Math.min(100, a - (o-50)))
         },
-        updateA2State() {
-            const a2 = parseFloat(this.a2state.a)
-            this.state.a1 = a2 * a2 * (100-a2) / 1500
-            this.state.a2 = a2 * a2 / 100
+        updateEState() {
+            const dotprod = (a,b,c,d,e,f) => a * this.estate.v + b * this.estate.d + c * this.estate.o + d * this.estate.a + e * this.estate.c + f
+            this.state.v = dotprod(+1.00, +0.32, -0.25, -0.24, +0.22,   3)
+            this.state.a1= Math.max(0, dotprod(+0.13, +0.18, +0.44, +1.00, +0.48, -50))
+            this.state.a2= Math.max(0, dotprod(-0.11, -0.13, -1.00, +0.55, +0.07,  83))
+            this.state.d = dotprod(-0.39, +1.00, -0.14, -0.07, -0.04,  31)
+            this.state.c = Math.min(110, dotprod(-0.29, -0.10, -0.09, -0.47, +1.00,  48))
+        },
+        fmt(x) { return parseFloat(x).toFixed(0) },
+        updateUrl() {
+            clearTimeout(this.updateUrlTimer)
+            let query= ["v","a1","a2","d","c"].map(x => x+'='+this.fmt(this.state[x]))
+            this.updateUrlTimer = setTimeout(() => {
+                window.history.replaceState({}, "Emoticons", "?" + query.join("&"))
+            }, 100)
         }
     },
     watch: {
@@ -119,24 +99,16 @@ const app = Vue.createApp({
             handler() {
                 this.vstate.a = (parseFloat(this.state.a1) + parseFloat(this.state.a2))/2
                 this.vstate.o = (parseFloat(this.state.a1) - parseFloat(this.state.a2))/2 + 50
-                this.a2state.a = 100* Math.sqrt(parseFloat(this.state.a2)/100)
-                if (this.updateUrlTimer) clearTimeout(this.updateUrlTimer)
-                let query= ["V","A1","A2","D","C"].map(x => x.toLowerCase()+'='+this[x])
-                this.updateUrlTimer = setTimeout(() => {
-                    window.history.replaceState({}, "Emoticons", "?" + query.join("&"))
-                }, 100)
+                const dotprod = (a,b,c,d,e) => a*(this.state.v-3) + b*(this.state.a1*1+50) + c*(this.state.a2-83) + d*(this.state.d-31) + e*(this.state.c-48)
+                const tryfix = (a,b) => Math.abs(a-b) < 2 ? a : b
+                this.estate.v = tryfix(this.estate.v, dotprod(0.79,  0.10, -0.09, -0.30, -0.23))
+                this.estate.d = tryfix(this.estate.d, dotprod(0.28,  0.15, -0.11,  0.86, -0.09))
+                this.estate.o = tryfix(this.estate.o, dotprod(-0.20, 0.34, -0.78, -0.11, -0.07))
+                this.estate.a = tryfix(this.estate.a, dotprod(-0.15, 0.63,  0.35, -0.05, -0.30))
+                this.estate.c = tryfix(this.estate.c, dotprod(0.17,  0.37,  0.05, -0.03, 0.78))
+                this.updateUrl()
             }
         },
-    },
-    computed: {
-        "V"() { return parseInt(this.state.v).toFixed(0) },
-        "A1"() { return parseInt(this.state.a1).toFixed(0) },
-        "A2"() { return parseInt(this.state.a2).toFixed(0) },
-        "D"() { return parseInt(this.state.d).toFixed(0) },
-        "C"() { return parseInt(this.state.c).toFixed(0) },
-        "O"() { return parseInt(this.vstate.o).toFixed(0) },
-        "A"() { return parseInt(this.vstate.a).toFixed(0) },
-        "Asup2"() { return parseInt(this.a2state.a).toFixed(0) }
     }
 })
 window.onload = () => { app.mount("#app") }
