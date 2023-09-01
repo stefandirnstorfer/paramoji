@@ -69,8 +69,8 @@ const app = Vue.createApp({
         updateVState() {
             const o = parseFloat(this.vstate.o)
             const a = parseFloat(this.vstate.a)
-            this.state.a1 = Math.max(0, Math.min(100, a + (o-50)))
-            this.state.a2 = Math.max(0, Math.min(100, a - (o-50)))
+            this.state.a1 = Math.max(0, a + (o-50))
+            this.state.a2 = Math.max(0, a - (o-50))
         },
         updateEState() {
             const dotprod = (a,b,c,d,e,f) => a * this.estate.v + b * this.estate.d + c * this.estate.o + d * this.estate.a + e * this.estate.c + f

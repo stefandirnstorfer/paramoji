@@ -145,7 +145,7 @@ function paramoji_svg(v, a1, a2, p, c) {
         '    </g>',
         '  </g>',
         '  <g id="brow-r">',
-        '    <path d="M?,?Q?,? ?,?" stroke-width="?" stroke="black" fill="none"/>',
+        '    <path d="M?,?Q?,? ?,?" fill="none" stroke="black" stroke-width="?"/>',
         '    <path d="M?,?Q?,? ?,?" fill="none" stroke="black"/>',
         '  </g>',
         '  <use href="#brow-r" transform="matrix(-1,0,0,1,100,?)"/>',

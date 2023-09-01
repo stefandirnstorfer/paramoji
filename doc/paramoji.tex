@@ -724,7 +724,7 @@ are decoded according to these expections. When mapping emotions to adjectives
 language skills and educational background also play a role. A method was presented
 to adjust the emotion parameters to a specific target audience, crowd workers
 in this case. Only linear adjustments were considered, but there is reason to believe
-that non linear effects are minimal. The graphical transformations in each
+that non linear effects are small. The graphical transformations in each
 of the five dimensions is extremely smooth, mostly linear, in all places.
 When animated all transitions always looks smooth and straight, making them
 ideal for visualizations in real time or for replay.
@@ -740,67 +740,61 @@ The dot product is computed between each matrix row and the input vector,
 which yields the values for all the question marks in the template string.
 The output format is SVG, a standardized description language for
 vector graphics. Both, the JavaScript code and the SVG instructions, can be interpreted by any contemporary
-web browser.
-
-The easiest way to run the code at home is as follows: 1) Open the developer console in your web browser.
-2) paste the source code into the console and press enter. 3) Type: \texttt{document.write(paramoji(1,1,0,0,0))}
-and press enter again. The facial expression should appear on your screen.
-\footnote{A demo of this code is currently deployed at \url{https://paramoji.org}}
+web browser.\footnote{A demo of this code is currently deployed at \url{https://paramoji.org}}
 
 {\small
 \begin{verbatim}
 function paramoji(v, a1, a2, d, c) {
- const data=[[51,-2,-10],[,22,,,-26],[,,-11],[-8,,-8],[,,-4],[-8,,-8],[,,2],
-  [-8,,-3],[,,9],[-4,,1],[,-6,13],[5,,12],[,-9,11],[11,,8],[5,,12],[,-9,-11]
-  ,[-4,,5],[,-6,-13],[,,-11],[,,,,-1],[,-2.5,,,-1.5],[.5,,5],[5,1,-4,,8],[2,
-  -9,-17,,5],[,-22,,,26,-10,,20],[,,-11,,,,10],[8,,8,,,,-6],[,,-4,,,,4],[8,,
-  8,,,,-6],[,,2,,,,-2],[8,,3,,,,-2],[,,9,,,,-9],[4,,-1],[,-6,13,,,-3,-12,6],
-  [-5,,-12],[,-9,11,,,-5,-8,10],[-11,,-8],[-5,,-12],[,-9,-11,,,-5,9,10],[4,,
-  -5],[,-6,-13,,,-3,12,6],[,,-11,,,,10],[,,,,2],[2,1,-10,,-6,3],[2,-9,-17,,4
-  ,20],[,,,,,.4],[70,-2,-2.5,-7.5,-1,,,,1],[-3,,.25,.75],[-14,-2,1.5,4.5,1],
-  [25,-4,,-6,2,-7],[77,-10,,-2,,-1],[29,-2,,-3,2,-9],[76,-1,,-8,-1,-17,-1,1,
-  1],[37,-5,,,2,3],[67,-1,-1.8,-7.2,-4,-5,-1,2,,2],[75,4,,6,-2],[77,-10,,-2]
-  ,[71,2,,3,-2],[76,-1,,-8,-1],[65,4,-.2,-.8,-2],[67,-1,-1.8,-7.2,-4],[80,5,
-  ,6,-6,,,,-2],[66,2,,-5,-1,,,,-2],[14,1,,9,-1],[,-12,,-2,,-3,,6,-2],[10,1,,
-  11,-2],[,-2,,11,,,,,-9],[6,,,6,-2],[,1,,12,,,,,-5],[,1,,12,,,,,-4],[-10,-1
-  ,,-11,2],[,-2,,11,,,,,-2],[-14,-1,,-9,1],[,-12,,-2,,-3,,6,2],[-10,-1,,-11,
-  2],[,-2,,-11,,,,,-5],[-6,,,-6,2],[,1,,-12,,,,,-3],[,1,,-12,,,,,-1],[10,1,,
-  11,-2],[,-2,,-11,,,,,-2],[14,1,,9,-1],[,-12,,-2,,-3,,6,-2],[,,,,,.4,,.15,-
-  .25],[50,,,,,-12,,,6],[81,2,,,-2,-2,,,1],[59,2,1,,-6],[42,-8,-21,,12],[71,
-  2,3,,-5],[42,-11,-23,,3],[79,1,6,,-4],[42,-3,-20,,-3],[2,-.5,1,,.5],[62,,-
-  4,,-2],[35,-5,-18,,7],[56,2,,,-3],[41,-7,-24,,9],[56,1,,,-1],[43,-8,-22,,
-  10],[,,,,,1,3,2]]
+ const matrix=[[,,,,,.5],[70,-2,,-8,-1],[-9,-1,-2],[37,-5,,,2,4],[68,-1,-2,-
+  7,-2,-6,-4,-1,3],[29,-2,,-3,2,-9],[76,-1,,-8,,-17,-1,,3],[25,-4,,-6,2,-7],
+  [77,-10,,-2],[65,4,,,-2,-.5],[68,-1,-2,-7,-2],[71,2,,3,-2],[76,-1,,-8],[75
+  ,4,,6,-2],[77,-10,,-2],[80,5,,6,-6,,,,-2],[66,2,,-5,-1,,,,-2],[14,1,,9,-1]
+  ,[,-12,,-2,,-3,,6,-2],[10,1,,11,-2],[,-2,,11,,,,,-9],[6,,,6,-2],[,1,,12,,,
+  ,,-5],[,1,,12,,,,,-4],[-10,-1,,-11,2],[,-2,,11,,,,,-2],[-14,-1,,-9,1],[,-
+  12,,-2,,-3,,6,2],[-10,-1,,-11,2],[,-2,,-11,,,,,-5],[-6,,,-6,2],[,1,,-12,,,
+  ,,-3],[,1,,-12,,,,,-1],[10,1,,11,-2],[,-2,,-11,,,,,-2],[14,1,,9,-1],[,-12,
+  ,-2,,-3,,6,-2],[,,,,,.4,,.15,-.25],[50,,,,,-12,,,6],[81,2,,,-2,-2,,,1],[51
+  ,-2,-10],[,22,,,-26],[,,-11],[-8,,-8],[,,-4],[-8,,-8],[,,2],[-8,,-3],[,,9]
+  ,[-4,,1],[,-6,13],[5,,12],[,-9,11],[11,,8],[5,,12],[,-9,-11],[-4,,5],[,-6,
+  -13],[,,-11],[,,,,-1],[,-2.5,,,-1.5],[.5,,5],[5,1,-4,,8],[2,-9,-17,,5],[,-
+  22,,,26,-10,,20],[,,-11,,,,10],[8,,8,,,,-6],[,,-4,,,,4],[8,,8,,,,-6],[,,2,
+  ,,,-2],[8,,3,,,,-2],[,,9,,,,-9],[4,,-1],[,-6,13,,,-3,-12,6],[-5,,-12],[,-9
+  ,11,,,-5,-8,10],[-11,,-8],[-5,,-12],[,-9,-11,,,-5,9,10],[4,,-5],[,-6,-13,,
+  ,-3,12,6],[,,-11,,,,10],[,,,,2],[2,1,-10,,-6,3],[2,-9,-17,,4,20],[59,2,1,,
+  -6],[40,-8,-19,,12],[71,2,3,,-5],[40,-11,-21,,3],[79,1,6,,-4],[40,-3,-18,,
+  -3],[2,-.5,1,,.5],[62,,-4,,-2],[33,-5,-16,,7],[56,2,,,-3],[39,-7,-22,,9],[
+  56,1,,,-1],[41,-8,-20,,10],[,,,,,1,3,2]]
  const template='<svg width="100%" height="100%" viewBox="0 0 100 100"><de'+
   'fs><clipPath id="c-eye-r"><use href="#eye-r"/></clipPath><clipPath id="'+
   'c-eye-l"><use href="#eye-l"/></clipPath><clipPath id="c-lips"><use href'+
-  '="#lips"/></clipPath></defs><g transform="translate(68,?)"><path id="ey'+
-  'e-r" transform="rotate(?)" d="M-8,?C?,? ?,? ?,? ?,? ?,? ?,0 ?,? ?,? -8,'+
-  '?Z" fill="white" stroke="black"/><g clip-path="url(#c-eye-r)"><g id="le'+
-  'ns" transform="translate(?,?)"><circle r="5" fill="#9d4922"/><circle r='+
-  '"?"/><circle r="1" cx="-2.5" cy="-1.5" fill="white"/></g><path d="M-15,'+
-  '-20H20V0Q?,? -15,-2Z" opacity=".25"/></g><g transform="translate(-36,0)'+
-  '"><path id="eye-l" transform="rotate(?)" d="M8,?C?,? ?,? ?,? ?,? ?,? ?,'+
-  '0 ?,? ?,? 8,?Z" fill="white" stroke="black"/><g clip-path="url(#c-eye-l'+
-  ')"><use href="#lens" x="?"/><path d="M-15,-20H15V-2Q?,? -20,0Z" opacity'+
-  '=".25"/></g></g></g><path transform="matrix(1,?,0,1,53,?)" d="M-4,0q-2,'+
-  '-2 -4,0M-1,0Q3,-2 4,-1T6,? 4,?" fill="none" stroke="black"/><path d="M?'+
-  ',?Q?,? ?,?" fill="none" stroke="black"/><path d="M?,?Q?,? ?,?" fill="no'+
-  'ne" stroke="black"/><g clip-path="url(#c-lips)"><rect height="100" widt'+
-  'h="100"/><ellipse cx="50" cy="91" rx="15" ry="10" fill="#800f08"/><g tr'+
-  'ansform="translate(0,?)"><use href="#tooth" x="-14"/><use href="#tooth"'+
-  ' x="-7"/><use href="#tooth"/><use href="#tooth" x="7"/></g><g transform'+
-  '="translate(0,?)"><use href="#tooth" transform="matrix(1,.14,0,1,-14,-8'+
-  ')"/><use href="#tooth" x="-7"/><rect id="tooth" x="50.5" rx="2" ry="1" '+
-  'height="15" fill="white" width="6" stroke="black" stroke-width=".5"/><u'+
-  'se href="#tooth" transform="matrix(1,-.14,0,1,7,7)"/></g></g><path id="'+
-  'lips" d="M?,?C?,? ?,? 0,?S?,? ?,?C?,? ?,? 0,?S?,? ?,?Z" transform="matr'+
-  'ix(1,?,0,1,?,?)" fill="none" stroke="black"/><g id="brow-r"><path d="M?'+
-  ',?Q?,? ?,?" stroke-width="?" stroke="black" fill="none"/><path d="M?,?Q'+
-  '?,? ?,?" fill="none" stroke="black"/></g><use href="#brow-r" transform='+
-  '"matrix(-1,0,0,1,100,?)"/></svg>'
+  '="#lips"/></clipPath></defs><path transform="matrix(1,?,0,1,53,?)" d="M'+
+  '-4,0q-2,-2 -4,0M-1,0Q3,-2 4,-1T6,-3 4,?" fill="none" stroke="black"/><p'+
+  'ath d="M?,?Q?,? ?,?" fill="none" stroke="black"/><path d="M?,?Q?,? ?,?"'+
+  ' fill="none" stroke="black"/><g clip-path="url(#c-lips)"><rect height="'+
+  '100" width="100"/><ellipse cx="50" cy="91" rx="15" ry="10" fill="#800f0'+
+  '8"/><g transform="translate(0,?)"><use href="#tooth" x="-14"/><use href'+
+  '="#tooth" x="-7"/><use href="#tooth"/><use href="#tooth" x="7"/></g><g '+
+  'transform="translate(0,?)"><use href="#tooth" transform="matrix(1,.14,0'+
+  ',1,-14,-8)"/><use href="#tooth" x="-7"/><rect id="tooth" x="50.5" rx="2'+
+  '" ry="1" height="15" fill="white" width="6" stroke="black" stroke-width'+
+  '=".5"/><use href="#tooth" transform="matrix(1,-.14,0,1,7,7)"/></g></g><'+
+  'path id="lips" d="M?,?C?,? ?,? 0,?S?,? ?,?C?,? ?,? 0,?S?,? ?,?Z" transf'+
+  'orm="matrix(1,?,0,1,?,?)" fill="none" stroke="black"/><g transform="tra'+
+  'nslate(68,?)"><path id="eye-r" transform="rotate(?)" d="M-8,?C?,? ?,? ?'+
+  ',? ?,? ?,? ?,0 ?,? ?,? -8,?Z" fill="white" stroke="black"/><g clip-path'+
+  '="url(#c-eye-r)"><g id="lens" transform="translate(?,?)"><circle r="5" '+
+  'fill="#9d4922"/><circle r="?"/><circle r="1" cx="-2.5" cy="-1.5" fill="'+
+  'white"/></g><path d="M-25,-40H20V0Q?,? -15,-2Z" opacity=".25"/></g><g t'+
+  'ransform="translate(-36,0)"><path id="eye-l" transform="rotate(?)" d="M'+
+  '8,?C?,? ?,? ?,? ?,? ?,? ?,0 ?,? ?,? 8,?Z" fill="white" stroke="black"/>'+
+  '<g clip-path="url(#c-eye-l)"><use href="#lens" x="?"/><path d="M-50,-40'+
+  'H15V-2Q?,? -20,0Z" opacity=".25"/></g></g></g><g id="brow-r"><path d="M'+
+  '?,?Q?,? ?,?" fill="none" stroke="black" stroke-width="?"/><path d="M?,?'+
+  'Q?,? ?,?" fill="none" stroke="black"/></g><use href="#brow-r" transform'+
+  '="matrix(-1,0,0,1,100,?)"/></svg>'
  const dotprod = (X,Y) => X.reduce((a, b, i) => a + b*(Y[i] || 0), 0)
  const vec = [1, 2*v-1, a1, a2, 2*d-1, c, c*a1, c*v, c*a2, c*d]
- return template.replace(/\?/g, () => dotprod(vec, data.shift()))
+ return template.replace(/\?/g, () => dotprod(vec, matrix.shift()))
 }
 \end{verbatim}
 }
@@ -809,7 +803,7 @@ function paramoji(v, a1, a2, d, c) {
 \begin{figure}[ht!]
   \begin{center}
     \begin{tabular}{cccc}
-        \paramoji{105,138,95,106,-97}
+        \paramoji{105,138,95,106,-60}
         \paramoji{166,53,130,105,2}
         \paramoji{-55,124,126,131,-9}
         \paramoji{-58,180,0,-25,-9}
