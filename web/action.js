@@ -20,7 +20,8 @@ const app = Vue.createApp({
                 c: 25
             },
             blink: false,
-            model: "ao"
+            model: "ao",
+            style: "comic"
         }
     },
     created() {
@@ -38,6 +39,8 @@ const app = Vue.createApp({
                 a2=this.state.a2/100,
                 d=this.state.d/100,
                 c=this.state.c/100
+            if (this.style=='schematic')
+                return schematic_svg(v, a1, a2, d ,c)
             return (this.blink ? paramoji_blink_svg : paramoji_svg)(v, a1, a2, d, c)
         },
         animateTo(newState) {
