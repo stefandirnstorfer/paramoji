@@ -392,7 +392,9 @@ paramojis that it supercedes, i.e. its quantile on the measured emotional scale.
 A linear regression of the reported rating numbers onto the Carthesian dimensions reveals
 how much the report is swayed by each
 theoretical dimension. Table table \ref{tab:raw_data} shows the results.
-The 1-norm column evaluates biggest possible change of the predicted quantile in two opposite corners.
+The 1-norm column evaluates biggest possible change of the predicted quantile in two opposite corners
+\paramojib{100,100,0,0,0} and
+\paramojib{0,0,100,100,100}.
 In absence of doubt or disagreement the least intense position should yield 0 and the most intense should yield 1.
 As we can see the reported change in valence can be explained through the graphical transformations\footnote{
 The value for valence is greater than the valid probability range from 0 to 1.
@@ -483,7 +485,8 @@ not changed by the process.
 Figure \ref{fig:emp_valence} shows the result as a graphical transformation, which
 can be interpreted to sway the perceived sentiment from negative to positiv most efficiently, i.e. with
 minimal graphical displacements.
-For the visualization it is applied to a neutral face, which is chosen at the parameters $(0.5, 0.5, 0.5, 0.5, 0.25)$.
+For the visualization it is applied to a neutral face
+\paramojib{50,50,50,50,25}, which is chosen at the parameters $(0.5, 0.5, 0.5, 0.5, 0.25)$.
 This is a purely arbitrary choice. It just so happens to be in the center of the domain with a bias to
 the non-contemptuous symmetric expression. Any other parameters could have been chosen as the center, because the
 emotional effect of the graphical transformations were measured across the entire domain and not at a single point,
