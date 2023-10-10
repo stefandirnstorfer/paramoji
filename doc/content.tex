@@ -77,8 +77,7 @@ To solve this problem the visualization in the form of a parametric emoji, a com
 face icon, provides a unique and valid facial expression for each choice of parameters.
 The face is made to be generic, without any reference to physiological properties, like age, gender or race.
 Strength of the emotional expression and the algorithmic simplicity had top design priorities.
-All graphical parameters depended linearly on the emotional dimensions, with the exception of contempt where
-few bilinear factors drive the asymmetric look.
+All graphical parameters depended linearly on the emotional dimensions.
 
 It would, of course, have been preferable to construct a scale that is linear in the expressed emotional intensity.
 However, we would hardly be able to agree on a method for its measurement. Linearity in graphics is not just the second best option.
@@ -241,16 +240,16 @@ All combinations of parameters produce sometimes comical, but always valid facia
         \begin{tabular}{l|ccc}
             \rotatebox{90}{\hspace{1ex}$c = 1.0$} &
             \paramoji{86,19,19,68,100} &
-            \paramoji{10,10,10,90,100} &
+            \paramoji{30,10,10,80,100} &
             \paramoji{38,72,72,41,100} \\
             \rotatebox{90}{\hspace{1ex}$c = 0.0$} &
             \paramoji{86,19,19,68,0} &
-            \paramoji{10,10,10,90,0} &
+            \paramoji{30,10,10,80,0} &
             \paramoji{38,72,72,41,0} \\
             \hline\\[-1.8ex]
-            $v$ & 0.9 & 0.1 & 0.4 \\
+            $v$ & 0.9 & 0.3 & 0.4 \\
             $a$ & 0.2 & 0.1 & 0.7 \\
-            $d$ & 0.7 & 0.9 & 0.4
+            $d$ & 0.7 & 0.8 & 0.4
         \end{tabular}
     \end{center}
     \caption{Random paramojis with and without contempt. The contempt
@@ -660,65 +659,65 @@ ideal for visualizations in real time or for replay.
 \section*{Code}
 
 The source code of the paramoji was difficult to construct, but is easy to read.
-A sparse matrix contains all values that define the transformation.
+A sparse matrix contains all values that define the linear parameter transformation.
 There is a row for each free parameter
 in the drawing instruction and a column
-for each entry in the transformed input vector $(1, 2v-1, a_1, a_2, 2d-1, c, ca_1, cv, ca_2)$.
+for each entry in the transformed input vector $(1, 2v-1, a_1, a_2, 2d-1, c)$.
 The dot product is computed between each matrix row and the input vector,
 which yields the values for all the question marks in the template string.
-The output format is SVG, a standardized description language for
-vector graphics. Both, the JavaScript code and the SVG instructions, can be interpreted by any contemporary
+The actual template might be difficult to deconstruct, but for the
+scope of this discussion it is sufficent to understand that it is an SVG format
+with a well documented limited feature set. Hence, the linearity of the transformation
+can be confirmed without going into further detail.
+Both, the JavaScript code and the SVG instructions, can be interpreted by any contemporary
 web browser.\footnote{A demo of this code is currently deployed at \url{https://paramoji.org}}
 
 {\small
 \begin{verbatim}
 function paramoji(v, a1, a2, d, c) {
  const matrix=[[,,,,,.5],[70,-2,,-8,-1],[-9,-1,-2],[37,-5,,,2,4],[68,-1,-2,-7,-2,
-  -6,-4,-1,3],[29,-2,,-3,2,-9],[76,-1,,-8,,-17,-1,,3],[25,-4,,-6,2,-7],[77,-10,,-
-  2],[65,4,,,-2,-.5],[68,-1,-2,-7,-2],[71,2,,3,-2],[76,-1,,-8],[75,4,,6,-2],[77,-
-  10,,-2],[80,5,,6,-6,,,,-2],[66,2,,-5,-1,,,,-2],[14,1,,9,-1],[,-12,,-2,,-3,,6,-2
-  ],[10,1,,11,-2],[,-2,,11,,,,,-9],[6,,,6,-2],[,1,,12,,,,,-5],[,1,,12,,,,,-4],[-
-  10,-1,,-11,2],[,-2,,11,,,,,-2],[-14,-1,,-9,1],[,-12,,-2,,-3,,6,2],[-10,-1,,-11,
-  2],[,-2,,-11,,,,,-5],[-6,,,-6,2],[,1,,-12,,,,,-3],[,1,,-12,,,,,-1],[10,1,,11,-2
-  ],[,-2,,-11,,,,,-2],[14,1,,9,-1],[,-12,,-2,,-3,,6,-2],[,,,,,.4,,.15,-.25],[50,,
-  ,,,-12,,,6],[81,2,,,-2,-2,,,1],[51,-2,-10],[,22,,,-26],[,,-11],[-8,,-8],[,,-4],
-  [-8,,-8],[,,2],[-8,,-3],[,,9],[-4,,1],[,-6,13],[5,,12],[,-9,11],[11,,8],[5,,12]
-  ,[,-9,-11],[-4,,5],[,-6,-13],[,,-11],[,,,,-1],[,-2.5,,,-1.5],[.5,,5],[5,1,-4,,8
-  ],[2,-9,-17,,5],[,-22,,,26,-10,,20],[,,-11,,,,10],[8,,8,,,,-6],[,,-4,,,,4],[8,,
-  8,,,,-6],[,,2,,,,-2],[8,,3,,,,-2],[,,9,,,,-9],[4,,-1],[,-6,13,,,-3,-12,6],[-5,,
-  -12],[,-9,11,,,-5,-8,10],[-11,,-8],[-5,,-12],[,-9,-11,,,-5,9,10],[4,,-5],[,-6,-
-  13,,,-3,12,6],[,,-11,,,,10],[,,,,2],[2,1,-10,,-6,3],[2,-9,-17,,4,20],[59,2,1,,-
-  6],[40,-8,-19,,12],[71,2,3,,-5],[40,-11,-21,,3],[79,1,6,,-4],[40,-3,-18,,-3],[2
-  ,-.5,1,,.5],[62,,-4,,-2],[33,-5,-16,,7],[56,2,,,-3],[39,-7,-22,,9],[56,1,,,-1],
-  [41,-8,-20,,10],[,,,,,1,3,2]]
+  -6],[29,-2,,-3,2,-17],[76,-1,,-8,,-17],[25,-4,,-6,2,-10],[77,-10,,-2],[65,4,,,-
+  2,-.5],[68,-1,-2,-7,-2],[71,2,,3,-2],[76,-1,,-8],[75,4,,6,-2],[77,-10,,-2],[80,
+  5,,6,-6],[66,2,,-5,-1],[14,1,,9,-1],[,-12,,-2],[10,1,,11,-2],[,-2,,11],[6,,,6,-
+  2],[,1,,12],[,1,,12],[-10,-1,,-11,2],[,-2,,11],[-14,-1,,-9,1],[,-12,,-2],[-10,-
+  1,,-11,2],[,-2,,-11],[-6,,,-6,2],[,1,,-12],[,1,,-12],[10,1,,11,-2],[,-2,,-11],[
+  14,1,,9,-1],[,-12,,-2],[,,,,,.4],[50,,,,,-12],[81,2,,,-2,-2],[51,-2,-10],[,22,,
+  ,-26],[,,-11],[-8,,-8],[,,-4],[-8,,-8],[,,2],[-8,,-3],[,,9],[-4,,1],[,-6,13],[5
+  ,,12],[,-9,11],[11,,8],[5,,12],[,-9,-11],[-4,,5],[,-6,-13],[,,-11],[,,,,-1,-3],
+  [,-2.5,,,-1.5],[.5,,5],[5,1,-4,,8],[2,-9,-17,,5],[,,,,26],[1,,,,,-.8],[,-22],[,
+  ,-11],[8,,8],[,,-4],[8,,8],[,,2],[8,,3],[,,9],[4,,-1],[,-6,13],[-5,,-12],[,-9,
+  11],[-11,,-8],[-5,,-12],[,-9,-11],[4,,-5],[,-6,-13],[,,-11],[1,,,,,1],[,,,,2],[
+  2,1,-10,,-6,3],[2,-9,-17,,4,15],[59,2,-1,,-6],[40,-7,-19,,12],[70,1,2,,-5],[40,
+  -12,-21,,3],[81,1,5,,-4],[40,-4,-19,,-3],[2,-.5,1,,.5],[62,,-4,,-2],[33,-5,-16,
+  ,7],[56,2,,,-3],[39,-7,-22,,9],[56,1,,,-1],[41,-8,-20,,10],[,,,,,4]]
  const template='<svg width="100%" height="100%" viewBox="0 0 100 100"><defs><c'+
   'lipPath id="c-eye-r"><use href="#eye-r"/></clipPath><clipPath id="c-eye-l"><'+
   'use href="#eye-l"/></clipPath><clipPath id="c-lips"><use href="#lips"/></cli'+
   'pPath></defs><path transform="matrix(1,?,0,1,53,?)" d="M-4,0q-2,-2 -4,0M-1,0'+
-  'Q3,-2 4,-1T6,-3 4,?" fill="none" stroke="black"/><path d="M?,?Q?,? ?,?" fill'+
-  '="none" stroke="black"/><path d="M?,?Q?,? ?,?" fill="none" stroke="black"/><'+
-  'g clip-path="url(#c-lips)"><rect height="100" width="100"/><ellipse cx="50" '+
-  'cy="91" rx="15" ry="10" fill="#800f08"/><g transform="translate(0,?)"><use h'+
-  'ref="#tooth" x="-14"/><use href="#tooth" x="-7"/><use href="#tooth"/><use hr'+
-  'ef="#tooth" x="7"/></g><g transform="translate(0,?)"><use href="#tooth" tran'+
-  'sform="matrix(1,.14,0,1,-14,-8)"/><use href="#tooth" x="-7"/><rect id="tooth'+
-  '" x="50.5" rx="2" ry="1" height="15" fill="white" width="6" stroke="black" s'+
-  'troke-width=".5"/><use href="#tooth" transform="matrix(1,-.14,0,1,7,7)"/></g'+
-  '></g><path id="lips" d="M?,?C?,? ?,? 0,?S?,? ?,?C?,? ?,? 0,?S?,? ?,?Z" trans'+
-  'form="matrix(1,?,0,1,?,?)" fill="none" stroke="black"/><g transform="transla'+
-  'te(68,?)"><path id="eye-r" transform="rotate(?)" d="M-8,?C?,? ?,? ?,? ?,? ?,'+
-  '? ?,0 ?,? ?,? -8,?Z" fill="white" stroke="black"/><g clip-path="url(#c-eye-r'+
-  ')"><g id="lens" transform="translate(?,?)"><circle r="5" fill="#9d4922"/><ci'+
-  'rcle r="?"/><circle r="1" cx="-2.5" cy="-1.5" fill="white"/></g><path d="M-2'+
-  '5,-40H20V0Q?,? -15,-2Z" opacity=".25"/></g><g transform="translate(-36,0)"><'+
-  'path id="eye-l" transform="rotate(?)" d="M8,?C?,? ?,? ?,? ?,? ?,? ?,0 ?,? ?,'+
-  '? 8,?Z" fill="white" stroke="black"/><g clip-path="url(#c-eye-l)"><use href='+
+  'Q3,-2 4,-1T6,-3 4,?" fill="none" stroke="black"/><path d="M?,?Q?,? ?,? M?,?Q'+
+  '?,? ?,?" fill="none" stroke="black"/><g clip-path="url(#c-lips)"><rect heigh'+
+  't="100" width="100"/><ellipse cx="50" cy="91" rx="15" ry="10" fill="#800f08"'+
+  '/><g transform="translate(0,?)"><use href="#tooth" x="-14"/><use href="#toot'+
+  'h" x="-7"/><use href="#tooth"/><use href="#tooth" x="7"/></g><g transform="t'+
+  'ranslate(0,?)"><use href="#tooth" transform="matrix(1,.14,0,1,-14,-8)"/><use'+
+  ' href="#tooth" x="-7"/><rect id="tooth" x="50.5" rx="2" ry="1" height="15" w'+
+  'idth="6" fill="white" stroke="black" stroke-width=".5"/><use href="#tooth" t'+
+  'ransform="matrix(1,-.14,0,1,7,7)"/></g></g><path id="lips" d="M?,?C?,? ?,? 0'+
+  ',?S?,? ?,?C?,? ?,? 0,?S?,? ?,?Z" transform="matrix(1,?,0,1,?,?)" fill="none"'+
+  ' stroke="black"/><g transform="translate(68,?)"><path id="eye-r" transform="'+
+  'rotate(?)" d="M-8,?C?,? ?,? ?,? ?,? ?,? ?,0 ?,? ?,? -8,?Z" fill="white" stro'+
+  'ke="black"/><g clip-path="url(#c-eye-r)"><g id="lens" transform="translate(?'+
+  ',?)"><circle r="5" fill="#9d4922"/><circle r="?"/><circle r="1" cx="-2.5" cy'+
+  '="-1.5" fill="white"/></g><path d="M-25,-40H20V0Q?,? -15,-2Z" opacity=".25"/'+
+  '></g><g transform="translate(-36,0)"><path id="eye-l" transform="rotate(?) s'+
+  'cale(1,?) rotate(?)" d="M8,?C?,? ?,? ?,? ?,? ?,? ?,0 ?,? ?,? 8,?Z" fill="whi'+
+  'te" stroke="black" stroke-width="?"/><g clip-path="url(#c-eye-l)"><use href='+
   '"#lens" x="?"/><path d="M-50,-40H15V-2Q?,? -20,0Z" opacity=".25"/></g></g></'+
   'g><g id="brow-r"><path d="M?,?Q?,? ?,?" fill="none" stroke="black" stroke-wi'+
   'dth="?"/><path d="M?,?Q?,? ?,?" fill="none" stroke="black"/></g><use href="#'+
   'brow-r" transform="matrix(-1,0,0,1,100,?)"/></svg>'
  const dotprod = (X,Y) => X.reduce((a, b, i) => a + b*(Y[i] || 0), 0)
- const vec = [1, 2*v-1, a1, a2, 2*d-1, c, c*a1, c*v, c*a2]
+ const vec = [1, 2*v-1, a1, a2, 2*d-1, c]
  return template.replace(/\?/g, () => dotprod(vec, matrix.shift()))
 }
 \end{verbatim}
