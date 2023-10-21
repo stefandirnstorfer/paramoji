@@ -130,8 +130,9 @@ All graphical parameters depended linearly on the emotional dimensions.
 
 It would, of course, have been preferable to construct a scale that is linear in the expressed emotional intensity.
 However, we would hardly be able to agree on a method for its measurement. Linearity in graphics is not just the second best option.
-It is objective, as it is easy to check that the generating code essentially consists of a matrix vector multiplication.
-It is at least something linear to which other systems can be calibrated. Finally, linearity creates the benefit that any detected smooth
+It is objective, as it is easy to check that the generating code essentially consists of a matrix vector multiplication
+followed by standard plotting commands. It is at least something linear to which other systems can be calibrated.
+Finally, linearity creates the benefit that any detected smooth
 transition from one state to another would also show smoothly and without artefacts when animated. A midpoint
 in parameter space is guaranteed to also be the midpoint in its graphical representation and vice versa.
 
@@ -230,7 +231,7 @@ represented by the upcoming control dimension.
         \end{tabular}
     \end{center}
     \caption{Three facial expressions plotted with high (1.0) and low (0.0) dominance.
-    Although impossible to prove in print, all parameters can be combined arbitrarily.}
+    Although impossible to plot them all, the parameters can be combined arbitrarily.}
     \label{fig:dominance}
 \end{figure}
 
@@ -313,33 +314,41 @@ as long as they are in the unit cube.
 The control dimension is a less prominent attribute, first introduced by Osgood in 1966.
 It is the axis along the adjective pairs intentional-unintentional, deliberate-impulsive,
 controlled-uncontrolled \cite{control_osgood}.
-Despite its scarce occurance in psychological literature, at least one study \cite{FRIJDA1969167}
+Despite its scarce occurance in psychological literature, at least one study
 followed up on this terminology and
-listed control as the first of 32 measured dimensions, defining it as the
+listed control as the first of 32 measured dimensions\cite{FRIJDA1969167}, defining it as the
 ``aspect of emotion which distinguishes stances
 taken and initiated by the subject from those elicited by the environment.''
 
-The final dimension of this model is ``control''. It describes the modulation of a
-facial expression that is partly put under conscious control.
-Hence, the interpretation of the last dimensions may partly be subject to cultural norms as
-these demand certain interventions.
-It ranges from controlled, modulated, suppressed \paramojib{50,100,0,50,0}
+The concept of an intentionally initiated emotion might sound like an oxymoron at first.
+However, the show of emotions always has a conscious component that controls
+how much of our emotions are shown. This feeling of restraint is certainly an affective state,
+although cultural triggers may vary. The question about its instinctive nature should
+not be driven too far. It has a dinstinct facial expression, therefore it is included in this
+discussion.
+
+The control dimension as it is used in this article ranges from controlled, modulated, suppressed \paramojib{50,100,0,50,0}
 to uncontrolled, overwhelmed, expressed \paramojib{50,0,100,50,0}.
 The visualization follows an hypothesis raised by Ekman and Friesen\cite{Ekman75}. They wrote: ``when a person is
 controlling what is shown on his face, more effort is focused on managing what occurs in and around his mouth and
-lips than in the area of the eyes/lids or brows/forehead.''  Although there might be limitations to that observation,
+lips than in the area of the eyes/lids or brows/forehead.''
+Although there might be many more detailed observations,
 it is certainly good enough as a first approximation to the subject matter.
 
-The major and easiest to control aspect of an emotion is its intensity. In visual terms, this is arousal ($a$). All
-the graphical impact caused by $a$ can be separated into arousal shown in the eye region ($a_1$) and arousal
+The major and easiest to control aspect of an emotion is its intensity. In visual terms, this is arousal ($a$),
+because it enlarges eyes and mouth. Psychologically, any show of arousal or surprise would just draw
+attention and give away information about the precise moment of a state change.
+The graphical impact caused by $a$ can be separated into arousal shown in the eye region ($a_1$) and arousal
 shown in the mouth region ($a_2$). The amount of excerted control ($k$) can be computed as the difference between
-these two. For a controlled and modulated expression $k$ is large. For an uncontrolled, overwhelmed expression $k$ is low.
+these two. For a controlled and modulated expression $k$ is positive. For an uncontrolled, overwhelmed expression $k$ is negative.
 The dimensions $a_1$ and $a_2$ are mathemtically preferred, because they are defined on the Carthesian domain $[0,1]^5$.
 The dimensions $a$ and $k$ have, at least theoretically, an emotional interpretation, but produce valid visualizations
 only on a transformed domain.
 
 Equation \eqref{eqn:control} defines how the dimension can be converted.
-The complexity of the equations is commensurate with the psychological depth of this theoretical model. An empirical adjustment based on real human responses to the generated graphics is presented in a later section.
+The complexity of the equations is commensurate with the psychological depth of this theoretical model.
+In the end its the graphics that counts, not the numbers.
+An empirical adjustment based on real human responses to the generated graphics is presented in a later section.
 
 \begin{equation}
   \label{eqn:control}
@@ -350,15 +359,6 @@ The complexity of the equations is commensurate with the psychological depth of 
 %      a &=& (a_1 + a_2)/2
   \end{array}
 \end{equation}
-
-Figure \ref{fig:control} shows the visual effect of the control dimension on some random random faces.
-It is interesting that even in the extremely overwhelmed versions one can still differentiate between
-positive \paramojib{100,0,100,50,0}
-and negative \paramojib{0,0,100,50,0} valence.
-This is in contrast to real faces, where extreme pain and extreme joy cannot be distinguished from
-the facial expression without context information or body language\cite{painjoy}.
-Emoji style visualization are not just exaggerated versions of existing facial expressions.
-They can also encode emotional information that go beyond what real faces show.
 
 \begin{figure}[htbp!]
   \begin{center}
@@ -385,12 +385,27 @@ They can also encode emotional information that go beyond what real faces show.
 \label{fig:control}
 \end{figure}
 
+Figure \ref{fig:control} shows the visual effect of the control dimension on some random random faces.
+It is interesting that even in the extremely overwhelmed versions one can still differentiate between
+positive \paramojib{100,0,100,50,0}
+and negative \paramojib{0,0,100,50,0} valence.
+This is in contrast to real faces, where extreme pain and extreme joy cannot be distinguished from
+the facial expression without context information or body language\cite{painjoy}.
+Emoji style visualization are not just exaggerated versions of existing facial expressions.
+They can also encode emotional information that go beyond what real faces show.
+
+
 \section{Empirical evidence}
 
-In the previous section I described my subjective choices for the paramoji's visual appearance.
-In this section I will lay out my process to verify or adjust the chosen parameters based on empirical evidence.
-In particular I wanted to know if untrained random participants would produce annotations of emotional dimensions
-in consistency with their theoretical derivation.
+In the previous section the graphical choices were presented for a parametric emoji that
+visualizes emotions from a five dimensional state.
+While efforts were made to provide a rational basis for any graphical choices, it's important to acknowledge
+that many of these decisions were influenced by the author's subjective judgment.
+To establish the credibility of the final outcome, empirical evidence becomes imperative.
+This section will lay out the experiment that I made, how I hired untrained participants
+for annotation work and how I extracted the result from raw data.
+In particular, I want to show that this theoretical derivation is pretty close to
+human generated annotations.
 
 \subsection{The experiment}
 
@@ -407,8 +422,8 @@ to this emotion classificion task.
   \vspace*{-3ex}
  \end{center}
  \caption{
-   User interface for untrained test participants. Random pairs of faces had to be ordered on
-   one randomly assigned emotional dimension.
+   User interface presented to untrained annotators. Random pairs of faces had to be ordered on
+   one randomly selected emotional dimension.
  }
  \label{fig:ui}
 \end{figure}
@@ -456,12 +471,11 @@ The 1-norm column evaluates biggest possible change of the predicted quantile in
 \paramojib{0,0,100,100,100}.
 In absence of doubt or disagreement the least intense position should yield 0 and the most intense should yield 1.
 As we can see the reported change in valence can be explained through the graphical transformations\footnote{
-The value for valence is greater than the valid probability range from 0 to 1.
+The value for valence is greater than the valid probability range from 0 (always labeled less intense) to 1 (always labeled more intense).
 This is because the parameters were estimated based on random points within the domain.
 The corner points were not among the queried samples and thus the results here are extrapolated values}.
-It is also interesting that just over half the effect on valence originates from the iconic
-mouth curvature controlled by $v$,
-which many icon sets depend on solely. Pleasure is clearly more than a mouth shape.
+It is also interesting that just over half the effect on valence originates from the iconic curvatures controlled by $v$,
+which many icon sets depend on solely. Pleasure is clearly more than a curved mouth.
 
 The next thing to observe in table \ref{tab:raw_data} is that most rows are dominated by the $v$ column.
 With exception of dominance
@@ -539,7 +553,7 @@ Table \ref{tab:ortho_data} shows the results starting with valence and then orde
 
 \subsection{Orthogonalized results}
 
-The orthogonalization started with the emperical measurement for valence $(v^e)$. As the first vector it was
+The orthogonalization started with the emperical measurement for valence $(v^e)$. Being the first vector it was
 not changed by the process.
 Figure \ref{fig:emp_valence} shows the result as a graphical transformation, which
 can be interpreted to sway the perceived sentiment from negative to positiv most efficiently, i.e. with
@@ -567,7 +581,7 @@ or along a single axis. From the chosen center all parameters are moved in propo
 The second strongest orthogonal dimension is dominance $(d^e)$.
 This finding is consistent with other research that found valence and dominance as the two main driver for facial assessment \cite{FunctionalBasis}.
 Figure \ref{fig:emp_dominance} shows the faces on the dominance axis after removing all the colinear projections.
-Dominance is almost naturally understood as an independent dimension. Little correction is necessary, but
+Dominance is almost naturally understood as an independent dimension. Little correction was necessary, but
 the mouth on the dominant side shows a light smile, which would be positive. However, the frowning eyebrows are considered negative.
 According to this analysis the effects cancel each other such that there is no linear measurable
 valence change on this scale.
@@ -607,8 +621,8 @@ After freeing the reported numbers from the effects of negativity and dominance,
 synchroneous opening of eyes and mouth emerges. This effect adds up to 0.15 to the probability of
 being more aroused than a random face. This is a low value given its status as the number two in most models.
 Apparently there is some limit to the extent to which a static image can convey the impression of arousal.
-This dimension would be expected to coincide with sudden movements and rapid changes that cannot be shown in print.
-Nevertheless, the effect is measurable and follows expectation.
+This dimension would be expected to coincide with sudden movements and rapid changes that cannot be shown in
+a printable text. Nevertheless, the effect is measurable and follows expectation.
 
 \begin{figure}[ht!]
   \begin{center}
@@ -712,7 +726,7 @@ are interpreted according to these expections. When mapping emotions to adjectiv
 language skills and educational background also play a role. A method was presented
 to adjust the emotion parameters to a specific target audience, crowd workers
 in this case. Only linear adjustments were considered, but there is reason to believe
-that non linear effects are small. The graphical transformation introduced by each
+that non-linear effects are small. The graphical transformation introduced by each
 of the five dimensions is extremely smooth and all its parameters are linear.
 When animated, all transitions always look smooth and straight, making them
 ideal for visualizations in real time or for replay.
