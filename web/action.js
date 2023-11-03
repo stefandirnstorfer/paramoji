@@ -44,6 +44,7 @@ const app = Vue.createApp({
             return (this.blink ? paramoji_blink_svg : paramoji_svg)(v, a1, a2, d, c)
         },
         animateTo(newState) {
+            newState= Object.assign({}, this.state, newState)
             const states = [];
             for (let t=0; t<=24; t++) {
                 let tstate= {}
@@ -56,6 +57,8 @@ const app = Vue.createApp({
                 if (states.length) {
                     this.state = states.shift()
                     requestAnimationFrame(update)
+                } else {
+                    this.updateOther(true)
                 }
             }
             update()
@@ -69,19 +72,35 @@ const app = Vue.createApp({
             newState.c = newState.c * newState.c /100
             this.animateTo(newState)
         },
-        updateVState() {
-            const o = parseFloat(this.vstate.o)
-            const a = parseFloat(this.vstate.a)
-            this.state.a1 = Math.max(0, a + (o-50))
-            this.state.a2 = Math.max(0, a - (o-50))
+        updateVState(newVState) {
+            const vstate = Object.assign({}, this.vstate, newVState)
+            const o = parseFloat(vstate.o)
+            const a = parseFloat(vstate.a)
+            const newState = Object.assign({}, this.state, {
+                a1: Math.max(0, a + (o-50)),
+                a2: Math.max(0, a - (o-50))
+            })
+            if (newVState) {
+                this.animateTo(newState)
+            } else {
+                this.state=newState
+            }
         },
-        updateEState() {
-            const dotprod = (a,b,c,d,e,f) => a * this.estate.v + b * this.estate.d + c * this.estate.o + d * this.estate.a + e * this.estate.c + f
-            this.state.v = dotprod(+1.00, +0.32, -0.25, -0.24, +0.22,   3)
-            this.state.a1= Math.max(0, dotprod(+0.13, +0.18, +0.44, +1.00, +0.48, -50))
-            this.state.a2= Math.max(0, dotprod(-0.11, -0.13, -1.00, +0.55, +0.07,  83))
-            this.state.d = dotprod(-0.39, +1.00, -0.14, -0.07, -0.04,  31)
-            this.state.c = Math.min(110, dotprod(-0.29, -0.10, -0.09, -0.47, +1.00,  48))
+        updateEState(newEState) {
+            const estate= Object.assign({}, this.estate, newEState)
+            const dotprod = (a,b,c,d,e,f) => a * estate.v + b * estate.d + c * estate.o + d * estate.a + e * estate.c + f
+            const newState = {
+                v: dotprod(+1.00, +0.32, -0.25, -0.24, +0.22,   3),
+                a1: Math.max(0, dotprod(+0.13, +0.18, +0.44, +1.00, +0.48, -50)),
+                a2: Math.max(0, dotprod(-0.11, -0.13, -1.00, +0.55, +0.07,  83)),
+                d: dotprod(-0.39, +1.00, -0.14, -0.07, -0.04,  31),
+                c: Math.min(110, dotprod(-0.29, -0.10, -0.09, -0.47, +1.00,  48))
+            }
+            if (newEState) {
+                this.animateTo(newState)
+            } else {
+                this.state=newState
+            }
         },
         fmt(x) { return parseFloat(x).toFixed(0) },
         updateUrl() {
@@ -90,6 +109,18 @@ const app = Vue.createApp({
             this.updateUrlTimer = setTimeout(() => {
                 window.history.replaceState({}, "Emoticons", "?" + query.join("&"))
             }, 100)
+        },
+        updateOther(force) {
+            this.vstate.a = (parseFloat(this.state.a1) + parseFloat(this.state.a2))/2
+            this.vstate.o = (parseFloat(this.state.a1) - parseFloat(this.state.a2))/2 + 50
+            const dotprod = (a,b,c,d,e) => a*(this.state.v-3) + b*(this.state.a1*1+50) + c*(this.state.a2-83) + d*(this.state.d-31) + e*(this.state.c-48)
+            const tryfix = (a,b) => !force && Math.abs(a-b) < 2 ? a : b
+            this.estate.v = tryfix(this.estate.v, dotprod(0.79,  0.10, -0.09, -0.30, -0.23))
+            this.estate.d = tryfix(this.estate.d, dotprod(0.28,  0.15, -0.11,  0.86, -0.09))
+            this.estate.o = tryfix(this.estate.o, dotprod(-0.20, 0.34, -0.78, -0.11, -0.07))
+            this.estate.a = tryfix(this.estate.a, dotprod(-0.15, 0.63,  0.35, -0.05, -0.30))
+            this.estate.c = tryfix(this.estate.c, dotprod(0.17,  0.37,  0.05, -0.03, 0.78))
+            this.updateUrl()
         }
     },
     watch: {
@@ -99,18 +130,7 @@ const app = Vue.createApp({
         animateBlink() { this.doBlink() },
         state: {
             deep: true,
-            handler() {
-                this.vstate.a = (parseFloat(this.state.a1) + parseFloat(this.state.a2))/2
-                this.vstate.o = (parseFloat(this.state.a1) - parseFloat(this.state.a2))/2 + 50
-                const dotprod = (a,b,c,d,e) => a*(this.state.v-3) + b*(this.state.a1*1+50) + c*(this.state.a2-83) + d*(this.state.d-31) + e*(this.state.c-48)
-                const tryfix = (a,b) => Math.abs(a-b) < 2 ? a : b
-                this.estate.v = tryfix(this.estate.v, dotprod(0.79,  0.10, -0.09, -0.30, -0.23))
-                this.estate.d = tryfix(this.estate.d, dotprod(0.28,  0.15, -0.11,  0.86, -0.09))
-                this.estate.o = tryfix(this.estate.o, dotprod(-0.20, 0.34, -0.78, -0.11, -0.07))
-                this.estate.a = tryfix(this.estate.a, dotprod(-0.15, 0.63,  0.35, -0.05, -0.30))
-                this.estate.c = tryfix(this.estate.c, dotprod(0.17,  0.37,  0.05, -0.03, 0.78))
-                this.updateUrl()
-            }
+            handler() { this.updateOther(false) }
         },
     }
 })

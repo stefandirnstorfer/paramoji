@@ -102,7 +102,7 @@ function paramoji_svg(v, a1, a2, p, c) {
         [  0,  0,  0,  0,  0,  4],
     ]
 
-    console.log(JSON.stringify(data))
+    // console.log(JSON.stringify(data))
 
     const template= [
         '<svg width="100%" height="100%" viewBox="0 0 100 100">',
