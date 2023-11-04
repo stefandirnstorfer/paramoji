@@ -73,11 +73,11 @@ function emoticon_svg(v, a1, a2, p, c, w) {
         '  </g>',
         '  <use href="#brow-r" transform="matrix(-1,0,0,1,100,?)"/>',
         '</svg>'
-    ].map(x =>
-        x.includes("<path") && !x.includes("stroke-width")
+    ]/*.map(x =>
+        x.includes("<path") //&& !x.includes("stroke-width")
             ? x.replace("<path", "<path stroke-width='"+w+"'")
-            : x
-    )
+            : x.replace(/stroke-width="([^"]*)"/, o => 'stroke-width="'+(o*w)+'"')
+    )*/
     return template.join("\n")
         .replace(/\?/g, () => data[index++])
         .replace(/svg/, 'svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"')
