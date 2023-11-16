@@ -1,3 +1,8 @@
+\newcommand{\sparamoji}[1]{\hspace*{-1ex}\includegraphics[width=2cm]{gen/paramoji-#1}\hspace*{-1ex}}
+\newcommand{\sparamojib}[1]{\raisebox{-0.6ex}{\hspace*{-.2ex}\includegraphics[height=2.8ex]{gen/paramojib-#1}}\hspace*{-0.2ex}}
+\newcommand{\face}[1]{\includegraphics[height=2cm]{gen/#1}}
+\newcommand{\faces}[1]{\includegraphics[height=1.6cm]{gen/#1}}
+
 \section{Introduction}
 
 Humans have largely embraced the use of emoticons or emojis with facial expressions
@@ -12,7 +17,7 @@ with the meaningful use of emoji or other facial expressions.
 Quite to the contrary, the lacking ability of showing appropriate emotional indicators
 hampers the field of robotics, as the missing empathy makes robots seem less
 intelligent and less trustworthy\cite{EmotionTowardsRobots, CHUAH2021102551}.
-Visualizing an appropriate emotion with an appropriate facial expression seems to be a very difficult task for current algorithms.
+Visualising an appropriate emotion with an appropriate facial expression seems to be a very difficult task for current algorithms.
 What makes this emotional content so intuitive for humans, but yet so hard to process for computers?
 
 The natural starting point for the analysis of digitized facial expressions are of course the standardized emojis.
@@ -46,27 +51,27 @@ Despite the additional depth of two dimensions the grid still lacks space for ma
 In short, these custom sets are consistenty defined and outperform words on their specific domain.
 However, their expressive range is limited and does not nearly cover the variety of Unicode faces.
 
-For a greater range of facial expressions there is active research into facial visualization techniques.
+For a greater range of facial expressions there is active research into facial visualisation techniques.
 This includes 2D graphics\cite{parametric_face_facs, FACSGen} as well as physical 3D models\cite{FARAJ2021e00117}.
 These techniques seek for realism in the displayed face and are loosing on the expressiveness of the exaggerated
 emojis. Additionally, they mimic certain facial expressions without properly explaining their meaning in the digital realm.
-Another --almost ancient-- technique for facial visualization uses line graphics
+Another --almost ancient-- technique for facial visualisation uses line graphics
 driven by high dimensional data\cite{chernoff}. Chernoff faces provide unique facial features controlled by 18 parameters covering the
 sizes of eyes, mouth and ears as well as angles and distances between them.
 Unfortunately, this does not include any of the subtle activations that are necessary for the display of deep emotions.
 Chernoff faces come closest at being a predecessor, or next best solution, to the one I present in this paper.
-Both share two key features: they use line art and an exaggerated comic style to visualize data and neither
+Both share two key features: they use line art and an exaggerated comic style to visualise data and neither
 has yet produced a success story in any practical application.
 In the following sections I will do my best to let latter change.
 
 \section{Compositionality of Emotions}
-This purpose of this article is to propose a visualization technique for a compositional model of emotions.
-This approach differs from other visualization methods that treat emotions as holistic, i.e. that represent
+This purpose of this article is to propose a visualisation technique for a compositional model of emotions.
+This approach differs from other visualisation methods that treat emotions as holistic, i.e. that represent
 specific emotional states in words, graphics or pictures, without regard for similarity
-or fine grained nuances between categories. The most common holistic visualization is found in emoticons
+or fine grained nuances between categories. The most common holistic visualisation is found in emoticons
 and emojis with emotional content. I want to argue that their undoubted success
 in our daily communication practices is due to their strong showing of comically exaggerated facial features.
-I want to create a similar visualization for a compositional emotional model. This would open their interal
+I want to create a similar visualisation for a compositional emotional model. This would open their interal
 topology to computational processes and hence make them more computable.
 
 The idea of expressing a human emotion along independent dimensions dates back to Willhelm Wundt, who in 1896
@@ -122,7 +127,7 @@ The meaning of these parameters follows the established systematics. However,
 it will value graphical consistency over language.
 It is easy to understand the definition of each dimensions in isolation.
 In combination, it quickly becomes unclear how to interpret their textual description.
-To solve this problem the visualization in the form of a parametric emoji, a comic style
+To solve this problem the visualisation in the form of a parametric emoji, a comic style
 face icon, provides a unique and valid facial expression for each choice of parameters.
 It is the graphics that defines the emotion, not the prose.
 The face is made to be generic, with next to no references to physiological properties, like age, gender or race.
@@ -138,7 +143,7 @@ in parameter space is guaranteed to also be the midpoint in its graphical repres
 
 \subsection{Valence and arousal}
 
-Figure \ref{fig:circumplex} shows the chosen visualization for the first two dimensions.
+Figure \ref{fig:circumplex} shows the chosen visualisation for the first two dimensions.
 The graphics is defined through the control points of Bezier lines with some rotation of the eyes' outlines.
 All coordinates and angles are mapped linearly from the two input dimensions.
 In this (still incomplete) model arousal controls eye and mouth sizes and valence controls curvature.
@@ -150,18 +155,18 @@ In this (still incomplete) model arousal controls eye and mouth sizes and valenc
             && 0.0 & 0.5 & 1.0 \\ \hline
             &&&&\\[-0.8em]
             & \rotatebox{90}{\hspace{1.5em} 1.0} &
-            \paramoji{100,0,0,50,0} &
-            \paramoji{100,50,50,50,0} &
-            \paramoji{100,100,100,50,0} \\
+            \sparamoji{100,0,0,50,0} &
+            \sparamoji{100,50,50,50,0} &
+            \sparamoji{100,100,100,50,0} \\
             \rotatebox{90}{\hspace{0.8em} valence $(v)$}
             & \rotatebox{90}{\hspace{1.5em} 0.5} &
-            \paramoji{50,0,0,50,0} &
-            \paramoji{50,50,50,50,0} &
-            \paramoji{50,100,100,50,0} \\
+            \sparamoji{50,0,0,50,0} &
+            \sparamoji{50,50,50,50,0} &
+            \sparamoji{50,100,100,50,0} \\
             & \rotatebox{90}{\hspace{1.5em} 0.0} &
-            \paramoji{0,0,0,50,0} &
-            \paramoji{0,50,50,50,0} &
-            \paramoji{0,100,100,50,0}
+            \sparamoji{0,0,0,50,0} &
+            \sparamoji{0,50,50,50,0} &
+            \sparamoji{0,100,100,50,0}
         \end{tabular}
     \end{center}
     \caption{Facial expressions created with three different values for valence ($v$) and arousal ($a$).
@@ -180,14 +185,14 @@ Eyes bend downwards for misery. This is derived from a drooping upper eyelid and
 
 Looking at facial expressions one can find the predicted emotions on the perimeter of the domain.
 Starting on the top in clockwise direction we find:
-happy \paramojib{100,50,50,50,0} and
-excited \paramojib{100,100,100,50,0},
-alarmed \paramojib{50,100,100,50,0},
-distressed \paramojib{0,100,100,50,0},
-miserable \paramojib{0,50,50,50,0},
-depressed\paramojib{0,0,0,50,0},
-sleepy \paramojib{50,0,0,50,0} and
-content \paramojib{100,0,0,50,0},
+happy \sparamojib{100,50,50,50,0} and
+excited \sparamojib{100,100,100,50,0},
+alarmed \sparamojib{50,100,100,50,0},
+distressed \sparamojib{0,100,100,50,0},
+miserable \sparamojib{0,50,50,50,0},
+depressed\sparamojib{0,0,0,50,0},
+sleepy \sparamojib{50,0,0,50,0} and
+content \sparamojib{100,0,0,50,0},
 The original publication postulates many more emotions that are supposed to sit tightly packed on a planar space.
 However, fear vs anger vs tension vs disgust: these are fundamentally different emotions that can hardly be seen in close proximity to each other.
 More dimensions are needed to separate them.
@@ -216,14 +221,14 @@ represented by the upcoming control dimension.
     \begin{center}
         \begin{tabular}{l|ccc}
             \rotatebox{90}{\hspace{1ex}$d = 1.0$} &
-            \paramoji{50,50,50,100,0} &
-            \paramoji{20,20,20,100,0} &
-            \paramoji{20,80,80,100,0}
+            \sparamoji{50,50,50,100,0} &
+            \sparamoji{20,20,20,100,0} &
+            \sparamoji{20,80,80,100,0}
             \\
             \rotatebox{90}{\hspace{1ex}$d = 0.0$} &
-            \paramoji{50,50,50,0,0} &
-            \paramoji{20,20,20,0,0} &
-            \paramoji{20,80,80,0,0}
+            \sparamoji{50,50,50,0,0} &
+            \sparamoji{20,20,20,0,0} &
+            \sparamoji{20,80,80,0,0}
             \\[1ex]
             \hline\\[-1.8ex]
             $v$ & 0.5 & 0.2 & 0.2 \\
@@ -245,19 +250,19 @@ interpolated for more natural looks.
 The three parameters, valence, arousal and dominance span a unit cube domain.
 Four corners on the low valence side correspond to misery and disapproval. They already resemble some
 possible versions of Ekman's basic emotions:
-fear \paramojib{0,100,100,0,0},
-anger \paramojib{0,100,100,100,0},
-sadness \paramojib{0,0,0,0,0} and
-disgust \paramojib{0,0,0,100,0}.
+fear \sparamojib{0,100,100,0,0},
+anger \sparamojib{0,100,100,100,0},
+sadness \sparamojib{0,0,0,0,0} and
+disgust \sparamojib{0,0,0,100,0}.
 For positive valence we find pleasure and approval. Two universal emotions sit on the positive end of the cube:
-happiness \paramojib{100,50,50,50,0} and
-surprise \paramojib{100,100,100,50,0}.
+happiness \sparamojib{100,50,50,50,0} and
+surprise \sparamojib{100,100,100,50,0}.
 The expressions in the corners of the positive side are probably not universal.
 My uninformed attempt at naming them lead to
-simper \paramojib{100,0,0,0,0},
-embarrassed \paramojib{100,100,100,0,0},
-anticipating \paramojib{100,100,100,100,0}
-and a forced smile \paramojib{100,0,0,100,0}.
+simper \sparamojib{100,0,0,0,0},
+embarrassed \sparamojib{100,100,100,0,0},
+anticipating \sparamojib{100,100,100,100,0}
+and a forced smile \sparamojib{100,0,0,100,0}.
 
 \subsection{Contempt}
 
@@ -282,13 +287,13 @@ because there is no known emotional meaning to chirality.
     \begin{center}
         \begin{tabular}{l|ccc}
             \rotatebox{90}{\hspace{1ex}$c = 1.0$} &
-            \paramoji{86,19,19,68,100} &
-            \paramoji{30,10,10,80,100} &
-            \paramoji{38,72,72,41,100} \\
+            \sparamoji{86,19,19,68,100} &
+            \sparamoji{30,10,10,80,100} &
+            \sparamoji{38,72,72,41,100} \\
             \rotatebox{90}{\hspace{1ex}$c = 0.0$} &
-            \paramoji{86,19,19,68,0} &
-            \paramoji{30,10,10,80,0} &
-            \paramoji{38,72,72,41,0} \\
+            \sparamoji{86,19,19,68,0} &
+            \sparamoji{30,10,10,80,0} &
+            \sparamoji{38,72,72,41,0} \\
             \hline\\[-1.8ex]
             $v$ & 0.9 & 0.3 & 0.4 \\
             $a$ & 0.2 & 0.1 & 0.7 \\
@@ -327,9 +332,9 @@ although cultural triggers may vary. The question about its instinctive nature s
 not be driven too far. It has a dinstinct facial expression, therefore it is included in this
 discussion.
 
-The control dimension as it is used in this article ranges from controlled, modulated, suppressed \paramojib{50,100,0,50,0}
-to uncontrolled, overwhelmed, expressed \paramojib{50,0,100,50,0}.
-The visualization follows an hypothesis raised by Ekman and Friesen\cite{Ekman75}. They wrote: ``when a person is
+The control dimension as it is used in this article ranges from controlled, modulated, suppressed \sparamojib{50,100,0,50,0}
+to uncontrolled, overwhelmed, expressed \sparamojib{50,0,100,50,0}.
+The visualisation follows an hypothesis raised by Ekman and Friesen\cite{Ekman75}. They wrote: ``when a person is
 controlling what is shown on his face, more effort is focused on managing what occurs in and around his mouth and
 lips than in the area of the eyes/lids or brows/forehead.''
 Although there might be many more detailed observations,
@@ -342,7 +347,7 @@ The graphical impact caused by $a$ can be separated into arousal shown in the ey
 shown in the mouth region ($a_2$). The amount of excerted control ($k$) can be computed as the difference between
 these two. For a controlled and modulated expression $k$ is positive. For an uncontrolled, overwhelmed expression $k$ is negative.
 The dimensions $a_1$ and $a_2$ are mathemtically preferred, because they are defined on the Carthesian domain $[0,1]^5$.
-The dimensions $a$ and $k$ have, at least theoretically, an emotional interpretation, but produce valid visualizations
+The dimensions $a$ and $k$ have, at least theoretically, an emotional interpretation, but produce valid visualisations
 only on a transformed domain.
 
 Equation \eqref{eqn:control} defines how the dimension can be converted.
@@ -364,14 +369,14 @@ An empirical adjustment based on real human responses to the generated graphics 
   \begin{center}
       \begin{tabular}{l|ccc}
           \rotatebox{90}{\hspace{1ex}$k = +1$} &
-          \paramoji{90,100,0,50,0} &
-          \paramoji{30,100,0,0,0} &
-          \paramoji{10,100,0,80,70}
+          \sparamoji{90,100,0,50,0} &
+          \sparamoji{30,100,0,0,0} &
+          \sparamoji{10,100,0,80,70}
         \\
           \rotatebox{90}{\hspace{1ex}$k = -1$} &
-          \paramoji{90,0,100,50,0} &
-          \paramoji{30,0,100,0,0} &
-          \paramoji{10,0,100,80,70}
+          \sparamoji{90,0,100,50,0} &
+          \sparamoji{30,0,100,0,0} &
+          \sparamoji{10,0,100,80,70}
           \\[1ex]
           \hline\\[-1.8ex]
           $v$ & 0.9 & 0.3 & 0.1 \\
@@ -387,18 +392,18 @@ An empirical adjustment based on real human responses to the generated graphics 
 
 Figure \ref{fig:control} shows the visual effect of the control dimension on some random random faces.
 It is interesting that even in the extremely overwhelmed versions one can still differentiate between
-positive \paramojib{100,0,100,50,0}
-and negative \paramojib{0,0,100,50,0} valence.
+positive \sparamojib{100,0,100,50,0}
+and negative \sparamojib{0,0,100,50,0} valence.
 This is in contrast to real faces, where extreme pain and extreme joy cannot be distinguished from
 the facial expression without context information or body language\cite{painjoy}.
-Emoji style visualization are not just exaggerated versions of existing facial expressions.
+Emoji style visualisation are not just exaggerated versions of existing facial expressions.
 They can also encode emotional information that go beyond what real faces show.
 
 
 \section{Empirical evidence}
 
 In the previous section the graphical choices were presented for a parametric emoji that
-visualizes emotions from a five dimensional state.
+visualises emotions from a five dimensional state.
 While efforts were made to provide a rational basis for any graphical choices, it's important to acknowledge
 that many of these decisions were influenced by the author's subjective judgment.
 To establish the credibility of the final outcome, empirical evidence becomes imperative.
@@ -467,8 +472,8 @@ A linear regression of the reported rating numbers onto the Carthesian dimension
 how much the report is swayed by each
 theoretical dimension. Table table \ref{tab:raw_data} shows the results.
 The 1-norm column evaluates biggest possible change of the predicted quantile in two opposite corners
-\paramojib{100,100,0,0,0} and
-\paramojib{0,0,100,100,100}.
+\sparamojib{100,100,0,0,0} and
+\sparamojib{0,0,100,100,100}.
 In absence of doubt or disagreement the least intense position should yield 0 and the most intense should yield 1.
 As we can see the reported change in valence can be explained through the graphical transformations\footnote{
 The value for valence is greater than the valid probability range from 0 (always labeled less intense) to 1 (always labeled more intense).
@@ -497,7 +502,7 @@ Since we are interested in orthogonal dimensions, we must map these results onto
       \midrule
     \end{tabular}
   \end{center}
-  \caption{Regression results of the likelihood of an emotional attribute being reported as more intense onto the Carthesian visualization parameters.}
+  \caption{Regression results of the likelihood of an emotional attribute being reported as more intense onto the Carthesian visualisation parameters.}
   \label{tab:raw_data}
 \end{table}
 
@@ -558,8 +563,8 @@ not changed by the process.
 Figure \ref{fig:emp_valence} shows the result as a graphical transformation, which
 can be interpreted to sway the perceived sentiment from negative to positiv most efficiently, i.e. with
 minimal graphical displacements.
-For the visualization it is applied to a neutral face
-\paramojib{50,50,50,50,25}, which is chosen at the parameters $(0.5, 0.5, 0.5, 0.5, 0.25)$.
+For the visualisation it is applied to a neutral face
+\sparamojib{50,50,50,50,25}, which is chosen at the parameters $(0.5, 0.5, 0.5, 0.5, 0.25)$.
 This is a purely arbitrary choice. It just so happens to be in the center of the domain with a bias to
 the non-contemptuous symmetric expression. Any other parameters could have been chosen as the center, because the
 emotional effect of the graphical transformations were measured across the entire domain and not at a single point,
@@ -568,10 +573,10 @@ or along a single axis. From the chosen center all parameters are moved in propo
 \begin{figure}[ht!]
   \begin{center}
     \begin{tabular}{cccc}
-        \paramoji{0,43,56,70,40}
-        \paramoji{33,48,55,57,30}
-        \paramoji{67,52,50,43,20}
-        \paramoji{100,57,52,36,10}
+        \sparamoji{0,43,56,70,40}
+        \sparamoji{33,48,55,57,30}
+        \sparamoji{67,52,50,43,20}
+        \sparamoji{100,57,52,36,10}
     \end{tabular}
   \end{center}
   \caption{Emperical data suggest that this is the most effective graphical change to sway reported impressions from negative to positive.}
@@ -589,10 +594,10 @@ valence change on this scale.
 \begin{figure}[ht!]
   \begin{center}
     \begin{tabular}{cccc}
-        \paramoji{34,41,57,0,30}
-        \paramoji{45,47,52,33,27}
-        \paramoji{55,53,48,67,23}
-        \paramoji{66,59,43,100,20}
+        \sparamoji{34,41,57,0,30}
+        \sparamoji{45,47,52,33,27}
+        \sparamoji{55,53,48,67,23}
+        \sparamoji{66,59,43,100,20}
     \end{tabular}
   \end{center}
   \caption{Emperical evidence for dominance confirms the eye brow angle as the driving factor.}
@@ -606,10 +611,10 @@ Anyways, the main driver is confirmed as the difference between the opening of e
 \begin{figure}[ht!]
   \begin{center}
     \begin{tabular}{cccc}
-        \paramoji{63,28,100,57,30}
-        \paramoji{54,43,67,52,27}
-        \paramoji{46,57,33,48,23}
-        \paramoji{37,72,0,43,20}
+        \sparamoji{63,28,100,57,30}
+        \sparamoji{54,43,67,52,27}
+        \sparamoji{46,57,33,48,23}
+        \sparamoji{37,72,0,43,20}
     \end{tabular}
   \end{center}
   \caption{Emperical reports for control show the scale from throwing a tantrum to the proverbial biting of one's tongue.}
@@ -627,10 +632,10 @@ a printable text. Nevertheless, the effect is measurable and follows expectation
 \begin{figure}[ht!]
   \begin{center}
     \begin{tabular}{cccc}
-        \paramoji{62,0,22,54,49}
-        \paramoji{54,33,41,51,33}
-        \paramoji{46,67,59,49,17}
-        \paramoji{38,100,78,46,1}
+        \sparamoji{62,0,22,54,49}
+        \sparamoji{54,33,41,51,33}
+        \sparamoji{46,67,59,49,17}
+        \sparamoji{38,100,78,46,1}
     \end{tabular}
   \end{center}
   \caption{Empirical results confirm that synchroneously opening eyes and mouth make a face look aroused.}
@@ -638,7 +643,7 @@ a printable text. Nevertheless, the effect is measurable and follows expectation
 \end{figure}
 
 The final dimension is basically whatever remains as independent from previous observations.
-Figure \ref{fig:emp_contempt} visualizes this orthogonal remnant.
+Figure \ref{fig:emp_contempt} visualises this orthogonal remnant.
 This confirms our expectations of a contemptuous look, although it only
 explains 0.05 of the probability. Despite being barely measurable
 we have no reason to doubt the correctness of this result. The asymmetry is a unique facial expression
@@ -650,10 +655,10 @@ the eyes helps in making this emotion more recorgnizable.
 \begin{figure}[ht!]
   \begin{center}
     \begin{tabular}{cccc}
-        \paramoji{44,38,48,51,0}
-        \paramoji{52,54,51,50,33}
-        \paramoji{59,70,53,48,67}
-        \paramoji{67,86,55,47,100}
+        \sparamoji{44,38,48,51,0}
+        \sparamoji{52,54,51,50,33}
+        \sparamoji{59,70,53,48,67}
+        \sparamoji{67,86,55,47,100}
     \end{tabular}
   \end{center}
   \caption{The contempt dimension is the remnant that cannot be explained by previous dimensions.
@@ -695,7 +700,7 @@ The function maps the default point $(0.5, 0.5, 0.5, 0.5, 0.25)$ onto itself.
 \end{equation}
 
 The entries in the matrix are scaled to map each axis through the default point into a valid line within the unit cube.
-This ensures that each individual axis can always be visualized with the appended plotting function.
+This ensures that each individual axis can always be visualised with the appended plotting function.
 Off-axis points in the empirical domain may be mapped outside the unit cube of the Cartesian model.
 This is not such a big problem. As long as $a_1$ and $a_2$ are positive and keep the eyes at least as open as shut,
 the face can be extrapolated and
@@ -709,7 +714,7 @@ Paramoji
 Before concluding this article I want to spend a few thoughts on a possible reinterpretation of the five dimensions.
 All existing descriptions of emotions tended to antropomophize the entity that experiences them.
 It is unclear if emotions will ever be experienced by anything other than us humans or our close relatives.
-The first application of the presented visualization technique would surely be to use detected human emotions, aggregate them and then redisplay them.
+The first application of the presented visualisation technique would surely be to use detected human emotions, aggregate them and then redisplay them.
 However, there is an interesting case where these data are genuinely generated by some algorithm.
 Regardless of whether technical systems can really feel or just show these emotions, it doesn’t really matter, they are still theirs. We will have to talk about them, even before we will fail to distinguished their natures.
 Therefore I want to provide a possible interpretation of the emotional dimensions such that they may apply to biological and technical systems alike.
@@ -783,7 +788,7 @@ It has become apparent that little facial expressions can add an emotional note
 that is hard to match in written text.
 Emojis have filled that role in human to human communication. They owe their
 immediate success largely to facial expressions with strong emotional cues.
-The presented visualizations are similarly suited for the exchange of emotional information.
+The presented visualisations are similarly suited for the exchange of emotional information.
 They synthesize a comparable range of facial expressions, hence called, parametric emoji or paramoji for short.
 However, they are much more suitable for computer processing,
 as questions for similarity, intensity and sentiment are straight forward to resolve.
@@ -798,7 +803,7 @@ in this case. Only linear adjustments were considered, but there is reason to be
 that non-linear effects are small. The graphical transformation introduced by each
 of the five dimensions is extremely smooth and all its parameters are linear.
 When animated, all transitions always look smooth and straight, making them
-ideal for visualizations in real time or for replay.
+ideal for visualisations in real time or for replay.
 
 \section*{Code}
 
@@ -861,12 +866,12 @@ function paramoji(v, a1, a2, d, c) {
 \begin{figure}[ht!]
   \begin{center}
     \begin{tabular}{cccccc}
-        \paramoji{105,138,95,106,-60}
-        \paramoji{166,53,130,105,2}
-        \paramoji{-55,124,126,131,-9}
-        \paramoji{-58,180,0,-25,-9}
-        \paramoji{0,30,100,151,60}
-        \paramoji{158,29,66,91,109}
+        \sparamoji{105,138,95,106,-60}
+        \sparamoji{166,53,130,105,2}
+        \sparamoji{-55,124,126,131,-9}
+        \sparamoji{-58,180,0,-25,-9}
+        \sparamoji{0,30,100,151,60}
+        \sparamoji{158,29,66,91,109}
     \end{tabular}
   \end{center}
   \caption{Extrapolations of the facial features outside the valid range: recognizable, but increasingly grotesque.
