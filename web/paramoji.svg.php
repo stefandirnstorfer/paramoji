@@ -90,7 +90,7 @@ if ($size) {
   $template = preg_replace('/100%/', $size, $template, 2);
 }
 
-$V= [1, 2*$v-1, $a1, $a2, 2*$d-1, $c, $c*$a1, $c*$v, $c*$a2, $c*$d];
+$V= [1, 2*$v-1, $a1, $a2, 2*$d-1, $c];
 $index = 0;
 echo preg_replace_callback('/\?/', function() use (&$index, $V, $data) {
   $Y = $data[$index++];

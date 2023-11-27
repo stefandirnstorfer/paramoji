@@ -20,7 +20,7 @@ const app = Vue.createApp({
                 c: 25
             },
             blink: false,
-            model: "ao",
+            model: "e",
             style: "comic"
         }
     },
