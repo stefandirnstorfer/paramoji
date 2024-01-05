@@ -8,7 +8,7 @@
     <meta property="og:image" content="https://paramoji.org/encode2.png">
     <meta property="og:image:width" content="879">
     <meta property="og:image:height" content="581">
-    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="paramoji.js"></script>
     <script src="schematic.js"></script>
     <script src="action.js"></script>
@@ -44,7 +44,7 @@
                 </tr>
                 <template v-if="['ao','a1a2'].includes(model)">
                     <tr>
-                        <td>Valence</td>
+                        <td>Pleasure</td>
                         <td><button @click="animateTo({v:50})">&times;</button></td>
                         <td>
                             <input class="slider" type="range" v-model="state.v"/>
@@ -102,7 +102,7 @@
                 </template>
                 <template v-if="model=='e'">
                     <tr>
-                        <td>Valence</td>
+                        <td>Pleasure</td>
                         <td><button @click="updateEState({v:50})">&times;</button></td>
                         <td>
                             <input class="slider" type="range" v-model="estate.v" @input="updateEState()"/>
@@ -150,9 +150,6 @@
             </div>
         </div>
         <div style="height:20px"></div>
-        <div style="margin-bottom: 50px">
-            <a href="/">More about paramojis...</a>
-        </div>
     </div>
 </div>
 </body>
