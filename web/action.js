@@ -27,20 +27,22 @@ const app = Vue.createApp({
                 d= this.state.d/100,
                 c= this.state.c/100,
                 l= this.state.l/100;
+                g= this.state.g/100;
             if (this.style=='schematic')
                 return schematic_svg(v, a1, a2, d ,c)
-            let svg= (this.blink ? paramoji_blink_svg : paramoji_svg)(v, a1, a2, d, c)
+            let svg= (this.blink ? paramoji_blink_svg : paramoji_svg)(v, a1, a2, d, c, g)
             if (l>0)
                 svg = add_love(svg, l)
             return svg
         },
-        neutralState(model) {
+        neutralState() {
             return {
                 v: 50,
                 a1: 50,
                 a2: 50,
                 d: 50,
-                c: (model || this.model)=='e' ? 25 : 0,
+                c: this.model=='e' ? 25 : 0,
+                g: 0,
                 l: 0
             }
         },
@@ -73,6 +75,7 @@ const app = Vue.createApp({
             }
             newState.c = newState.c * newState.c /100
             newState.l = hasLove * newState.l * newState.l /100 + 0.001 * hasLove;
+            newState.g = newState.g * newState.g /100
             this.animateTo(newState)
         },
         updateVState(newVState) {

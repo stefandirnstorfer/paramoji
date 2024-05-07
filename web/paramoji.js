@@ -14,7 +14,7 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-function paramoji_svg(v, a1, a2, p, c) {
+function paramoji_svg(v, a1, a2, p, c, g) {
     const data = [
     //   transform="matrix(1,?,0,1,53,?)"  d="M-4,0q-2,-2 -4,0M-1,0Q3,-2 4,-1T6,-3 4,?"
         [  0,  0,  0,  0,  0, 0.4],
@@ -34,18 +34,19 @@ function paramoji_svg(v, a1, a2, p, c) {
     // id: lips
     //   d="M?,?C?,? ?,? 0,?S?,? ?,?C?,? ?,? 0,?S?,? ?,?Z"  transform="matrix(1,?,0,1,?,?)"
         [ 14,  1,  0,  9, -2], [  0,-12,  0, -2,  0,  0],
-        [ 10,  1,  0, 11, -3], [  0, -2,  0, 11,  0,  0],
+        [ 10,  1,  0, 11, -3], [  0, -2,  0, 11,  0,  0, -10],
         [  6,  0,  0,  6, -3], [  0,  1,  0, 12,  0,  0],
         [  0,  1,  0, 12],
-        [-10, -1,  0,-11,  3], [  0, -2,  0, 11,  0,  0],
+        [-10, -1,  0,-11,  3], [  0, -2,  0, 11,  0,  0, -10],
         [-14, -1,  0, -9,  2], [  0,-12,  0, -2,  0,  0],
-        [-10, -1,  0,-11,  3], [  0, -2,  0,-11,  0,  0],
+        [-10, -1,  0,-11,  3], [  0, -2,  0,-11,  0,  0, -10],
         [ -6,  0,  0, -6,  3], [  0,  1,  0,-12,  0,  0],
         [  0,  1,  0,-12],
-        [ 10,  1,  0, 11, -3], [  0, -2,  0,-11,  0,  0],
+        [ 10,  1,  0, 11, -3], [  0, -2,  0,-11,  0,  0, -10],
         [ 14,  1,  0,  9, -2], [  0,-12,  0, -2,  0,  0],
+
         [  0,  0,  0,  0,  0, 0.3],
-        [ 50,  0,  0,  0,  0,-12], [ 81,  2,  0,  0, -3, -2],
+        [ 50,  0,  0,  0,  0,-12], [ 81,  2,  0,  0, -2, -2, -1],
         //   transform="translate(68,?)"
         [ 51, -2,-10],
     // id: eye-r
@@ -150,13 +151,13 @@ function paramoji_svg(v, a1, a2, p, c) {
         '</svg>'
     ]
     const dotprod = (X,Y) => X.reduce((a, b, i) => a + b*(Y[i] || 0), 0)
-    let index=0,  V= [1, 2*v-1, a1, a2, 2*p-1, c]
+    let index=0,  V= [1, 2*v-1, a1, a2, 2*p-1, c, g]
     return template.join("\n").replace(/\?/g, () => dotprod(V, data[index++]));
 }
 
-function paramoji_blink_svg(v, a1, a2, d, c) {
-    const open = paramoji_svg(v, a1, a2, d, c)
-    const closed = paramoji_svg((1-a1)*v, 0, 0, d, c)
+function paramoji_blink_svg(v, a1, a2, d, c, g) {
+    const open = paramoji_svg(v, a1, a2, d, c, g)
+    const closed = paramoji_svg((1-a1)*v, 0, 0, d, c, g)
     return open
         .replace(/id="eye-r[^>]*/, closed.match(/id="eye-r[^>]*/)[0])
         .replace(/id="eye-l[^>]*/, closed.match(/id="eye-l[^>]*/)[0])

@@ -107,6 +107,14 @@
                         <td><span id="label-c">{{fmt(state.c)}}</span></td>
                     </tr>
                     <tr>
+                        <td>Disgust</td>
+                        <td><button @click="updateEState({g:25})">&times;</button></td>
+                        <td>
+                            <input class="slider" type="range" v-model="state.g"/>
+                        </td>
+                        <td><span>{{fmt(state.g)}}</span></td>
+                    </tr>
+                    <tr>
                         <td>Love</td>
                         <td><button @click="animateTo({l:0})">&times;</button></td>
                         <td>
