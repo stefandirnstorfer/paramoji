@@ -9,3 +9,6 @@ web/init.php
 .idea
 .DS_Store
 .ipynb_checkpoints/
+
+emotion-data
+

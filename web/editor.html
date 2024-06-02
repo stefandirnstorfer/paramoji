@@ -144,7 +144,7 @@
                 </template>
             </table>
             <div class="button-row mt-1">
-                <button @click="animateTo({v:50,a1:50,a2:50,d:50,c:25})">Reset all</button>
+                <button @click="animateTo(neutralState())">Reset all</button>
                 <button @click="random()">Random</button>
                 <button @pointerdown="blink=true" @pointerup="blink=false">Blink</button>
             </div>

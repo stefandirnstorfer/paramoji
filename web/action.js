@@ -1,47 +1,43 @@
 const app = Vue.createApp({
     data() {
         return {
-            state: {
-                v: 50,
-                a1: 50,
-                a2: 50,
-                d: 50,
-                c: 25
-            },
-            vstate: {
-                a: 50,
-                o: 50
-            },
-            estate: {
-                v: 50,
-                d: 50,
-                o: 50,
-                a: 50,
-                c: 25
-            },
+            state: {},
+            vstate: {},
+            estate: {},
             blink: false,
-            model: "ao",
+            model: "ao", // a1a2, ao, e
             style: "comic"
         }
     },
     created() {
-        const newState = {}
-        for (let key in this.state) {
+        const newState = this.neutralState()
+        console.log("created", newState)
+        for (let key in newState) {
             var m= location.search.match(RegExp(key + "=([0-9]+)"));
-            newState[key]= m ? parseInt(m[1]) : this.state[key];
+            if (m) newState[key]= parseFloat(m[1]);
         }
+        console.log("created", newState)
         this.state = newState
     },
     methods: {
         paramoji() {
-            const v=this.state.v/100,
-                a1=this.state.a1/100,
-                a2=this.state.a2/100,
-                d=this.state.d/100,
-                c=this.state.c/100
+            const v= this.state.v/100,
+                a1= this.state.a1/100,
+                a2= this.state.a2/100,
+                d= this.state.d/100,
+                c= this.state.c/100
             if (this.style=='schematic')
                 return schematic_svg(v, a1, a2, d ,c)
             return (this.blink ? paramoji_blink_svg : paramoji_svg)(v, a1, a2, d, c)
+        },
+        neutralState() {
+            return {
+                v: 50,
+                a1: 50,
+                a2: 50,
+                d: 50,
+                c: this.model=='e' ? 25 : 0
+            }
         },
         animateTo(newState) {
             newState= Object.assign({}, this.state, newState)
@@ -105,9 +101,12 @@ const app = Vue.createApp({
         fmt(x) { return parseFloat(x).toFixed(0) },
         updateUrl() {
             clearTimeout(this.updateUrlTimer)
-            let query= ["v","a1","a2","d","c"].map(x => x+'='+this.fmt(this.state[x]))
+            const neutral = this.neutralState()
+            let query= Object.keys(neutral)
+                .map(x => x+'='+this.fmt(this.state[x]))
+                .join("&")
             this.updateUrlTimer = setTimeout(() => {
-                window.history.replaceState({}, "Emoticons", "?" + query.join("&"))
+                window.history.replaceState({}, "Emoticons", "?" + query)
             }, 100)
         },
         updateOther(force) {
