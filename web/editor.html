@@ -22,6 +22,11 @@
     <div id="control">
         <div id="dimensions">
             <h1>Controls</h1>
+            <div class="button-row mt-1 mb-1">
+                <button @click="animateTo(neutralState())">Reset all</button>
+                <button @click="random()">Random</button>
+                <button @pointerdown="blink=true" @pointerup="blink=false" @pointerleave="blink=false">Blink</button>
+            </div>
             <table id="sliders" width="100%">
                 <tr>
                     <td>Model</td>
@@ -99,6 +104,14 @@
                         </td>
                         <td><span id="label-c">{{fmt(state.c)}}</span></td>
                     </tr>
+                    <tr>
+                        <td>Love</td>
+                        <td><button @click="animateTo({l:0})">&times;</button></td>
+                        <td>
+                            <input class="slider" type="range" v-model="state.l"/>
+                        </td>
+                        <td><span id="label-l">{{fmt(state.l)}}</span></td>
+                    </tr>
                 </template>
                 <template v-if="model=='e'">
                     <tr>
@@ -143,11 +156,6 @@
                     </tr>
                 </template>
             </table>
-            <div class="button-row mt-1">
-                <button @click="animateTo(neutralState())">Reset all</button>
-                <button @click="random()">Random</button>
-                <button @pointerdown="blink=true" @pointerup="blink=false">Blink</button>
-            </div>
         </div>
         <div style="height:20px"></div>
     </div>

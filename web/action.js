@@ -25,18 +25,23 @@ const app = Vue.createApp({
                 a1= this.state.a1/100,
                 a2= this.state.a2/100,
                 d= this.state.d/100,
-                c= this.state.c/100
+                c= this.state.c/100,
+                l= this.state.l/100;
             if (this.style=='schematic')
                 return schematic_svg(v, a1, a2, d ,c)
-            return (this.blink ? paramoji_blink_svg : paramoji_svg)(v, a1, a2, d, c)
+            let svg= (this.blink ? paramoji_blink_svg : paramoji_svg)(v, a1, a2, d, c)
+            if (l>0)
+                svg = add_love(svg, l)
+            return svg
         },
-        neutralState() {
+        neutralState(model) {
             return {
                 v: 50,
                 a1: 50,
                 a2: 50,
                 d: 50,
-                c: this.model=='e' ? 25 : 0
+                c: (model || this.model)=='e' ? 25 : 0,
+                l: 0
             }
         },
         animateTo(newState) {
@@ -61,11 +66,13 @@ const app = Vue.createApp({
             this.state= newState
         },
         random() {
-            let newState= {}
+            const newState= {}
+            const hasLove = this.state.l > 0;
             for (let key in this.state) {
                 newState[key] = Math.min(100, Math.max(0, Math.random()*120-10))
             }
             newState.c = newState.c * newState.c /100
+            newState.l = hasLove * newState.l * newState.l /100 + 0.001 * hasLove;
             this.animateTo(newState)
         },
         updateVState(newVState) {
@@ -101,8 +108,9 @@ const app = Vue.createApp({
         fmt(x) { return parseFloat(x).toFixed(0) },
         updateUrl() {
             clearTimeout(this.updateUrlTimer)
-            const neutral = this.neutralState()
+            const neutral = this.neutralState('a1a2')
             let query= Object.keys(neutral)
+                .filter(x => this.state[x]!=neutral[x])
                 .map(x => x+'='+this.fmt(this.state[x]))
                 .join("&")
             this.updateUrlTimer = setTimeout(() => {
@@ -126,7 +134,6 @@ const app = Vue.createApp({
         animate(value, oldValue) {
             if (value && !oldValue) this.runAnimation()
         },
-        animateBlink() { this.doBlink() },
         state: {
             deep: true,
             handler() { this.updateOther(false) }
