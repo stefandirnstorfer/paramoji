@@ -15,18 +15,19 @@
     <title>Paramoji Editor</title>
 </head>
 <body class="no-margin">
-<div id="app">
+<div id="app" class="paramoji-editor">
     <div id="emoticon">
         <div class="space" v-html="paramoji()"></div>
     </div>
     <div id="control">
         <div id="dimensions">
             <h1>Controls</h1>
-            <div class="button-row mt-1 mb-1">
+            <div class="button-row">
                 <button @click="animateTo(neutralState())">Reset all</button>
                 <button @click="random()">Random</button>
                 <button @pointerdown="blink=true" @pointerup="blink=false" @pointerleave="blink=false">Blink</button>
             </div>
+            <div style="height: 10px"></div>
             <table id="sliders" width="100%">
                 <tr>
                     <td>Model</td>
@@ -47,6 +48,7 @@
                         </select>
                     </td>
                 </tr>
+                <tr style="height: 10px"></tr>
                 <template v-if="['ao','a1a2'].includes(model)">
                     <tr>
                         <td>Pleasure</td>

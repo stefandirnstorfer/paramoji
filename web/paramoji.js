@@ -172,7 +172,7 @@ function add_love(svg, l) {
         '<path id="love"',
         ' d="m -21,-13 c -11,0 -19,8 -19,18 0,14 9,23 40,48 C 32,28 40,19 40,5 40,-5 32,-13 21,-13 12,-13 7,-8 3,-3 L 0,1 -3,-3 c -4,-5 -9,-10 -18,-10 z"',
         ' transform="translate(50,55) scale(?) translate(0, -15)"',
-        ' style="fill:rgba(100,0,0,?); stroke: black; stroke-width:1" />'
+        ' style="fill:rgba(150,0,0,?); stroke: black; stroke-width:1" />'
     ]
     const dotprod = (X,Y) => X.reduce((a, b, i) => a + b*(Y[i] || 0), 0)
     let index=0,  V= [1, l]
