@@ -119,11 +119,16 @@ div#app {
         font-size: 3rem;
     }
 }
-.code {
+.code-container {
     width: 100%;
-    padding: 10px;
     background-color: #EEE;
     word-wrap: break-word;
+    .code {
+        padding: 1ch 1ch 1ch 6ch;
+        .first {
+            margin-left: -5ch;
+        }
+    }
 }
 
 .ekman-table {

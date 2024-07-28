@@ -23,8 +23,8 @@
         <div id="dimensions">
             <h1>Controls</h1>
             <div class="button-row">
-                <button @click="animateTo(neutralState())">Reset all</button>
                 <button @click="random()">Random</button>
+                <button @click="animateTo(neutralState())">Reset all</button>
                 <button @pointerdown="blink=true" @pointerup="blink=false" @pointerleave="blink=false">Blink</button>
             </div>
             <div style="height: 10px"></div>
