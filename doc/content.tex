@@ -4,43 +4,46 @@
 \newcommand{\faces}[1]{\includegraphics[height=1.6cm]{gen/#1}}
 
 \section{Introduction}
+Humans have widely adopted the use of emoticons and expressive emojis to convey emotions when
+communicating digitally. These small faces with exaggerated expressions undeniably fill a gap
+that written words can't match. Research has demonstrated that affective information
+is transferred more effectively when appropriate non-verbal cues, such as facial expressions, are used
+\cite{BOUTET2021106722,EmojisAsSocialInformation}. In particular, inter-annotator agreement on
+the sentiment expressed by short messages was higher when they contained emojis\cite{SentimentOfEmoji}.
+It seems logical that computers would use similar methods to display either their own emotions or
+those they detect or predict. Yet, for some reason, this is not the case. Currently, no known
+application exists where humans and computers engage in meaningful interaction through the use
+of emojis or other emotional expressions. Despite significant advancements in human language generation,
+there has been little progress in incorporating emotional cues. To make matters worse, the inability to
+display appropriate emotional indicators hampers the field of robotics, as the lack of empathy makes
+robots appear less intelligent and less trustworthy\cite{EmotionTowardsRobots, CHUAH2021102551}.
+Visualising an appropriate emotion with an appropriate facial expression seems to be a very difficult
+task for an algorithm.
 
-Humans have largely embraced the use of emoticons or emojis with facial expressions
-to show emotions when communicating over a digital
-channel. There is no doubt that these small faces fill a gap in informal
-communication that is hard to match with written words.
-A vast amount of human generated content filled with such emotional cues
-could have provided a unique opportunity for humans and computers to exchange emotional
-information, as envisioned in the field of Affective Computing\cite{Picard97}.
-However, this is not happening. There is no known application where humans and computers interact
-with the meaningful use of emoji or other facial expressions.
-Quite to the contrary, the lacking ability of showing appropriate emotional indicators
-hampers the field of robotics, as the missing empathy makes robots seem less
-intelligent and less trustworthy\cite{EmotionTowardsRobots, CHUAH2021102551}.
-Visualising an appropriate emotion with an appropriate facial expression seems to be a very difficult task for current algorithms.
-What makes this emotional content so intuitive for humans, but yet so hard to process for computers?
+Since humans intuitively use emoticons to encode and decode emotional information, a natural
+starting point would be to extract the meaning of these icons first. Three methods have been employed
+for this emotional translation: extracting meaning from context, gathering explicit human annotations,
+or analyzing the facial expressions anatomically. Unfortunately, none of those methods yielded satisfactory
+results. Classifying emojis by context gives precise numerical embeddings, revealing similarity clusters
+within the emoji set\cite{WhatDoesThisEmojiMean}, but do not translate into human experience.
+Direct questioning of humans reveals significant differences across cultures and software platforms,
+even when assessing just the single dimension on the spectrum from positive to negative\cite{emoji_intensity}.
+The largest disagreement was repeatedly found for the ``grinning face''.
+Its vastly different cultural connotations are further complicated by 17 distinct graphical variations,
+which vary depending on the software brand and version displaying it\cite{emoji_interpretation}.
+A widely used method for the objective assessment of embedded emotional states is the Facial
+Action Coding System (FACS), a common framework for analyzing facial expressions.
+The method has been applied to emojis, but due to the lack of precision in the Unicode Consortium's
+standardization efforts and the wide variability between software platforms this did not lead to
+a consistent translation into emotional experiences\cite{emoji_facs}.
+The bottom line is that emojis, albeit standardized coarsly by appearance, are
+not suitable to objectively encode nuanced and precise emotions.
 
-The natural starting point for the analysis of digitized facial expressions are of course the standardized emojis.
-Many attempts have been made to measure (or embed) these little icons with various
-axes of emotional intensity\cite{SentimentOfEmoji, WhatDoesThisEmojiMean}.
-Unfortunately, there is a lack of consensus among humans on how to evaluate different facial icons on a unified scale.
-Cross cultural variations significantly impact how emojis are ranked on a single sentiment axis\cite{emoji_intensity}.
-Things get more complicated when system borders are crossed.
-The Unicode Consortium defines only rough graphical gidelines for many of the emotionally expressive symbols.
-What is defined as a ``grinning face'' was found to have
-at least 17 different graphical versions on various software platforms leading to
-a severe misunderstanding on even basic attributes of sentiment ranging from positive to
-negative\cite{emoji_interpretation}.
-In an anatomy based approach the facial features in the emojis were studied\cite{emoji_facs}.
-Inferring muscle activity and causing emotions proved difficult in the light graphical abstractions and tiny rendering differences.
-The bottom line is that standardized emojis are
-not suitable to encode nuanced and precisely defined emotions.
-
-Outside the world of standardized emojis there are other sets of emoticons, i.e.
-graphical facial expressions, to fill the need for fine grained scales of emotions.
-Research has found them useful for the communication of qualias, such as pain and taste.
+Emoticons, or graphical facial expressions, are used beyond their widespread role in digital communication.
+In certain applications, they have been shown to effectively meet the need for fine-grained emotional
+scales. Research has found them particularly useful for conveying qualia, such as pain and taste.
 Two effective scales of faces were designed to capture levels of perceived pain within children and adult veterans\cite{bakerwong, dvprs}.
-It was found that visual scales of facial expressions produced more stable and consistent results in self-reported
+It was found that both visual scales of facial expressions produced more stable and consistent results in self-reported
 pain and greatly improved treatment.
 Likert scales are often used in surveys to assess agreement. Various designs of smiley faces were tested and
 shown to impact engagement in children\cite{likertscale}.
@@ -57,22 +60,29 @@ These techniques seek for realism in the displayed face and are loosing on the e
 emojis. Additionally, they mimic certain facial expressions without properly explaining their meaning in the digital realm.
 Another --almost ancient-- technique for facial visualisation uses line graphics
 driven by high dimensional data\cite{chernoff}. Chernoff faces provide unique facial features controlled by 18 parameters covering the
-sizes of eyes, mouth and ears as well as angles and distances between them.
-Unfortunately, this does not include any of the subtle activations that are necessary for the display of deep emotions.
-Chernoff faces come closest at being a predecessor, or next best solution, to the one I present in this paper.
+sizes of eyes, mouth and ears as well as angles and distances between them. It was claimed, but later dismissed
+that these faces can be processed instintively without focusing on the geometric parameters attentively\cite{chernoff_analysis}.
+Indeed, the multiple parameters do not include any of the subtle activations that are necessary for the display of deep emotions.
+Nevertheless, Chernoff faces come closest at being a predecessor, or next best solution, to the one I present in this paper.
 Both share two key features: they use line art and an exaggerated comic style to visualise data and neither
-has yet produced a success story in any practical application.
+has yet produced a practical success story in any practical application.
 In the following sections I will do my best to let latter change.
 
-\section{Compositionality of Emotions}
-This purpose of this article is to propose a visualisation technique for a compositional model of emotions.
-This approach differs from other visualisation methods that treat emotions as holistic, i.e. that represent
-specific emotional states in words, graphics or pictures, without regard for similarity
-or fine grained nuances between categories. The most common holistic visualisation is found in emoticons
-and emojis with emotional content. I want to argue that their undoubted success
-in our daily communication practices is due to their strong showing of comically exaggerated facial features.
-I want to create a similar visualisation for a compositional emotional model. This would open their interal
-topology to computational processes and hence make them more computable.
+\section{What are Emotions?}
+
+Before we can start visualizing, we need to define what an emotion is and how it is measured..
+
+
+transitory
+distinct experience
+behavioral consequence
+evolutionary function that guided their emergence in the past.
+neurological basis
+
+
+ My goal is to create a similar visualization for
+a compositional emotional model, which would expose its internal structure to computational processes,
+thereby making emotions more computable.
 
 The idea of expressing a human emotion along independent dimensions dates back to Willhelm Wundt, who in 1896
 derived the first compositional emotional model through self-inspection\cite{wundt}.
@@ -120,6 +130,12 @@ graphical dimensions. This approach might not be entirely faithful to all levels
 but it is expressive and linear and as such adds a minimum of model intrinsic distortions.
 
 \section{The parametric emoji}
+
+This approach contrasts with other visualization methods that treat emotions holistically—representing
+specific emotional states through words, graphics, or pictures without accounting for the similarity or
+fine-grained nuances between categories. The most common holistic visualizations are found in emoticons
+and emojis with emotional content. I argue that their undeniable success in everyday communication stems
+from their use of comically exaggerated facial features.
 
 The proposed parametric emoji  (paramoji)
 is a graphical icon that displays a human emotion from a set of continuous parameters.
@@ -706,9 +722,6 @@ This is not such a big problem. As long as $a_1$ and $a_2$ are positive and keep
 the face can be extrapolated and
 recorgnized with some acceptance for artistic abstractions. Figure \ref{fig:extra} shows some results.
 
-
-Paramoji
-
 \subsection{Algorithmic emotions}
 
 Before concluding this article I want to spend a few thoughts on a possible reinterpretation of the five dimensions.
@@ -777,6 +790,8 @@ detected on the peripheries.
 \end{table}
 
 \section{Conclusion}
+No reference to unique interhuman experience.
+
 This article introduced a parametric facial expression that can be parametrized to
 display a wide variety of emotions. Unlike other graphical methods, each parameter
 has a distinct emotional interpretation. Empirical evidence has been provided that
