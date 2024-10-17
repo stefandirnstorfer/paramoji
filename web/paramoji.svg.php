@@ -90,14 +90,39 @@ if ($size) {
   $template = preg_replace('/100%/', $size, $template, 2);
 }
 
-$V= [1, 2*$v-1, $a1, $a2, 2*$d-1, $c, $c*$a1, $c*$v, $c*$a2, $c*$d];
-$index = 0;
-echo preg_replace_callback('/\?/', function() use (&$index, $V, $data) {
-  $Y = $data[$index++];
+function dotprod($X, $Y) {
   $value = 0;
   for ($j = 0; $j < count($Y); $j++) {
-    $value += $Y[$j] * $V[$j];
+    $value += $Y[$j] * $X[$j];
   }
   return $value;
+}
+
+$V= [1, 2*$v-1, $a1, $a2, 2*$d-1, $c];
+$index = 0;
+$svg = preg_replace_callback('/\?/', function() use (&$index, $V, $data) {
+  return dotprod($V, $data[$index++]);
 }, $template);
+
+// experimental inclusion of love
+$l = ($_GET['l'] ?? 0)/100;
+if ($l > 0) {
+  $data= array(
+    array(0, 1),
+    array(0.5, -0.2),
+    array(0, 1));
+  $V= [1, $l];
+  $index=0;
+  $template= '<path id="love"' .
+    ' d="m -21,-13 c -11,0 -19,8 -19,18 0,14 9,23 40,48 C 32,28 40,19 40,5 40,-5 32,-13 21,-13 12,-13 7,-8 3,-3 L 0,1 -3,-3 c -4,-5 -9,-10 -18,-10 z"' .
+    ' transform="translate(50,55) scale(?) translate(0, -15)"' .
+    ' style="fill:rgba(100,0,0,?); stroke: black; stroke-width:0.5" />';
+  $love = preg_replace_callback('/\?/', function() use (&$index, $V, $data) {
+    return dotprod($V, $data[$index++]);
+  }, $template);
+  $svg = preg_replace('/(?=<path id="lips")/', $love, $svg, 1);
+  $svg = preg_replace('/(?=<\/svg>)/', '<use xlink:href="#love"/>' , $svg, 1);
+}
+
+echo $svg;
 ?>

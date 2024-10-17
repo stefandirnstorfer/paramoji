@@ -39,45 +39,10 @@ html(lang="en")
       a(href='editor.html?v=72&a1=98&a2=36')
         img(src="encode2.png" style="max-width:500px;width:100%")
       +try-it
-    h2.twocol#what-emotions-can-be-represented-with-the-paramoji What emotions can be represented with the paramoji?
-    p
-      | The paramoji parameterizes facial expressions with a wide variety of emotional expressions.
-      | They can represent the seven
-      | <a href="https://www.paulekman.com/universal-emotions">universal emotions defined by Paul Ekman</a>
-      | with reasonable completeness. Here are the author's pick for those emotions. You can click the image
-      | to create your own variations of those expressions.
-    .ekman-table
-      .table-head Normal
-      .table-head Happy
-      .table-head Sad
-      .table-head Surprised
-      +clickable-face('v=53&a1=35&a2=5&d=50&c=0', 'Normal')
-      +clickable-face('v=100&a1=21&a2=70&d=55&c=0', 'Happy')
-      +clickable-face('v=30&a1=27&a2=0&d=13&c=0', 'Sad')
-      +clickable-face('v=74&a1=90&a2=94&d=0&c=0', 'Surprise')
-      div(style="grid-column:1/5;height:20px")
-      .table-head Fearful
-      .table-head Disgusted
-      .table-head Angry
-      .table-head Contemptuous
-      +clickable-face('v=31&a1=60&a2=40&d=0&c=0', 'Fearful')
-      +clickable-face('v=0&a1=15&a2=64&d=60&c=70', 'Disgusted')
-      +clickable-face('v=27&a1=56&a2=0&d=92&c=0', 'Angry')
-      +clickable-face('v=60&a1=51&a2=0&d=69&c=100', 'Contemptuous')
 
-    h2.twocol#how-can-paramojis-be-mixed How can paramojis be mixed?
-    p
-     | All facial expressions are generated from continuous parameters. They can
-     | be interpolated into each other with arbitrary mixtures. With a slight exception in the
-     | contempt dimension all graphical parameters are linearly dependent on the five input parameters.
-     | This linearity ensures that the facial expressions can be smoothly interpolated into each other
-     | without jumps or unintended easing.
-     p(style="text-align:center")
-      img(src="anim.gif" alt="paramoji animation")
-
-    h2.twocol#paramoji-dimensions What are the five dimensions of the paramoji?
+    h2.twocol#paramoji-dimensions How do paramojis work?
     .twocol
-      p The paramoji renders from five meaningful parameters:
+      p The paramoji is a visualization technique for emotions data. It supports a five dimensional model with independent aspects of human sentiment:
       ol
         li
           em Valence
@@ -100,26 +65,63 @@ html(lang="en")
         | and the <a href="https://en.wikipedia.org/wiki/PAD_emotional_state_model">PAD model</a>
         | of emotional states.
 
+
+    h2.twocol#what-emotions-can-be-represented-with-the-paramoji What emotions can be represented with the paramoji?
+    p
+      | The paramoji parameterizes facial expressions with a wide variety of emotions. This includes the the seven
+      | <a href="https://www.paulekman.com/universal-emotions">universal emotions defined by Paul Ekman</a>
+      | with reasonable accuracy. Here are the author's picks for those emotions. You can click the image
+      | to create your own variations of those expressions. Note that there is not one correct choice, but many ways to change
+      | the face along the dimensions of emotional nuances.
+    .ekman-table
+      .table-head Normal
+      .table-head Happy
+      .table-head Sad
+      .table-head Surprised
+      +clickable-face('v=53&a1=35&a2=5&d=50&c=0', 'Normal')
+      +clickable-face('v=100&a1=21&a2=70&d=55&c=0', 'Happy')
+      +clickable-face('v=30&a1=27&a2=0&d=13&c=0', 'Sad')
+      +clickable-face('v=74&a1=90&a2=94&d=0&c=0', 'Surprise')
+      div(style="grid-column:1/5;height:20px")
+      .table-head Fearful
+      .table-head Disgusted
+      .table-head Angry
+      .table-head Contemptuous
+      +clickable-face('v=31&a1=60&a2=40&d=0&c=0', 'Fearful')
+      +clickable-face('v=0&a1=15&a2=64&d=60&c=70', 'Disgusted')
+      +clickable-face('v=27&a1=56&a2=0&d=92&c=0', 'Angry')
+      +clickable-face('v=60&a1=51&a2=0&d=69&c=100', 'Contemptuous')
+
+    h2.twocol#how-can-paramojis-be-mixed Why is linearity important?
+    p
+     | The visualization technique maps the five parameters linearly onto drawing parameters such as angles, lengths and and positions.
+     | Linearity ensures that linear transitions in parameters space also lead to smooth transitions in the resulting images.
+     | Additionally, with little practice it is possible to recognize the parameters from the image, by looking at curvatures, angles and distances.
+     | Linearity also leads to smooth interpolations without jumps or unintended easing, making them perfect for animations.
+     p(style="text-align:center")
+      img(src="anim.gif" alt="paramoji animation")
+
     h2.twocol#how-can-i-use-paramojis-on-my-website How can I use paramojis on my website?
     p
       | The easiest way to link the image directly as shown below.
       | You can set the request parameters for five paramoji dimensions from 0 to 100.
       | Optionally you can set the size parameter to get a fixed size image.
-    .code
-      code
-        span(style="color:navy")  &lt;img src=&quot;
-        span(style="color:firebrick") https://paramoji.org/<wbr/>paramoji.svg.php
-        span(style="color:gray") ?
-        span(style="color:firebrick") v=70
-        span(style="color:gray") &amp;
-        span(style="color:firebrick") a=50
-        span(style="color:gray") &amp;
-        span(style="color:firebrick") d=45
-        span(style="color:gray") &amp;
-        span(style="color:firebrick") c=0
-        span(style="color:gray") &amp;
-        span(style="color:firebrick") o=40
-        span(style="color:navy") &quot;/&gt;
+    .code-container
+      .code
+        code
+          span.first(style="color:navy")  &lt;img src=&quot;
+          span(style="color:firebrick") https://paramoji.org/<wbr/>paramoji.svg.php
+          span(style="color:gray") ?
+          span(style="color:firebrick") v=70
+          span(style="color:gray") &amp;
+          span(style="color:firebrick") a=50
+          span(style="color:gray") &amp;
+          span(style="color:firebrick") d=45
+          span(style="color:gray") &amp;
+          span(style="color:firebrick") c=0
+          span(style="color:gray") &amp;
+          span(style="color:firebrick") o=40
+          span(style="color:navy") &quot;/&gt;
 
     div
       p
@@ -135,6 +137,12 @@ html(lang="en")
         | To really leverage the power of paramojis these parameters must of course be dynamically derived
         | or computed.
       +try-it
+    h2.twocol I want to learn more about paramojis
+    .twocol
+      ul
+        li <a href="https://ranjithvenkatesh.com/2024/07/paramoji-speech-flow/">Paramoji Speech Flow</a> is an application of paramojis to advanced sentiment visualization in speech text.
+        li <a href="https://www.youtube.com/watch?v=JRKck-vLCcE">Emotions at scale</a> talks about various efforts to process emotions on computers featuring paramojis.
+        li <a href="https://osf.io/preprints/psyarxiv/6etdx">Visualizing emotions with linearly parameterized facial expressions</a>, a research paper bind paramoji development.
     h2.twocol#references Are there any similar solutions?
     .twocol
       ul
@@ -142,28 +150,22 @@ html(lang="en")
           | For a full parametric facial expression the best solution is still the
           | good old <a href="https://en.wikipedia.org/wiki/Chernoff_face">Chernoff face</a> from the 70's.
         li
-          | A lot of discrete emojis for faces and people can be found
-          | on <a href="https://emojipedia.org/people/">Emojipedia</a>.
-        li
-          | T he <a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2018.02396/full">EmojiGrid</a>
-          | is a 2D pictorial grid of emojis for the dimensions valence and arousal.
-        li
-          | <a href="https://process.studio/works/aimoji-ai-generated-emoji/">AImoji</a> are AI generated emoji.
-        li
           | <a href="https://www.unige.ch/cisa/research/materials-and-online-research/facsgen/home/">FACSGen</a> - A facial expression generator tool based on the facial action coding system (FACS)
         li
           | <a href="https://www.semanticscholar.org/paper/Parametric-face-drawings%3A-A-demographically-diverse-Day-Davidenko/07c4a0dddf6903bb80b6f445185ecc9e58e978e9">Parametric
           | Face Drawings</a> is visualization technique for facial landmarks.
         li
           | A research paper on
-          | <a href="https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.206.3855&rep=rep1&type=pdf">Parametric Facial Expression Synthesis</a>.
+          | <a href="https://www.researchgate.net/publication/44250675_Parametric_Facial_Expression_Synthesis_and_Animation">Parametric Facial Expression Synthesis</a>.
         li
           | The <a href="https://www.researchgate.net/publication/229589717_Parametric_Generation_of_Facial_Expressions_Based_on_FACS">Facial expression generator based on FACS</a>
           | is a pay-walled paper on facial expression generation.
     h2.twocol#contact Contact
     .twocol
       p
-        a(href='mailto:stefandirnstorfer@gmail.com') Email me
+        a(href='mailto:info@paramoji.org') Email me
       p
         | Join the discussion on
         | <a href='https://www.reddit.com/r/InternetIsBeautiful/comments/ty7ip6/a_parametric_emoji_that_renders_facial/'>Reddit</a>
+
+    p(style="color: gray; border-top: 1px solid gray") Stefan Dirnstorfer - Helene-Mayer-Ring 10 - Munich

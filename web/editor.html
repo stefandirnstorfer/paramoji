@@ -8,20 +8,26 @@
     <meta property="og:image" content="https://paramoji.org/encode2.png">
     <meta property="og:image:width" content="879">
     <meta property="og:image:height" content="581">
-    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="paramoji.js"></script>
     <script src="schematic.js"></script>
     <script src="action.js"></script>
     <title>Paramoji Editor</title>
 </head>
 <body class="no-margin">
-<div id="app">
+<div id="app" class="paramoji-editor">
     <div id="emoticon">
         <div class="space" v-html="paramoji()"></div>
     </div>
     <div id="control">
         <div id="dimensions">
             <h1>Controls</h1>
+            <div class="button-row">
+                <button @click="random()">Random</button>
+                <button @click="animateTo(neutralState())">Reset all</button>
+                <button @pointerdown="blink=true" @pointerup="blink=false" @pointerleave="blink=false">Blink</button>
+            </div>
+            <div style="height: 10px"></div>
             <table id="sliders" width="100%">
                 <tr>
                     <td>Model</td>
@@ -42,9 +48,10 @@
                         </select>
                     </td>
                 </tr>
+                <tr style="height: 10px"></tr>
                 <template v-if="['ao','a1a2'].includes(model)">
                     <tr>
-                        <td>Valence</td>
+                        <td>Pleasure</td>
                         <td><button @click="animateTo({v:50})">&times;</button></td>
                         <td>
                             <input class="slider" type="range" v-model="state.v"/>
@@ -99,10 +106,18 @@
                         </td>
                         <td><span id="label-c">{{fmt(state.c)}}</span></td>
                     </tr>
+                    <tr>
+                        <td>Love</td>
+                        <td><button @click="animateTo({l:0})">&times;</button></td>
+                        <td>
+                            <input class="slider" type="range" v-model="state.l"/>
+                        </td>
+                        <td><span id="label-l">{{fmt(state.l)}}</span></td>
+                    </tr>
                 </template>
                 <template v-if="model=='e'">
                     <tr>
-                        <td>Valence</td>
+                        <td>Pleasure</td>
                         <td><button @click="updateEState({v:50})">&times;</button></td>
                         <td>
                             <input class="slider" type="range" v-model="estate.v" @input="updateEState()"/>
@@ -143,16 +158,8 @@
                     </tr>
                 </template>
             </table>
-            <div class="button-row mt-1">
-                <button @click="animateTo({v:50,a1:50,a2:50,d:50,c:25})">Reset all</button>
-                <button @click="random()">Random</button>
-                <button @pointerdown="blink=true" @pointerup="blink=false">Blink</button>
-            </div>
         </div>
         <div style="height:20px"></div>
-        <div style="margin-bottom: 50px">
-            <a href="/">More about paramojis...</a>
-        </div>
     </div>
 </div>
 </body>
