@@ -4,10 +4,13 @@
 \newcommand{\faces}[1]{\includegraphics[height=1.6cm]{gen/#1}}
 
 \section{Introduction}
-Humans have widely adopted the use of emoticons and expressive emojis to convey emotions when
-communicating digitally. These small faces with exaggerated expressions undeniably fill a gap
+Humans rely heavily on the exchange of emotional information, especially when
+personal aspects such as trust, intention and appraisals are to be communicated.
+Most emotional cues that human would instinctively use for that purpose, do not translate well into
+digital communication channels. It has however been found that the use pictorial facial expressions in the
+shape of emoticons or expressive emojis did fill a gap
 that written words can't match. Research has demonstrated that affective information
-is transferred more effectively when appropriate non-verbal cues, such as facial expressions, are used
+is transferred more effectively when appropriate non-verbal icons, such as facial expressions, are used
 \cite{BOUTET2021106722,EmojisAsSocialInformation}. In particular, inter-annotator agreement on
 the sentiment expressed by short messages was higher when they contained emojis\cite{SentimentOfEmoji}.
 It seems logical that computers would use similar methods to display either their own emotions or
@@ -26,12 +29,12 @@ for this emotional translation: extracting meaning from context, gathering expli
 or analyzing the facial expressions anatomically. Unfortunately, none of those methods yielded satisfactory
 results. Classifying emojis by context gives precise numerical embeddings, revealing similarity clusters
 within the emoji set\cite{WhatDoesThisEmojiMean}, but do not translate into human experience.
-Direct questioning of humans reveals significant differences across cultures and software platforms,
+Direct questioning of humans reveals significant differences across cultures,
 even when assessing just the single dimension on the spectrum from positive to negative\cite{emoji_intensity}.
 The largest disagreement was repeatedly found for the ``grinning face''.
-Its vastly different cultural connotations are further complicated by 17 distinct graphical variations,
-which vary depending on the software brand and version displaying it\cite{emoji_interpretation}.
-A widely used method for the objective assessment of embedded emotional states is the Facial
+Its vastly different cultural connotations are further complicated by a count of 17 distinct graphical variations,
+depending on the software brand and version displaying it\cite{emoji_interpretation}.
+A widely used method to gain an objective assessment of the embedded emotional states is the Facial
 Action Coding System (FACS), a common framework for analyzing facial expressions.
 The method has been applied to emojis, but due to the lack of precision in the Unicode Consortium's
 standardization efforts and the wide variability between software platforms this did not lead to
@@ -39,14 +42,15 @@ a consistent translation into emotional experiences\cite{emoji_facs}.
 The bottom line is that emojis, albeit standardized coarsly by appearance, are
 not suitable to objectively encode nuanced and precise emotions.
 
-Emoticons, or graphical facial expressions, are used beyond their widespread role in digital communication.
-In certain applications, they have been shown to effectively meet the need for fine-grained emotional
-scales. Research has found them particularly useful for conveying qualia, such as pain and taste.
-Two effective scales of faces were designed to capture levels of perceived pain within children and adult veterans\cite{bakerwong, dvprs}.
-It was found that both visual scales of facial expressions produced more stable and consistent results in self-reported
-pain and greatly improved treatment.
-Likert scales are often used in surveys to assess agreement. Various designs of smiley faces were tested and
-shown to impact engagement in children\cite{likertscale}.
+Graphical facial expressions are used beyond their widespread role in digital communication.
+They have been shown to provide effective fine-grained emotional scales, where words and numbers could not compete.
+Research has found them particularly useful for conveying qualia, such as pain and taste.
+Two scales of gradually changing faces, from happy to painful, were designed to capture the level of perceived pain
+in children and adult veterans\cite{bakerwong, dvprs}. It was found that both visual scales of facial expressions
+allowed patients to communicate their personal experience with higher accuracy.
+More stable and consistent results in self-reported pain greatly improved treatment.
+Other example of a face-visualized measurement scales were used in surveys to assess agreement. Various designs of smiley faces
+were tested and shown to impact engagement in children\cite{likertscale}.
 A wider range of emotional experiences can be expressed if additional dimensions are allowed.
 An emoji grid spans two dimensions, valence and arousal, with selected emojis along the axes\cite{emojigrid}.
 It was found useful for reporting food elicited emotions.
@@ -56,38 +60,30 @@ However, their expressive range is limited and does not nearly cover the variety
 
 For a greater range of facial expressions there is active research into facial visualisation techniques.
 This includes 2D graphics\cite{parametric_face_facs, FACSGen} as well as physical 3D models\cite{FARAJ2021e00117}.
-These techniques seek for realism in the displayed face and are loosing on the expressiveness of the exaggerated
-emojis. Additionally, they mimic certain facial expressions without properly explaining their meaning in the digital realm.
-Another --almost ancient-- technique for facial visualisation uses line graphics
+These techniques seek for realism in the displayed faces. By adding real world details they loose focus on the emotion itself.
+They mimic certain facial expressions, but don't limit them to what is necessary to convey the emotion.
+Another --almost ancient-- technique for facial visualisation uses very reduced line graphics
 driven by high dimensional data\cite{chernoff}. Chernoff faces provide unique facial features controlled by 18 parameters covering the
 sizes of eyes, mouth and ears as well as angles and distances between them. It was claimed, but later dismissed
 that these faces can be processed instintively without focusing on the geometric parameters attentively\cite{chernoff_analysis}.
-Indeed, the multiple parameters do not include any of the subtle activations that are necessary for the display of deep emotions.
+Indeed, the multiple parameters do not include any of the subtle activations that are so characteristic of deep emotions.
 Nevertheless, Chernoff faces come closest at being a predecessor, or next best solution, to the one I present in this paper.
 Both share two key features: they use line art and an exaggerated comic style to visualise data and neither
-has yet produced a practical success story in any practical application.
-In the following sections I will do my best to let latter change.
+has yet produced a practical success story in the real world. In the following I will do my best to let the latter change.
 
-\section{What are Emotions?}
+\section{What are emotions}
 
-Before we can start visualizing, we need to define what an emotion is and how it is measured..
+Emotions are transitory phenomenological experiences, accompanied by multiple physiological changes,
+adpated by evolution to meet specific challenges to our survival\cite{Moors2014,Russel2009,Scarantino2012}.
+The physiological changes include heart beat, respiration, posture, voice modulation and facial expressions.
+Computers don't have this direct conscious experience, and it seems that the best we can do is to mimic
+these visible changes, such as shown in face and voice. However, computers do inhabit the same physical world as we do and,
+as such, share some of the selection pressures to which analogue adaptations exist. Hence, two important use
+cases for emotional visualization exist: the display of an emotion detected in a conscious being, and
+the indiciation of a situation for which corresponding adaptations proved useful.
 
-
-transitory
-distinct experience
-behavioral consequence
-evolutionary function that guided their emergence in the past.
-neurological basis
-
-
- My goal is to create a similar visualization for
-a compositional emotional model, which would expose its internal structure to computational processes,
-thereby making emotions more computable.
-
-The idea of expressing a human emotion along independent dimensions dates back to Willhelm Wundt, who in 1896
-derived the first compositional emotional model through self-inspection\cite{wundt}.
-In a subsequent review his three dimensions of feeling were
-translated as pleasantness, excitement and tension\cite{tridimensional}.
+The idea of expressing a human emotion in quantitative terms was first raised by Willhelm Wundt in 1896.
+He suggested a compositional model based on the dimensions of pleasantness, excitement and tension\cite{wundt,tridimensional}.
 The first quantitative experiment to objectify these insights were performed by Charles E. Osgood
 in 1957, during the era when punch card computing lead to the increased availability of calculation power.
 Osgood analyzed the associations that human participants would see between nouns and adjectives\cite{potency_osgood}.
