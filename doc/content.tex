@@ -3,7 +3,9 @@
 \newcommand{\face}[1]{\includegraphics[height=2cm]{gen/#1}}
 \newcommand{\faces}[1]{\includegraphics[height=1.6cm]{gen/#1}}
 
+
 \section{Introduction}
+
 Humans rely heavily on the exchange of emotional information, especially when
 personal aspects such as trust, intention and appraisals are to be communicated.
 Most emotional cues that human would instinctively use for that purpose, do not translate well into
@@ -68,64 +70,60 @@ sizes of eyes, mouth and ears as well as angles and distances between them. It w
 that these faces can be processed instintively without focusing on the geometric parameters attentively\cite{chernoff_analysis}.
 Indeed, the multiple parameters do not include any of the subtle activations that are so characteristic of deep emotions.
 Nevertheless, Chernoff faces come closest at being a predecessor, or next best solution, to the one I present in this paper.
-Both share two key features: they use line art and an exaggerated comic style to visualise data and neither
-has yet produced a practical success story in the real world. In the following I will do my best to let the latter change.
+Both solutions use line art and an exaggerated comic style to visualise data. However, with regards to intuitive
+apprehension I want to argue that my visualization is able to transport both, quantitative and emotional information.
+
 
 \section{What are emotions}
 
-Emotions are transitory phenomenological experiences, accompanied by multiple physiological changes,
-adpated by evolution to meet specific challenges to our survival\cite{Moors2014,Russel2009,Scarantino2012}.
-The physiological changes include heart beat, respiration, posture, voice modulation and facial expressions.
-Computers don't have this direct conscious experience, and it seems that the best we can do is to mimic
-these visible changes, such as shown in face and voice. However, computers do inhabit the same physical world as we do and,
+Emotions are transitory phenomenological experiences, accompanied by multiple physiological adaptations,
+formed by evolution to meet specific challenges to our survival\cite{Russell2009,Scarantino2012}.
+The physiological changes include heart beat, respiration, posture, voice modulation, immune reactions and facial expressions.
+Computers don't have these conscious experiences, and it seems that the best we can do is to capture
+the visible changes, such as shown in face and voice. However, computers do inhabit the same physical world as we do and,
 as such, share some of the selection pressures to which analogue adaptations exist. Hence, two important use
-cases for emotional visualization exist: the display of an emotion detected in a conscious being, and
+cases for emotional visualization exist: the display of an emotion detected inside a conscious being, and
 the indiciation of a situation for which corresponding adaptations proved useful.
 
 The idea of expressing a human emotion in quantitative terms was first raised by Willhelm Wundt in 1896.
 He suggested a compositional model based on the dimensions of pleasantness, excitement and tension\cite{wundt,tridimensional}.
-The first quantitative experiment to objectify these insights were performed by Charles E. Osgood
-in 1957, during the era when punch card computing lead to the increased availability of calculation power.
-Osgood analyzed the associations that human participants would see between nouns and adjectives\cite{potency_osgood}.
-By performing factor analysis on a large data set he could show that three scales of meaning would
-explain more than 95\% of their reported association strength.
-He called these dimensions pleasantness (good-bad), potency (strong-weak) and activity (fast-slow).
-While this result is not specific to emotions it is explaining the most fundamental structure of
-our language, which in turn is driven by our emotions.
+In 1957 Charles E. Osgood performed a factor analysis on annotated associations between nouns and adjectives\cite{potency_osgood}.
+He found three similar scales that make up most of the meaning that human participants attributed to a generic list of words.
+The factors were pleasantness (good-bad), potency (strong-weak) and activity (fast-slow). In 1980 Mehrabian applied this
+analysis to a vocabulary more specific to emotions and derived the naming scheme of pleasure, arousal and dominance, also
+known as the PAD model\cite{dominance_mehrabian}. These dimensions can be easily described and understood by humans,
+allowing us to annotate subjective feelings. One could argue that this is just an arbitrary characterization of some
+aspects of a human experience, however, these dimensions have a clear functional role in our evolutionary history.
+Moreover, while not complete, they can be used to classify a wide range of cognitive and physiological response programs.
 
-In 1980 two publications refined the naming of these three dimensions into their currently prevalent form:
-valence, arousal and dominance. The first two dimensions were part of the Circumplex model
-of affect \cite{circumplex}. Valence describes the emotion along the axis of positive, pleasure and approval vs negative,
-misery and disapproval. Arousal describes the axis from aroused, agitated and active to calm, sleepy and inactive.
-Recent neurological evidence provides further assurance that these two dimensions actually exist and correlate to
-measurable brain activities\cite{circumplex2}.
-The name of the third dimension was settled by the pleasure-arousal-dominance model \cite{dominance_mehrabian}.
-A replication of Osgood's results with more data on modern electronic equipment confirmed the three dimensions as
-``analogues'' with only slight changes in naming.
-In this model strength, anger, power and boldness dominate over anxiety, infatuation, fear and loneliness.
+Each of these three dimensions has distinct cognitive and physiological impacts, influencing specific desires and behaviors.
+Pleasure represents an evaluation of the organism's state, driving short-term decisions. The anticipated level of pleasure
+affects the selection among different options \cite{CABANAC1992173}. Arousal indicates the probability and expected
+intensity of a response, guiding energy distribution, attention, and memory formation \cite{storbeck2008}.
+Dominance reflects perceived power within social hierarchies. It is triggered by competition outcomes, such as winning
+or losing, and is most evident in emotions like shame and pride when defending or asserting a social rank \cite{weisfeld2012}.
 
-During the 1970s Paul Ekman et al.{} published a series of research that clearly linked facial expressions to
-basic emotions that form as instinctive reactions and are not subject to culture\cite{Ekman1971, Ekman72}.
-He developed the facial action coding system (FACS) to capture facial muscle activations and derive the emotional
-cause. Among his biggest achievements was the discovery of contempt, an instinctive reaction to the feeling of
-superiority, that occurs in possible combination to positive and negative emotions \cite{contempt_ekman}.
-Ekman himself argued that emotions are a combination of 7 disctinct basic affective states:
-happiness, anger, fear, sadness, surprise, disgust and contempt.
-Some of them tend to cooccur naturally, such as happiness and surprise or anger and disgust.
-Others have opposing muscle movements, but might coincide in cases of active deceipt or modulation.
+There is an ongoing debate on how many more dimensions are needed to capture all emotions, or whether emotions should be
+described in terms of dimensions at all. The theory of basic emotions argues for the existence of distinct catogories
+of emotional states, such as joy, anger, fear, sadness, surprise, disgust\cite{Ekman72,ortony1990}. However, there
+is clear evidence that not all emotions fall into mutually exclusive categories. There are multiple ways in which they
+can blend and mix gradually in various degrees. Multiple suggestions have been made to resolve the question for the precise
+topology of the domain\cite{Scherer2007, study5, ZHOU202038}, but current technological capabilities are insufficient to
+settle this debate. The much bigger problem might be that human language uses inherently categorical terms,
+while computers are bound to work with dimensional decompositions, also known as embeddings. Developing a method to
+bridge these two approaches would be valuable, even before the actual structure of our brain is fully mapped out.
 
-Various attempts have been made to unify these two approaches and explain the combinability and similarity of
-Ekman's basic emotions through a composition of more fundamental effects\cite{Componential}.
-The lack of clusters in observed facial muscle activations seem to suggest that there is an
-undiscovered pattern at play\cite{Scherer2007}. Experiments have been made to map
-activation patterns back to the original dimensions of meaning\cite{Composability, study5, ZHOU202038}, but
-fall short of a complete theory that embeds all 7 basic emotions.
-This article may contribute to this debate, not by analyzing faces, but by generating them.
-Instead of rating existing faces on known emotional dimensions, I want to generate faces from linear
-graphical dimensions. This approach might not be entirely faithful to all levels of decypherable detail,
-but it is expressive and linear and as such adds a minimum of model intrinsic distortions.
 
 \section{The parametric emoji}
+
+instinctive reactions and are not subject to culture\cite{Ekman1971, Ekman72}.
+
+universality\cite{elfenbein2002}
+
+\cite{Componential}
+
+erruption that shows it self in a short flash of microexpressions.
+
 
 This approach contrasts with other visualization methods that treat emotions holistically—representing
 specific emotional states through words, graphics, or pictures without accounting for the similarity or
@@ -154,6 +152,11 @@ transition from one state to another would also show smoothly and without artefa
 in parameter space is guaranteed to also be the midpoint in its graphical representation and vice versa.
 
 \subsection{Valence and arousal}
+
+Valence describes the emotion along the axis of positive, pleasure and approval vs negative,
+misery and disapproval. Arousal describes the axis from aroused, agitated and active to calm, sleepy and inactive.
+Recent neurological evidence provides further assurance that these two dimensions actually exist and correlate to
+measurable brain activities\cite{circumplex2}.
 
 Figure \ref{fig:circumplex} shows the chosen visualisation for the first two dimensions.
 The graphics is defined through the control points of Bezier lines with some rotation of the eyes' outlines.
@@ -259,22 +262,8 @@ exaggerated appearance. The rotation angle is linearly dependent on the input.
 The figure shows only extreme values for dominance, but all intermediate values can be
 interpolated for more natural looks.
 
-The three parameters, valence, arousal and dominance span a unit cube domain.
-Four corners on the low valence side correspond to misery and disapproval. They already resemble some
-possible versions of Ekman's basic emotions:
-fear \sparamojib{0,100,100,0,0},
-anger \sparamojib{0,100,100,100,0},
-sadness \sparamojib{0,0,0,0,0} and
-disgust \sparamojib{0,0,0,100,0}.
-For positive valence we find pleasure and approval. Two universal emotions sit on the positive end of the cube:
-happiness \sparamojib{100,50,50,50,0} and
-surprise \sparamojib{100,100,100,50,0}.
-The expressions in the corners of the positive side are probably not universal.
-My uninformed attempt at naming them lead to
-simper \sparamojib{100,0,0,0,0},
-embarrassed \sparamojib{100,100,100,0,0},
-anticipating \sparamojib{100,100,100,100,0}
-and a forced smile \sparamojib{100,0,0,100,0}.
+Anger vs fear\cite{marsh2005}
+Hatered
 
 \subsection{Contempt}
 

@@ -13,7 +13,7 @@ const app = Vue.createApp({
         const newState = this.neutralState()
         console.log("created", newState)
         for (let key in newState) {
-            var m= location.search.match(RegExp(key + "=([0-9]+)"));
+            var m= location.search.match(RegExp(key + "=([-0-9]+)"));
             if (m) newState[key]= parseFloat(m[1]);
         }
         console.log("created", newState)
