@@ -29,9 +29,11 @@ const app = Vue.createApp({
                 l= this.state.l/100;
             if (this.style=='schematic')
                 return schematic_svg(v, a1, a2, d ,c)
-            let svg= (this.blink ? paramoji_blink_svg : paramoji_svg)(v, a1, a2, d, c)
+            let svg= paramoji_blink_svg(this.blink, v, a1, a2, d, c)
             if (l>0)
                 svg = add_love(svg, l)
+            if (this.lightdark=='dark')
+                svg = dark_mode(svg)
             return svg
         },
         neutralState(model) {
@@ -129,6 +131,9 @@ const app = Vue.createApp({
             this.estate.c = tryfix(this.estate.c, dotprod(0.17,  0.37,  0.05, -0.03, 0.78))
             this.updateUrl()
         }
+    },
+    computed: {
+        lightdark() { return this.style.includes('dark') ? 'dark' : 'light' },
     },
     watch: {
         animate(value, oldValue) {

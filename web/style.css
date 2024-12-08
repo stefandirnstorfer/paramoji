@@ -78,8 +78,11 @@ div#app {
     }
 }
 
-#emoticon svg {
+#emoticon.light svg {
     background-color: #fafafa;
+}
+#emoticon.dark svg {
+    background-color: #050505;
 }
 
 #control {

@@ -16,7 +16,7 @@
 </head>
 <body class="no-margin">
 <div id="app" class="paramoji-editor">
-    <div id="emoticon">
+    <div id="emoticon" :class="lightdark">
         <div class="space" v-html="paramoji()"></div>
     </div>
     <div id="control">
@@ -43,7 +43,8 @@
                     <td>Style</td>
                     <td colspan="2">
                         <select v-model="style">
-                            <option value="comic">Comic</option>
+                            <option value="comic">Comic Light</option>
+                            <option value="comic-dark">Comic Dark</option>
                             <option value="schematic">Schematic</option>
                         </select>
                     </td>
