@@ -77,6 +77,18 @@ const app = Vue.createApp({
             newState.l = hasLove * newState.l * newState.l /100 + 0.001 * hasLove;
             this.animateTo(newState)
         },
+        mirror() {
+            if (this.canmirror) {
+                this.animateTo({
+                    v: 100-this.state.v,
+                    a1: 100-this.state.a1,
+                    a2: 100-this.state.a2,
+                    d: 100-this.state.d,
+                })
+            } else {
+                this.animateTo({ c:0, l: 0 })
+            }
+        },
         updateVState(newVState) {
             const vstate = Object.assign({}, this.vstate, newVState)
             const o = parseFloat(vstate.o)
@@ -134,6 +146,7 @@ const app = Vue.createApp({
     },
     computed: {
         lightdark() { return this.style.includes('dark') ? 'dark' : 'light' },
+        canmirror() { return this.state.c < 10 && this.state.l < 10 },
     },
     watch: {
         animate(value, oldValue) {

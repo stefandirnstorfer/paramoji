@@ -124,5 +124,10 @@ if ($l > 0) {
   $svg = preg_replace('/(?=<\/svg>)/', '<use xlink:href="#love"/>' , $svg, 1);
 }
 
+
+if ($_GET['dark']) {
+  $svg = preg_replace('/(<(?!rect id="tooth")[^>]*) stroke="black"/', '$1 stroke="white"', $svg);
+}
+
 echo $svg;
 ?>
