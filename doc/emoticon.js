@@ -35,7 +35,7 @@ function emoticon_svg(v, a1, a2, p, c, w) {
         '    <clipPath id="clip-eyes"><use href="#eye-l"/><use href="#eye-r"/></clipPath>',
         '    <clipPath id="clip-lips"><use href="#lips"/></clipPath>',
         '  </defs>',
-        '  <path transform="matrix(1,?,0,1,53,?)" d="M-4,0q-2,-2 -4,0M-1,0Q3,-2 4,-1T6,-3 4,?" fill="none" stroke="black"/>',
+        '  <path transform="matrix(1,?,0,1,53,?)" d="M-4,0q-2,-2 -4,0M-1,0C2,-3 2,1 4,-1S6,-6 4,?" fill="none" stroke="black"/>',
         '  <path d="M?,?Q?,? ?,? M?,?Q?,? ?,?" fill="none" stroke="black"/>',
         '  <g clip-path="url(#clip-lips)">',
         '    <rect height="100" width="100"/>',
