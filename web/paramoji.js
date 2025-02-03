@@ -20,13 +20,6 @@ function paramoji_svg(v, a1, a2, p, c) {
         [  0,  0,  0,  0,  0, 0.4],
         [ 70, -2, 0, -8, -1],
         [-9, -1, -2],
-    //   d="M?,?Q?,? ?,? M?,?Q?,? ?,?"
-        [ 37, -5,  0,  0,  2,   4], [ 68, -1, -2, -7, -3, -4],
-        [ 29, -2,  0, -3,  2, -17], [ 76, -1,  0, -8,  0,-15],
-        [ 25, -4,  0, -6,  2, -10], [ 77,-10,  0, -2],
-        [ 65,  4,  0,  0, -2, -.5], [ 68, -1, -2, -7, -3],
-        [ 71,  2,  0,  3, -2],      [ 76, -1,  0, -8],
-        [ 75,  4,  0,  6, -2],      [ 77,-10,  0, -2],
     //   transform="translate(0,?)"
         [ 80,  5,  0,  6, -6],
     //   transform="translate(0,?)"
@@ -93,11 +86,7 @@ function paramoji_svg(v, a1, a2, p, c) {
         [ 59,  2, -1,  0, -6], [ 40, -7,-19,  0, 12],
         [ 70,  1,  2,  0, -5], [ 40,-12,-21,  0,  3],
         [ 81,  1,  5,  0, -4], [ 40, -4,-19,  0, -3],
-        [  2,-0.5,  1,  0,0.5],
-    //   d="M?,?Q?,? ?,?"
-        [ 62,  0, -4,  0, -2], [ 33, -5,-16,  0,  7],
-        [ 56,  2,  0,  0, -3], [ 39, -7,-22,  0,  9],
-        [ 56,  1,  0,  0, -1], [ 41, -8,-20,  0, 10],
+        [  1.5, -.5,  1,  0, 0.5],
     //   transform="matrix(-1,0,0,1,100,?)"
         [  0,  0,  0,  0,  0,  4],
     ]
@@ -111,7 +100,6 @@ function paramoji_svg(v, a1, a2, p, c) {
         '    <clipPath id="clip-lips"><use href="#lips"/></clipPath>',
         '  </defs>',
         '  <path transform="matrix(1,?,0,1,53,?)" d="M-4,0q-2,-2 -4,0M-1,0C2,-3 2,1 4,-1S6,-6 4,?" fill="none" stroke="black"/>',
-        '  <path d="M?,?Q?,? ?,? M?,?Q?,? ?,?" fill="none" stroke="black"/>',
         '  <g clip-path="url(#clip-lips)">',
         '    <rect height="100" width="100"/>',
         '    <ellipse cx="50" cy="91" rx="15" ry="10" fill="#800f08"/>',
@@ -142,10 +130,7 @@ function paramoji_svg(v, a1, a2, p, c) {
         '      <path d="M-70,-30H30L20,0Q?,? -18,-2 ?,? -56,0Z" opacity=".25"/>',
         '    </g>',
         '  </g>',
-        '  <g id="brow-r">',
-        '    <path d="M?,?Q?,? ?,?" fill="none" stroke="black" stroke-width="?"/>',
-        '    <path d="M?,?Q?,? ?,?" fill="none" stroke="black"/>',
-        '  </g>',
+        '  <path id="brow-r" d="M?,?Q?,? ?,?" fill="none" stroke="black" stroke-width="?"/>',
         '  <use href="#brow-r" transform="matrix(-1,0,0,1,100,?)"/>',
         '</svg>'
     ]
