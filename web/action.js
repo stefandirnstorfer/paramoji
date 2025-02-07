@@ -13,7 +13,7 @@ const app = Vue.createApp({
         const newState = this.neutralState()
         console.log("created", newState)
         for (let key in newState) {
-            var m= location.search.match(RegExp(key + "=([0-9]+)"));
+            var m= location.search.match(RegExp(key + "=([-0-9]+)"));
             if (m) newState[key]= parseFloat(m[1]);
         }
         console.log("created", newState)
@@ -30,9 +30,11 @@ const app = Vue.createApp({
                 g= this.state.g/100;
             if (this.style=='schematic')
                 return schematic_svg(v, a1, a2, d ,c)
-            let svg= (this.blink ? paramoji_blink_svg : paramoji_svg)(v, a1, a2, d, c, g)
+            let svg= paramoji_blink_svg(this.blink, v, a1, a2, d, c, g)
             if (l>0)
                 svg = add_love(svg, l)
+            if (this.lightdark=='dark')
+                svg = dark_mode(svg)
             return svg
         },
         neutralState() {
@@ -77,6 +79,18 @@ const app = Vue.createApp({
             newState.l = hasLove * newState.l * newState.l /100 + 0.001 * hasLove;
             newState.g = newState.g * newState.g /100
             this.animateTo(newState)
+        },
+        mirror() {
+            if (this.canmirror) {
+                this.animateTo({
+                    v: 100-this.state.v,
+                    a1: 100-this.state.a1,
+                    a2: 100-this.state.a2,
+                    d: 100-this.state.d,
+                })
+            } else {
+                this.animateTo({ c:0, l: 0 })
+            }
         },
         updateVState(newVState) {
             const vstate = Object.assign({}, this.vstate, newVState)
@@ -132,6 +146,10 @@ const app = Vue.createApp({
             this.estate.c = tryfix(this.estate.c, dotprod(0.17,  0.37,  0.05, -0.03, 0.78))
             this.updateUrl()
         }
+    },
+    computed: {
+        lightdark() { return this.style.includes('dark') ? 'dark' : 'light' },
+        canmirror() { return this.state.c < 10 && this.state.l < 10 },
     },
     watch: {
         animate(value, oldValue) {

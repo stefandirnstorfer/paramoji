@@ -1,22 +1,17 @@
-The key challenge of affective computing is to translate subjective emotional experiences into
-measurable data. Most recent advances in that field have relied on facial expressions as
-indicators for inner emotional states.
-Our current understanding of these expressions is categorical, i.e.
-there are some subjective feelings that are understood to be indicated
-by specific faces. There is no agreed measure for their distance and no
-clear rule for how emotions can combine or do exclude.
-The computational processing of emotions therefore mostly relies on
-compositional approaches using intependent scales, like valence and arousal. However, these methods lack
-a consistent mapping to a facial expression that turned out so crucial for the
-identification of emotional states.
+A key challenge in human-computer interaction is the understanding and processing of
+emotional experiences in terms of measurable data. Emotional states are often
+expressed in categories of described subjective feelings, such as anger, fear and happiness.
+This approach is impractical for
+computational purposes, as there is no agreed-upon total number of emotions, let alone a metric for their
+similarity, distance, or combinability. As a result,
+computational processes typically rely on dimensional models using
+independent scales like valence, arousal, and dominance. While these systems allow
+for precise declarations of emotional states, there remains a lack of consensus on
+how such numerical representations would actually feel.
 
-This paper seeks to solve this problem by introducing a consistent facial visualization
-for a five dimensional model. A graphical representation as a comic style facial expression is provided in
-examples, explanations and code. It visualizes emotions in a comically exaggerated style,
-similar to the successful emojis used in electronic communication.
-All graphical parameters depend linearly on
-the input dimensions (valence, arousal, dominance, contempt and control).
-This might be a rough and crude method. It might not even be a good one,
-but it is at least something linear in the space of emotions.
-Empirical results from crowd workers confirm that the encoded emotional
-information can be recorgnized intuitively and without further training.
+This paper presents a method for mapping a numerical emotion model to a graphical representation,
+resulting in facial expressions that evoke the corresponding emotions when viewed. Empirical results
+show that untrained crowd workers could intuitively interpret the visual representation in alignment
+with the numerical model. This indicates that the visualization effectively conveys emotional
+information unique to each input. The drawing instructions rely solely on concise linear transformations,
+minimizing interpretational ambiguity.

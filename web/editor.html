@@ -16,7 +16,7 @@
 </head>
 <body class="no-margin">
 <div id="app" class="paramoji-editor">
-    <div id="emoticon">
+    <div id="emoticon" :class="lightdark">
         <div class="space" v-html="paramoji()"></div>
     </div>
     <div id="control">
@@ -25,7 +25,7 @@
             <div class="button-row">
                 <button @click="random()">Random</button>
                 <button @click="animateTo(neutralState())">Reset all</button>
-                <button @pointerdown="blink=true" @pointerup="blink=false" @pointerleave="blink=false">Blink</button>
+                <button @click="mirror()">Mirror</button>
             </div>
             <div style="height: 10px"></div>
             <table id="sliders" width="100%">
@@ -43,7 +43,8 @@
                     <td>Style</td>
                     <td colspan="2">
                         <select v-model="style">
-                            <option value="comic">Comic</option>
+                            <option value="comic">Comic Light</option>
+                            <option value="comic-dark">Comic Dark</option>
                             <option value="schematic">Schematic</option>
                         </select>
                     </td>
@@ -165,6 +166,12 @@
                         <td><span>{{fmt(estate.c)}}</span></td>
                     </tr>
                 </template>
+                <tr>
+                    <td/>
+                    <td colspan="2">
+                        <button @pointerdown="blink=true" @pointerup="blink=false" @pointerleave="blink=false">Blink</button>
+                    </td>
+                </tr>
             </table>
         </div>
         <div style="height:20px"></div>
