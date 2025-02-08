@@ -39,9 +39,9 @@ const app = Vue.createApp({
         },
         neutralState() {
             return {
-                v: 50,
-                a1: 50,
-                a2: 50,
+                v: 55,
+                a1: 47,
+                a2: 17,
                 d: 50,
                 c: this.model=='e' ? 25 : 0,
                 g: 0,

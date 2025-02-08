@@ -15,39 +15,39 @@
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 function paramoji_svg(v, a1, a2, p, c, g) {
-    const nose_d = "M-8,0Q-6,-2 -4,?M-1,?C2,-3 2,1 4,-1S6,-6 4,?"
     const data = [
-    //   transform="matrix(1,?,0,1,53,?)"  d=nose_d
+    //   transform="matrix(1,?,0,1,53,?)"  d="M-8,0Q-6,-2 -4,?M-1,?C2,-3 2,1 4,-1S6,-6 ?,?"
         [  0,  0,  0,  0,  0, 0.4],
         [ 70, -2,  0, -8, -1,  0,  -5],
         [  0,  0,  0,  0,  0,  0,  5 ],
         [  0,  0,  0,  0,  0,  0,  5 ],
-        [ -9, -1, -2],
+        [  4,  0,  0,  0,  0,  0,  -3], [ -9, -1, -2],
     //   transform="translate(0,?)"
-        [ 80,  5,  0,  6, -6],
+        [ 80,  1,  0,  6, -6],
     //   transform="translate(0,?)"
-        [ 66,  2,  0, -5, -1],
+        [ 65,  0,  0, -5, -1],
     // id: lips
-    //   d="M?,?C?,? ?,? 0,?S?,? ?,?C?,? ?,? 0,?S?,? ?,?Z"  transform="matrix(1,?,0,1,?,?)"
+    //   d="M?,?C?,? ?,? 0,?S?,? ?,?C?,? ?,? 0,?S?,? ?,?Z"  transform="matrix(?,?,0,1,?,?)"
         [ 14,  1,  0,  9, -2        ], [  0,-12,  0, -2,  0,  0],
         [ 10,  1,  0, 11, -3,  0, -5], [  0, -2,  0, 11,  0,  0, -10],
-        [  6,  0,  0,  6, -3,  0    ], [  0,  1,  0, 12,  0,  0, -2],
-        [  0,  1,  0, 12,  0,  0, -2],
+        [  6,  0,  0,  6, -3,  0, -2], [  0,  1,  0, 12,  0,  0, 0],
+        [  0,  1,  0, 12,  0,  0, 0],
         [-10, -1,  0,-11,  3,  0,  5], [  0, -2,  0, 11,  0,  0, -10],
         [-14, -1,  0, -9,  2        ], [  0,-12,  0, -2,  0,  0],
         [-10, -1,  0,-11,  3,  0,  5], [  0, -2,  0,-11,  0,  0, -10],
-        [ -6,  0,  0, -6,  3,  0,   ], [  0,  1,  0,-12,  0,  0, -2],
-        [  0,  1,  0,-12,  0,  0, -2],
+        [ -6,  0,  0, -6,  3,  0, 2], [  0,  1,  0,-12,  0,  0, 0],
+        [  0,  1,  0,-12,  0,  0, 0],
         [ 10,  1,  0, 11, -3,  0, -5], [  0, -2,  0,-11,  0,  0, -10],
         [ 14,  1,  0,  9, -2        ], [  0,-12,  0, -2,  0,  0],
 
+        [  1,  0,  0,  0,  0, 0, -.2],
         [  0,  0,  0,  0,  0, 0.3],
-        [ 50,  0,  0,  0,  0,-12], [ 81,  2,  0,  0, -2, -2, -1],
-        //   transform="translate(68,?)"
+        [ 50,  0,  0,  0,  0,-12], [ 79,  0,  0,  2, -2, -2, -2],
+    //   transform="translate(50,?)"
         [ 51, -2,-10],
+        [1, 0, 0, 0, 0, 0, -.2],
     // id: eye-r
         //   transform="rotate(?)"  d="M8,?C?,? ?,? ?,? ?,? ?,? ?,0 ?,? ?,? 8,?Z"
-        [ 1, 0,0,0,0,0, -0.2],
         [  0, 22,  0,  0, -26],
         [  0,  0,-11,  0],
         [ -8,  0, -8,  0], [  0,  0, -4,  0],
@@ -62,7 +62,7 @@ function paramoji_svg(v, a1, a2, p, c, g) {
     // id: eye-l
     //   transform="translate(-36,0) rotate(?) scale(1,?) rotate(?)"
         [  0, 0,  0,  0, 26],
-        [1, 0, 0, 0, 0, -.7, -.2],
+        [1, 0, 0, 0, 0, -.7],
         [  0, -22,  0,  0,],
     //    d="M-8,?C?,? ?,? ?,? ?,? ?,? ?,0 ?,? ?,? -8,?Z"
         [  0,  0, -11,  0],
@@ -78,19 +78,20 @@ function paramoji_svg(v, a1, a2, p, c, g) {
         [  1, 0, 0,0,0, 1],
     // id: lens
     //   transform="translate(?,?)"
-        [  0,  0,  0,  0, -1, -7], [  0,-2.5,  0,  0,-1.5],
+        [  18,  0,  0,  0, -1, -7], [  0,-2.5,  0,  0,-1.5],
     //   r="?"
         [0.5,  0,  5,  0],
     //   x="?"
         [  -36,  0,  0,  0,  2],
     //   d="M-15,-20H20V0Q?,? -15,-2Z M-15,-20H15V-2Q?,? -20,0Z"
-        [  5,  1, -4,  0,  8], [  2, -9,-17,  0,  5],
-        [  -34,  1,-10,  0, -6,  3], [  2, -9,-17,  0,  4, 15],
-    //   d="M?,?Q?,? ?,?"  stroke-width="?"
-        [ 59,  2, -1,  0, -6], [ 40, -7,-19,  0, 12],
-        [ 70,  1,  2,  0, -5], [ 40,-12,-21,  0,  3],
-        [ 81,  1,  5,  0, -4], [ 40, -4,-19,  0, -3],
-        [  1.5, -.5,  1,  0, 0.5],
+        [  23,  1, -4,  0,  8      ], [  2, -9,-17,  0,  5,  0,  10],
+        [  -16,  1,-10,  0, -6,  3], [  2, -9,-17,  0,  4, 15,  10],
+    //   d="M?,?C?,? ?,? ?,?"  stroke-width="?"
+        [ 9,  0, -1,  0, -6, 0, -2],  [ -11, -5,-9,  0, 12,  0, 4],
+        [ 16,  0,  1,  0, -6, 0, -3], [ -11,-10,-11,  0,  7,  0, -10],
+        [ 24,  0,  3,  0, -6, 0, -4], [ -11,-10,-11,  0,  2,  0, 10],
+        [ 31,  0,  5,  0, -6, 0, -2], [ -11, -2,-9,  0, -3],
+        [ 1.2, -.5,  1,  0, 0.5],
     //   transform="matrix(-1,0,0,1,100,?)"
         [  0,  0,  0,  0,  0,  4],
     ]
@@ -103,7 +104,7 @@ function paramoji_svg(v, a1, a2, p, c, g) {
         '    <clipPath id="clip-eyes"><use href="#eye-l"/><use href="#eye-r"/></clipPath>',
         '    <clipPath id="clip-lips"><use href="#lips"/></clipPath>',
         '  </defs>',
-        '  <path transform="matrix(1,?,0,1,53,?)" d="'+nose_d+'" fill="none" stroke="black"/>',
+        '  <path transform="matrix(1,?,0,1,53,?)" d="M-8,0Q-6,-2 -4,?M-1,?C2,-3 2,1 4,-1S6,-6 ?,?" fill="none" stroke="black"/>',
         '  <g clip-path="url(#clip-lips)">',
         '    <rect height="100" width="100"/>',
         '    <ellipse cx="50" cy="91" rx="15" ry="10" fill="#800f08"/>',
@@ -120,10 +121,10 @@ function paramoji_svg(v, a1, a2, p, c, g) {
         '      <use href="#tooth" transform="matrix(1,-.14,0,1,7,7)"/>',
         '    </g>',
         '  </g>',
-        '  <path id="lips" d="M?,?C?,? ?,? 0,?S?,? ?,?C?,? ?,? 0,?S?,? ?,?Z" transform="matrix(1,?,0,1,?,?)" fill="none" stroke="black"/>',
-        '  <g transform="translate(68,?)">',
-        '    <path id="eye-r" transform="scale(1,?) rotate(?)" d="M-8,?C?,? ?,? ?,? ?,? ?,? ?,0 ?,? ?,? -8,?Z" fill="white" stroke="black"/>',
-        '    <path id="eye-l" transform="translate(-36,0) rotate(?) scale(1,?) rotate(?)" d="M8,?C?,? ?,? ?,? ?,? ?,? ?,0 ?,? ?,? 8,?Z" fill="white" stroke="black" stroke-width="?"/>',
+        '  <path id="lips" d="M?,?C?,? ?,? 0,?S?,? ?,?C?,? ?,? 0,?S?,? ?,?Z" transform="matrix(?,?,0,1,?,?)" fill="none" stroke="black"/>',
+        '  <g transform="translate(50,?) scale(?,1)">',
+        '    <path id="eye-r" transform="translate(18,0) rotate(?)" d="M-8,?C?,? ?,? ?,? ?,? ?,? ?,0 ?,? ?,? -8,?Z" fill="white" stroke="black"/>',
+        '    <path id="eye-l" transform="translate(-18,0) rotate(?) scale(1,?) rotate(?)" d="M8,?C?,? ?,? ?,? ?,? ?,? ?,0 ?,? ?,? 8,?Z" fill="white" stroke="black" stroke-width="?"/>',
         '    <g clip-path="url(#clip-eyes)">',
         '      <g id="lens" transform="translate(?,?)">',
         '        <circle r="5" fill="#9d4922"/>',
@@ -131,11 +132,11 @@ function paramoji_svg(v, a1, a2, p, c, g) {
         '        <circle r="1" cx="-2.5" cy="-1.5" fill="white"/>',
         '      </g>',
         '      <use href="#lens" x="?"/>',
-        '      <path d="M-70,-30H30L20,0Q?,? -18,-2 ?,? -56,0Z" opacity=".25"/>',
+        '      <path d="M-52,-30H30L38,0Q?,? 0,-2 ?,? -38,0Z" opacity=".25"/>',
         '    </g>',
+        '    <path id="brow-r" d="M?,?C?,? ?,? ?,?" fill="none" stroke="black" stroke-width="?"/>',
+        '    <use href="#brow-r" transform="matrix(-1,0,0,1,0,?)"/>',
         '  </g>',
-        '  <path id="brow-r" d="M?,?Q?,? ?,?" fill="none" stroke="black" stroke-width="?"/>',
-        '  <use href="#brow-r" transform="matrix(-1,0,0,1,100,?)"/>',
         '</svg>'
     ]
     const dotprod = (X,Y) => X.reduce((a, b, i) => a + b*(Y[i] || 0), 0)
