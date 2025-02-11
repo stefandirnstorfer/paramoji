@@ -1,17 +1,18 @@
-A key challenge in human-computer interaction is the understanding and processing of
-emotional experiences in terms of measurable data. Emotional states are often
-expressed in categories of described subjective feelings, such as anger, fear and happiness.
-This approach is impractical for
-computational purposes, as there is no agreed-upon total number of emotions, let alone a metric for their
-similarity, distance, or combinability. As a result,
-computational processes typically rely on dimensional models using
-independent scales like valence, arousal, and dominance. While these systems allow
-for precise declarations of emotional states, there remains a lack of consensus on
-how such numerical representations would actually feel.
+We are entering an era where computers and AI are becoming increasingly capable
+of emotional interaction with humans.
+They recognize our emotions and translate them into numerical representations.
+Likewise, they encode representations of displayable emotions into behaviors and visual outputs.
+This is happening rapidly, with multiple emotional cues being interpreted and exchanged during conversations.
 
-This paper presents a method for mapping a numerical emotion model to a graphical representation,
-resulting in facial expressions that evoke the corresponding emotions when viewed. Empirical results
-show that untrained crowd workers could intuitively interpret the visual representation in alignment
-with the numerical model. This indicates that the visualization effectively conveys emotional
-information unique to each input. The drawing instructions rely solely on concise linear transformations,
-minimizing interpretational ambiguity.
+However, understanding how these emotions are encoded internally remains challenging.
+It is even more difficult to objectively name them due to inconsistencies in how humans
+perceive and describe emotional experiences. Our most effective way of communicating
+emotional states is through facial expressions, which we have learned to interpret quickly and accurately.
+
+This paper presents a face based graphic visualization method for a wide range of emotional displays.
+The graphics are linearly parameterized by six dimensions:
+valence, arousal, dominance, disgust, contempt, and control.
+By iteratively presenting generated faces to an AI, a best fit between its
+internal state and an artificially elicited emotion can help reveal the AI's emotional state.
+Because the graphics are linearly parameterized, there is a strong degree of
+consistency between input dimensions, visual display, and numerical representation.

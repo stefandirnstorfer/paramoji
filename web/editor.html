@@ -24,7 +24,7 @@
             <h1>Controls</h1>
             <div class="button-row">
                 <button @click="random()">Random</button>
-                <button @click="animateTo(neutralState())">Reset all</button>
+                <button @click="animateTo(neutralState(model))">Reset all</button>
                 <button @click="mirror()">Mirror</button>
             </div>
             <div style="height: 10px"></div>
@@ -59,6 +59,14 @@
                         </td>
                         <td width="30em"><span id="label-v">{{fmt(state.v)}}</span></td>
                     </tr>
+                    <tr>
+                        <td>Dominance</td>
+                        <td><button @click="animateTo({d:50})">&times;</button></td>
+                        <td>
+                            <input class="slider" type="range" v-model="state.d"/>
+                        </td>
+                        <td><span id="label-p">{{fmt(state.d)}}</span></td>
+                    </tr>
                     <tr v-show="model=='a1a2'">
                         <td>Arousal 1</td>
                         <td><button @click="animateTo({a1:50})">&times;</button></td>
@@ -83,14 +91,6 @@
                         </td>
                         <td><span id="label-a">{{fmt(vstate.a)}}</span></td>
                     </tr>
-                    <tr>
-                        <td>Dominance</td>
-                        <td><button @click="animateTo({d:50})">&times;</button></td>
-                        <td>
-                            <input class="slider" type="range" v-model="state.d"/>
-                        </td>
-                        <td><span id="label-p">{{fmt(state.d)}}</span></td>
-                    </tr>
                     <tr v-show="model=='ao'">
                         <td>Control</td>
                         <td><button @click="updateVState({o:50})">&times;</button></td>
@@ -100,20 +100,20 @@
                         <td><span id="label-o">{{fmt(vstate.o)}}</span></td>
                     </tr>
                     <tr>
-                        <td>Contempt</td>
-                        <td><button @click="animateTo({c:25})">&times;</button></td>
-                        <td>
-                            <input class="slider" type="range" v-model="state.c"/>
-                        </td>
-                        <td><span id="label-c">{{fmt(state.c)}}</span></td>
-                    </tr>
-                    <tr>
                         <td>Disgust</td>
                         <td><button @click="animateTo({g:0})">&times;</button></td>
                         <td>
                             <input class="slider" type="range" v-model="state.g"/>
                         </td>
                         <td><span>{{fmt(state.g)}}</span></td>
+                    </tr>
+                    <tr>
+                        <td>Contempt</td>
+                        <td><button @click="animateTo({c:25})">&times;</button></td>
+                        <td>
+                            <input class="slider" type="range" v-model="state.c"/>
+                        </td>
+                        <td><span id="label-c">{{fmt(state.c)}}</span></td>
                     </tr>
                     <tr>
                         <td>Love</td>

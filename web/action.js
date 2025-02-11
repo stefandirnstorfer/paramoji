@@ -10,8 +10,7 @@ const app = Vue.createApp({
         }
     },
     created() {
-        const newState = this.neutralState()
-        console.log("created", newState)
+        const newState = this.neutralState(this.model)
         for (let key in newState) {
             var m= location.search.match(RegExp(key + "=([-0-9]+)"));
             if (m) newState[key]= parseFloat(m[1]);
@@ -30,20 +29,20 @@ const app = Vue.createApp({
                 g= this.state.g/100;
             if (this.style=='schematic')
                 return schematic_svg(v, a1, a2, d ,c)
-            let svg= paramoji_blink_svg(this.blink, v, a1, a2, d, c, g)
+            let svg= paramoji_blink_svg(this.blink, v, a1, a2, d, g, c)
             if (l>0)
                 svg = add_love(svg, l)
             if (this.lightdark=='dark')
                 svg = dark_mode(svg)
             return svg
         },
-        neutralState() {
+        neutralState(model) {
             return {
-                v: 55,
-                a1: 47,
-                a2: 17,
+                v: model ? 55 : 50,
+                a1: model ? 47 : 50,
+                a2: model ? 17 : 50,
                 d: 50,
-                c: this.model=='e' ? 25 : 0,
+                c: model == "e" ? 25 : 0,
                 g: 0,
                 l: 0
             }
@@ -125,7 +124,7 @@ const app = Vue.createApp({
         fmt(x) { return parseFloat(x).toFixed(0) },
         updateUrl() {
             clearTimeout(this.updateUrlTimer)
-            const neutral = this.neutralState('a1a2')
+            const neutral = this.neutralState(null)
             let query= Object.keys(neutral)
                 .filter(x => this.state[x]!=neutral[x])
                 .map(x => x+'='+this.fmt(this.state[x]))

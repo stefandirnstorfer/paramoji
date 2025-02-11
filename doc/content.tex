@@ -168,18 +168,18 @@ In this (still incomplete) model arousal controls eye and mouth sizes and valenc
             && 0.0 & 0.5 & 1.0 \\ \hline
             &&&&\\[-0.8em]
             & \rotatebox{90}{\hspace{1.5em} 1.0} &
-            \sparamoji{100,0,0,50,0} &
-            \sparamoji{100,50,50,50,0} &
-            \sparamoji{100,100,100,50,0} \\
+            \sparamoji{100,0,0,50,0,0} &
+            \sparamoji{100,50,50,50,0,0} &
+            \sparamoji{100,100,100,50,0,0} \\
             \rotatebox{90}{\hspace{0.8em} valence $(v)$}
             & \rotatebox{90}{\hspace{1.5em} 0.5} &
-            \sparamoji{50,0,0,50,0} &
-            \sparamoji{50,50,50,50,0} &
-            \sparamoji{50,100,100,50,0} \\
+            \sparamoji{50,0,0,50,0,0} &
+            \sparamoji{50,50,50,50,0,0} &
+            \sparamoji{50,100,100,50,0,0} \\
             & \rotatebox{90}{\hspace{1.5em} 0.0} &
-            \sparamoji{0,0,0,50,0} &
-            \sparamoji{0,50,50,50,0} &
-            \sparamoji{0,100,100,50,0}
+            \sparamoji{0,0,0,50,0,0} &
+            \sparamoji{0,50,50,50,0,0} &
+            \sparamoji{0,100,100,50,0,0}
         \end{tabular}
     \end{center}
     \caption{Facial expressions created with three different values for valence ($v$) and arousal ($a$).
@@ -231,14 +231,14 @@ raised chin (AU17) is plotted by slightly lifting the lower part of the face.
     \begin{center}
         \begin{tabular}{l|ccc}
             \rotatebox{90}{\hspace{1ex}$d = 1.0$} &
-            \sparamoji{50,50,50,100,0} &
-            \sparamoji{20,20,20,100,0} &
-            \sparamoji{20,80,80,100,0}
+            \sparamoji{50,50,50,100,0,0} &
+            \sparamoji{20,20,20,100,0,0} &
+            \sparamoji{20,80,80,100,0,0}
             \\
             \rotatebox{90}{\hspace{1ex}$d = 0.0$} &
-            \sparamoji{50,50,50,0,0} &
-            \sparamoji{20,20,20,0,0} &
-            \sparamoji{20,80,80,0,0}
+            \sparamoji{50,50,50,0,0,0} &
+            \sparamoji{20,20,20,0,0,0} &
+            \sparamoji{20,80,80,0,0,0}
             \\[1ex]
             \hline\\[-1.8ex]
             $v$ & 0.5 & 0.2 & 0.2 \\
@@ -261,6 +261,30 @@ individual, while fear has evolved to imitate a child or weak individual\cite{ma
 The Paramoji graphics seems to reflect the intended reason behind these expressions as they seek to communicate
 ones claimed position in social hierarchies.
 
+
+\subsection{Disgust}
+
+\begin{figure}[htbp!]
+  \begin{center}
+      \begin{tabular}{l|ccc}
+          \rotatebox{90}{\hspace{1ex}$g = 1.0$} &
+          \sparamoji{30,20,20,50,100,0} &
+          \sparamoji{70,30,30,30,100,0} &
+          \sparamoji{20,50,50,80,100,0} \\
+          \rotatebox{90}{\hspace{1ex}$g = 0.0$} &
+          \sparamoji{30,20,20,50,0,0} &
+          \sparamoji{70,30,30,30,0,0} &
+          \sparamoji{20,50,50,80,0,0} \\
+          \hline\\[-1.8ex]
+          $v$ & 0.3 & 0.7 & 0.2 \\
+          $a$ & 0.2 & 0.3 & 0.5 \\
+          $d$ & 0.5 & 0.3 & 0.8
+      \end{tabular}
+  \end{center}
+  \caption{Random paramojis with and without disgust. The disgust
+  dimension produces valid facial expressions when combined with any values in the previously defined dimensions.}
+  \label{fig:disgust}
+\end{figure}
 
 \subsection{Contempt}
 
@@ -286,17 +310,18 @@ because there is no known emotional meaning to chirality. There is no known faci
     \begin{center}
         \begin{tabular}{l|ccc}
             \rotatebox{90}{\hspace{1ex}$c = 1.0$} &
-            \sparamoji{86,19,19,68,100} &
-            \sparamoji{30,10,10,80,100} &
-            \sparamoji{38,72,72,41,100} \\
+            \sparamoji{90,20,20,70,0,100} &
+            \sparamoji{30,10,10,80,30,100} &
+            \sparamoji{40,70,70,40,10,100} \\
             \rotatebox{90}{\hspace{1ex}$c = 0.0$} &
-            \sparamoji{86,19,19,68,0} &
-            \sparamoji{30,10,10,80,0} &
-            \sparamoji{38,72,72,41,0} \\
+            \sparamoji{86,20,20,70,0,0} &
+            \sparamoji{30,10,10,80,30,0} &
+            \sparamoji{40,70,70,40,10,0} \\
             \hline\\[-1.8ex]
             $v$ & 0.9 & 0.3 & 0.4 \\
             $a$ & 0.2 & 0.1 & 0.7 \\
-            $d$ & 0.7 & 0.8 & 0.4
+            $d$ & 0.7 & 0.8 & 0.4 \\
+            $g$ & 0.1 & 0.3 & 0.1
         \end{tabular}
     \end{center}
     \caption{Random paramojis with and without contempt. The contempt
@@ -374,20 +399,21 @@ is to show emotional information for easy decoding. It is not a guide for what r
   \begin{center}
       \begin{tabular}{l|ccc}
           \rotatebox{90}{\hspace{1ex}$k = +1$} &
-          \sparamoji{90,100,0,50,0} &
-          \sparamoji{30,100,0,0,0} &
-          \sparamoji{10,100,0,80,70}
+          \sparamoji{90,100,0,50,0,10} &
+          \sparamoji{30,100,0,0,40,0} &
+          \sparamoji{10,100,0,90,0,70}
         \\
           \rotatebox{90}{\hspace{1ex}$k = -1$} &
-          \sparamoji{90,0,100,50,0} &
-          \sparamoji{30,0,100,0,0} &
-          \sparamoji{10,0,100,80,70}
+          \sparamoji{90,0,100,50,0,10} &
+          \sparamoji{30,0,100,0,40,0} &
+          \sparamoji{10,0,100,90,0,70}
           \\[1ex]
           \hline\\[-1.8ex]
           $v$ & 0.9 & 0.3 & 0.1 \\
           $a$ & 0.5 & 0.5 & 0.5 \\
-          $d$ & 0.5 & 0.0 & 0.8 \\
-          $c$ & 0.0 & 0.0 & 0.7
+          $d$ & 0.5 & 0.0 & 0.9 \\
+          $g$ & 0.0 & 0.4 & 0.0 \\
+          $c$ & 0.1 & 0.0 & 0.7
       \end{tabular}
   \end{center}
   \caption{Random emotions with minimal and maximal values of control ($k$) and $a=0.5$.
@@ -564,10 +590,10 @@ or along a single axis. From the chosen center all parameters are moved in propo
 \begin{figure}[ht!]
   \begin{center}
     \begin{tabular}{cccc}
-        \sparamoji{0,43,56,70,40}
-        \sparamoji{33,48,55,57,30}
-        \sparamoji{67,52,50,43,20}
-        \sparamoji{100,57,52,36,10}
+        \sparamoji{0,43,56,70,0,40}
+        \sparamoji{33,48,55,57,0,30}
+        \sparamoji{67,52,50,43,0,20}
+        \sparamoji{100,57,52,36,0,10}
     \end{tabular}
   \end{center}
   \caption{Emperical data suggest that this is the most effective graphical change to sway reported impressions from negative to positive.}
@@ -585,10 +611,10 @@ valence change on this scale.
 \begin{figure}[ht!]
   \begin{center}
     \begin{tabular}{cccc}
-        \sparamoji{34,41,57,0,30}
-        \sparamoji{45,47,52,33,27}
-        \sparamoji{55,53,48,67,23}
-        \sparamoji{66,59,43,100,20}
+        \sparamoji{34,41,57,0,0,30}
+        \sparamoji{45,47,52,33,0,27}
+        \sparamoji{55,53,48,67,0,23}
+        \sparamoji{66,59,43,100,0,20}
     \end{tabular}
   \end{center}
   \caption{Emperical evidence for dominance confirms the eye brow angle as the driving factor.}
@@ -602,10 +628,10 @@ Anyways, the main driver is confirmed as the difference between the opening of e
 \begin{figure}[ht!]
   \begin{center}
     \begin{tabular}{cccc}
-        \sparamoji{63,28,100,57,30}
-        \sparamoji{54,43,67,52,27}
-        \sparamoji{46,57,33,48,23}
-        \sparamoji{37,72,0,43,20}
+        \sparamoji{63,28,100,57,0,30}
+        \sparamoji{54,43,67,52,0,27}
+        \sparamoji{46,57,33,48,0,23}
+        \sparamoji{37,72,0,43,0,20}
     \end{tabular}
   \end{center}
   \caption{Emperical reports for control show the scale from throwing a tantrum to the proverbial biting of one's tongue.}
@@ -623,10 +649,10 @@ a printable text. Nevertheless, the effect is measurable and follows expectation
 \begin{figure}[ht!]
   \begin{center}
     \begin{tabular}{cccc}
-        \sparamoji{62,0,22,54,49}
-        \sparamoji{54,33,41,51,33}
-        \sparamoji{46,67,59,49,17}
-        \sparamoji{38,100,78,46,1}
+        \sparamoji{62,0,22,54,0,49}
+        \sparamoji{54,33,41,51,0,33}
+        \sparamoji{46,67,59,49,0,17}
+        \sparamoji{38,100,78,46,0,1}
     \end{tabular}
   \end{center}
   \caption{Empirical results confirm that synchronously opening eyes and mouth make a face look aroused.}
@@ -646,10 +672,10 @@ the eyes helps in making this emotion more recognizable.
 \begin{figure}[ht!]
   \begin{center}
     \begin{tabular}{cccc}
-        \sparamoji{44,38,48,51,0}
-        \sparamoji{52,54,51,50,33}
-        \sparamoji{59,70,53,48,67}
-        \sparamoji{67,86,55,47,100}
+        \sparamoji{44,38,48,51,0,0}
+        \sparamoji{52,54,51,50,0,33}
+        \sparamoji{59,70,53,48,0,67}
+        \sparamoji{67,86,55,47,0,100}
     \end{tabular}
   \end{center}
   \caption{The contempt dimension is the remnant that cannot be explained by previous dimensions.
@@ -804,35 +830,37 @@ can sometimes give recognizable results shown in figure \ref{fig:extra}.
 {\small
 \begin{verbatim}
 function paramoji(v, a1, a2, d, c) {
-  const matrix=[[,,,,,.4],[70,-2,,-8,-1],[-9,-1,-2],[80,5,,6,-6],[66,2,,-5,-1],[14,1,,9,-2],[,-12,,-2]
-    ,[10,1,,11,-3],[,-2,,11],[6,,,6,-3],[,1,,12],[,1,,12],[-10,-1,,-11,3],[,-2,,11],[-14,-1,,-9,2],[,-
-    12,,-2],[-10,-1,,-11,3],[,-2,,-11],[-6,,,-6,3],[,1,,-12],[,1,,-12],[10,1,,11,-3],[,-2,,-11],[14,1,
-    ,9,-2],[,-12,,-2],[,,,,,.3],[50,,,,,-12],[81,2,,,-3,-2],[51,-2,-10],[,22,,,-26],[,,-11],[-8,,-8],[
-    ,,-4],[-8,,-8],[,,2],[-8,,-3],[,,9],[-4,,1],[,-6,13],[5,,12],[,-9,11],[11,,8],[5,,12],[,-9,-11],[-
-    4,,5],[,-6,-13],[,,-11],[,,,,26],[1,,,,,-.8],[,-22],[,,-11],[8,,8],[,,-4],[8,,8],[,,2],[8,,3],[,,9
-    ],[4,,-1],[,-6,13],[-5,,-12],[,-9,11],[-11,,-8],[-5,,-12],[,-9,-11],[4,,-5],[,-6,-13],[,,-11],[1,,
-    ,,,1],[,,,,-1,-7],[,-2.5,,,-1.5],[.5,,5],[-36,,,,2],[5,1,-4,,8],[2,-9,-17,,5],[-34,1,-10,,-6,3],[2
-    ,-9,-17,,4,15],[59,2,-1,,-6],[40,-7,-19,,12],[70,1,2,,-5],[40,-12,-21,,3],[81,1,5,,-4],[40,-4,-19,
-    ,-3],[1.5,-.5,1,,.5],[,,,,,4]]
+  const matrix=[[80,1,,6,-6],[65,,,-5,-1],[14,1,,9,-2],[,-12,,-2],[10,1,,11,-3,-5],[,-2,,11,,-10],[6,,
+    ,6,-3,-2],[,1,,12],[,1,,12],[-10,-1,,-11,3,5],[,-2,,11,,-10],[-14,-1,,-9,2],[,-12,,-2],[-10,-1,,-
+    11,3,5],[,-2,,-11,,-10],[-6,,,-6,3,2],[,1,,-12],[,1,,-12],[10,1,,11,-3,-5],[,-2,,-11,,-10],[14,1,,
+    9,-2],[,-12,,-2],[1,,,,,-.2],[,,,,,,.3],[50,,,,,,-12],[79,,,2,-2,-2,-2],[51,-2,-10,,,-5],[,22,,,-
+    26],[,,-11],[-8,,-8],[,,-4],[-8,,-8],[,,2],[-8,,-3],[,,9],[-4,,1],[,-6,13],[5,,12],[,-9,11],[11,,8
+    ],[5,,12],[,-9,-11],[-4,,5],[,-6,-13],[,,-11],[,,,,26],[1,,,,,,-.7],[,-22],[,,-11],[8,,8],[,,-4],[
+    8,,8],[,,2],[8,,3],[,,9],[4,,-1],[,-6,13],[-5,,-12],[,-9,11],[-11,,-8],[-5,,-12],[,-9,-11],[4,,-5]
+    ,[,-6,-13],[,,-11],[1,,,,,,1],[18,,,,-1,,-7],[,-2.5,,,-1.5],[.5,,5],[-36,,,,2],[23,1,-4,,8],[2,-9,
+    -17,,5,10],[-16,1,-10,,-6,,3],[2,-9,-17,,4,10,15],[,,,,-10],[9,,-1,,-4,-4],[-13,-5,-8,,14,10],[16,
+    ,1,,-4,-11],[-13,-10,-10,,11,-6],[24,,3,,-4,-9],[-13,-10,-10,,8,8],[31,,5,,-4,-6],[-13,-2,-8,,5,4]
+    ,[1.2,-.5,1,,.5],[,,,,,,4],[,,,,,,.4],[70,-2,,-8,-1,-8],[,,,,,7],[,,,,,7],[4,,,,,-4],[-9,-1,-2,,,3
+    ]]
   const template='<svg width="100%" height="100%" viewBox="0 0 100 100"><defs><clipPath id="clip-eye'+
     's"><use href="#eye-l"/><use href="#eye-r"/></clipPath><clipPath id="clip-lips"><use href="#lips'+
-    '"/></clipPath></defs><path transform="matrix(1,?,0,1,53,?)" d="M-4,0q-2,-2 -4,0M-1,0C2,-3 2,1 4'+
-    ',-1S6,-6 4,?" fill="none" stroke="black"/><g clip-path="url(#clip-lips)"><rect height="100" wid'+
-    'th="100"/><ellipse cx="50" cy="91" rx="15" ry="10" fill="#800f08"/><g transform="translate(0,?)'+
-    '"><use href="#tooth" x="-14"/><use href="#tooth" x="-7"/><use href="#tooth"/><use href="#tooth"'+
-    ' x="7"/></g><g transform="translate(0,?)"><use href="#tooth" transform="matrix(1,.14,0,1,-14,-8'+
-    ')"/><use href="#tooth" x="-7"/><rect id="tooth" x="50.5" rx="2" ry="1" height="15" width="6" fi'+
-    'll="white" stroke="black" stroke-width=".5"/><use href="#tooth" transform="matrix(1,-.14,0,1,7,'+
-    '7)"/></g></g><path id="lips" d="M?,?C?,? ?,? 0,?S?,? ?,?C?,? ?,? 0,?S?,? ?,?Z" transform="matri'+
-    'x(1,?,0,1,?,?)" fill="none" stroke="black"/><g transform="translate(68,?)"><path id="eye-r" tra'+
-    'nsform="rotate(?)" d="M-8,?C?,? ?,? ?,? ?,? ?,? ?,0 ?,? ?,? -8,?Z" fill="white" stroke="black"/'+
-    '><path id="eye-l" transform="translate(-36,0) rotate(?) scale(1,?) rotate(?)" d="M8,?C?,? ?,? ?'+
-    ',? ?,? ?,? ?,0 ?,? ?,? 8,?Z" fill="white" stroke="black" stroke-width="?"/><g clip-path="url(#c'+
-    'lip-eyes)"><g id="lens" transform="translate(?,?)"><circle r="5" fill="#9d4922"/><circle r="?"/'+
-    '><circle r="1" cx="-2.5" cy="-1.5" fill="white"/></g><use href="#lens" x="?"/><path d="M-70,-30'+
-    'H30L20,0Q?,? -18,-2 ?,? -56,0Z" opacity=".25"/></g></g><path id="brow-r" d="M?,?Q?,? ?,?" fill='+
-    '"none" stroke="black" stroke-width="?"/><use href="#brow-r" transform="matrix(-1,0,0,1,100,?)"/'+
-    '></svg>'
+    '"/></clipPath></defs><g clip-path="url(#clip-lips)"><rect height="100" width="100"/><ellipse cx'+
+    '="50" cy="91" rx="15" ry="10" fill="#800f08"/><g transform="translate(0,?)"><use href="#tooth" '+
+    'x="-14"/><use href="#tooth" x="-7"/><use href="#tooth"/><use href="#tooth" x="7"/></g><g transf'+
+    'orm="translate(0,?)"><use href="#tooth" transform="matrix(1,.14,0,1,-14,-8)"/><use href="#tooth'+
+    '" x="-7"/><rect id="tooth" x="50.5" rx="2" ry="1" height="15" width="6" fill="white" stroke="bl'+
+    'ack" stroke-width=".5"/><use href="#tooth" transform="matrix(1,-.14,0,1,7,7)"/></g></g><path id'+
+    '="lips" d="M?,?C?,? ?,? 0,?S?,? ?,?C?,? ?,? 0,?S?,? ?,?Z" transform="matrix(?,?,0,1,?,?)" fill='+
+    '"none" stroke="black"/><g transform="translate(50,?)"><path id="eye-r" transform="translate(18,'+
+    '0) rotate(?)" d="M-8,?C?,? ?,? ?,? ?,? ?,? ?,0 ?,? ?,? -8,?Z" fill="white" stroke="black"/><pat'+
+    'h id="eye-l" transform="translate(-18,0) rotate(?) scale(1,?) rotate(?)" d="M8,?C?,? ?,? ?,? ?,'+
+    '? ?,? ?,0 ?,? ?,? 8,?Z" fill="white" stroke="black" stroke-width="?"/><g clip-path="url(#clip-e'+
+    'yes)"><g id="lens" transform="translate(?,?)"><circle r="5" fill="#9d4922"/><circle r="?"/><cir'+
+    'cle r="1" cx="-2.5" cy="-1.5" fill="white"/></g><use href="#lens" x="?"/><path d="M-52,-30H30L3'+
+    '8,0Q?,? 0,-2 ?,? -38,0Z" opacity=".25"/></g><path id="brow-r" transform="rotate(?)" d="M?,?C?,?'+
+    ' ?,? ?,?" fill="none" stroke="black" stroke-width="?"/><use href="#brow-r" transform="matrix(-1'+
+    ',0,0,1,0,?)"/></g><path transform="matrix(1,?,0,1,53,?)" d="M-8,0Q-6,-2 -4,?M-1,?C2,-3 2,1 4,-1'+
+    'S6,-6 ?,?" fill="none" stroke="black"/></svg>'
   const dotprod = (X,Y) => X.reduce((a, b, i) => a + b*(Y[i] || 0), 0)
   const vec = [1, 2*v-1, a1, a2, 2*d-1, c]
   let values = matrix.map(row => dotprod(vec, row))
@@ -845,12 +873,12 @@ function paramoji(v, a1, a2, d, c) {
 \begin{figure}[ht!]
   \begin{center}
     \begin{tabular}{cccccc}
-        \sparamoji{105,138,95,106,-60}
-        \sparamoji{166,53,130,105,2}
-        \sparamoji{-55,124,126,131,-9}
-        \sparamoji{-58,180,0,-25,-9}
-        \sparamoji{0,30,100,151,60}
-        \sparamoji{158,29,66,91,109}
+        \sparamoji{105,138,95,106,0,-60}
+        \sparamoji{166,53,130,105,0,2}
+        \sparamoji{-55,124,126,131,0,-9}
+        \sparamoji{-58,180,0,-25,0,-9}
+        \sparamoji{0,30,100,151,0,60}
+        \sparamoji{158,29,66,91,0,109}
     \end{tabular}
   \end{center}
   \caption{Extrapolations of the facial features outside the valid range: recognizable, but increasingly grotesque.
