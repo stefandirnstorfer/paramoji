@@ -75,8 +75,8 @@ const app = Vue.createApp({
                 newState[key] = Math.min(100, Math.max(0, Math.random()*120-10))
             }
             newState.c = newState.c * newState.c /100
+            newState.g = newState.g * newState.g * newState.g / 10000
             newState.l = hasLove * newState.l * newState.l /100 + 0.001 * hasLove;
-            newState.g = newState.g * newState.g /100
             this.animateTo(newState)
         },
         mirror() {

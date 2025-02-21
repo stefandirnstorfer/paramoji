@@ -14,15 +14,15 @@
   </head>
   <body class="page">
     <div class="twocol" style="text-align:center">
-      <h1 class="title">Paramoji - A parametric emoji</h1>
+      <h1 class="title">Paramoji</h1>
     </div>
     <div>
       <h1 id="what-is-a-paramoji">What is a paramoji?</h1>
       <p>
-        A paramoji is a parametric smiley face that represents facial expressions on continuous scales.
-        Unlike widespread emojis the paramojis are not defined for discretely defined states.
-        Instead, emotinal expressions are rendered
-        from six parameters that can be freely selected. They can be used to visualize manually selected, automatically detected or
+        A paramoji is a parametric icon that represents facial expressions on continuous scales.
+        They are similar to Emojis, but instead of being enumerated they are parametric.
+        The expressions are rendered from six parameters that can be freely selected.
+        They can be used to visualize manually selected, automatically detected or
         computationally generated emotions with accuracy and with arbitrary nuances.
         The resulting emoji style icons are expressive, exaggerated and playful. Their emotional content
         can be easily recognized by humans.
@@ -49,6 +49,10 @@
         of emotional states.
       </p>
     </div>
+    <div>
+      <iframe width="315" height="315" src="https://www.youtube.com/embed/HqoMm1H4f90" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <p>How paramojis can translate number into emotions and it combines with LLM outputs.</p>
+    </div>
     <h2 class="twocol" id="what-emotions-can-be-represented-with-the-paramoji">What emotions can be represented with the paramoji?</h2>
     <p>
       The paramoji parameterizes facial expressions with a wide variety of emotions. This includes the the seven
@@ -66,28 +70,17 @@
       <div class="table-head">Fearful</div>
       <div class="table-head">Disgusted</div>
       <div class="table-head">Angry</div>
-      <div class="table-head">Contemptuous</div>
-      <a class="onhover" href="editor.html?v=31&amp;a1=60&amp;a2=40&amp;d=0&amp;c=0"><img src="https://paramoji.org/paramoji.svg.php?v=31&amp;a1=60&amp;a2=40&amp;d=0&amp;c=0" alt="Fearful"></a>
-      <a class="onhover" href="editor.html?v=3&amp;a1=37&amp;a2=52&amp;g=100&amp;c=20"><img src="https://paramoji.org/paramoji.svg.php?v=3&amp;a1=37&amp;a2=52&amp;g=100&amp;c=20" alt="Disgusted"></a>
-      <a class="onhover" href="editor.html?v=27&amp;a1=56&amp;a2=0&amp;d=92&amp;c=0"><img src="https://paramoji.org/paramoji.svg.php?v=27&amp;a1=56&amp;a2=0&amp;d=92&amp;c=0" alt="Angry"></a>
-      <a class="onhover" href="editor.html?v=60&amp;a1=51&amp;a2=0&amp;d=69&amp;c=100"><img src="https://paramoji.org/paramoji.svg.php?v=60&amp;a1=51&amp;a2=0&amp;d=69&amp;c=100" alt="Contemptuous"></a>
+      <div class="table-head">Contemptuous</div><a class="onhover" href="editor.html?v=31&amp;a1=60&amp;a2=40&amp;d=0&amp;c=0"><img src="https://paramoji.org/paramoji.svg.php?v=31&amp;a1=60&amp;a2=40&amp;d=0&amp;c=0" alt="Fearful"></a><a class="onhover" href="editor.html?v=40&amp;a1=37&amp;a2=52&amp;c=20&amp;g=100"><img src="https://paramoji.org/paramoji.svg.php?v=40&amp;a1=37&amp;a2=52&amp;c=20&amp;g=100" alt="Disgusted"></a><a class="onhover" href="editor.html?v=27&amp;a1=56&amp;a2=0&amp;d=92&amp;c=0"><img src="https://paramoji.org/paramoji.svg.php?v=27&amp;a1=56&amp;a2=0&amp;d=92&amp;c=0" alt="Angry"></a><a class="onhover" href="editor.html?v=60&amp;a1=51&amp;a2=0&amp;d=69&amp;c=100"><img src="https://paramoji.org/paramoji.svg.php?v=60&amp;a1=51&amp;a2=0&amp;d=69&amp;c=100" alt="Contemptuous"></a>
     </div>
-    <h2 class="twocol" id="how-can-paramojis-be-mixed">Why is linearity important?</h2>
-    <p>
-      The visualization technique maps the six parameters linearly onto drawing parameters such as angles, lengths and and positions.
-      Linearity ensures that linear transitions in parameters space also lead to smooth transitions in the resulting images.
-      Additionally, with little practice it is possible to recognize the parameters from the image, by looking at curvatures, angles and distances.
-      Linearity also leads to smooth interpolations without jumps or unintended easing, making them perfect for animations.
-      <p style="text-align:center"><img src="anim.gif" alt="paramoji animation"></p>
-    </p>
     <h2 class="twocol" id="how-can-i-use-paramojis-on-my-website">How can I use paramojis on my website?</h2>
     <p>
       The easiest way to link the image directly as shown below.
       You can set the request parameters for six paramoji dimensions from 0 to 100.
-      Optionally you can set the size parameter to get a fixed size image.
+      Optionally you can set the <code>size</code> parameter to get a fixed size image.
+      With <code>dark=1</code> can make it fit on dark background.
     </p>
     <div class="code-container">
-      <div class="code"><code><span class="first" style="color:navy"> &lt;img src=&quot;</span><span style="color:firebrick">https://paramoji.org/<wbr/>paramoji.svg.php</span><span style="color:gray">?</span><span style="color:firebrick">v=70</span><span style="color:gray">&amp;</span><span style="color:firebrick">a=50</span><span style="color:gray">&amp;</span><span style="color:firebrick">d=45</span><span style="color:gray">&amp;</span><span style="color:firebrick">c=0</span><span style="color:gray">&amp;</span><span style="color:firebrick">o=40</span><span style="color:navy">&quot;/&gt;</span></code></div>
+      <div class="code"><code><span class="first" style="color:navy"> &lt;img src=&quot;</span><span style="color:firebrick">https://paramoji.org/<wbr/>paramoji.svg.php</span><span style="color:gray">?</span><span style="color:firebrick">v=70</span><span style="color:gray">&amp;</span><span style="color:firebrick">a=50</span><span style="color:gray">&amp;</span><span style="color:firebrick">d=45</span><span style="color:gray">&amp;</span><span style="color:firebrick">g=0</span><span style="color:gray">&amp;</span><span style="color:firebrick">c=0</span><span style="color:gray">&amp;</span><span style="color:firebrick">o=40</span><span style="color:navy">&quot;/&gt;</span></code></div>
     </div>
     <div>
       <p>The source code is licensed as MIT and can be accessed here:</p>

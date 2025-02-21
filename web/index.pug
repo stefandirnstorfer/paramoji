@@ -21,17 +21,17 @@ html(lang="en")
     meta(property="og:image:width" content="879")
     meta(property="og:image:height" content="581")
     meta(name="viewport" content="width=device-width, initial-scale=1")
-    meta(name="description" content="A parametric emoji that can be parameterized with five continuous dimensions. It visualizes and unifies dimensional and categorical emotional models.")
+    meta(name="description" content="A parametric emoji that can be parameterized with six continuous dimensions. It visualizes and unifies dimensional and categorical emotional models.")
   body.page
     .twocol(style="text-align:center")
-      h1.title Paramoji - A parametric emoji
+      h1.title Paramoji
     div
       h1#what-is-a-paramoji What is a paramoji?
       p
-        | A paramoji is a parametric smiley face that represents facial expressions on continuous scales.
-        | Unlike widespread emojis the paramojis are not defined for discretely defined states.
-        | Instead, emotinal expressions are rendered
-        | from five parameters that can be freely selected. They can be used to visualize manually selected, automatically detected or
+        | A paramoji is a parametric icon that represents facial expressions on continuous scales.
+        | They are similar to Emojis, but instead of being enumerated they are parametric.
+        | The expressions are rendered from six parameters that can be freely selected.
+        | They can be used to visualize manually selected, automatically detected or
         | computationally generated emotions with accuracy and with arbitrary nuances.
         | The resulting emoji style icons are expressive, exaggerated and playful. Their emotional content
         | can be easily recognized by humans.
@@ -42,7 +42,7 @@ html(lang="en")
 
     h2.twocol#paramoji-dimensions How do paramojis work?
     .twocol
-      p The paramoji is a visualization technique for emotions data. It supports a five dimensional model with independent aspects of human sentiment:
+      p The paramoji is a visualization technique for emotions data. It supports a six dimensional model with independent aspects of human sentiment:
       ol
         li
           em Valence
@@ -54,8 +54,11 @@ html(lang="en")
           em Dominance
           |  is the axis from weakness to strength, fear to anger, submission to dominance.
         li
+          em Disgust
+          |  is the axis from neutral to disgusted, repelled, sickened.
+        li
           em Contempt
-          |  is the axis from neutral to smug, vain, disdainful and contempt.
+          |  is the axis from neutral to smug, vain, disdainful and contemptful.
         li
           em Control
           |  is the axis from uncontrolled to controlled, expressed to suppressed.
@@ -65,6 +68,14 @@ html(lang="en")
         | and the <a href="https://en.wikipedia.org/wiki/PAD_emotional_state_model">PAD model</a>
         | of emotional states.
 
+    div
+      iframe(width="315" height="315"
+          src="https://www.youtube.com/embed/HqoMm1H4f90"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen)
+      p How paramojis can translate number into emotions and it combines with LLM outputs.
 
     h2.twocol#what-emotions-can-be-represented-with-the-paramoji What emotions can be represented with the paramoji?
     p
@@ -88,24 +99,16 @@ html(lang="en")
       .table-head Angry
       .table-head Contemptuous
       +clickable-face('v=31&a1=60&a2=40&d=0&c=0', 'Fearful')
-      +clickable-face('v=0&a1=15&a2=64&d=60&c=70', 'Disgusted')
+      +clickable-face('v=40&a1=37&a2=52&c=20&g=100', 'Disgusted')
       +clickable-face('v=27&a1=56&a2=0&d=92&c=0', 'Angry')
       +clickable-face('v=60&a1=51&a2=0&d=69&c=100', 'Contemptuous')
-
-    h2.twocol#how-can-paramojis-be-mixed Why is linearity important?
-    p
-     | The visualization technique maps the five parameters linearly onto drawing parameters such as angles, lengths and and positions.
-     | Linearity ensures that linear transitions in parameters space also lead to smooth transitions in the resulting images.
-     | Additionally, with little practice it is possible to recognize the parameters from the image, by looking at curvatures, angles and distances.
-     | Linearity also leads to smooth interpolations without jumps or unintended easing, making them perfect for animations.
-     p(style="text-align:center")
-      img(src="anim.gif" alt="paramoji animation")
 
     h2.twocol#how-can-i-use-paramojis-on-my-website How can I use paramojis on my website?
     p
       | The easiest way to link the image directly as shown below.
-      | You can set the request parameters for five paramoji dimensions from 0 to 100.
-      | Optionally you can set the size parameter to get a fixed size image.
+      | You can set the request parameters for six paramoji dimensions from 0 to 100.
+      | Optionally you can set the <code>size</code> parameter to get a fixed size image.
+      | With <code>dark=1</code> can make it fit on dark background.
     .code-container
       .code
         code
@@ -117,6 +120,8 @@ html(lang="en")
           span(style="color:firebrick") a=50
           span(style="color:gray") &amp;
           span(style="color:firebrick") d=45
+          span(style="color:gray") &amp;
+          span(style="color:firebrick") g=0
           span(style="color:gray") &amp;
           span(style="color:firebrick") c=0
           span(style="color:gray") &amp;

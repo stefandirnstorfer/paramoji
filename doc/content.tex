@@ -845,22 +845,21 @@ function paramoji(v, a1, a2, d, c) {
   const template='<svg width="100%" height="100%" viewBox="0 0 100 100"><defs><clipPath id="clip-eye'+
     's"><use href="#eye-l"/><use href="#eye-r"/></clipPath><clipPath id="clip-lips"><use href="#lips'+
     '"/></clipPath></defs><g clip-path="url(#clip-lips)"><rect height="100" width="100"/><ellipse cx'+
-    '="50" cy="91" rx="15" ry="10" fill="#800f08"/><g transform="translate(0,?)"><use href="#tooth" '+
-    'x="-14"/><use href="#tooth" x="-7"/><use href="#tooth"/><use href="#tooth" x="7"/></g><g transf'+
-    'orm="translate(0,?)"><use href="#tooth" transform="matrix(1,.14,0,1,-14,-8)"/><use href="#tooth'+
-    '" x="-7"/><rect id="tooth" x="50.5" rx="2" ry="1" height="15" width="6" fill="white" stroke="bl'+
-    'ack" stroke-width=".5"/><use href="#tooth" transform="matrix(1,-.14,0,1,7,7)"/></g></g><path id'+
-    '="lips" d="M?,?C?,? ?,? 0,?S?,? ?,?C?,? ?,? 0,?S?,? ?,?Z" transform="matrix(?,?,0,1,?,?)" fill='+
-    '"none" stroke="black"/><g transform="translate(50,?)"><path id="eye-r" transform="translate(18,'+
-    '0) rotate(?)" d="M-8,?C?,? ?,? ?,? ?,? ?,? ?,0 ?,? ?,? -8,?Z" fill="white" stroke="black"/><pat'+
-    'h id="eye-l" transform="translate(-18,0) rotate(?) scale(1,?) rotate(?)" d="M8,?C?,? ?,? ?,? ?,'+
-    '? ?,? ?,0 ?,? ?,? 8,?Z" fill="white" stroke="black" stroke-width="?"/><g clip-path="url(#clip-e'+
-    'yes)"><g id="lens" transform="translate(?,?)"><circle r="5" fill="#9d4922"/><circle r="?"/><cir'+
-    'cle r="1" cx="-2.5" cy="-1.5" fill="white"/></g><use href="#lens" x="?"/><path d="M-52,-30H30L3'+
-    '8,0Q?,? 0,-2 ?,? -38,0Z" opacity=".25"/></g><path id="brow-r" transform="rotate(?)" d="M?,?C?,?'+
-    ' ?,? ?,?" fill="none" stroke="black" stroke-width="?"/><use href="#brow-r" transform="matrix(-1'+
-    ',0,0,1,0,?)"/></g><path transform="matrix(1,?,0,1,53,?)" d="M-8,0Q-6,-2 -4,?M-1,?C2,-3 2,1 4,-1'+
-    'S6,-6 ?,?" fill="none" stroke="black"/></svg>'
+    '="50" cy="91" rx="15" ry="10" fill="#800f08"/><g id="right-teeth"><g transform="translate(0,?)"'+
+    '><use href="#tooth"/><use href="#tooth" x="7"/></g><g transform="translate(0,?)"><rect id="toot'+
+    'h" x="50.5" rx="2" ry="1" height="15" width="6" fill="white" stroke="black" stroke-width=".5"/>'+
+    '<use href="#tooth" transform="matrix(1,-.14,0,1,7,7)"/></g></g><use href="#right-teeth" transfo'+
+    'rm="matrix(-1,0,0,1,100,0)"/></g><path id="lips" d="M?,?C?,? ?,? 0,?S?,? ?,?C?,? ?,? 0,?S?,? ?,'+
+    '?Z" transform="matrix(?,?,0,1,?,?)" fill="none" stroke="black"/><g transform="translate(50,?)">'+
+    '<path id="eye-r" transform="translate(18,0) rotate(?)" d="M-8,?C?,? ?,? ?,? ?,? ?,? ?,0 ?,? ?,?'+
+    ' -8,?Z" fill="white" stroke="black"/><path id="eye-l" transform="translate(-18,0) rotate(?) sca'+
+    'le(1,?) rotate(?)" d="M8,?C?,? ?,? ?,? ?,? ?,? ?,0 ?,? ?,? 8,?Z" fill="white" stroke="black" st'+
+    'roke-width="?"/><g clip-path="url(#clip-eyes)"><g id="lens" transform="translate(?,?)"><circle '+
+    'r="5" fill="#9d4922"/><circle r="?"/><circle r="1" cx="-2.5" cy="-1.5" fill="white"/></g><use h'+
+    'ref="#lens" x="?"/><path d="M-52,-30H30L38,0Q?,? 0,-2 ?,? -38,0Z" opacity=".25"/></g><path id="'+
+    'brow-r" transform="rotate(?)" d="M?,?C?,? ?,? ?,?" fill="none" stroke="black" stroke-width="?"/'+
+    '><use href="#brow-r" transform="matrix(-1,0,0,1,0,?)"/></g><path transform="matrix(1,?,0,1,53,?'+
+    ')" d="M-8,0Q-6,-2 -4,?M-1,?C2,-3 2,1 4,-1S6,-6 ?,?" fill="none" stroke="black"/></svg>'
   const dotprod = (X,Y) => X.reduce((a, b, i) => a + b*(Y[i] || 0), 0)
   const vec = [1, 2*v-1, a1, a2, 2*d-1, c]
   let values = matrix.map(row => dotprod(vec, row))
