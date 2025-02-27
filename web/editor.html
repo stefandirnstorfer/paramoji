@@ -25,30 +25,9 @@
             <div class="button-row">
                 <button @click="random()">Random</button>
                 <button @click="animateTo(neutralState(model))">Reset all</button>
-                <button @click="mirror()">Mirror</button>
+                <button @pointerdown="blink=true" @pointerup="blink=false" @pointerleave="blink=false">Blink</button>
             </div>
-            <div style="height: 10px"></div>
             <table id="sliders" width="100%">
-                <tr>
-                    <td>Model</td>
-                    <td colspan="2">
-                        <select v-model="model">
-                            <option value="a1a2">Carthesian</option>
-                            <option value="ao">Theoretical</option>
-                            <option value="e">Empirical</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Style</td>
-                    <td colspan="2">
-                        <select v-model="style">
-                            <option value="comic">Comic Light</option>
-                            <option value="comic-dark">Comic Dark</option>
-                            <option value="schematic">Schematic</option>
-                        </select>
-                    </td>
-                </tr>
                 <tr style="height: 10px"></tr>
                 <template v-if="['ao','a1a2'].includes(model)">
                     <tr>
@@ -116,12 +95,12 @@
                         <td><span id="label-c">{{fmt(state.c)}}</span></td>
                     </tr>
                     <tr>
-                        <td>Love</td>
-                        <td><button @click="animateTo({l:0})">&times;</button></td>
+                        <td>Blush</td>
+                        <td><button @click="animateTo({b:0})">&times;</button></td>
                         <td>
-                            <input class="slider" type="range" v-model="state.l"/>
+                            <input class="slider" type="range" v-model="state.b"/>
                         </td>
-                        <td><span id="label-l">{{fmt(state.l)}}</span></td>
+                        <td><span id="label-b">{{fmt(state.b)}}</span></td>
                     </tr>
                 </template>
                 <template v-if="model=='e'">
@@ -166,12 +145,28 @@
                         <td><span>{{fmt(estate.c)}}</span></td>
                     </tr>
                 </template>
+                <tr height="10px"/>
                 <tr>
-                    <td/>
+                    <td>Model</td>
                     <td colspan="2">
-                        <button @pointerdown="blink=true" @pointerup="blink=false" @pointerleave="blink=false">Blink</button>
+                        <select v-model="model">
+                            <option value="a1a2">Carthesian</option>
+                            <option value="ao">Theoretical</option>
+                            <option value="e">Empirical</option>
+                        </select>
                     </td>
                 </tr>
+                <tr>
+                    <td>Style</td>
+                    <td colspan="2">
+                        <select v-model="style">
+                            <option value="comic">Comic Light</option>
+                            <option value="comic-dark">Comic Dark</option>
+                            <option value="schematic">Schematic</option>
+                        </select>
+                    </td>
+                </tr>
+
             </table>
         </div>
         <div style="height:20px"></div>

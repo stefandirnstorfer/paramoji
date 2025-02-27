@@ -25,13 +25,11 @@ const app = Vue.createApp({
                 a2= this.state.a2/100,
                 d= this.state.d/100,
                 c= this.state.c/100,
-                l= this.state.l/100;
                 g= this.state.g/100;
+                b= this.state.b/100;
             if (this.style=='schematic')
-                return schematic_svg(v, a1, a2, d ,c)
-            let svg= paramoji_blink_svg(this.blink, v, a1, a2, d, g, c)
-            if (l>0)
-                svg = add_love(svg, l)
+                return schematic_svg(v, a1, a2, d,c)
+            let svg= paramoji_blink_svg(this.blink, v, a1, a2, d, g, c, b)
             if (this.lightdark=='dark')
                 svg = dark_mode(svg)
             return svg
@@ -44,7 +42,7 @@ const app = Vue.createApp({
                 d: 50,
                 c: model == "e" ? 25 : 0,
                 g: 0,
-                l: 0
+                b: 0
             }
         },
         animateTo(newState) {
@@ -70,13 +68,12 @@ const app = Vue.createApp({
         },
         random() {
             const newState= {}
-            const hasLove = this.state.l > 0;
             for (let key in this.state) {
-                newState[key] = Math.min(100, Math.max(0, Math.random()*120-10))
+                newState[key] = Math.min(100, Math.max(0, Math.random()*120 - 10))
             }
             newState.c = newState.c * newState.c /100
-            newState.g = newState.g * newState.g * newState.g / 10000
-            newState.l = hasLove * newState.l * newState.l /100 + 0.001 * hasLove;
+            newState.g *= Math.pow(Math.random(),1)
+            newState.b *= Math.pow(Math.random(),2)
             this.animateTo(newState)
         },
         mirror() {

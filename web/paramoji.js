@@ -1,5 +1,5 @@
 // Paramoji Generator
-// Copyright © 2022 Stefan Dirnstorfer
+// Copyright © 2025 Stefan Dirnstorfer
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -14,8 +14,11 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-function paramoji_svg(v, a1, a2, p, g, c) {
+function paramoji_svg(v, a1, a2, p, g, c, b) {
     const data = [
+    // cy="?" r="?"
+            [65, -5, 0, -6, -2, -5],
+            [0, 0, 0, 0, 0, 0, 0, 10],
     //   transform="translate(0,?)"
             [ 80,  1,  0,  6, -6],
     //   transform="translate(0,?)"
@@ -101,7 +104,12 @@ function paramoji_svg(v, a1, a2, p, g, c) {
         '  <defs>',
         '    <clipPath id="clip-eyes"><use href="#eye-l"/><use href="#eye-r"/></clipPath>',
         '    <clipPath id="clip-lips"><use href="#lips"/></clipPath>',
+        '    <filter id="blur" x="0" y="0">',
+        '     <feGaussianBlur in="SourceGraphic" stdDeviation="15" />',
+        '    </filter>',
         '  </defs>',
+        '  <circle id="blush" cx="25" cy="?" r="?" filter="blur(5px)" fill="#d3251b"/>',
+        '  <use href="#blush" transform="matrix(-1,0,0,1,100,0)"/>',
         '  <g clip-path="url(#clip-lips)">',
         '    <rect height="100" width="100"/>',
         '    <ellipse cx="50" cy="91" rx="15" ry="10" fill="#800f08"/>',
@@ -137,14 +145,14 @@ function paramoji_svg(v, a1, a2, p, g, c) {
         '</svg>'
     ]
     const dotprod = (X,Y) => X.reduce((a, b, i) => a + b*(Y[i] || 0), 0)
-    let index=0,  V= [1, 2*v-1, a1, a2, 2*p-1, g, c]
+    let index=0,  V= [1, 2*v-1, a1, a2, 2*p-1, g, c, b]
     return template.join("\n").replace(/\?/g, () => dotprod(V, data[index++]));
 }
 
-function paramoji_blink_svg(blink, v, a1, a2, d, g, c) {
-    const open = paramoji_svg(v, a1, a2, d, g, c)
+function paramoji_blink_svg(blink, v, a1, a2, d, g, c, b) {
+    const open = paramoji_svg(v, a1, a2, d, g, c, b)
     if (!blink) return open
-    const closed = paramoji_svg((1-blink*a1)*v, (1-blink)*a1, a2, d, g, c)
+    const closed = paramoji_svg((1-blink*a1)*v, (1-blink)*a1, a2, d, g, c, b)
     return open
         .replace(/id="eye-r[^>]*/, closed.match(/id="eye-r[^>]*/)[0])
         .replace(/id="eye-l[^>]*/, closed.match(/id="eye-l[^>]*/)[0])
@@ -152,24 +160,4 @@ function paramoji_blink_svg(blink, v, a1, a2, d, g, c) {
 
 function dark_mode(svg) {
     return svg.replace(/(<(?!rect id="tooth")[^>]*) stroke="black"/g, '$1 stroke="white"')
-}
-
-function add_love(svg, l) {
-    const data = [
-        [0, 1],
-        [0.7, -0.2],
-        [0, 1]
-    ]
-    const template= [
-        '<path id="love"',
-        ' d="m -21,-13 c -11,0 -19,8 -19,18 0,14 9,23 40,48 C 32,28 40,19 40,5 40,-5 32,-13 21,-13 12,-13 7,-8 3,-3 L 0,1 -3,-3 c -4,-5 -9,-10 -18,-10 z"',
-        ' transform="translate(50,55) scale(?) translate(0, -15)"',
-        ' fill="rgba(150,0,0,?)" stroke-width="1" stroke="black"/>'
-    ]
-    const dotprod = (X,Y) => X.reduce((a, b, i) => a + b*(Y[i] || 0), 0)
-    let index=0,  V= [1, l]
-    const love= template.join("").replace(/\?/g, () => dotprod(V, data[index++]));
-    svg = svg.replace(/(?=<path id="lips")/ , love)
-    svg = svg.replace(/(?=<\/svg>)/ , '<use href="#love"/>')
-    return svg
 }
