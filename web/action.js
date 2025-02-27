@@ -1,3 +1,6 @@
+import { paramoji_blink_svg, dark_mode } from "./paramoji.js"
+import { schematic_svg } from "./schematic.js"
+
 const app = Vue.createApp({
     data() {
         return {
@@ -25,7 +28,7 @@ const app = Vue.createApp({
                 a2= this.state.a2/100,
                 d= this.state.d/100,
                 c= this.state.c/100,
-                g= this.state.g/100;
+                g= this.state.g/100,
                 b= this.state.b/100;
             if (this.style=='schematic')
                 return schematic_svg(v, a1, a2, d,c)

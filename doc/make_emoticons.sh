@@ -15,8 +15,9 @@ if [ ! -e $FILE ]; then
 echo Processing paramoji with params=$PARAM
 mkdir -p gen
 node << EOF | inkscape --pipe --export-filename=$FILE
-  const emoji = require('./emoticon.js')
-  console.log(emoji.emoticon_svg(${PARAM}, 1))
+  import { paramoji_svg } from '../web/paramoji.js'
+  const params = [${PARAM},0].map(x => x/100)
+  console.log(paramoji_svg.apply(null, params))
 EOF
 fi
 done

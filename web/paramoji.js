@@ -14,7 +14,7 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-function paramoji_svg(v, a1, a2, p, g, c, b) {
+export function paramoji_svg(v, a1, a2, p, g, c, b) {
     const data = [
     // cy="?" r="?"
             [65, -5, 0, -6, -2, -5],
@@ -104,9 +104,6 @@ function paramoji_svg(v, a1, a2, p, g, c, b) {
         '  <defs>',
         '    <clipPath id="clip-eyes"><use href="#eye-l"/><use href="#eye-r"/></clipPath>',
         '    <clipPath id="clip-lips"><use href="#lips"/></clipPath>',
-        '    <filter id="blur" x="0" y="0">',
-        '     <feGaussianBlur in="SourceGraphic" stdDeviation="15" />',
-        '    </filter>',
         '  </defs>',
         '  <circle id="blush" cx="25" cy="?" r="?" filter="blur(5px)" fill="#d3251b"/>',
         '  <use href="#blush" transform="matrix(-1,0,0,1,100,0)"/>',
@@ -149,7 +146,7 @@ function paramoji_svg(v, a1, a2, p, g, c, b) {
     return template.join("\n").replace(/\?/g, () => dotprod(V, data[index++]));
 }
 
-function paramoji_blink_svg(blink, v, a1, a2, d, g, c, b) {
+export function paramoji_blink_svg(blink, v, a1, a2, d, g, c, b) {
     const open = paramoji_svg(v, a1, a2, d, g, c, b)
     if (!blink) return open
     const closed = paramoji_svg((1-blink*a1)*v, (1-blink)*a1, a2, d, g, c, b)
@@ -158,6 +155,6 @@ function paramoji_blink_svg(blink, v, a1, a2, d, g, c, b) {
         .replace(/id="eye-l[^>]*/, closed.match(/id="eye-l[^>]*/)[0])
 }
 
-function dark_mode(svg) {
+export function dark_mode(svg) {
     return svg.replace(/(<(?!rect id="tooth")[^>]*) stroke="black"/g, '$1 stroke="white"')
 }

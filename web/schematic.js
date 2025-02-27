@@ -1,4 +1,4 @@
-function schematic_svg(v, x1, x2, p, c) {
+export function schematic_svg(v, x1, x2, p, c) {
     let id = 0;
     e = (x2 - x1)/2 + 1/2;
     a = (x1 + x2)/2;
