@@ -62,9 +62,8 @@ const app = Vue.createApp({
                 if (states.length) {
                     this.state = states.shift()
                     requestAnimationFrame(update)
-                } else {
-                    this.updateOther(true)
                 }
+                this.updateOther(true)
             }
             update()
             this.state= newState
@@ -79,25 +78,13 @@ const app = Vue.createApp({
             newState.b *= Math.pow(Math.random(),2)
             this.animateTo(newState)
         },
-        mirror() {
-            if (this.canmirror) {
-                this.animateTo({
-                    v: 100-this.state.v,
-                    a1: 100-this.state.a1,
-                    a2: 100-this.state.a2,
-                    d: 100-this.state.d,
-                })
-            } else {
-                this.animateTo({ c:0, l: 0 })
-            }
-        },
         updateVState(newVState) {
             const vstate = Object.assign({}, this.vstate, newVState)
-            const o = parseFloat(vstate.o)
+            const o = parseFloat(vstate.o)/100
             const a = parseFloat(vstate.a)
             const newState = Object.assign({}, this.state, {
-                a1: Math.max(0, a + (o-50)),
-                a2: Math.max(0, a - (o-50))
+                a1: o<0.5 ? Math.min(100, 2 * a * o) : Math.max(0, a + 50 - (1-o) * 100),
+                a2: o>0.5 ? Math.min(100, 2 * a * (1-o)) : Math.max(0, a + 50 - o * 100),
             })
             if (newVState) {
                 this.animateTo(newState)
@@ -108,13 +95,13 @@ const app = Vue.createApp({
         updateEState(newEState) {
             const estate= Object.assign({}, this.estate, newEState)
             const dotprod = (a,b,c,d,e,f) => a * estate.v + b * estate.d + c * estate.o + d * estate.a + e * estate.c + f
-            const newState = {
+            const newState = Object.assign({}, this.state, {
                 v: dotprod(+1.00, +0.32, -0.25, -0.24, +0.22,   3),
                 a1: Math.max(0, dotprod(+0.13, +0.18, +0.44, +1.00, +0.48, -50)),
                 a2: Math.max(0, dotprod(-0.11, -0.13, -1.00, +0.55, +0.07,  83)),
                 d: dotprod(-0.39, +1.00, -0.14, -0.07, -0.04,  31),
                 c: Math.min(110, dotprod(-0.29, -0.10, -0.09, -0.47, +1.00,  48))
-            }
+            })
             if (newEState) {
                 this.animateTo(newState)
             } else {
@@ -134,8 +121,9 @@ const app = Vue.createApp({
             }, 100)
         },
         updateOther(force) {
-            this.vstate.a = (parseFloat(this.state.a1) + parseFloat(this.state.a2))/2
-            this.vstate.o = (parseFloat(this.state.a1) - parseFloat(this.state.a2))/2 + 50
+            const a1= parseFloat(this.state.a1)/100, a2= parseFloat(this.state.a2)/100
+            if (!this.vstate.a || force) this.vstate.a = 50*(a1+a2)
+            if (!this.vstate.o || force) this.vstate.o = (a1 - a2) *50 + 50
             const dotprod = (a,b,c,d,e) => a*(this.state.v-3) + b*(this.state.a1*1+50) + c*(this.state.a2-83) + d*(this.state.d-31) + e*(this.state.c-48)
             const tryfix = (a,b) => !force && Math.abs(a-b) < 2 ? a : b
             this.estate.v = tryfix(this.estate.v, dotprod(0.79,  0.10, -0.09, -0.30, -0.23))
@@ -148,7 +136,6 @@ const app = Vue.createApp({
     },
     computed: {
         lightdark() { return this.style.includes('dark') ? 'dark' : 'light' },
-        canmirror() { return this.state.c < 10 && this.state.l < 10 },
     },
     watch: {
         animate(value, oldValue) {
