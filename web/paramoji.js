@@ -14,11 +14,15 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-export function paramoji_svg(v, a1, a2, p, g, c, b) {
+export function paramoji_svg(v, a1, a2, p, g, c, b, t=0) {
     const data = [
+    // id: tear
+            [ 0,  0,  0,  0,  0,  0,  0,  0, 0.3],
+            [7, -10, 23,  0, -20],
     // cy="?" r="?"
             [65, -5, 0, -6, -2, -5],
             [0, 0, 0, 0, 0, 0, 0, 10],
+            [0, 0, 0, 0, 0, 0, -5],
     //   transform="translate(0,?)"
             [ 80,  1,  0,  6, -6],
     //   transform="translate(0,?)"
@@ -104,9 +108,13 @@ export function paramoji_svg(v, a1, a2, p, g, c, b) {
         '  <defs>',
         '    <clipPath id="clip-eyes"><use href="#eye-l"/><use href="#eye-r"/></clipPath>',
         '    <clipPath id="clip-lips"><use href="#lips"/></clipPath>',
+        '    <g id="tear" transform="scale(?) translate(0,?)">',
+        '      <circle r="20" fill="#4EC1F5C0"/>',
+        '      <path d="m-11-10c-8,3-4,25 7,25 8,0 -2,-7 -4,-13 -2,-7 0,-13 -3,-12z" fill="#B3E2FB"/>',
+        '    </g>',
         '  </defs>',
-        '  <circle id="blush" cx="25" cy="?" r="?" filter="blur(5px)" fill="#d3251b"/>',
-        '  <use href="#blush" transform="matrix(-1,0,0,1,100,0)"/>',
+        '  <circle id="blush" cx="75" cy="?" r="?" filter="blur(5px)" fill="#d3251b"/>',
+        '  <use href="#blush" x="-50" y="?"/>',
         '  <g clip-path="url(#clip-lips)">',
         '    <rect height="100" width="100"/>',
         '    <ellipse cx="50" cy="91" rx="15" ry="10" fill="#800f08"/>',
@@ -131,25 +139,28 @@ export function paramoji_svg(v, a1, a2, p, g, c, b) {
         '        <circle r="5" fill="#9d4922"/>',
         '        <circle r="?"/>',
         '        <circle r="1" cx="-2.5" cy="-1.5" fill="white"/>',
+        '        <use href="#tear" x="7" transform="scale(0.8)"/>',
         '      </g>',
         '      <use href="#lens" x="?"/>',
         '      <path d="M-52,-30H30L38,0Q?,? 0,-2 ?,? -38,0Z" opacity=".25"/>',
         '    </g>',
         '    <path id="brow-r" transform="rotate(?)" d="M?,?C?,? ?,? ?,?" fill="none" stroke="black" stroke-width="?"/>',
         '    <use href="#brow-r" transform="matrix(-1,0,0,1,0,?)"/>',
+        '    <use href="#tear" x="30" y="2"/>',
+        '    <use href="#tear" x="-30" y="3"/>',
         '  </g>',
         '  <path transform="matrix(1,?,0,1,53,?)" d="M-8,0Q-6,-2 -4,?M-1,?C2,-3 2,1 4,-1S6,-6 ?,?" fill="none" stroke="black"/>',
         '</svg>'
     ]
     const dotprod = (X,Y) => X.reduce((a, b, i) => a + b*(Y[i] || 0), 0)
-    let index=0,  V= [1, 2*v-1, a1, a2, 2*p-1, g, c, b]
+    let index=0,  V= [1, 2*v-1, a1, a2, 2*p-1, g, c, b, t]
     return template.join("\n").replace(/\?/g, () => dotprod(V, data[index++]));
 }
 
-export function paramoji_blink_svg(blink, v, a1, a2, d, g, c, b) {
-    const open = paramoji_svg(v, a1, a2, d, g, c, b)
+export function paramoji_blink_svg(blink, v, a1, a2, d, g, c, b, t=0) {
+    const open = paramoji_svg(v, a1, a2, d, g, c, b, t)
     if (!blink) return open
-    const closed = paramoji_svg((1-blink*a1)*v, (1-blink)*a1, a2, d, g, c, b)
+    const closed = paramoji_svg((1-blink*a1)*v, (1-blink)*a1, a2, d, g, c, b, t)
     return open
         .replace(/id="eye-r[^>]*/, closed.match(/id="eye-r[^>]*/)[0])
         .replace(/id="eye-l[^>]*/, closed.match(/id="eye-l[^>]*/)[0])

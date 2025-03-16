@@ -29,10 +29,11 @@ const app = Vue.createApp({
                 d= this.state.d/100,
                 c= this.state.c/100,
                 g= this.state.g/100,
-                b= this.state.b/100;
+                b= this.state.b/100,
+                t= this.state.t/100;
             if (this.style=='schematic')
                 return schematic_svg(v, a1, a2, d,c)
-            let svg= paramoji_blink_svg(this.blink, v, a1, a2, d, g, c, b)
+            let svg= paramoji_blink_svg(this.blink, v, a1, a2, d, g, c, b, t)
             if (this.lightdark=='dark')
                 svg = dark_mode(svg)
             return svg
@@ -45,7 +46,8 @@ const app = Vue.createApp({
                 d: 50,
                 c: model == "e" ? 25 : 0,
                 g: 0,
-                b: 0
+                b: 0,
+                t: 0
             }
         },
         animateTo(newState) {
@@ -76,6 +78,7 @@ const app = Vue.createApp({
             newState.c = newState.c * newState.c /100
             newState.g *= Math.pow(Math.random(),1)
             newState.b *= Math.pow(Math.random(),2)
+            newState.t *= Math.pow(Math.random(),3)
             this.animateTo(newState)
         },
         updateVState(newVState) {

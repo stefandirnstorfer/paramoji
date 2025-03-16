@@ -100,6 +100,14 @@
                         </td>
                         <td><span id="label-b">{{fmt(state.b)}}</span></td>
                     </tr>
+                    <tr>
+                        <td>Tears</td>
+                        <td><button @click="animateTo({t:0})">&times;</button></td>
+                        <td>
+                            <input class="slider" type="range" v-model="state.t"/>
+                        </td>
+                        <td><span id="label-b">{{fmt(state.t)}}</span></td>
+                    </tr>
                 </template>
                 <template v-if="model=='e'">
                     <tr>
