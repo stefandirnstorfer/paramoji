@@ -19,9 +19,10 @@ export function paramoji_svg(v, a1, a2, p, g, c, b, t=0) {
     // id: tear
             [ 0,  0,  0,  0,  0,  0,  0,  0, 0.3],
             [7, -10, 23,  0, -20],
-    // cy="?" r="?"
+    // cy="?" r="?" opaicty="?"
             [65, -5, 0, -6, -2, -5],
-            [0, 0, 0, 0, 0, 0, 0, 10],
+            [0, 0, 0, 0, 0, 0, 0, 15],
+            [0.3, 0, 0, 0, 0, 0, 0, 0.7],
             [0, 0, 0, 0, 0, 0, -5],
     //   transform="translate(0,?)"
             [ 80,  1,  0,  6, -6],
@@ -108,13 +109,18 @@ export function paramoji_svg(v, a1, a2, p, g, c, b, t=0) {
         '  <defs>',
         '    <clipPath id="clip-eyes"><use href="#eye-l"/><use href="#eye-r"/></clipPath>',
         '    <clipPath id="clip-lips"><use href="#lips"/></clipPath>',
+        '    <radialGradient id="blush">',
+        '      <stop stop-color="#ED7770" offset="0.2"/>',
+        '      <stop stop-color="#ED777030" offset="0.7"/>',
+        '      <stop stop-color="#ED777000" offset="1"/>',
+        '    </radialGradient>',
         '    <g id="tear" transform="scale(?) translate(0,?)">',
         '      <circle r="20" fill="#4EC1F5C0"/>',
         '      <path d="m-11-10c-8,3-4,25 7,25 8,0 -2,-7 -4,-13 -2,-7 0,-13 -3,-12z" fill="#B3E2FB"/>',
         '    </g>',
         '  </defs>',
-        '  <circle id="blush" cx="75" cy="?" r="?" filter="blur(5px)" fill="#d3251b"/>',
-        '  <use href="#blush" x="-50" y="?"/>',
+        '  <circle id="blush-r" cx="75" cy="?" r="?" opacity="?" fill="url(#blush)"/>',
+        '  <use href="#blush-r" x="-50" y="?"/>',
         '  <g clip-path="url(#clip-lips)">',
         '    <rect height="100" width="100"/>',
         '    <ellipse cx="50" cy="91" rx="15" ry="10" fill="#800f08"/>',

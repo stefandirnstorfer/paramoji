@@ -1,7 +1,7 @@
 export function schematic_svg(v, x1, x2, p, c) {
     let id = 0;
-    e = (x2 - x1)/2 + 1/2;
-    a = (x1 + x2)/2;
+    let e = (x2 - x1)/2 + 1/2;
+    let a = (x1 + x2)/2;
     let ee = Math.max(0, e * 2 - 1);
     let es = Math.max(0, 1 - e * 2);
 

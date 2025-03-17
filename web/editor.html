@@ -76,7 +76,7 @@
                         </td>
                         <td><span id="label-o">{{fmt(vstate.o)}}</span></td>
                     </tr>
-                    <tr>
+                    <tr v-if="style!='schematic'">
                         <td>Disgust</td>
                         <td><button @click="animateTo({g:0})">&times;</button></td>
                         <td>
@@ -92,7 +92,7 @@
                         </td>
                         <td><span id="label-c">{{fmt(state.c)}}</span></td>
                     </tr>
-                    <tr>
+                    <tr v-if="style!='schematic'">
                         <td>Blush</td>
                         <td><button @click="animateTo({b:0})">&times;</button></td>
                         <td>
@@ -100,7 +100,7 @@
                         </td>
                         <td><span id="label-b">{{fmt(state.b)}}</span></td>
                     </tr>
-                    <tr>
+                    <tr v-if="style!='schematic'">
                         <td>Tears</td>
                         <td><button @click="animateTo({t:0})">&times;</button></td>
                         <td>

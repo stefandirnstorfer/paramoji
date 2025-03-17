@@ -18,7 +18,6 @@ node << EOF | inkscape --pipe --export-filename=$FILE
   import { paramoji_svg } from '../web/paramoji.js'
   const params = [${PARAM},0].map(x => x/100)
   let svg = paramoji_svg.apply(null, params)
-  svg = svg.replaceAll(/<[^>]*blush[^>]*>/g, "")
   console.log(svg)
 EOF
 fi
