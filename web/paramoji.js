@@ -111,11 +111,11 @@ export function paramoji_svg(v, a1, a2, p, g, c, b, t=0) {
         '    <clipPath id="clip-lips"><use href="#lips"/></clipPath>',
         '    <radialGradient id="blush">',
         '      <stop stop-color="#ED7770" offset="0.2"/>',
-        '      <stop stop-color="#ED777030" offset="0.7"/>',
-        '      <stop stop-color="#ED777000" offset="1"/>',
+        '      <stop stop-color="#ED7770" stop-opacity="0.3" offset="0.7"/>',
+        '      <stop stop-color="#ED7770" stop-opacity="0" offset="1"/>',
         '    </radialGradient>',
         '    <g id="tear" transform="scale(?) translate(0,?)">',
-        '      <circle r="20" fill="#4EC1F5C0"/>',
+        '      <circle r="20" fill="#4EC1F5" opacity="0.75"/>',
         '      <path d="m-11-10c-8,3-4,25 7,25 8,0 -2,-7 -4,-13 -2,-7 0,-13 -3,-12z" fill="#B3E2FB"/>',
         '    </g>',
         '  </defs>',
@@ -174,4 +174,16 @@ export function paramoji_blink_svg(blink, v, a1, a2, d, g, c, b, t=0) {
 
 export function dark_mode(svg) {
     return svg.replace(/(<(?!rect id="tooth")[^>]*) stroke="black"/g, '$1 stroke="white"')
+}
+
+export function unique_id(svg, prefix=null) {
+    const id_prefix = prefix || Math.random().toString(36).substring(2, 15)+"-"
+    return svg
+        .replace(/href="#/g,"href=\"#"+id_prefix)
+        .replace(/\(#/g,"(#"+id_prefix)
+        .replace(/id="/g,"id=\""+id_prefix)
+}
+
+export function unwrap(svg) {
+    return svg.replace(/<\/?svg[^>]*>/g,'')
 }
