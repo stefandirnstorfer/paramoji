@@ -143,21 +143,18 @@ div#app {
     width: fit-content;
 }
 .table-head {
+    text-align: center;
     font-weight: bold;
+    font-size: 0.8rem;
 }
 .onhover {
     border-radius: 5px;
     width: 120px;
 }
-@media (max-width: 800px) {
+@media (max-width: 500px) {
     .ekman-table {
         margin-left: 0;
-    }
-    .onhover {
-        width: 20vw !important;
-    }
-    .table-head {
-        font-size: 0.8rem;
+        grid-template-columns: repeat(3, min-content);
     }
 }
 
