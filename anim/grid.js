@@ -15,13 +15,13 @@ function bilin(t, a, b) {
 const cellHeight = 76, cellWidth = 80
 const width = cellWidth * cols
 const height = cellHeight * rows
-let svg = '<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="'+width+'" height="'+height+'">\n'
+let svg = `<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" heigth="100%" viewBox="0 0 ${width} ${height}">\n`
 for (let row=0; row<rows; ++row) {
     for (let col=0; col<cols; ++col) {
         const x= col * cellWidth, y=row*cellHeight
         const color = (row+col)%2 ? 'white' : 'black'
-        svg += `<rect x="${x}" y="${y}" width="${width}" height="${height}" fill="${color}"/>\n`
-        const t1 = row/(rows-1),
+        svg += `<rect x="${x}" y="${y}" width="${cellWidth}" height="${cellHeight}" fill="${color}"/>\n`
+        let t1 = row/(rows-1),
             t2 =col/(cols-1)
         const params = bilin(t1,
             bilin(t2, topLeft, topRight),

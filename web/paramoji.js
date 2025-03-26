@@ -124,17 +124,17 @@ export function paramoji_svg(v, a1, a2, p, g, c, b, t=0) {
         '  <g clip-path="url(#clip-lips)">',
         '    <rect height="100" width="100"/>',
         '    <ellipse cx="50" cy="91" rx="15" ry="10" fill="#800f08"/>',
-        '    <g id="right-teeth">',
+        '    <g id="teeth-r">',
         '      <g transform="translate(0,?)">',
         '        <use href="#tooth"/>',
         '        <use href="#tooth" x="7"/>',
         '      </g>',
         '      <g transform="translate(0,?)">',
-        '        <rect id="tooth" x="50.5" rx="2" ry="1" height="15" width="6" fill="white" stroke="black" stroke-width=".5"/>',
+        '        <rect id="tooth" x="50.25" rx="2" ry="1" height="15" width="6.5" fill="white"/>',
         '        <use href="#tooth" transform="matrix(1,-.14,0,1,7,7)"/>',
         '      </g>',
         '    </g>',
-        '    <use href="#right-teeth" transform="matrix(-1,0,0,1,100,0)"/>',
+        '    <use href="#teeth-r" transform="matrix(-1,0,0,1,100,0)"/>',
         '  </g>',
         '  <path id="lips" d="M?,?C?,? ?,? 0,?S?,? ?,?C?,? ?,? 0,?S?,? ?,?Z" transform="matrix(?,?,0,1,?,?)" fill="none" stroke="black"/>',
         '  <g transform="translate(50,?)">',
@@ -173,7 +173,7 @@ export function paramoji_blink_svg(blink, v, a1, a2, d, g, c, b, t=0) {
 }
 
 export function dark_mode(svg) {
-    return svg.replace(/(<(?!rect id="tooth")[^>]*) stroke="black"/g, '$1 stroke="white"')
+    return svg.replace(/stroke="black"/g, 'stroke="white"')
 }
 
 export function unique_id(svg, prefix=null) {
