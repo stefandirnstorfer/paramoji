@@ -1,8 +1,8 @@
 import fs from 'fs'
 import { paramoji_svg, dark_mode } from '../web/paramoji.js'
 
-const cols= 6
-const rows= 6
+const cols= 4
+const rows= 4
 const bottomLeft = [20,70,20,120,20,0,0]
 const bottomRight = [20,20,0,30,20,40,0]
 const topLeft = [70,50,50,20,0,0,0]
@@ -12,7 +12,7 @@ function bilin(t, a, b) {
     return a.map((v, i) => v*(1-t) + b[i]*t)
 }
 
-const cellHeight = 76, cellWidth = 80
+const cellHeight = 80, cellWidth = 80
 const width = cellWidth * cols
 const height = cellHeight * rows
 let svg = `<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" heigth="100%" viewBox="0 0 ${width} ${height}">\n`

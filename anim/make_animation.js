@@ -48,27 +48,29 @@ function getParams(data, t) {
     return params
 }
 
-const parentFolder = all_paths.folder + "/" + all_paths.name + "_paramojis";
+const coreName = all_paths.name.replace(/\.[0-9]*$/, "")
+const parentFolder = all_paths.folder + "/" + coreName + "_paramojis";
 console.log("Creating Paramojis in folder ", parentFolder)
 if (!fs.existsSync(parentFolder)) { fs.mkdirSync(parentFolder); }
 if (!fs.existsSync('cache')) { fs.mkdirSync('cache'); }
 
 function generateParamoji(paramoji_name, params, no) {
     let svg = paramoji_blink_svg.apply(null, params.map(x => x/100))
-    svg = dark_mode(svg).replace("5px", "5")
+    svg = dark_mode(svg)
     let cachename = 'cache/'+params.join('_')+'.png'
     if (!fs.existsSync(cachename)) {
         console.log(paramoji_name, no, params.join('_'))
         svg = svg
-            .replace(/width="100%"/,'width="256"')
-            .replace(/height="100%"/,'height="256"')
+//            .replace(/>/,'><rect width="100" height="100" fill="black"/>')
+            .replace(/width="100%"/,'width="1080"')
+            .replace(/height="100%"/,'height="1080"')
         fs.writeFileSync('frame.svg', svg)
         execSync('inkscape frame.svg --export-filename='+cachename)
         fs.unlinkSync('frame.svg')
     }
     const nos= no.toString()
     const padded = '0000'.substring(nos.length)+nos
-    const outname = parentFolder + '/' + paramoji_name + '/frame_'+padded+'-x.png'
+    const outname = parentFolder + '/' + paramoji_name + '/frame_'+padded+'.png'
     fs.copyFileSync(cachename, outname)
 }
 

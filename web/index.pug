@@ -20,7 +20,7 @@ html(lang="en")
     link(rel='stylesheet' href='style.css')
     link(rel="icon" href="https://paramoji.org/paramoji.svg.php?v=100&a1=100&a2=100&d=50&c=0")
     meta(charset="utf-8")
-    meta(property="og:image" content="https://paramoji.org/encode2.png")
+    meta(property="og:image" content="https://paramoji.org/images/encode2.png")
     meta(property="og:image:width" content="879")
     meta(property="og:image:height" content="581")
     meta(name="viewport" content="width=device-width, initial-scale=1")
@@ -33,76 +33,67 @@ html(lang="en")
       p
         | A paramoji is a parametric icon that represents facial expressions on continuous scales.
         | They are similar to Emojis, but instead of being enumerated they are parametric.
-        | The expressions are rendered from six parameters that can be freely selected.
+        | The expressions are rendered from parameters that can be freely selected on a continous scale.
         | They can be used to visualize manually selected, automatically detected or
-        | computationally generated emotions with accuracy and with arbitrary nuances.
+        | computationally generated data with accuracy and with arbitrary nuances.
         | The resulting emoji style icons are expressive, exaggerated and playful. Their emotional content
         | can be easily recognized by humans.
+        p Read more about the design principles of paramojis:
+          |  <a href="https://osf.io/preprints/psyarxiv/6etdx">Visualizing emotions with linearly parameterized facial expressions</a>
+
     div(style="text-align:center")
       a(href='editor.html?v=72&a1=98&a2=36')
-        img(src="encode2.png" style="max-width:500px;width:100%")
+        img(src="images/encode2.png" style="max-width:500px;width:90%")
       +try-it
 
-    h2.twocol#paramoji-dimensions How do paramojis work?
+    h2.twocol How do Paramojis look?
     .twocol
-      p The paramoji is a visualization technique for emotions data. It supports a six dimensional model with independent aspects of human sentiment:
-      ol
-        li
-          em Valence
-          |  is the axis from bad to good, misery to pleasure, disagreement to agrement.
-        li
-          em Arousal
-          |  is the axis from calm to aroused, inactive to active, sleepy to alarmed.
-        li
-          em Dominance
-          |  is the axis from weakness to strength, fear to anger, submission to dominance.
-        li
-          em Disgust
-          |  is the axis from neutral to disgusted, repelled, sickened.
-        li
-          em Contempt
-          |  is the axis from neutral to smug, vain, disdainful and contemptful.
-        li
-          em Control
-          |  is the axis from uncontrolled to controlled, expressed to suppressed.
-      p
-        | With these dimensions the paramoji is able to express the emotional dimensions of the
-        | <a href="https://www.researchgate.net/publication/235361517_A_Circumplex_Model_of_Affect"> Circumplex model of affect</a>
-        | and the <a href="https://en.wikipedia.org/wiki/PAD_emotional_state_model">PAD model</a>
-        | of emotional states.
+       p
+          | Paramojis are designed to look clear and minimalistic. They work on various scales, as well as light and dark backgrounds.
+          | They are informative, simple and fit into a range of designs.
+    div.videos.twocol
+      a(href="images/info.png")
+        img(src="images/info.png" alt="Paramojis used in an info graphics")
+      a(href="images/info-bw.png")
+        img(src="images/info-bw.png" alt="Paramojis in a black and white info graphics")
+      a(href="images/checkers.svg")
+        img(src="images/checkers.png" alt="Paramojis on a checkerboard")
+      a(href="images/fraktal.jpg")
+        img(src="images/fraktal-small.jpg" alt="Paramojis fractal with various scales")
 
-    div
-      iframe(width="315" height="315"
-          src="https://www.youtube.com/embed/HqoMm1H4f90"
-          title="YouTube video player"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen)
-      p How paramojis can translate number into emotions and it combines with LLM outputs.
-
-    h2.twocol#what-emotions-can-be-represented-with-the-paramoji What emotions can be represented with the paramoji?
-    p
-      | The paramoji parameterizes facial expressions with a wide variety of emotions. This includes the the seven
-      | <a href="https://www.paulekman.com/universal-emotions">universal emotions defined by Paul Ekman</a>
-      | with reasonable accuracy. Here are the author's picks for those emotions. You can click the image
-      | to create your own variations of those expressions. Note that there is not one correct choice, but many ways to change
-      | the face along the dimensions of emotional nuances.
-    .ekman-table
-      +clickable-face('v=53&a1=35&a2=5&d=50&c=0', 'Normal')
-      +clickable-face('v=100&a1=21&a2=70&d=55&c=0', 'Happy')
-      +clickable-face('v=30&a1=27&a2=0&d=13&c=0', 'Sad')
-      +clickable-face('v=60&a1=90&a2=94&d=0&c=0', 'Surprise')
-      +clickable-face('v=25&a1=65&a2=30&d=-10&g=10', 'Fear')
-      +clickable-face('v=40&a1=37&a2=0&d=60&c=20&g=75', 'Disgust')
-      +clickable-face('v=14&a1=40&a2=15&d=110&c=0', 'Anger')
-      +clickable-face('v=60&a1=51&a2=0&d=69&c=100', 'Contempt')
+    h2.twocol#paramoji-dimensions How do Paramojis look in animations?
+    div.videos.twocol
+      div
+        iframe(width="315" height="315"
+            src="https://www.youtube.com/embed/HqoMm1H4f90"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen)
+        p How paramojis can translate number into emotions and it combines with LLM outputs.
+      div
+        iframe(width="315" height="315"
+            src="https://www.youtube.com/embed/xDgs6SlQWss"
+            title="Youtube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen)
+        p Paramoji with emotional beats.
+      div
+        iframe(width="315" height="315"
+            src="https://www.youtube.com/embed/JBGmrAbGwpM"
+            title="Youtube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen)
+        p Using Paramoji for an explanatory video about sadness.
 
     h2.twocol#how-can-i-use-paramojis-on-my-website How can I use paramojis on my website?
-    p
-      | The easiest way to link the image directly as shown below.
-      | You can set the request parameters for six paramoji dimensions from 0 to 100.
-      | Optionally you can set the <code>size</code> parameter to get a fixed size image.
-      | With <code>dark=1</code> can make it fit on dark background.
+    div
+      | The easiest way to link the image from <code>https://paramoji.org/paramoji.svg.php</code>.
+      | You can set the request parameters for the paramoji dimensions from 0 to 100.
+      | The request returns an SVG image.
+
     .code-container
       .code
         code
@@ -122,6 +113,42 @@ html(lang="en")
           span(style="color:firebrick") o=40
           span(style="color:navy") &quot;/&gt;
 
+    .twocol
+      table
+        tr
+          th Parameter
+          th Description
+        tr
+          td <code>v</code>
+          td Valence, aka pleasure, is the axis from bad to good, misery to pleasure, disagreement to agrement.
+        tr
+          td <code>a</code>
+          td Arousal is the axis from calm to aroused, inactive to active, sleepy to alarmed.
+        tr
+          td <code>d</code>
+          td Dominance is the axis from weakness to strength, fear to anger, submission to assertion.
+        tr
+          td <code>g</code>
+          td Disgust is the axis from neutral to disgusted, repelled, sickened.
+        tr
+          td <code>c</code>
+          td Contempt is the axis from neutral to smug, vain, disdainful and contemptful.
+        tr
+          td <code>o</code>
+          td Control is the axis from uncontrolled to controlled, expressed to suppressed.
+        tr
+          td <code>b</code>
+          td Blush from absent to maximum cheek blushing
+        tr
+          td <code>t</code>
+          td Tears from absent to maximum tear size
+        tr
+          td <code>size</code>
+          td Size of the generated image, default is 100%
+        tr
+          td <code>dark</code>
+          td Dark mode, if set to 1, all lines are generated white to fit on black backgrounds.
+
     div
       p
         | The source code is licensed as MIT and can be accessed here:
@@ -136,12 +163,15 @@ html(lang="en")
         | To really leverage the power of paramojis these parameters must of course be dynamically derived
         | or computed.
       +try-it
-    h2.twocol I want to learn more about paramojis
+
+
+    h2.twocol Who is using paramojis?
     .twocol
       ul
-        li <a href="https://ranjithvenkatesh.com/2024/07/paramoji-speech-flow/">Paramoji Speech Flow</a> is an application of paramojis to advanced sentiment visualization in speech text.
-        li <a href="https://www.youtube.com/watch?v=JRKck-vLCcE">Emotions at scale</a> talks about various efforts to process emotions on computers featuring paramojis.
-        li <a href="https://osf.io/preprints/psyarxiv/6etdx">Visualizing emotions with linearly parameterized facial expressions</a>, a research paper bind paramoji development.
+        li <a href="https://www.continuousmoodmonitoring.org/en">Continuous Mood Monitoring:</a> A survery tool based on Paramoji emotions visualization
+        li <a href="https://ranjithvenkatesh.com/2024/07/paramoji-speech-flow/">Paramoji Speech Flow</a> is a sentiment visualization of a speech text.
+        li <a href="https://juejin.cn/post/7169815266979741709#heading-7">JueJin</a> mentions Paramojis as a graphical resource
+        li <a href="https://www.reddit.com/r/InternetIsBeautiful/comments/ty7ip6/a_parametric_emoji_that_renders_facial/">Reddit</a> discusses Paramojis
     h2.twocol#references Are there any similar solutions?
     .twocol
       ul
@@ -159,12 +189,14 @@ html(lang="en")
         li
           | The <a href="https://www.researchgate.net/publication/229589717_Parametric_Generation_of_Facial_Expressions_Based_on_FACS">Facial expression generator based on FACS</a>
           | is a pay-walled paper on facial expression generation.
+        li
+          | The <a href="https://www.researchgate.net/publication/235361517_A_Circumplex_Model_of_Affect"> Circumplex model of affect</a> uses two dimensions to define emotions.
+        li
+          | The <a href="https://en.wikipedia.org/wiki/PAD_emotional_state_model">PAD model</a> uses three dimensions to define emotions.
+
     h2.twocol#contact Contact
     .twocol
       p
         a(href='mailto:info@paramoji.org') Email me
-      p
-        | Join the discussion on
-        | <a href='https://www.reddit.com/r/InternetIsBeautiful/comments/ty7ip6/a_parametric_emoji_that_renders_facial/'>Reddit</a>
 
-    p(style="color: gray; border-top: 1px solid gray") Stefan Dirnstorfer - Helene-Mayer-Ring 10 - Munich
+    p(style="color: gray; border-top: 1px solid gray; font-size:10px") Stefan Dirnstorfer - Helene-Mayer-Ring 10 - Munich
