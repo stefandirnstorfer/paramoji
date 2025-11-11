@@ -15,8 +15,9 @@
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
-    <script src="paramoji.js"></script>
-<script>
+    <script src="paramoji.js" type="module"></script>
+<script type="module">
+import { paramoji_svg } from './paramoji.js'
 var c30 = Math.cos(30/180*Math.PI);
 var s30 = Math.sin(30/180*Math.PI);
 var c15 = Math.cos(15/180*Math.PI);
@@ -24,11 +25,12 @@ var s15 = Math.sin(15/180*Math.PI);
 
 var id_prefix= 0;
 function myemo(v,a,p, old) {
-    let svg = paramoji_svg(v/100, a/100, a/100, p/100, 0);
+    let svg = paramoji_svg(v/100, a/100, a/100, p/100, 0, 0, 0, 0,0);
+    id_prefix += 1;
     svg = svg
-        .replace(/href="#/g,"href=\"#id-"+i+"-")
-        .replace(/\(#/g,"(#id-"+i+"-")
-        .replace(/id="/g,"id=\"id-"+i+"-")
+        .replace(/href="#/g,"href=\"#id-"+id_prefix+"-")
+        .replace(/\(#/g,"(#id-"+id_prefix+"-")
+        .replace(/id="/g,"id=\"id-"+id_prefix+"-")
     return '<a href="index.html?c=100&v='+v+'&a1='+a+'&a2='+a+'&p='+p+'">'+svg+'</a>';
 }
 var faces= [
@@ -67,20 +69,20 @@ var faces= [
 ];
 
 function redraw(old) {
-    for (i in faces) {
+    for (let i in faces) {
         $('#face_'+i).html(faces[i][0](old));
     }
 }
 
 $(function() {
-    for (i in faces) {
+    for (let i in faces) {
       var x = faces[i][1];
       var y = faces[i][2];
       var scale = Math.pow(x*x + y*y, -0.2)*2;
       if (!isFinite(scale)) scale=2;
       x = (x-0.5) * scale * 100 + 600;
       y = (y-0.5) * scale * 105 + 500;
-      size = 100 * scale;
+      const size = 100 * scale;
       $('#faces').append('<div id="face_' + i + '" class="face" style="top:'+y+'px; left:'+x+'px; width:'+size+'px; height:'+size+'px;"/>');
     }
     redraw(false)
