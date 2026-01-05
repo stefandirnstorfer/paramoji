@@ -9,7 +9,7 @@ const app = Vue.createApp({
             estate: {},
             blink: false,
             model: "ao", // a1a2, ao, e
-            style: "comic"
+            style: this.getDefaultStyle()
         }
     },
     created() {
@@ -22,6 +22,13 @@ const app = Vue.createApp({
         this.state = newState
     },
     methods: {
+        getDefaultStyle() {
+            // Check if user prefers dark mode
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                return "comic-dark";
+            }
+            return "comic";
+        },
         paramoji() {
             const v= this.state.v/100,
                 a1= this.state.a1/100,
