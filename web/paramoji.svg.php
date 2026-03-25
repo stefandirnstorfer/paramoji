@@ -25,6 +25,7 @@ if ($_GET['showSource']) {
 header("Cache-Control: max-age=2592000");
 header('Content-Type: image/svg+xml');
 
+
 $data=array(array(0,22,0,0,-26),array(0,0,-11),array(-8,0,-8),array(0,0,-4),array(-8,0,-
     8),array(0,0,2),array(-8,0,-3),array(0,0,9),array(-4,0,1,0,0,-3),array(0,-6,13),
     array(5,0,12,0,0,-10),array(0,-9,11),array(11,0,8,0,0,-2),array(5,0,12,0,0,-10),
@@ -40,11 +41,11 @@ $data=array(array(0,22,0,0,-26),array(0,0,-11),array(-8,0,-8),array(0,0,-4),arra
     0.7),array(0,0,0,0,0,0,-5),array(80,1,0,6,-6),array(65,0,0,-5,-1),array(51,-2,-10,0,
     0,-5),array(1,0,0,0,0,0,1),array(18,0,0,0,-1,-2,-7),array(0,-2.5,0,0,-1.5),array(0.5
     ,0,5),array(-36,0,0,0,2,4),array(23,1,-4,0,8),array(2,-9,-17,0,5,10),array(-16,1,-10
-    ,0,-6,0,3),array(2,-9,-17,0,4,10,15),array(0,2,0,0,-8),array(8,2,-1,0,-1,-5),array(-
-    13,-5,-8,0,14,10),array(15,2,1,0,-1,-12),array(-13,-10,-10,0,11,-6),array(23,2,3,0,-
-    1,-10),array(-13,-10,-10,0,8,6),array(30,2,5,0,-1,-7),array(-13,-2,-8,0,5,6),array(
-    1.2,-0.5,1,0,0.5),array(0,0,0,0,0,0,4),array(0,0,0,0,0,0,0.4),array(70,-2,0,-8,-1,-8
-    ),array(0,0,0,0,0,7),array(0,0,0,0,0,7),array(4,0,0,0,0,-4),array(-9,-1,-2,0,0,3));
+    ,0,-6,0,3),array(2,-9,-17,0,4,10,15),array(7,1,2,-2,-1,-5),array(-13,-5,-8,0,13,10),
+    array(14,1,3,-2,-1,-12),array(-13,-10,-10,0,9,-6),array(23,2,4,-2,-1,-10),array(-13,
+    -10,-10,0,5,6),array(31,2,5,-2,-1,-7),array(-13,-2,-8,0,1,6),array(1.2,-0.5,1,0,0.5)
+    ,array(0,0,0,0,0,0,4),array(0,0,0,0,0,0,0.4),array(70,-2,0,-8,-1,-8),array(0,0,0,0,0
+    ,7),array(0,0,0,0,0,7),array(4,0,0,0,0,-4),array(-9,-1,-2,0,0,3));
 
 $template='<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/20' .
     '00/svg" width="100%" height="100%" viewBox="0 0 100 100"><defs><path id="eye" tra' .
@@ -71,11 +72,11 @@ $template='<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.
     ' fill="#9d4922"/><circle r="?"/><circle r="1" cx="-2.5" cy="-1.5" fill="white"/><' .
     'use xlink:href="#tear" x="7" transform="scale(0.8)"/></g><use xlink:href="#lens" ' .
     'x="?"/><path d="M-52,-30H30L38,0Q?,? 0,-2 ?,? -38,0Z" opacity=".25"/></g><path id' .
-    '="brow-r" transform="rotate(?)" d="M?,?C?,? ?,? ?,?" fill="none" stroke="black" s' .
-    'troke-width="?"/><use xlink:href="#brow-r" transform="matrix(-1,0,0,1,0,?)"/><use' .
-    ' xlink:href="#tear" x="30" y="2"/><use xlink:href="#tear" x="-30" y="3"/></g><pat' .
-    'h transform="matrix(1,?,0,1,53,?)" d="M-8,0Q-6,-2 -4,?M-1,?C2,-3 2,1 4,-1S6,-6 ?,' .
-    '?" fill="none" stroke="black"/></svg>';
+    '="brow-r" d="M?,?C?,? ?,? ?,?" fill="none" stroke="black" stroke-width="?"/><use ' .
+    'xlink:href="#brow-r" transform="matrix(-1,0,0,1,0,?)"/><use xlink:href="#tear" x=' .
+    '"30" y="2"/><use xlink:href="#tear" x="-30" y="3"/></g><path transform="matrix(1,' .
+    '?,0,1,53,?)" d="M-8,0Q-6,-2 -4,?M-1,?C2,-3 2,1 4,-1S6,-6 ?,?" fill="none" stroke=' .
+    '"black"/></svg>';
 
 $v = ($_GET['v'] ?? 50)/100;
 $a = $_GET['a'];
