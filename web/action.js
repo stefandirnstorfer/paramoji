@@ -7,7 +7,9 @@ const app = Vue.createApp({
             state: {},
             vstate: {},
             estate: {},
-            blink: false,
+            blink: 0,
+            blink_rate: 0,
+            blinkGen: 0,
             model: "ao", // a1a2, ao, e
             style: this.getDefaultStyle()
         }
@@ -118,6 +120,37 @@ const app = Vue.createApp({
                 this.state=newState
             }
         },
+        blinkActive() { return parseFloat(this.blink_rate) > 0 },
+        blinkUnit() {
+            const rate = parseFloat(this.blink_rate)
+            return 12500 / (rate * rate)
+        },
+        scheduleBlink() {
+            if (this.blinking) return
+            if (!this.blinkActive()) return this.blink = 0
+            this.blinking = true
+            this.queueBlink(++this.blinkGen)
+        },
+        queueBlink(gen) {
+            this.blinkTimer = setTimeout(() => this.runBlink(gen), this.blinkUnit() * 80)
+        },
+        runBlink(gen) {
+            if (gen !== this.blinkGen) return
+            if (!this.blinkActive()) { this.blink = 0; this.blinking = false; return }
+            const unit = this.blinkUnit()
+            const rampMs = unit * 2.5 + 25
+            const cycleMs = 2 * rampMs + unit * 10 + 20
+            const start = performance.now()
+            const animate = now => {
+                if (gen !== this.blinkGen) return
+                const t = now - start
+                this.blink = Math.max(0, Math.min(1, t / rampMs, (cycleMs - t) / rampMs))
+                if (t < cycleMs) requestAnimationFrame(animate)
+                else if (this.blinkActive()) this.queueBlink(gen)
+                else this.blinking = false
+            }
+            requestAnimationFrame(animate)
+        },
         fmt(x) { return parseFloat(x).toFixed(0) },
         updateUrl() {
             clearTimeout(this.updateUrlTimer)
@@ -150,6 +183,14 @@ const app = Vue.createApp({
     watch: {
         animate(value, oldValue) {
             if (value && !oldValue) this.runAnimation()
+        },
+        blink_rate(value, oldValue) {
+            if (parseFloat(value) > parseFloat(oldValue)) {
+                clearTimeout(this.blinkTimer)
+                this.blinkGen++
+                this.blinking = false
+            }
+            this.scheduleBlink()
         },
         state: {
             deep: true,

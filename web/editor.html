@@ -23,7 +23,6 @@
             <div class="button-row">
                 <button @click="random()">Random</button>
                 <button @click="animateTo(neutralState(model))">Reset all</button>
-                <button @pointerdown="blink=true" @pointerup="blink=false" @pointerleave="blink=false">Blink</button>
             </div>
             <table id="sliders" width="100%">
                 <tr style="height: 10px"></tr>
@@ -107,6 +106,14 @@
                             <input class="slider" type="range" v-model="state.t"/>
                         </td>
                         <td><span id="label-b">{{fmt(state.t)}}</span></td>
+                    </tr>
+                    <tr>
+                        <td>Blink</td>
+                        <td><button @click="blink_rate=0">&times;</button></td>
+                        <td>
+                            <input class="slider" type="range" v-model="blink_rate"/>
+                        </td>
+                        <td><span id="label-blink">{{fmt(blink_rate)}}</span></td>
                     </tr>
                 </template>
                 <template v-if="model=='e'">
