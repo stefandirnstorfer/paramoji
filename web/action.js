@@ -1,4 +1,4 @@
-import { paramoji_blink_svg, dark_mode } from "./paramoji.js"
+import { paramoji_blink_svg, invertable_darkmode } from "./paramoji.js"
 import { schematic_svg } from "./schematic.js"
 
 const app = Vue.createApp({
@@ -39,13 +39,12 @@ const app = Vue.createApp({
                 c= this.state.c/100,
                 g= this.state.g/100,
                 b= this.state.b/100,
-                t= this.state.t/100;
+                t= this.state.t/100,
+                i= this.state.i/100;
             if (this.style=='schematic')
                 return schematic_svg(v, a1, a2, d,c)
             let svg= paramoji_blink_svg(this.blink, v, a1, a2, d, g, c, b, t)
-            if (this.lightdark=='dark')
-                svg = dark_mode(svg)
-            return svg
+            return invertable_darkmode(i, this.lightdark=='dark', svg)
         },
         neutralState(model) {
             return {
@@ -57,6 +56,7 @@ const app = Vue.createApp({
                 g: 0,
                 b: 0,
                 t: 0,
+                i: 0,
                 r: 0
             }
         },

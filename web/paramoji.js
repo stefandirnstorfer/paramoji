@@ -107,9 +107,9 @@ export function paramoji_svg(v, a1, a2, p, g, c, b, t=0) {
         '      <path id="lips" d="M?,?C?,? ?,? 0,?S?,? ?,?C?,? ?,? 0,?S?,? ?,?Z" transform="matrix(?,?,0,1,?,?)"/>',
         '    </clipPath>',
         '    <radialGradient id="blush">',
-        '      <stop stop-color="#ED7770" offset=".2"/>',
-        '      <stop stop-color="#ED7770" stop-opacity=".3" offset=".7"/>',
-        '      <stop stop-color="#ED7770" stop-opacity="0" offset="1"/>',
+        '      <stop stop-color="#ff0005" offset=".4"/>',
+        '      <stop stop-color="#ff0005" stop-opacity=".5" offset=".8"/>',
+        '      <stop stop-color="#ff0005" stop-opacity="0" offset="1"/>',
         '    </radialGradient>',
         '    <g id="tear" transform="scale(?) translate(0,?)">',
         '      <circle r="20" fill="#4EC1F5" opacity="0.75"/>',
@@ -166,8 +166,19 @@ export function paramoji_blink_svg(blink, v, a1, a2, d, g, c, b, t=0) {
     return open.replace(/id="eye[^>]*/, closed.match(/id="eye[^>]*/)[0])
 }
 
-export function dark_mode(svg) {
-    return svg.replace(/stroke="black"/g, 'stroke="white"')
+function color_palette(inv, dark, hue) {
+    if (dark) inv = 1 - inv
+    const l = (1 - inv).toFixed(3)
+    const c = (1.6 * inv * (1 - inv)).toFixed(3)
+    return `oklch(${l} ${c} ${hue})`
+}
+
+export function invertable_darkmode(inv, dark, svg) {
+    const fill = color_palette(inv, dark, 194)
+    const stroke = color_palette(1 - inv, dark, 14)
+    if (inv > 0)
+        svg = svg.replace(/(<svg[^>]*>)/, `$1<rect width="100" height="100" rx="10" fill="${fill}"/>`)
+    return svg.replace(/stroke="black"/g, `stroke="${stroke}"`)
 }
 
 export function unique_id(svg, prefix=null) {

@@ -100,6 +100,12 @@ div#app {
   }
 }
 
+#emoticon svg {
+  padding: 5px;
+  box-sizing: border-box;
+  background-clip: content-box;
+}
+
 #emoticon.light svg {
   background-color: #fafafa;
 }

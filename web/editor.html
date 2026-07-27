@@ -115,6 +115,14 @@
                         </td>
                         <td><span id="label-blink">{{fmt(state.r)}}</span></td>
                     </tr>
+                    <tr v-if="style!='schematic'">
+                        <td>Invert</td>
+                        <td><button @click="animateTo({i:0})">&times;</button></td>
+                        <td>
+                            <input class="slider" type="range" v-model="state.i"/>
+                        </td>
+                        <td><span id="label-invert">{{fmt(state.i)}}</span></td>
+                    </tr>
                 </template>
                 <template v-if="model=='e'">
                     <tr>
