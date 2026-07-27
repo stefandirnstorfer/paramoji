@@ -8,7 +8,6 @@ const app = Vue.createApp({
             vstate: {},
             estate: {},
             blink: 0,
-            blink_rate: 0,
             blinkGen: 0,
             model: "ao", // a1a2, ao, e
             style: this.getDefaultStyle()
@@ -22,6 +21,7 @@ const app = Vue.createApp({
         }
         console.log("created", newState)
         this.state = newState
+        this.scheduleBlink()
     },
     methods: {
         getDefaultStyle() {
@@ -56,7 +56,8 @@ const app = Vue.createApp({
                 c: model == "e" ? 25 : 0,
                 g: 0,
                 b: 0,
-                t: 0
+                t: 0,
+                r: 0
             }
         },
         animateTo(newState) {
@@ -65,7 +66,8 @@ const app = Vue.createApp({
             for (let t=0; t<=24; t++) {
                 let tstate= {}
                 for (let key in this.state) {
-                    tstate[key] = t/24*newState[key] + (1-t/24)*this.state[key]
+                    tstate[key] = key=='r' ? newState[key]
+                        : t/24*newState[key] + (1-t/24)*this.state[key]
                 }
                 states.push(tstate)
             }
@@ -88,6 +90,7 @@ const app = Vue.createApp({
             newState.g *= Math.pow(Math.random(),1)
             newState.b *= Math.pow(Math.random(),2)
             newState.t *= Math.pow(Math.random(),3)
+            newState.r = this.state.r
             this.animateTo(newState)
         },
         updateVState(newVState) {
@@ -120,14 +123,20 @@ const app = Vue.createApp({
                 this.state=newState
             }
         },
-        blinkActive() { return parseFloat(this.blink_rate) > 0 },
+        blinkActive() { return parseFloat(this.state.r) > 0 },
         blinkUnit() {
-            const rate = parseFloat(this.blink_rate)
+            const rate = parseFloat(this.state.r)
             return 12500 / (rate * rate)
         },
+        stopBlink() {
+            clearTimeout(this.blinkTimer)
+            this.blinkGen++
+            this.blinking = false
+            this.blink = 0
+        },
         scheduleBlink() {
+            if (!this.blinkActive()) return this.stopBlink()
             if (this.blinking) return
-            if (!this.blinkActive()) return this.blink = 0
             this.blinking = true
             this.queueBlink(++this.blinkGen)
         },
@@ -184,7 +193,7 @@ const app = Vue.createApp({
         animate(value, oldValue) {
             if (value && !oldValue) this.runAnimation()
         },
-        blink_rate(value, oldValue) {
+        'state.r'(value, oldValue) {
             if (parseFloat(value) > parseFloat(oldValue)) {
                 clearTimeout(this.blinkTimer)
                 this.blinkGen++

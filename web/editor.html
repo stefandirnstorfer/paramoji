@@ -107,13 +107,13 @@
                         </td>
                         <td><span id="label-b">{{fmt(state.t)}}</span></td>
                     </tr>
-                    <tr>
+                    <tr v-if="style!='schematic'">
                         <td>Blink</td>
-                        <td><button @click="blink_rate=0">&times;</button></td>
+                        <td><button @click="animateTo({r:0})">&times;</button></td>
                         <td>
-                            <input class="slider" type="range" v-model="blink_rate"/>
+                            <input class="slider" type="range" v-model="state.r"/>
                         </td>
-                        <td><span id="label-blink">{{fmt(blink_rate)}}</span></td>
+                        <td><span id="label-blink">{{fmt(state.r)}}</span></td>
                     </tr>
                 </template>
                 <template v-if="model=='e'">
