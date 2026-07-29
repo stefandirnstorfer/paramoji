@@ -54,8 +54,8 @@ $template='<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.
     'rm="translate(-18,0) rotate(?) scale(-1,?) rotate(?)"/><use id="eye-r" xlink:href' .
     '="#eye" x="18"/></clipPath><clipPath id="clip-lips"><path id="lips" d="M?,?C?,? ?' .
     ',? 0,?S?,? ?,?C?,? ?,? 0,?S?,? ?,?Z" transform="matrix(?,?,0,1,?,?)"/></clipPath>' .
-    '<radialGradient id="blush"><stop stop-color="#ED7770" offset=".2"/><stop stop-col' .
-    'or="#ED7770" stop-opacity=".3" offset=".7"/><stop stop-color="#ED7770" stop-opaci' .
+    '<radialGradient id="blush"><stop stop-color="#ff0005" offset=".4"/><stop stop-col' .
+    'or="#ff0005" stop-opacity=".5" offset=".8"/><stop stop-color="#ff0005" stop-opaci' .
     'ty="0" offset="1"/></radialGradient><g id="tear" transform="scale(?) translate(0,' .
     '?)"><circle r="20" fill="#4EC1F5" opacity="0.75"/><path d="m-11-10c-8,3-4,25 7,25' .
     ' 8,0 -2,-7 -4,-13 -2,-7 0,-13 -3,-12z" fill="#B3E2FB"/></g></defs><circle id="blu' .
@@ -87,6 +87,8 @@ $c = ($_GET['c'] ?? 0)/100;
 $g = ($_GET['g'] ?? 0)/100;
 $b = ($_GET['b'] ?? 0)/100;
 $t = ($_GET['t'] ?? 0)/100;
+$s = ($_GET['s'] ?? 0)/100;
+$invert = ($_GET['invert'] ?? 0)/100;
 
 $o = $_GET['o'];
 if (!is_null($o)) {
@@ -107,16 +109,34 @@ function dotprod($X, $Y) {
   return $value;
 }
 
-$V= [1, 2*$v-1, $a1, $a2, 2*$d-1, $g, $c, $b, $t];
-$index = 0;
-$svg = preg_replace_callback('/\?/', function() use (&$index, $V, $data) {
-  return dotprod($V, $data[$index++]);
-}, $template);
-
-
-if ($_GET['dark']) {
-  $svg = preg_replace('/stroke="black"/', 'stroke="white"', $svg);
+function render($template, $data, $V) {
+  $index = 0;
+  return preg_replace_callback('/\?/', function() use (&$index, $V, $data) {
+    return dotprod($V, $data[$index++]);
+  }, $template);
 }
+
+function color_palette($inv, $dark, $hue) {
+  if ($dark) $inv = 1 - $inv;
+  $l = sprintf('%.3f', 1 - $inv);
+  $c = sprintf('%.3f', 1.6*$inv*(1-$inv) - 3*$inv*($inv-0.5)*($inv-1));
+  return "oklch($l $c $hue)";
+}
+
+function invertable_darkmode($inv, $dark, $svg) {
+  $fill = color_palette($inv, $dark, 194);
+  $stroke = color_palette(1 - $inv, $dark, 14);
+  if ($inv > 0) {
+    $svg = preg_replace('/(<svg[^>]*>)/', '$1<rect width="100" height="100" rx="10" fill="'.$fill.'"/>', $svg, 1);
+  }
+  if ($inv > 0 || $dark) {
+    $svg = str_replace('stroke="black"', 'stroke="'.$stroke.'"', $svg);
+  }
+  return $svg;
+}
+
+$svg = render($template, $data, [1, 2*$v-1, $a1, $a2, 2*$d-1, $g, $c, $b, $t]);
+$svg = invertable_darkmode($invert, !empty($_GET['dark']), $svg);
 
 echo $svg;
 ?>

@@ -169,7 +169,7 @@ export function paramoji_blink_svg(blink, v, a1, a2, d, g, c, b, t=0) {
 function color_palette(inv, dark, hue) {
     if (dark) inv = 1 - inv
     const l = (1 - inv).toFixed(3)
-    const c = (1.6 * inv * (1 - inv)).toFixed(3)
+    const c = (1.6 * inv * (1 - inv) - 3 * inv * (inv - 0.5) * (inv - 1)).toFixed(3)
     return `oklch(${l} ${c} ${hue})`
 }
 
