@@ -226,6 +226,7 @@ div#app {
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 5px;
+  margin-bottom: 20px;
 }
 
 a.button7 {
@@ -257,6 +258,29 @@ select {
     display: block;
     margin: 0.4em auto;
   }
+}
+
+#sliders {
+  display: grid;
+  grid-template-columns: max-content 1fr 3ch;
+  align-items: center;
+  row-gap: 6px;
+  column-gap: 8px;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+#sliders .row {
+  display: contents;
+}
+
+#sliders .span2 {
+  grid-column: 2 / 4;
+}
+
+#sliders .spacer {
+  grid-column: 1 / -1;
+  height: 4px;
 }
 
 .paramoji-editor {

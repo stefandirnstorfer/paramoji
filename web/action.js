@@ -1,5 +1,4 @@
 import { paramoji_blink_svg, invertable_darkmode } from "./paramoji.js"
-import { schematic_svg } from "./schematic.js"
 
 const app = Vue.createApp({
     data() {
@@ -10,10 +9,13 @@ const app = Vue.createApp({
             blink: 0,
             blinkGen: 0,
             model: "ao", // a1a2, ao, e
-            style: this.getDefaultStyle()
+            lightdark: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
         }
     },
     created() {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            this.lightdark = e.matches ? 'dark' : 'light'
+        })
         const newState = this.neutralState(this.model)
         for (let key in newState) {
             var m= location.search.match(RegExp(key + "=([-0-9]+)"));
@@ -24,13 +26,6 @@ const app = Vue.createApp({
         this.scheduleBlink()
     },
     methods: {
-        getDefaultStyle() {
-            // Check if user prefers dark mode
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                return "comic-dark";
-            }
-            return "comic";
-        },
         paramoji() {
             const v= this.state.v/100,
                 a1= this.state.a1/100,
@@ -41,8 +36,6 @@ const app = Vue.createApp({
                 b= this.state.b/100,
                 t= this.state.t/100,
                 i= this.state.i/100;
-            if (this.style=='schematic')
-                return schematic_svg(v, a1, a2, d,c)
             let svg= paramoji_blink_svg(this.blink, v, a1, a2, d, g, c, b, t)
             return invertable_darkmode(i, this.lightdark=='dark', svg)
         },
@@ -91,6 +84,7 @@ const app = Vue.createApp({
             newState.b *= Math.pow(Math.random(),2)
             newState.t *= Math.pow(Math.random(),3)
             newState.r = this.state.r
+            newState.i = this.state.i
             this.animateTo(newState)
         },
         updateVState(newVState) {
@@ -185,9 +179,6 @@ const app = Vue.createApp({
             this.estate.c = tryfix(this.estate.c, dotprod(0.17,  0.37,  0.05, -0.03, 0.78))
             this.updateUrl()
         }
-    },
-    computed: {
-        lightdark() { return this.style.includes('dark') ? 'dark' : 'light' },
     },
     watch: {
         animate(value, oldValue) {
