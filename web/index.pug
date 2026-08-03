@@ -1,215 +1,32 @@
-doctype html
-mixin try-it
-  p(style="text-align:center")
-    a.button7(href='editor.html' style="background-color:coral")
-      span(style="border-right:1px solid rgba(255,255,255,0.5); padding-right:0.3em; margin-right:0.3em;") &#x270E;
-      | Try it out
-mixin clickable-face(param, name)
-  -var facelink='https://paramoji.org/paramoji.svg.php?' + param
-  -var editlink='editor.html?' + param
+extends layout
+
+block nav
+  +nav('home')
+
+block content
   div
-    .table-head=name
-    a(href=editlink)
-      .onhover(style="text-align:center;height:100px")
-        img(src=facelink, height=100, width=100 alt=name)
+    h1#what-is-a-paramoji What are paramojis
+    p
+      | A paramoji is a parametric icon that represents facial expressions on continuous scales.
+      | Unlike enumerated emojis, its expression is rendered from parameters chosen freely on continuous axes,
+      | so it can visualize measured, detected or computationally generated emotional data with arbitrary nuance.
+      | The resulting icons are expressive, exaggerated and playful, and their emotional content is easily recognized by humans.
+    p Read more about the design principles of paramojis:
+      |  <a href="https://osf.io/preprints/psyarxiv/6etdx">Visualizing emotions with linearly parameterized facial expressions</a>
 
-html(lang="en")
-  head
-    title Paramoji
-    link(rel="canonical" href="https://paramoji.org")
-    link(rel='stylesheet' href='style.css')
-    link(rel="icon" href="https://paramoji.org/paramoji.svg.php?v=100&a1=100&a2=100&d=50&c=0&dark=1" media="(prefers-color-scheme: dark)")
-    link(rel="icon" href="https://paramoji.org/paramoji.svg.php?v=100&a1=100&a2=100&d=50&c=0&dark=0" media="(prefers-color-scheme: light)")
-    meta(charset="utf-8")
-    meta(property="og:image" content="https://paramoji.org/images/encode2.png")
-    meta(property="og:image:width" content="879")
-    meta(property="og:image:height" content="581")
-    meta(name="viewport" content="width=device-width, initial-scale=1")
-    meta(name="description" content="A parametric emoji that can be parameterized with six continuous dimensions. It visualizes and unifies dimensional and categorical emotional models.")
-  body.page
-    .twocol(style="text-align:center")
-      h1.title Paramoji
-    div
-      h1#what-is-a-paramoji What is a paramoji?
-      p
-        | A paramoji is a parametric icon that represents facial expressions on continuous scales.
-        | They are similar to Emojis, but instead of being enumerated they are parametric.
-        | The expressions are rendered from parameters that can be freely selected on a continous scale.
-        | They can be used to visualize manually selected, automatically detected or
-        | computationally generated data with accuracy and with arbitrary nuances.
-        | The resulting emoji style icons are expressive, exaggerated and playful. Their emotional content
-        | can be easily recognized by humans.
-        p Read more about the design principles of paramojis:
-          |  <a href="https://osf.io/preprints/psyarxiv/6etdx">Visualizing emotions with linearly parameterized facial expressions</a>
+  div(style="text-align:center")
+    a(href='editor.html?v=72&a1=98&a2=36')
+      img(src="images/encode2.png" style="max-width:500px;width:90%")
+    +try-it
 
-    div(style="text-align:center")
-      a(href='editor.html?v=72&a1=98&a2=36')
-        img(src="images/encode2.png" style="max-width:500px;width:90%")
-      +try-it
-
-    h2.twocol How do Paramojis look?
-    .twocol
-       p
-          | Paramojis are designed to look clear and minimalistic. They work on various scales, as well as light and dark backgrounds.
-          | They are informative, simple and fit into a range of designs.
-    div.videos.twocol
-      a(href="images/info.png")
-        img(src="images/info.png" alt="Paramojis used in an info graphics")
-      a(href="images/info-bw.png")
-        img(src="images/info-bw.png" style="background-color:white" alt="Paramojis in a black and white info graphics")
-      a(href="images/checkers.svg")
-        img(src="images/checkers.png" alt="Paramojis on a checkerboard")
-      a(href="images/fraktal.jpg")
-        img(src="images/fraktal-small.jpg" alt="Paramojis fractal with various scales")
-
-    h2.twocol#paramoji-dimensions How do Paramojis look in animations?
-    div.videos.twocol
-      div
-        iframe(width="315" height="315"
-            src="https://www.youtube.com/embed/HqoMm1H4f90"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen)
-        p How paramojis can translate number into emotions and it combines with LLM outputs.
-      div
-        iframe(width="315" height="315"
-            src="https://www.youtube.com/embed/xDgs6SlQWss"
-            title="Youtube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen)
-        p Paramoji with emotional beats.
-      div
-        iframe(width="315" height="315"
-            src="https://www.youtube.com/embed/JBGmrAbGwpM"
-            title="Youtube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen)
-        p Using Paramoji for an explanatory video about sadness.
-
-    h2.twocol#how-can-i-use-paramojis-on-my-website How can I use paramojis on my website?
-    div
-      | The easiest way to link the image from <code>https://paramoji.org/paramoji.svg.php</code>.
-      | You can set the request parameters for the paramoji dimensions from 0 to 100.
-      | The request returns an SVG image.
-
-    .code-container
-      .code
-        code
-          span.first(class="xml")  &lt;img src=&quot;
-          span(style="color:firebrick") https://paramoji.org/<wbr/>paramoji.svg.php
-          span(style="color:gray") ?
-          span(style="color:firebrick") v=70
-          span(style="color:gray") &amp;
-          span(style="color:firebrick") a=50
-          span(style="color:gray") &amp;
-          span(style="color:firebrick") d=45
-          span(style="color:gray") &amp;
-          span(style="color:firebrick") g=0
-          span(style="color:gray") &amp;
-          span(style="color:firebrick") c=0
-          span(style="color:gray") &amp;
-          span(style="color:firebrick") o=40
-          span(class="xml") &quot;/&gt;
-
-    .twocol
-      table
-        tr
-          th Parameter
-          th Description
-        tr
-          td <code>v</code>
-          td Valence, aka pleasure, is the axis from bad to good, misery to pleasure, disagreement to agrement.
-        tr
-          td <code>a</code>
-          td Arousal is the axis from calm to aroused, inactive to active, sleepy to alarmed.
-        tr
-          td <code>d</code>
-          td Dominance is the axis from weakness to strength, fear to anger, submission to assertion.
-        tr
-          td <code>g</code>
-          td Disgust is the axis from neutral to disgusted, repelled, sickened.
-        tr
-          td <code>c</code>
-          td Contempt is the axis from neutral to smug, vain, disdainful and contemptful.
-        tr
-          td <code>o</code>
-          td Control is the axis from uncontrolled to controlled, expressed to suppressed.
-        tr
-          td <code>b</code>
-          td Blush from absent to maximum cheek blushing
-        tr
-          td <code>t</code>
-          td Tears from absent to maximum tear size
-        tr
-          td <code>blink_rate</code>
-          td Blink rate in blinks per minute; 0 disables the animated eye blink.
-        tr
-          td <code>speak_rate</code>
-          td Speak rate in mouth movements per minute; 0 disables the animated talking mouth.
-        tr
-          td <code>invert</code>
-          td Invert from 0 to 100 tints the background and recolors the lines through the color palette.
-        tr
-          td <code>size</code>
-          td Size of the generated image, default is 100%
-        tr
-          td <code>dark</code>
-          td Dark mode, if set to 1, all lines are generated white to fit on black backgrounds.
-
-    div
-      p
-        | The source code is licensed as MIT and can be accessed here:
-      ul
-        li
-          a(href='paramoji.svg.php?showSource=true') PHP code
-        li
-          a(href='paramoji.js') Java Script
-    div
-      p
-        | You can use the paramoji editor to find suitable parameters.
-        | To really leverage the power of paramojis these parameters must of course be dynamically derived
-        | or computed.
-      +try-it
-
-
-    h2.twocol Who is using paramojis?
-    .twocol
-      ul
-        li <a href="https://cloudhiker.net/share/GM2GemeoHWEl">Cloudhiker</a> features Paramojis in the section "Fun Stuff"
-        li <a href="https://www.continuousmoodmonitoring.org/en">Continuous Mood Monitoring:</a> A survery tool based on Paramoji emotions visualization
-        li <a href="https://ranjithvenkatesh.com/2024/07/paramoji-speech-flow/">Paramoji Speech Flow</a> is a sentiment visualization of a speech text
-        li <a href="https://juejin.cn/post/7169815266979741709#heading-7">JueJin</a> mentions Paramojis as a graphical resource
-        li <a href="https://www.reddit.com/r/InternetIsBeautiful/comments/ty7ip6/a_parametric_emoji_that_renders_facial/">Reddit</a> discusses Paramojis
-    h2.twocol#references Are there any similar solutions?
-    .twocol
-      ul
-        li
-          | For a full parametric facial expression the best solution is still the
-          | good old <a href="https://en.wikipedia.org/wiki/Chernoff_face">Chernoff face</a> from the 70's
-        li
-          | <a href="https://www.unige.ch/cisa/research/materials-and-online-research/facsgen/home/">FACSGen</a> - A facial expression generator tool based on the facial action coding system (FACS)
-        li
-          | <a href="https://www.semanticscholar.org/paper/Parametric-face-drawings%3A-A-demographically-diverse-Day-Davidenko/07c4a0dddf6903bb80b6f445185ecc9e58e978e9">Parametric
-          | Face Drawings</a> is visualization technique for facial landmarks
-        li
-          | A research paper on
-          | <a href="https://www.researchgate.net/publication/44250675_Parametric_Facial_Expression_Synthesis_and_Animation">Parametric Facial Expression Synthesis</a>
-        li
-          | The <a href="https://www.researchgate.net/publication/229589717_Parametric_Generation_of_Facial_Expressions_Based_on_FACS">Facial expression generator based on FACS</a>
-          | is a pay-walled paper on facial expression generation.
-        li
-          | The <a href="https://www.researchgate.net/publication/235361517_A_Circumplex_Model_of_Affect"> Circumplex model of affect</a> uses two dimensions to define emotions
-        li
-          | The <a href="https://en.wikipedia.org/wiki/PAD_emotional_state_model">PAD model</a> uses three dimensions to define emotions
-        li
-          | <a href="https://imotions.com/blog/learning/research-fundamentals/duchenne-smile/">The Many Faces of Emotions</a> dicusses the peculiarities of various emotions
-
-    h2.twocol#contact Contact
-    .twocol
-      p
-        a(href='mailto:info@paramoji.org') Email me
-
-    p(style="color: gray; border-top: 1px solid gray; font-size:10px") Stefan Dirnstorfer - Helene-Mayer-Ring 10 - Munich
+  h2.twocol Explore
+  .cards.twocol
+    a.card(href="gallery.html")
+      h3 Gallery
+      p Static and animated examples of paramojis in infographics, videos and designs.
+    a.card(href="developers.html")
+      h3 Developers
+      p Embed paramojis with a simple image URL and the full parameter reference.
+    a.card(href="about.html")
+      h3 About
+      p Who uses paramojis, related research, and contact.

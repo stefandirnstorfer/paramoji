@@ -1,0 +1,46 @@
+doctype html
+mixin try-it
+  p(style="text-align:center")
+    a.button7(href='editor.html')
+      span(style="border-right:1px solid rgba(255,255,255,0.5); padding-right:0.3em; margin-right:0.3em;") &#x270E;
+      | Try it out
+mixin clickable-face(param, name)
+  -var facelink='https://paramoji.org/paramoji.svg.php?' + param
+  -var editlink='editor.html?' + param
+  div
+    .table-head=name
+    a(href=editlink)
+      .onhover(style="text-align:center;height:100px")
+        img(src=facelink, height=100, width=100 alt=name)
+mixin nav(active)
+  nav.nav
+    a.nav-brand(href="index.html") Paramoji
+    .nav-links
+      a(href="editor.html" class=(active=='editor' ? 'active' : '')) Editor
+      a(href="gallery.html" class=(active=='gallery' ? 'active' : '')) Gallery
+      a(href="developers.html" class=(active=='developers' ? 'active' : '')) Developers
+      a(href="about.html" class=(active=='about' ? 'active' : '')) About
+
+html(lang="en")
+  head
+    title
+      block title
+        | Paramoji
+    block canonical
+      link(rel="canonical" href="https://paramoji.org")
+    link(rel='stylesheet' href='style.css')
+    link(rel="icon" href="https://paramoji.org/paramoji.svg.php?v=100&a1=100&a2=100&d=50&c=0&dark=1" media="(prefers-color-scheme: dark)")
+    link(rel="icon" href="https://paramoji.org/paramoji.svg.php?v=100&a1=100&a2=100&d=50&c=0&dark=0" media="(prefers-color-scheme: light)")
+    meta(charset="utf-8")
+    meta(property="og:image" content="https://paramoji.org/images/encode2.png")
+    meta(property="og:image:width" content="879")
+    meta(property="og:image:height" content="581")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    block description
+      meta(name="description" content="A parametric emoji that can be parameterized with continuous dimensions. It visualizes and unifies dimensional and categorical emotional models.")
+  body
+    block nav
+      +nav('')
+    main.page
+      block content
+    block footer

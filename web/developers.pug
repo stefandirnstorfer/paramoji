@@ -1,0 +1,107 @@
+extends layout
+
+block title
+  | Paramoji - Developers
+
+block canonical
+  link(rel="canonical" href="https://paramoji.org/developers.html")
+
+block description
+  meta(name="description" content="Embed paramojis with a simple image URL and parameterize facial expressions through request parameters.")
+
+block nav
+  +nav('developers')
+
+block content
+  h2.twocol#how-can-i-use-paramojis-on-my-website How to use paramojis on your website
+  .twocol
+    | The easiest way to link the image from <code>https://paramoji.org/paramoji.svg.php</code>.
+    | The request parameters define the shape of the returned SVG image.
+
+  h2.twocol#example Example
+  .code-container.twocol
+    .code
+      code
+        span.first  &lt;img src=&quot;
+        | https://paramoji.org/<wbr/>paramoji.svg.php?v=70
+        span(style="color:gray") &amp;
+        | a=50
+        span(style="color:gray") &amp;
+        | d=45
+        span(style="color:gray") &amp;
+        | g=0
+        span(style="color:gray") &amp;
+        | c=0
+        span(style="color:gray") &amp;
+        | o=40&quot;/&gt;
+
+  h2.twocol#example Parameters
+  .twocol
+    table.params
+      tr
+        th.group(colspan=2) Emotional parameters
+      tr
+        td <code>v</code>
+        td Valence, aka pleasure, is the axis from bad to good, misery to pleasure, disagreement to agrement. 0-100, default 50
+      tr
+        td <code>a</code>
+        td Arousal is the axis from calm to aroused, inactive to active, sleepy to alarmed. 0-100, default 50
+      tr
+        td <code>d</code>
+        td Dominance is the axis from weakness to strength, fear to anger, submission to assertion. 0-100, default 50
+      tr
+        td <code>g</code>
+        td Disgust is the axis from neutral to disgusted, repelled, sickened. 0-100, default 0
+      tr
+        td <code>c</code>
+        td Contempt is the axis from neutral to smug, vain, disdainful and contemptful. 0-100, default 0
+      tr
+        td <code>o</code>
+        td Control is the axis from uncontrolled to controlled, expressed to suppressed. 0-100, default 50
+      tr
+        td <code>a1, a2</code>
+        td An alternative way to parameterize a and o. a1 is the arousal as shown in eyes, a2 is the arousal as shown in the mouth.
+      tr
+        th.group(colspan=2) Overlays
+      tr
+        td <code>b</code>
+        td Blush from absent to maximum cheek blushing. 0-100
+      tr
+        td <code>t</code>
+        td Tears from absent to maximum tear size. 0-100
+      tr
+        th.group(colspan=2) Animation
+      tr
+        td <code>blink_rate</code>
+        td Blink rate in blinks per minute; 0 disables the animated eye blink. Repeats per minute, default 0
+      tr
+        td <code>speak_rate</code>
+        td Speak rate in mouth movements per minute; 0 disables the animated talking mouth. Repeats per minute, default 0
+      tr
+        th.group(colspan=2) Color
+      tr
+        td <code>invert</code>
+        td Invert from 0 to 100 tints the background and recolors the lines through the color palette.
+      tr
+        td <code>dark</code>
+        td Dark mode, if set to 1, all lines are generated white to fit on black backgrounds. Default 0.
+      tr
+        th.group(colspan=2) Rendering
+      tr
+        td <code>size</code>
+        td Size of the generated image, default is 100%
+
+  .twocol
+    p
+      | The source code is licensed as MIT and can be accessed here:
+    ul
+      li
+        a(href='paramoji.svg.php?showSource=true') PHP code
+      li
+        a(href='paramoji.js') Java Script
+  .twocol
+    p
+      | You can use the paramoji editor to find suitable parameters.
+      | To really leverage the power of paramojis these parameters must of course be dynamically derived
+      | or computed.
+    +try-it

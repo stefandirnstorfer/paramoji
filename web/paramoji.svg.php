@@ -165,15 +165,21 @@ if ($blink > 0) {
   $svg = animate_tag('eye', ['d', 'transform'], $blink, [
     '0%' => $svg,
     '80%' => $svg,
+    '88%' => $closed,
     '90%' => $closed,
     '100%' => $svg,
   ]);
 }
 if ($speak > 0) {
   $speaking = paramoji_svg($v, $a1, 0, $d, $g, $c, $b, $t);
+  $speaking2 = paramoji_svg($v, $a1, $a2*0.5, $d, $g, $c, $b, $t);
   $svg = animate_tag('lips', ['d', 'transform'], $speak, [
     '0%' => $svg,
-    '50%' => $speaking,
+    '25%' => $svg,
+    '30%' => $speaking,
+    '45%' => $speaking2,
+    '55%' => $speaking,
+    '75%' => $svg,
     '100%' => $svg,
   ]);
 }

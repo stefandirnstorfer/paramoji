@@ -1,0 +1,58 @@
+extends layout
+
+block title
+  | Paramoji - Gallery
+
+block canonical
+  link(rel="canonical" href="https://paramoji.org/gallery.html")
+
+block description
+  meta(name="description" content="Static and animated examples of paramojis used in infographics, videos and designs.")
+
+block nav
+  +nav('gallery')
+
+block content
+  h2.twocol How Paramojis look in context
+  .twocol
+    p
+      | Paramojis are designed to look clear and minimalistic. They work on various scales, as well as light and dark backgrounds.
+      | They are informative, simple and fit into a range of designs.
+  div.videos.twocol
+    a(href="images/info.png")
+      img(src="images/info.png" alt="Paramojis used in an info graphics")
+    a(href="images/info-bw.png")
+      img(src="images/info-bw.png" style="background-color:white" alt="Paramojis in a black and white info graphics")
+    a(href="images/checkers.svg")
+      img(src="images/checkers.png" alt="Paramojis on a checkerboard")
+    a(href="images/fraktal.jpg")
+      img(src="images/fraktal-small.jpg" alt="Paramojis fractal with various scales")
+
+  h2.twocol#animations How do Paramojis look in animations?
+  div.videos.twocol
+    div
+      iframe(width="315" height="315"
+          src="https://www.youtube.com/embed/HqoMm1H4f90"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen)
+      p How paramojis can translate number into emotions and it combines with LLM outputs.
+    div
+      iframe(width="315" height="315"
+          src="https://www.youtube.com/embed/xDgs6SlQWss"
+          title="Youtube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen)
+      p Paramoji with emotional beats.
+    div
+      iframe(width="315" height="315"
+          src="https://www.youtube.com/embed/JBGmrAbGwpM"
+          title="Youtube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen)
+      p Using Paramoji for an explanatory video about sadness.
+
+  +try-it

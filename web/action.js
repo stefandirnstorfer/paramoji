@@ -6,6 +6,7 @@ const app = Vue.createApp({
             state: {},
             vstate: {},
             estate: {},
+            menuOpen: false,
             model: "ao", // a1a2, ao, e
             lightdark: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
         }
