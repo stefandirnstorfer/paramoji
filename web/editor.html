@@ -77,13 +77,18 @@
                     </div>
                     <div class="row">
                         <div>Blink</div>
-                        <div><input class="slider" type="range" v-model="state.r"/></div>
-                        <div><span id="label-blink">{{fmt(state.r)}}</span></div>
+                        <div><input class="slider" type="range" v-model="state.blink_rate"/></div>
+                        <div><span id="label-blink">{{fmt(state.blink_rate)}}</span></div>
+                    </div>
+                    <div class="row">
+                        <div>Speak</div>
+                        <div><input class="slider" type="range" v-model="state.speak_rate"/></div>
+                        <div><span id="label-speak">{{fmt(state.speak_rate)}}</span></div>
                     </div>
                     <div class="row">
                         <div>Invert</div>
-                        <div><input class="slider" type="range" v-model="state.i"/></div>
-                        <div><span id="label-invert">{{fmt(state.i)}}</span></div>
+                        <div><input class="slider" type="range" v-model="state.invert"/></div>
+                        <div><span id="label-invert">{{fmt(state.invert)}}</span></div>
                     </div>
                 </template>
                 <template v-if="model=='e'">

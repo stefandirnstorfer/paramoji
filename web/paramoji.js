@@ -160,10 +160,45 @@ export function paramoji_svg(v, a1, a2, p, g, c, b, t=0) {
     return template.join("\n").replace(/\?/g, () => dotprod(V, data[index++]));
 }
 
-export function paramoji_blink_svg(blink, v, a1, a2, d, g, c, b, t=0) {
+export function paramoji_blink_svg(blink, v, a1, a2, d, g, c, b, t) {
     const open = paramoji_svg(v, a1, a2, d, g, c, b, t)
     const closed = paramoji_svg((1-blink*a1)*v, (1-blink)*a1, a2, d, g, c, b, t)
-    return open.replace(/id="eye[^>]*/, closed.match(/id="eye[^>]*/)[0])
+    return open.replace(/id="eye"[^>]*/, closed.match(/id="eye"[^>]*/)[0])
+}
+
+export function paramoji_animate_svg(blink, speak, v, a1, a2, d, g, c, b, t) {
+    let svg = paramoji_svg(v, a1+0.0001*blink, a2+0.002*speak, d, g, c, b, t)
+    if (blink > 0) {
+        const closed = paramoji_svg((1-a1)*v, 0, a2, d, g, c, b, t)
+        svg = animate_tag('eye', ['d', 'transform'], blink, {
+            '0%': svg,
+            '80%': svg,
+            '90%': closed,
+            '100%': svg
+        })
+    }
+    if (speak > 0) {
+        const speaking = paramoji_svg(v, a1, 0, d, g, c, b, t)
+        svg = animate_tag('lips', ['d', 'transform'], speak, {
+            '0%': svg,
+            '50%': speaking,
+            '100%': svg
+        })
+    }
+    return svg
+}
+
+export function animate_tag(id, attrs, speed, path) {
+    const tag = new RegExp(`id="${id}"[^>]*>`)
+    const value = (svg, attr) => svg.match(tag)[0].match(new RegExp(`\\b${attr}="([^"]*)"`))[1]
+    const dur = 60 / speed
+    const keyTimes = Object.keys(path).map(k => parseFloat(k) / 100).join(';')
+    const svgs = Object.values(path)
+    const animate = attrs.map(attr => {
+        const values = svgs.map(svg => value(svg, attr)).join(';')
+        return `<animate href="#${id}" attributeName="${attr}" values="${values}" keyTimes="${keyTimes}" dur="${dur}s" repeatCount="indefinite"/>`
+    }).join('')
+    return svgs[0].replace(tag, match => match + animate)
 }
 
 function color_palette(inv, dark, hue) {

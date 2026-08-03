@@ -87,7 +87,8 @@ $c = ($_GET['c'] ?? 0)/100;
 $g = ($_GET['g'] ?? 0)/100;
 $b = ($_GET['b'] ?? 0)/100;
 $t = ($_GET['t'] ?? 0)/100;
-$s = ($_GET['s'] ?? 0)/100;
+$speak = $_GET['speak_rate'] ?? 0;
+$blink = $_GET['blink_rate'] ?? 0;
 $invert = ($_GET['invert'] ?? 0)/100;
 
 $o = $_GET['o'];
@@ -135,7 +136,47 @@ function invertable_darkmode($inv, $dark, $svg) {
   return $svg;
 }
 
-$svg = render($template, $data, [1, 2*$v-1, $a1, $a2, 2*$d-1, $g, $c, $b, $t]);
+function paramoji_svg($v, $a1, $a2, $d, $g, $c, $b, $t) {
+  global $template, $data;
+  return render($template, $data, [1, 2*$v-1, $a1, $a2, 2*$d-1, $g, $c, $b, $t]);
+}
+
+function animate_tag($id, $attrs, $speed, $path) {
+  $tag = '/id="' . $id . '"[^>]*>/';
+  $dur = 60 / $speed;
+  $keyTimes = implode(';', array_map(function($k) { return floatval($k) / 100; }, array_keys($path)));
+  $svgs = array_values($path);
+  $value = function($svg, $attr) use ($tag) {
+    preg_match($tag, $svg, $m);
+    preg_match('/\b' . $attr . '="([^"]*)"/', $m[0], $mm);
+    return $mm[1];
+  };
+  $animate = '';
+  foreach ($attrs as $attr) {
+    $values = implode(';', array_map(function($svg) use ($value, $attr) { return $value($svg, $attr); }, $svgs));
+    $animate .= '<animate href="#' . $id . '" attributeName="' . $attr . '" values="' . $values . '" keyTimes="' . $keyTimes . '" dur="' . $dur . 's" repeatCount="indefinite"/>';
+  }
+  return preg_replace_callback($tag, function($m) use ($animate) { return $m[0] . $animate; }, $svgs[0], 1);
+}
+
+$svg = paramoji_svg($v, $a1 + 0.0001*$blink, $a2 + 0.002*$speak, $d, $g, $c, $b, $t);
+if ($blink > 0) {
+  $closed = paramoji_svg((1-$a1)*$v, 0, $a2, $d, $g, $c, $b, $t);
+  $svg = animate_tag('eye', ['d', 'transform'], $blink, [
+    '0%' => $svg,
+    '80%' => $svg,
+    '90%' => $closed,
+    '100%' => $svg,
+  ]);
+}
+if ($speak > 0) {
+  $speaking = paramoji_svg($v, $a1, 0, $d, $g, $c, $b, $t);
+  $svg = animate_tag('lips', ['d', 'transform'], $speak, [
+    '0%' => $svg,
+    '50%' => $speaking,
+    '100%' => $svg,
+  ]);
+}
 $svg = invertable_darkmode($invert, !empty($_GET['dark']), $svg);
 
 echo $svg;
