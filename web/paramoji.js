@@ -216,9 +216,11 @@ function color_palette(inv, dark, hue) {
 
 export function invertable_darkmode(inv, dark, svg) {
     const fill = color_palette(inv, dark, 194)
-    const stroke = color_palette(1 - inv, dark, 14)
+    let stroke = color_palette(1 - inv, dark, 14)
     if (inv > 0)
         svg = svg.replace(/(<svg[^>]*>)/, `$1<rect width="100" height="100" rx="10" fill="${fill}"/>`)
+    else
+        stroke= "currentColor"
     return svg.replace(/stroke="black"/g, `stroke="${stroke}"`)
 }
 

@@ -129,6 +129,8 @@ function invertable_darkmode($inv, $dark, $svg) {
   $stroke = color_palette(1 - $inv, $dark, 14);
   if ($inv > 0) {
     $svg = preg_replace('/(<svg[^>]*>)/', '$1<rect width="100" height="100" rx="10" fill="'.$fill.'"/>', $svg, 1);
+  } else {
+    $stroke="currentColor";
   }
   if ($inv > 0 || $dark) {
     $svg = str_replace('stroke="black"', 'stroke="'.$stroke.'"', $svg);
