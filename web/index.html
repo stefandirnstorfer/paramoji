@@ -5,8 +5,7 @@
     </title>
     <link rel="canonical" href="https://paramoji.org">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="https://paramoji.org/paramoji.svg.php?v=100&amp;a1=100&amp;a2=100&amp;d=50&amp;c=0&amp;dark=1" media="(prefers-color-scheme: dark)">
-    <link rel="icon" href="https://paramoji.org/paramoji.svg.php?v=100&amp;a1=100&amp;a2=100&amp;d=50&amp;c=0&amp;dark=0" media="(prefers-color-scheme: light)">
+    <link rel="icon" href="https://paramoji.org/paramoji.svg.php?v=100&amp;a1=100&amp;a2=100&amp;d=50&amp;c=0">
     <meta charset="utf-8">
     <meta property="og:image" content="https://paramoji.org/paramoji.svg.php?v=72&amp;a1=98&amp;a2=36&amp;size=600">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,22 +15,20 @@
   </head>
   <body>
     <nav class="nav"><a class="nav-brand" href="index.html">Paramoji</a>
-      <div class="nav-links"><a href="editor.html">Editor</a><a href="gallery.html">Gallery</a><a href="developers.html">Developers</a><a href="about.html">About</a></div>
+      <div class="nav-links"><a href="editor.html">Editor</a><a href="gallery.html">Gallery</a><a href="api.html">API</a><a href="about.html">About</a></div>
     </nav>
     <main class="page">
-      <h1 class="twocol" id="what-is-a-paramoji">What are paramojis</h1>
       <div>
+        <h1 class="twocol" id="what-is-a-paramoji">What are paramojis</h1>
         <p>
           A paramoji is a parametric icon that represents facial expressions on continuous scales.
           Unlike enumerated emojis, its expression is rendered from parameters chosen freely on continuous axes,
           so it can visualize measured, detected or computationally generated emotional data with arbitrary nuance.
           The resulting icons are expressive, exaggerated and playful, and their emotional content is easily recognized by humans.
         </p>
-        <p>
-          Read more about the design principles of paramojis: <a href="https://osf.io/preprints/psyarxiv/6etdx">Visualizing emotions with linearly parameterized facial expressions</a></p>
       </div>
       <div class="paramoji-home" id="app">
-        <div class="space" v-html="paramoji()"></div>
+        <div class="space" :class="{copied}" v-html="copied ? 'Copied' : paramoji()"></div>
         <div class="home-buttons">
           <button @click="changeFace()">Change</button>
           <button class="copy" @click="copyUrl()" aria-label="Copy image URL">&#x1F4CB;</button><a class="pencil" :href="editorLink()" aria-label="Open in the editor">&#x270E;</a>
@@ -40,8 +37,8 @@
       <h2 class="twocol">Explore</h2>
       <div class="cards twocol"><a class="card" href="gallery.html">
           <h3>Gallery</h3>
-          <p>Static and animated examples of paramojis in infographics, videos and designs.</p></a><a class="card" href="developers.html">
-          <h3>Developers</h3>
+          <p>Static and animated examples of paramojis in infographics, videos and designs.</p></a><a class="card" href="api.html">
+          <h3>API</h3>
           <p>Embed paramojis with a simple image URL and the full parameter reference.</p></a><a class="card" href="about.html">
           <h3>About</h3>
           <p>Who uses paramojis, related research, and contact.</p></a></div>

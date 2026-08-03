@@ -117,25 +117,20 @@ function render($template, $data, $V) {
   }, $template);
 }
 
-function color_palette($inv, $dark, $hue) {
-  if ($dark) $inv = 1 - $inv;
-  $l = sprintf('%.3f', 1 - $inv);
-  $c = sprintf('%.3f', 1.6*$inv*(1-$inv) - 3*$inv*($inv-0.5)*($inv-1));
-  return "oklch($l $c $hue)";
+function color_palette($inv, $hue) {
+  $l = fn($x) => sprintf('%.3f', 1 - $x);
+  $c = fn($x) => sprintf('%.3f', 1.6*$x*(1-$x) - 3*$x*($x-0.5)*($x-1));
+  return 'light-dark(oklch('.$l($inv).' '.$c($inv).' '.$hue.'),oklch('.$l(1-$inv).' '.$c(1-$inv).' '.$hue.'))';
 }
 
-function invertable_darkmode($inv, $dark, $svg) {
-  $fill = color_palette($inv, $dark, 194);
-  $stroke = color_palette(1 - $inv, $dark, 14);
+function invertable_darkmode($inv, $svg) {
+  $stroke = color_palette(1 - $inv, 14);
+  $svg = preg_replace('/(<svg[^>]*>)/', '$1<style>:root {color-scheme: light dark; color:'.$stroke.';}</style>', $svg, 1);
   if ($inv > 0) {
+    $fill = color_palette($inv, 194);
     $svg = preg_replace('/(<svg[^>]*>)/', '$1<rect width="100" height="100" rx="10" fill="'.$fill.'"/>', $svg, 1);
-  } else {
-    $stroke="currentColor";
   }
-  if ($inv > 0 || $dark) {
-    $svg = str_replace('stroke="black"', 'stroke="'.$stroke.'"', $svg);
-  }
-  return $svg;
+  return str_replace('stroke="black"', 'stroke="currentColor"', $svg);
 }
 
 function paramoji_svg($v, $a1, $a2, $d, $g, $c, $b, $t) {
@@ -185,7 +180,7 @@ if ($speak > 0) {
     '100%' => $svg,
   ]);
 }
-$svg = invertable_darkmode($invert, !empty($_GET['dark']), $svg);
+$svg = invertable_darkmode($invert, $svg);
 
 echo $svg;
 ?>

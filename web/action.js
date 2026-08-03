@@ -9,13 +9,10 @@ const app = Vue.createApp({
             menuOpen: false,
             model: "ao", // a1a2, ao, e
             isEditor: location.pathname.includes('editor'),
-            lightdark: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+            copied: false
         }
     },
     created() {
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-            this.lightdark = e.matches ? 'dark' : 'light'
-        })
         const newState = this.neutralState(this.model)
         for (let key in newState) {
             var m= location.search.match(RegExp(key + "=([-0-9]+)"));
@@ -38,7 +35,7 @@ const app = Vue.createApp({
                 i= this.state.invert/100,
                 s= this.state.speak_rate;
             let svg= paramoji_animate_svg(this.state.blink_rate, s, v, a1, a2, d, g, c, b, t)
-            return invertable_darkmode(i, this.lightdark=='dark', svg)
+            return invertable_darkmode(i, svg)
         },
         neutralState(model) {
             return {
@@ -138,6 +135,9 @@ const app = Vue.createApp({
         },
         copyUrl() {
             navigator.clipboard.writeText(this.imageUrl())
+            this.copied = true
+            clearTimeout(this.copiedTimer)
+            this.copiedTimer = setTimeout(() => { this.copied = false }, 400)
         },
         changeFace() {
             this.random()

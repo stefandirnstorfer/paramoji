@@ -207,16 +207,15 @@ export function animate_tag(id, attrs, speed, path) {
     return svgs[0].replace(tag, match => match + animate)
 }
 
-function color_palette(inv, dark, hue) {
-    if (dark) inv = 1 - inv
-    const l = (1 - inv).toFixed(3)
-    const c = (1.6 * inv * (1 - inv) - 3 * inv * (inv - 0.5) * (inv - 1)).toFixed(3)
-    return `oklch(${l} ${c} ${hue})`
+function color_palette(inv, hue) {
+    const l = inv => (1 - inv).toFixed(3)
+    const c = inv =>(1.6 * inv * (1 - inv) - 3 * inv * (inv - 0.5) * (inv - 1)).toFixed(3)
+    return `light-dark(oklch(${l(inv)} ${c(inv)} ${hue}),oklch(${l(1-inv)} ${c(1-inv)} ${hue}))`
 }
 
-export function invertable_darkmode(inv, dark, svg) {
-    const fill = color_palette(inv, dark, 194)
-    let stroke = color_palette(1 - inv, dark, 14)
+export function invertable_darkmode(inv, svg) {
+    const fill = color_palette(inv, 194)
+    let stroke = color_palette(1 - inv, 14)
     if (inv > 0)
         svg = svg.replace(/(<svg[^>]*>)/, `$1<rect width="100" height="100" rx="10" fill="${fill}"/>`)
     else

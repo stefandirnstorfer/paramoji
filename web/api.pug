@@ -1,39 +1,29 @@
 extends layout
 
 block title
-  | Paramoji - Developers
+  | Paramoji - API
 
 block canonical
-  link(rel="canonical" href="https://paramoji.org/developers.html")
+  link(rel="canonical" href="https://paramoji.org/api.html")
 
 block description
   meta(name="description" content="Embed paramojis with a simple image URL and parameterize facial expressions through request parameters.")
 
 block nav
-  +nav('developers')
+  +nav('api')
 
 block content
   h2.twocol#how-can-i-use-paramojis-on-my-website How to use paramojis on your website
   .twocol
     | The easiest way to link the image from <code>https://paramoji.org/paramoji.svg.php</code>.
-    | The request parameters define the shape of the returned SVG image.
+    | The request parameters define the shape and appearance of the returned SVG image.
 
   h2.twocol#example Example
   .code-container.twocol
     .code
-      code
+      code.card
         span.first  &lt;img src=&quot;
-        | https://paramoji.org/<wbr/>paramoji.svg.php?v=70
-        span(style="color:gray") &amp;
-        | a=50
-        span(style="color:gray") &amp;
-        | d=45
-        span(style="color:gray") &amp;
-        | g=0
-        span(style="color:gray") &amp;
-        | c=0
-        span(style="color:gray") &amp;
-        | o=40&quot;/&gt;
+        | https://paramoji.org/<wbr/>paramoji.svg.php?v=70&amp;size=100&quot;/&gt;
 
   h2.twocol#example Parameters
   .twocol
@@ -78,18 +68,13 @@ block content
         td <code>speak_rate</code>
         td Speak rate in mouth movements per minute; 0 disables the animated talking mouth. Repeats per minute, default 0
       tr
-        th.group(colspan=2) Color
-      tr
-        td <code>invert</code>
-        td Invert from 0 to 100 tints the background and recolors the lines through the color palette.
-      tr
-        td <code>dark</code>
-        td Dark mode, if set to 1, all lines are generated white to fit on black backgrounds. Default 0.
-      tr
         th.group(colspan=2) Rendering
       tr
+        td <code>invert</code>
+        td Color invert from 0 to 100 tints the background and recolors the lines through the color palette. The colors are dynamically computed to match the light and dark modes.
+      tr
         td <code>size</code>
-        td Size of the generated image, default is 100%
+        td Size of the generated image. Set this value if the surrounding html does not define a size. Default is 100%
 
   .twocol
     p

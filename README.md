@@ -16,4 +16,4 @@ The easiest way to link the image directly. You can set the parameters from 0 to
 <img src="https://paramoji.org/paramoji.svg.php?v=70&a=50&d=45&c=0&o=40"/>
 ```
 
-[Full API description](https://paramoji.org/developers.html)
+[Full API description](https://paramoji.org/api.html)

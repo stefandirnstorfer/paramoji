@@ -8,18 +8,16 @@ block nav
   +nav('home')
 
 block content
-  h1.twocol#what-is-a-paramoji What are paramojis
   div
+    h1.twocol#what-is-a-paramoji What are paramojis
     p
       | A paramoji is a parametric icon that represents facial expressions on continuous scales.
       | Unlike enumerated emojis, its expression is rendered from parameters chosen freely on continuous axes,
       | so it can visualize measured, detected or computationally generated emotional data with arbitrary nuance.
       | The resulting icons are expressive, exaggerated and playful, and their emotional content is easily recognized by humans.
-    p Read more about the design principles of paramojis:
-      |  <a href="https://osf.io/preprints/psyarxiv/6etdx">Visualizing emotions with linearly parameterized facial expressions</a>
 
   #app.paramoji-home
-    .space(v-html="paramoji()")
+    .space(:class="{copied}" v-html="copied ? 'Copied' : paramoji()")
     .home-buttons
       button(@click="changeFace()") Change
       button.copy(@click="copyUrl()" aria-label="Copy image URL") &#x1F4CB;
@@ -30,8 +28,8 @@ block content
     a.card(href="gallery.html")
       h3 Gallery
       p Static and animated examples of paramojis in infographics, videos and designs.
-    a.card(href="developers.html")
-      h3 Developers
+    a.card(href="api.html")
+      h3 API
       p Embed paramojis with a simple image URL and the full parameter reference.
     a.card(href="about.html")
       h3 About
