@@ -8,6 +8,7 @@ const app = Vue.createApp({
             estate: {},
             menuOpen: false,
             model: "ao", // a1a2, ao, e
+            isEditor: location.pathname.includes('editor'),
             lightdark: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
         }
     },
@@ -22,6 +23,7 @@ const app = Vue.createApp({
         }
         console.log("created", newState)
         this.state = newState
+        if (!this.isEditor) this.scheduleAutoRandom()
     },
     methods: {
         paramoji() {
@@ -119,13 +121,36 @@ const app = Vue.createApp({
             }
         },
         fmt(x) { return parseFloat(x).toFixed(0) },
-        updateUrl() {
-            clearTimeout(this.updateUrlTimer)
+        queryString() {
             const neutral = this.neutralState(null)
-            let query= Object.keys(neutral)
+            return Object.keys(neutral)
                 .filter(x => this.state[x]!=neutral[x])
                 .map(x => x+'='+this.fmt(this.state[x]))
                 .join("&")
+        },
+        editorLink() {
+            const q = this.queryString()
+            return 'editor.html' + (q ? '?' + q : '')
+        },
+        imageUrl() {
+            const q = this.queryString()
+            return 'https://paramoji.org/paramoji.svg.php' + (q ? '?' + q : '')
+        },
+        copyUrl() {
+            navigator.clipboard.writeText(this.imageUrl())
+        },
+        changeFace() {
+            this.random()
+            this.scheduleAutoRandom()
+        },
+        scheduleAutoRandom() {
+            clearTimeout(this.autoRandomTimer)
+            this.autoRandomTimer = setTimeout(() => this.changeFace(), 20000)
+        },
+        updateUrl() {
+            if (!this.isEditor) return
+            clearTimeout(this.updateUrlTimer)
+            const query = this.queryString()
             this.updateUrlTimer = setTimeout(() => {
                 window.history.replaceState({}, "Emoticons", "?" + query)
             }, 100)

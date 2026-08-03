@@ -1,11 +1,15 @@
 extends layout
 
+block head
+  script(src="./lib/vue.global.js")
+  script(src="action.js" type="module")
+
 block nav
   +nav('home')
 
 block content
+  h1.twocol#what-is-a-paramoji What are paramojis
   div
-    h1#what-is-a-paramoji What are paramojis
     p
       | A paramoji is a parametric icon that represents facial expressions on continuous scales.
       | Unlike enumerated emojis, its expression is rendered from parameters chosen freely on continuous axes,
@@ -14,10 +18,12 @@ block content
     p Read more about the design principles of paramojis:
       |  <a href="https://osf.io/preprints/psyarxiv/6etdx">Visualizing emotions with linearly parameterized facial expressions</a>
 
-  div(style="text-align:center")
-    a(href='editor.html?v=72&a1=98&a2=36')
-      img(src="images/encode2.png" style="max-width:500px;width:90%")
-    +try-it
+  #app.paramoji-home
+    .space(v-html="paramoji()")
+    .home-buttons
+      button(@click="changeFace()") Change
+      button.copy(@click="copyUrl()" aria-label="Copy image URL") &#x1F4CB;
+      a.pencil(:href="editorLink()" aria-label="Open in the editor") &#x270E;
 
   h2.twocol Explore
   .cards.twocol

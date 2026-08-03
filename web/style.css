@@ -57,7 +57,7 @@ div {
   overflow: hidden;
 }
 
-div#app {
+.paramoji-editor {
   border: 0;
   width: 100vw;
   height: 100dvh;
@@ -66,7 +66,7 @@ div#app {
 }
 
 @media (orientation:portrait) {
-  #app {
+  .paramoji-editor {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr 1fr;
   }
@@ -91,7 +91,7 @@ div#app {
 }
 
 @media (orientation:landscape) {
-  #app {
+  .paramoji-editor {
     grid-template-columns: 2fr 1fr;
     grid-template-rows: auto 1fr;
   }
@@ -137,14 +137,14 @@ div#app {
   border-bottom: 1px solid light-dark(#ddd, #333);
 }
 
-#app > .nav {
+.paramoji-editor > .nav {
   grid-column: 1 / -1;
   max-width: none;
   margin: 0;
   padding: 8px 12px;
 }
 
-#app .nav-toggle {
+.paramoji-editor .nav-toggle {
   display: none;
   background: none;
   border: none;
@@ -156,23 +156,23 @@ div#app {
   cursor: pointer;
 }
 
-#app .nav-toggle:active {
+.paramoji-editor .nav-toggle:active {
   transform: none;
 }
 
 @media (orientation: portrait) {
-  #app .nav-toggle {
+  .paramoji-editor .nav-toggle {
     display: block;
   }
 
-  #app .nav-links {
+  .paramoji-editor .nav-links {
     display: none;
     flex-direction: column;
     width: 100%;
     gap: 0.6rem;
   }
 
-  #app .nav-links.open {
+  .paramoji-editor .nav-links.open {
     display: flex;
     text-align: right;
   }
@@ -208,6 +208,63 @@ div#app {
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem;
   overflow: visible;
+}
+
+.paramoji-home {
+  max-width: 340px;
+  margin: 0 auto;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+}
+
+.paramoji-home .space {
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.paramoji-home .space svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.home-buttons {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 8px;
+  margin-top: 12px;
+  overflow: visible;
+}
+
+.home-buttons button,
+.home-buttons .pencil {
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid color-mix(in oklab, var(--text-color) 16%, transparent);
+  background-color: var(--input-background);
+  color: var(--text-color);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color .15s ease, border-color .15s ease, box-shadow .15s ease, transform .08s ease;
+}
+
+.home-buttons button:hover,
+.home-buttons .pencil:hover {
+  border-color: var(--accent);
+  box-shadow: 0 2px 10px color-mix(in oklab, var(--accent) 22%, transparent);
+}
+
+.home-buttons button:active,
+.home-buttons .pencil:active {
+  transform: translateY(1px);
 }
 
 .card {
